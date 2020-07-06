@@ -1,3 +1,5 @@
+export const darcherServerPort = 1236;
+
 export interface Reply {
     Err: string
 }
@@ -34,36 +36,4 @@ export enum LifecycleState {
 
 export interface DAppState {
     // TODO need implementation
-}
-
-export interface TxStateChangeMsg {
-    Hash: string
-    CurrentState: LifecycleState
-    NextState: LifecycleState
-}
-
-export interface TxReceivedMsg {
-    Hash: string
-}
-
-export interface TxFinishedMsg {
-    Hash: string
-}
-
-export interface TxStartMsg {
-    Hash: string
-}
-
-export interface PivotReachedMsg {
-    Hash: string
-    CurrentState: LifecycleState
-    NextState: LifecycleState
-}
-
-export interface SelectTxToTraverseMsg {
-    Hashes: string[]
-}
-
-export interface SelectTxToTraverseReply extends Reply{
-    Hash: string
 }

@@ -1,0 +1,3 @@
+[submodule "darcher-go-ethereum"]
+	path = darcher-go-ethereum
+	url = https://github.com/Troublor/darcher-go-ethereum.git

@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package darcher;
+
+import "common.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+
+service DarcherControllerService {
+  rpc notifyTxReceived(TxReceivedMsg) returns (google.protobuf.Empty) {}
+  rpc notifyTxFinished(TxFinishedMsg) returns (google.protobuf.Empty) {}
+  rpc notifyTxTraverseStart(TxTraverseStartMsg) returns (google.protobuf.Empty) {}
+  rpc notifyTxStateChangeMsg(TxStateChangeMsg) returns (google.protobuf.Empty) {}
+  rpc askForNextState(TxStateControlMsg) returns (TxStateControlMsg) {}
+  rpc selectTx(SelectTxControlMsg) returns (SelectTxControlMsg) {}
+}
+
+message TxReceivedMsg {
+  string hash = 1;
+}
+
+message TxFinishedMsg {
+  string hash = 1;
+}
+
+message TxTraverseStartMsg {
+  string hash = 1;
+}
+
+message TxStateChangeMsg {
+  string hash = 1;
+  TxState from = 2;
+  TxState to = 3;
+}
+
+message TxStateControlMsg {
+  string hash = 1;
+  TxState current_state = 2;
+  TxState next_state = 3;
+}
+
+message SelectTxControlMsg {
+  repeated string candidate_hashes = 1;
+  string selection = 2;
+}

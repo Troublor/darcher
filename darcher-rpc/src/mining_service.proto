@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package darcher;
+
+import "common.proto";
+import "blockchain_status_service.proto";
+
+option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+
+service MiningService {
+  rpc mineBlocksControl(stream MineBlocksControlMsg) returns (stream MineBlocksControlMsg){}
+  rpc mineBlocksExceptTxControl(stream MineBlocksExceptTxControlMsg) returns (stream MineBlocksExceptTxControlMsg){}
+  rpc mineBlocksWithoutTxControl(stream MineBlocksWithoutTxControlMsg) returns (stream MineBlocksWithoutTxControlMsg){}
+  rpc mineTdControl(stream MineTdControlMsg) returns (stream MineTdControlMsg){}
+  rpc mineTxControl(stream MineTxControlMsg) returns (stream MineTxControlMsg){}
+  rpc scheduleTxControl(stream ScheduleTxControlMsg) returns (stream ScheduleTxControlMsg){}
+  rpc checkTxInPoolControl(stream CheckTxInPoolControlMsg) returns (stream CheckTxInPoolControlMsg){}
+}
+
+message MineBlocksControlMsg {
+  Role role = 1;
+  string id = 2;
+  uint64 count = 3;
+  ChainHead head = 4;
+  Error err = 5;
+}
+
+message MineBlocksExceptTxControlMsg {
+  Role role = 1;
+  string id = 2;
+  uint64 count = 3;
+  string tx_hash = 4;
+  ChainHead head = 5;
+  Error err = 6;
+}
+
+message MineBlocksWithoutTxControlMsg {
+  Role role = 1;
+  string id = 2;
+  uint64 count = 3;
+  ChainHead head = 4;
+  Error err = 5;
+}
+
+message MineTdControlMsg {
+  Role role = 1;
+  string id = 2;
+  uint64 td = 3;
+  ChainHead head = 4;
+  Error err = 5;
+}
+
+message MineTxControlMsg {
+  Role role = 1;
+  string id = 2;
+  string hash = 3;
+  ChainHead head = 4;
+  Error err = 5;
+}
+
+message ScheduleTxControlMsg {
+  Role role = 1;
+  string id = 2;
+  string hash = 3;
+  Error err = 4;
+}
+
+message CheckTxInPoolControlMsg {
+  Role role = 1;
+  string id = 2;
+  string hash = 3;
+  bool in_pool = 4;
+  Error err = 5;
+}

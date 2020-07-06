@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package darcher;
+
+option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+
+enum Role {
+  DOER = 0;
+  TALKER = 1;
+}
+
+enum Error {
+  NilErr = 0;
+  InternalErr = 1;
+  TimeoutErr = 2;
+}
+
+enum TxState {
+  CREATED = 0;
+  PENDING = 1;
+  EXECUTED = 2;
+  DROPPED = 3;
+  CONFIRMED = 4;
+
+//  // logical state
+//  REVERTED = 5;
+//  REEXECUTED = 6;
+}

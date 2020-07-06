@@ -1,0 +1,136 @@
+import {TxState} from "./rpc/common_pb";
+import {
+    TxFinishedMsg,
+    TxStateChangeMsg,
+    TxStateControlMsg,
+    TxTraverseStartMsg
+} from "./rpc/darcher_controller_service_pb";
+import {logger, prettifyHash} from "./common";
+import {EventEmitter} from "events";
+import {$enum} from "ts-enum-util";
+
+/**
+ * Extend TxState to introduce logical tx state (reverted, re-executed)
+ */
+export enum LogicalTxState {
+    CREATED,
+    PENDING,
+    EXECUTED,
+    DROPPED,
+    CONFIRMED,
+    REVERTED,
+    REEXECUTED,
+}
+
+export function isEqualState(s: TxState, ls: LogicalTxState): boolean {
+    if (<number>s === <number>ls) {
+        return true;
+    }
+    return s === TxState.EXECUTED && ls === LogicalTxState.REEXECUTED ||
+        s === TxState.PENDING && ls === LogicalTxState.REVERTED;
+}
+
+export function toTxState(ls: LogicalTxState): TxState {
+    switch (ls) {
+        case LogicalTxState.CONFIRMED:
+            return TxState.CONFIRMED;
+        case LogicalTxState.CREATED:
+            return TxState.CREATED;
+        case LogicalTxState.DROPPED:
+            return TxState.DROPPED;
+        case LogicalTxState.EXECUTED:
+            return TxState.EXECUTED;
+        case LogicalTxState.PENDING:
+            return TxState.PENDING;
+        case LogicalTxState.REEXECUTED:
+            return TxState.EXECUTED;
+        case LogicalTxState.REVERTED:
+            return TxState.PENDING;
+    }
+}
+
+/**
+ * Analyzer is for each tx, it controls the tx state via grpc with ethmonitor and collect dapp state change data, to generate analyze report
+ */
+export class Analyzer {
+    private txHash: string;
+    private txState: LogicalTxState;
+
+    private stateChangeWaiting: Promise<LogicalTxState>;
+    private stateEmitter: EventEmitter
+
+    constructor(txHash: string) {
+        this.txHash = txHash;
+        this.txState = LogicalTxState.CREATED;
+        this.stateEmitter = new EventEmitter();
+        this.stateChangeWaiting = Promise.resolve(LogicalTxState.CREATED);
+    }
+
+    /* darcher controller handlers start */
+    public async onTxStateChange(msg: TxStateChangeMsg): Promise<void> {
+        logger.info("Tx state changed", "from", $enum(TxState).getKeyOrThrow(msg.getFrom()), "to", $enum(TxState).getKeyOrThrow(msg.getTo()));
+        if (msg.getFrom() === TxState.EXECUTED &&
+            msg.getTo() === TxState.PENDING &&
+            this.txState === LogicalTxState.EXECUTED) {
+            // revert
+            this.txState = LogicalTxState.REVERTED;
+        } else if (this.txState === LogicalTxState.REVERTED &&
+            msg.getFrom() === TxState.PENDING &&
+            msg.getTo() === TxState.EXECUTED) {
+            // re-execute
+            this.txState = LogicalTxState.REEXECUTED;
+        } else if (!isEqualState(msg.getFrom(), this.txState)) {
+            logger.warn("Tx state inconsistent,", "expect", $enum(LogicalTxState).getKeyOrThrow(this.txState), "got", $enum(TxState).getKeyOrThrow(msg.getFrom()));
+            this.txState = <LogicalTxState>(msg.getTo() as number);
+        } else {
+            this.txState = <LogicalTxState>(msg.getTo() as number);
+        }
+        this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
+    }
+
+    public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
+        logger.info("Tx traverse started", "tx", prettifyHash(msg.getHash()));
+    }
+
+    public async onTxFinished(msg: TxFinishedMsg): Promise<void> {
+        logger.info("Tx traverse finished", "tx", prettifyHash(msg.getHash()));
+    }
+
+    public async askForNextState(msg: TxStateControlMsg): Promise<TxState> {
+        await this.stateChangeWaiting;
+        if (this.txState === LogicalTxState.CREATED) {
+            this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.PENDING), resolve)
+            });
+            return TxState.PENDING;
+        } else if (this.txState === LogicalTxState.PENDING) {
+            this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.EXECUTED), resolve)
+            });
+            return TxState.EXECUTED;
+        } else if (this.txState === LogicalTxState.EXECUTED) {
+            this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REVERTED), resolve)
+            });
+            return TxState.PENDING;
+        } else if (this.txState === LogicalTxState.REVERTED) {
+            this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REEXECUTED), resolve)
+            });
+            return TxState.EXECUTED;
+        } else if (this.txState === LogicalTxState.REEXECUTED) {
+            this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), resolve)
+            });
+            return TxState.CONFIRMED
+        } else if (this.txState === LogicalTxState.CONFIRMED) {
+            this.stateChangeWaiting = Promise.resolve(LogicalTxState.CONFIRMED);
+            return TxState.CONFIRMED;
+        } else if (this.txState === LogicalTxState.DROPPED) {
+            this.stateChangeWaiting = Promise.resolve(LogicalTxState.DROPPED);
+            return TxState.DROPPED;
+        }
+    }
+
+    /* darcher controller handlers end */
+}

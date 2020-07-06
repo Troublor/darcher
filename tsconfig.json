@@ -13,12 +13,12 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*.ts"
+    "darcher-analyzer/src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts",
-    "src/instrument/*"
+    "darcher-analyzer/src/instrument/*"
   ],
   "plugins": ["@typescript-eslint"]
 }
