@@ -13,6 +13,7 @@ enum Error {
   NilErr = 0;
   InternalErr = 1;
   TimeoutErr = 2;
+  ServiceNotAvailableErr = 3;
 }
 
 enum TxState {
@@ -22,7 +23,7 @@ enum TxState {
   DROPPED = 3;
   CONFIRMED = 4;
 
-//  // logical state
-//  REVERTED = 5;
-//  REEXECUTED = 6;
+  //  // logical state
+  //  REVERTED = 5;
+  //  REEXECUTED = 6;
 }

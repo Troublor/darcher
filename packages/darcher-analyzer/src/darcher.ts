@@ -2,9 +2,10 @@
  * Darcher listen for new txs and start a analyzer for each tx
  */
 import {DarcherController, DarcherServer} from "./service";
-import {SelectTxControlMsg, TxReceivedMsg} from "./rpc/darcher_controller_service_pb";
+import {SelectTxControlMsg, TxReceivedMsg} from "@darcher/rpc";
 import {Analyzer} from "./analyzer";
-import {grpcPort, logger, websocketPort} from "./common";
+import {logger} from "./common";
+import config from "@darcher/config";
 
 export class Darcher {
     private readonly server: DarcherServer;
@@ -14,7 +15,7 @@ export class Darcher {
     private readonly darcherController: DarcherController;
 
     constructor() {
-        this.server = new DarcherServer(grpcPort, websocketPort);
+        this.server = new DarcherServer(config.rpcPort["darcher-ethmonitor"], config.rpcPort["darcher-dbmonitor"].ws);
         this.analyzers = {};
         this.darcherController = <DarcherController>{
             onTxReceived: this.onTxReceived.bind(this),

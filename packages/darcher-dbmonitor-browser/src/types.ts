@@ -1,5 +1,4 @@
 import * as _ from "lodash";
-import {DBContent} from "darcher-analyzer/src/rpc/dbmonitor_service_pb";
 
 /* chrome extension message starts */
 
@@ -37,7 +36,8 @@ export interface DataMsg extends ExtensionMsg {
 
 export interface GetAllDataMsg extends DataMsg {
     operation: DataMsgOperation.GET_ALL,
-    dbContent: DBContent,
+    dbName: string
+    data: Uint8Array //dbContent: DBContent,
 }
 
 /* chrome extension message ends */

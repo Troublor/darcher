@@ -3,7 +3,7 @@ import {EthMonitorController, EventNames, Server} from "../downstream";
 import {DAppStateChangeMsg, isNullOrUndefined, logger, sleep} from "../common";
 import * as readline from "readline";
 import {EventEmitter} from "events";
-import {TxState} from "../rpc/common_pb";
+import {TxState} from "@darcher/rpc";
 
 export class DArcher {
 

@@ -1,6 +1,4 @@
 import {Reply} from "./index";
-import {start} from "repl";
-import removeTree = chrome.bookmarks.removeTree;
 
 export const genEmptyReply = (): Reply => {
     return <Reply>{Err: null};

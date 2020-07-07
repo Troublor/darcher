@@ -4,21 +4,19 @@
     "noImplicitAny": true,
     "removeComments": false,
     "preserveConstEnums": true,
-    "outDir": "../giveth/feathers-giveth/src/jinfres6",
-//            "outDir": "../giveth/giveth-dapp/src/jinfres6",
-    //    "outDir": "/Users/troublor/workspace/javascript/troublor-general-server/static/lib/jinfres6",
     "declaration": true,
     "sourceMap": true,
     "target": "ES6",
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "darcher-analyzer/src/**/*.ts"
-  ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts",
-    "darcher-analyzer/src/instrument/*"
+    "**/*.spec.ts"
   ],
-  "plugins": ["@typescript-eslint"]
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ]
 }

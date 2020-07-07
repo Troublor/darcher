@@ -1,4 +1,4 @@
-import {IDarcherControllerServiceServer} from "../rpc/darcher_controller_service_grpc_pb";
+import {IDarcherControllerServiceServer} from "@darcher/rpc";
 import {sendUnaryData, ServerUnaryCall} from "grpc";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 import {
@@ -8,8 +8,8 @@ import {
     TxStateChangeMsg,
     TxStateControlMsg,
     TxTraverseStartMsg
-} from "../rpc/darcher_controller_service_pb";
-import {TxState} from "../rpc/common_pb";
+} from "@darcher/rpc";
+import {TxState} from "@darcher/rpc";
 import {logger} from "../common";
 import {Empty} from "google-protobuf/google/protobuf/empty_pb";
 

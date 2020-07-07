@@ -1,7 +1,9 @@
 import * as WebSocket from "ws";
 import http from "http";
 import {getUUID, logger} from "../common";
-import {ControlMsg, DBContent, RequestType} from "../rpc/dbmonitor_service_pb"
+import {ControlMsg, DBContent, RequestType} from "@darcher/rpc"
+import {Error as rpcError} from "@darcher/rpc";
+import {$enum} from "ts-enum-util";
 
 /**
  * DB monitor service, to get database data from dapp
@@ -14,12 +16,11 @@ export class DBMonitorService {
     // connection with dbmonitor
     private conn: WebSocket;
     // reverse rpc pending calls
-    private pendingCalls: { [id: string]: Function }; // map from call id to promise resolve functions
+    private pendingCalls: { [id: string]: [Function, Function] }; // map from call id to promise resolve/reject functions
 
     constructor(port: number) {
         this.port = port;
         this.pendingCalls = {};
-
     }
 
     public start() {
@@ -39,16 +40,25 @@ export class DBMonitorService {
         });
     }
 
+    /**
+     * message handler of reverse RPC reply
+     * @param message reply from dbmonitor
+     */
     private onMessage = (message: any) => {
-        let req = ControlMsg.deserializeBinary(message);
-        let resolveFunc = this.pendingCalls[req.getId()];
-        let data = null;
-        switch (req.getType()) {
-            case RequestType.GET_ALL_DATA:
-                data = DBContent.deserializeBinary(req.getData().getValue() as Uint8Array);
+        let resp = ControlMsg.deserializeBinary(message);
+        if (!resp.getId()) {
+            return
         }
-        if (resolveFunc) {
-            resolveFunc(data);
+        let [resolveFunc, rejectFunc] = this.pendingCalls[resp.getId()];
+        let data = null;
+        switch (resp.getType()) {
+            case RequestType.GET_ALL_DATA:
+                if (resp.getErr() !== rpcError.NILERR) {
+                    rejectFunc ? rejectFunc(resp.getErr()) : undefined;
+                } else {
+                    data = DBContent.deserializeBinary(resp.getData() as Uint8Array);
+                    resolveFunc ? resolveFunc(data) : undefined;
+                }
         }
     }
 
@@ -62,7 +72,7 @@ export class DBMonitorService {
      * get all db data from dapp
      * @constructor
      */
-    public async GetAllData(): Promise<DBContent> {
+    public async getAllData(address: string, dbName: string): Promise<DBContent> {
         let id = getUUID();
         if (!this.conn) {
             throw new Error("DBMonitorService not available")
@@ -70,9 +80,11 @@ export class DBMonitorService {
         let req = new ControlMsg();
         req.setId(id);
         req.setType(RequestType.GET_ALL_DATA);
+        req.setAddress(address);
+        req.setDbName(dbName);
         this.conn.send(req.serializeBinary());
-        return new Promise<DBContent>(resolve => {
-            this.pendingCalls[id] = resolve;
+        return new Promise<DBContent>((resolve, reject) => {
+            this.pendingCalls[id] = [resolve, reject];
         });
     }
 }

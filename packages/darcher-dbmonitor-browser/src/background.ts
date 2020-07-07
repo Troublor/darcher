@@ -9,20 +9,20 @@ import {
 import {Logger} from "./helpers";
 import MessageSender = chrome.runtime.MessageSender;
 import Tab = chrome.tabs.Tab;
-import {ControlMsg, DBContent, RequestType} from "darcher-analyzer/src/rpc/dbmonitor_service_pb";
-import {logger} from "darcher-analyzer/src/common";
-import * as config from "@darcher/darcher-config";
-
+import {ControlMsg, DBContent, RequestType, TableContent} from "./rpc/dbmonitor_service_pb";
+import config from "@darcher/config"
+import {Error} from "./rpc/common_pb";
 
 class TabMaster {
+    private darcherUrl: string;
     // stores
-    private monitorDomain: string = "localhost";
+    private monitorDomain: string = "localhost:63342";
     private dbNames: string[] = ["friend_database"];
 
     // websocket connection with dArcher
     private ws: WebSocket;
-    // tab that runs dbMonitor
-    private tab: Tab;
+    // active tabs with address as their key
+    private tabs: { [address: string]: Tab };
 
     private dbSnapshot: DBSnapshot;
 
@@ -30,7 +30,8 @@ class TabMaster {
      * 1. start websocket connection with dArcher
      * 2. listen for chrome messages
      */
-    public start(dArcherUrl: string) {
+    public start(darcherUrl: string) {
+        this.darcherUrl = darcherUrl;
         // listen for chrome messages (SettingMsg)
         chrome.runtime.onMessage.addListener(((message: SettingMsg, sender, sendResponse) => {
             // only SettingMsg will be sent to background
@@ -41,31 +42,43 @@ class TabMaster {
         }));
 
         // start websocket connection with dArcher
-        let interval = setInterval(() => {
-            try {
-                this.ws = new WebSocket(dArcherUrl);
-                this.ws.onopen = this.onWsOpen;
-                this.ws.onmessage = this.onWsMessage;
-                this.ws.onclose = this.onWsClose;
-                this.ws.onerror = this.onWsError;
-                clearInterval(interval);
-            } catch (e) {
-                logger.warn("Websocket connection failed, retrying in 500 ms");
-            }
-        }, 500);
+        this.connectWs();
+    }
+
+    private connectWs() {
+        this.ws = new WebSocket(this.darcherUrl);
+        this.ws.onopen = this.onWsOpen.bind(this);
+        this.ws.onmessage = this.onWsMessage.bind(this);
+        this.ws.onclose = this.onWsClose.bind(this);
+        this.ws.onerror = this.onWsError.bind(this);
     }
 
     private onWsOpen = () => {
-        Logger.info("Websocket connection with dArcher opened");
+        Logger.info("Websocket connection with darcher opened");
     }
 
-    private onWsMessage(message: any) {
-        let request = ControlMsg.deserializeBinary(message.data);
+    /**
+     * handle reverse RPCs via websocket from darcher
+     * @param message
+     */
+    private async onWsMessage(message: any) {
+        let request = ControlMsg.deserializeBinary(new Uint8Array(await message.data.arrayBuffer()));
+        if (!this.tabs[request.getAddress()]) {
+            // if no tab is registered, return serviceNotAvailable error
+            request.setErr(Error.SERVICENOTAVAILABLEERR);
+            this.ws.send(request.serializeBinary());
+            return;
+        }
         switch (request.getType()) {
             case RequestType.GET_ALL_DATA:
+                let address = request.getAddress();
                 // get all db data and send to darcher via websocket
-                this.getAllDBData().then(value => {
-                    this.ws.send(value.serializeBinary());
+                this.getAllDBData(this.tabs[address], request.getDbName()).then(value => {
+                    request.setData(value)
+                    this.ws.send(request.serializeBinary());
+                }).catch((err: Error) => {
+                    request.setErr(err);
+                    this.ws.send(request.serializeBinary());
                 });
                 break;
             default:
@@ -73,12 +86,19 @@ class TabMaster {
         }
     }
 
+    /**
+     * when ws connect closed, try to re-connect darcher
+     */
     private onWsClose = () => {
-        Logger.info("Websocket connection with dArcher closed");
+        Logger.info("Websocket connection with darcher closed");
+        setTimeout(() => {
+            Logger.info("Reconnect websocket with darcher");
+            this.connectWs();
+        }, 1000);
     }
 
-    private onWsError = (error) => {
-        Logger.error("Websocket error:", error);
+    private onWsError = (ev: ErrorEvent) => {
+        Logger.error("Websocket error:", ev);
     }
 
 
@@ -97,7 +117,7 @@ class TabMaster {
                 this.dbNames = msg.dbNames;
                 return undefined;
             case SettingMsgOperation.REGISTER:
-                this.tab = sender.tab;
+                this.tabs[msg.domain] = sender.tab;
                 return undefined;
             default:
                 return undefined;
@@ -107,15 +127,23 @@ class TabMaster {
     /**
      * Send message to content-script to get All DB data
      */
-    private async getAllDBData(): Promise<DBContent> {
+    private async getAllDBData(tab: Tab, dbName: string): Promise<Uint8Array> {
         let message: GetAllDataMsg = {
             type: ExtensionMsgType.DATA,
             operation: DataMsgOperation.GET_ALL,
-            dbContent: null,
+            data: null,
+            dbName: dbName,
         };
-        return new Promise(resolve => {
-            chrome.tabs.sendMessage(this.tab.id, message, (response: GetAllDataMsg) => {
-                resolve(response.dbContent);
+        return new Promise((resolve, reject) => {
+            chrome.tabs.sendMessage(tab.id, message, (response: GetAllDataMsg) => {
+                if (!response.data) {
+                    reject(Error.SERVICENOTAVAILABLEERR);
+                }
+                let data = [];
+                for (let i in response.data) {
+                    data.push(response.data[i]);
+                }
+                resolve(Uint8Array.from(data));
             });
         });
     }
@@ -123,4 +151,4 @@ class TabMaster {
 
 let master = new TabMaster();
 
-master.start();
+master.start(`ws://localhost:${config.rpcPort["darcher-dbmonitor"].ws}`);

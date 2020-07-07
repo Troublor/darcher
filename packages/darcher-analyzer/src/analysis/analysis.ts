@@ -1,6 +1,6 @@
 import {CRUDOperation, DAppStateChangeMsg, isDeepEqual, isNullOrUndefined} from "../common";
 import * as fs from "fs";
-import {TxState} from "../rpc/common_pb";
+import {TxState} from "@darcher/rpc";
 
 type StateChange = DAppStateChangeMsg;
 

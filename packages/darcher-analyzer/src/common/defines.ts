@@ -1,6 +1,3 @@
-export const grpcPort = 1236;
-export const websocketPort = 1237;
-
 export interface Reply {
     Err: string
 }

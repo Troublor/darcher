@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package darcher;
+
+import "common.proto";
+
+enum RequestType {
+  GET_ALL_DATA = 0;
+}
+
+message ControlMsg {
+  string id = 1;
+  RequestType type = 2;
+  string address = 3;
+  string db_name = 4;
+  bytes data = 5; // data is protobuf-serialized data in terms of specified type
+  Error err = 6;
+}
+
+message TableContent {
+  repeated string keyPath = 1;
+  repeated string entries = 2; // each entry is a JSON-serialized object
+}
+
+message DBContent {
+  map<string, TableContent> tables = 1;
+}

@@ -7,33 +7,31 @@
   },
   "author": "Troublor",
   "license": "ISC",
-  "main": "darcher-analyzer/src/index.js",
   "private": true,
   "workspaces": [
-    "darcher-analyzer",
-    "darcher-dbmonitor-browser",
-    "darcher-rpc",
-    "darcher-go-ethereum",
-    "darcher-config"
+    "packages/*"
   ],
   "scripts": {
-    "test": "mocha -r ts-node/register darcher-analyzer/test/**/*.test.ts",
-    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
-    "build:proto": "./scripts/compile_pb.sh",
+    "build:config": "yarn workspace @darcher/config build",
+    "build:proto": "yarn workspace @darcher/rpc build",
     "build:ethmonitor": "cd packages/darcher-go-ethereum && make ethmonitor",
     "build:geth": "cd packages/darcher-go-ethereum && make geth",
-    "build:dbmonitor-browser": "yarn workspace packages/darcher-dbmonitor-browser build",
+    "build:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser build",
     "build": "npm-run-all build:*",
-    "watch:dbmonitor-browser": "yarn workspace packages/darcher-dbmonitor-browser watch",
-    "start:darcher": "yarn workspace darcher-analyzer start:darcher",
+    "watch:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser watch",
+    "start:darcher": "yarn workspace @darcher/analyzer start:darcher",
     "start:ethmonitor": "cd packages/darcher-go-ethereum && go run cmd/ethmonitor/main.go --controller darcher --port 8989"
   },
   "dependencies": {
-    "@types/chrome": "^0.0.117",
-    "google-protobuf": "^3.12.2",
-    "grpc": "^1.24.3",
-    "grpc-tools": "^1.9.0",
-    "grpc_tools_node_protoc_ts": "^4.1.0",
-    "npm-run-all": "^4.1.5"
+    "lerna": "^3.22.1",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
   }
 }

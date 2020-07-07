@@ -11,8 +11,7 @@ import {
 } from "./types";
 import {getDomainAndPort, Logger} from "./helpers";
 import Dexie from "dexie";
-import {Any} from "google-protobuf/google/protobuf/any_pb";
-import {DBContent, TableContent} from "darcher-analyzer/src/rpc/dbmonitor_service_pb";
+import {ControlMsg, DBContent, RequestType, TableContent} from "./rpc/dbmonitor_service_pb";
 
 // get current domain
 let msg: SettingMsg = {
@@ -38,6 +37,9 @@ chrome.runtime.sendMessage(msg, (response: SettingMsg) => {
 async function monitorDB(dbNames: string[]) {
     let monitor = new dbMonitor(dbNames);
     monitor.start();
+    monitor.getAll().then(content => {
+
+    })
 }
 
 
@@ -57,12 +59,15 @@ class dbMonitor {
      * start to listen chrome extension messages from background.js
      */
     public start() {
-        chrome.runtime.onMessage.addListener(async (message: DataMsg, sender, sendResponse) => {
+        // handle db queries
+        chrome.runtime.onMessage.addListener((message: DataMsg, sender, sendResponse) => {
             // only DataMsg will be sent from background to content-script
-            let reply = await this.onDataMsg(message);
-            if (reply) {
-                sendResponse(reply);
-            }
+            this.onDataMsg(message).then(reply => {
+                if (reply) {
+                    sendResponse(reply);
+                }
+            });
+            return true;
         });
     }
 
@@ -71,7 +76,16 @@ class dbMonitor {
             case DataMsgOperation.GET_ALL:
                 let message: GetAllDataMsg = <GetAllDataMsg>msg;
                 // TODO currently only support one DB
-                message.dbContent = await this.dbFetcherMap[this.dbNames[0]].getAll();
+                if (!(message.dbName in this.dbFetcherMap)) {
+                    // if dbName does not exist, return null data
+                    message.data = null;
+                    return message
+                }
+                let dbContent = await this.dbFetcherMap[message.dbName].getAll();
+                message.data = dbContent.serializeBinary();
+                let controlMsg = new ControlMsg();
+                controlMsg.setData(message.data);
+                console.log(controlMsg.serializeBinary());
                 return message;
             default:
                 return undefined;
@@ -82,7 +96,7 @@ class dbMonitor {
      * Get all database data
      */
     public async getAll(): Promise<{ [dbName: string]: DBContent }> {
-        let data = {};
+        let data: { [dbName: string]: DBContent } = {};
         for (let dbName in this.dbFetcherMap) {
             data[dbName] = await this.dbFetcherMap[dbName].getAll();
         }
@@ -135,11 +149,9 @@ class DBFetcher {
                 }
                 let entries = await table.toArray();
                 for (let entry of entries) {
-                    let data = new Any();
-                    data.setValue(JSON.stringify(entry))
-                    tableContent.addEntries(data);
+                    tableContent.addEntries(JSON.stringify(entry));
                 }
-                data.getTablesMap()[storeName] = tableContent;
+                data.getTablesMap().set(storeName, tableContent);
             } catch (e) {
                 Logger.error(`Fetch data from ${this.dbName}.${storeName} failed:`, e);
             }

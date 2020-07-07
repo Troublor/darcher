@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-MONOREPO_ROOT_DIR=.
-PROTOBUF_DIR=${MONOREPO_ROOT_DIR}/darcher-rpc/src
+MONOREPO_ROOT_DIR=../..
+PROTOBUF_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-rpc/proto
 
 function compile_golang() {
     OUTPUT_DIR=$1
@@ -53,7 +53,7 @@ function compile_ts() {
 }
 
 # darcher-go-ethereum golang compilation
-GOLANG_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/darcher-go-ethereum/ethmonitor/rpc
+GOLANG_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-go-ethereum/ethmonitor/rpc
 GOLANG_COMPILE_FILES=(
   "common.proto"
   "blockchain_status_service.proto"
@@ -64,7 +64,7 @@ GOLANG_COMPILE_FILES=(
 compile_golang ${GOLANG_OUTPUT_DIR} ${GOLANG_COMPILE_FILES[@]}
 
 # darcher-analyzer typescript compilation
-TS_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/darcher-analyzer/src/rpc
+TS_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-rpc/src
 TS_COMPILE_FILES=(
   "common.proto"
   "darcher_controller_service.proto"
@@ -72,9 +72,31 @@ TS_COMPILE_FILES=(
 )
 compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}
 
-# darcher-dbmonitor-browser typescript compilation
-#TS_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/darcher-dbmonitor-browser/src/rpc
-#TS_COMPILE_FILES=(
-#  "dbmonitor_service.proto"
-#)
-#compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}
+echo "" > ./src/index.d.ts
+echo -e "module.exports = Object.assign(" > ./src/index.js
+for item in ${TS_COMPILE_FILES[@]} ; do
+    moduleName=${item:0:${#item}-6}_pb
+    if [[ -f "./src/$moduleName.js" ]]; then
+        echo -e "\trequire(\"./$moduleName\")," >> ./src/index.js
+    fi
+    if [[ -f "./src/$moduleName.d.ts" ]]; then
+        echo -e "export * from \"./$moduleName\"" >> ./src/index.d.ts
+    fi
+    moduleName=${item:0:${#item}-6}_grpc_pb
+    if [[ -f "./src/$moduleName.js" ]]; then
+        echo -e "\trequire(\"./$moduleName\")," >> ./src/index.js
+    fi
+    if [[ -f "./src/$moduleName.d.ts" ]]; then
+        echo -e "export * from \"./$moduleName\"" >> ./src/index.d.ts
+    fi
+done
+echo -e ");" >> ./src/index.js
+
+
+## darcher-dbmonitor-browser typescript compilation
+TS_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-dbmonitor-browser/src/rpc
+TS_COMPILE_FILES=(
+  "common.proto"
+  "dbmonitor_service.proto"
+)
+compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}

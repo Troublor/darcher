@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {isEqualState, LogicalTxState} from "../src/analyzer";
-import {TxState} from "../src/rpc/common_pb";
+import {TxState} from "@darcher/rpc";
 
 describe("logical tx state", () => {
     it('should compare with tx state', function () {

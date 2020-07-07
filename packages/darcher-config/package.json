@@ -1,12 +1,15 @@
 {
-  "name": "darcher-config",
+  "name": "@darcher/config",
   "version": "1.0.0",
   "repository": {
     "url": "https://github.com/Troublor/darcher"
   },
   "author": "Troublor",
   "license": "ISC",
-  "main": "src/index.ts",
+  "main": "src",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
   }
 }

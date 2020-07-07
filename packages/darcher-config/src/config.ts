@@ -1,9 +1,14 @@
-export default {
-    "rpcAddress": {
+const config = {
+    "rpcPort": {
         "darcher-dbmonitor": {
-            "ws": "ws://localhost:1237",
+            "ws": 1237,
         },
-        "darcher-ethmonitor": "localhost:1236",
-        "ethmonitor-geth": "localhost:8989",
+        "darcher-ethmonitor": 1236,
+        "ethmonitor-geth": 8989,
+    },
+    "dapp": {
+        "address": "localhost:63342",
+        "dbName": "friends_database",
     }
 }
+export default config;

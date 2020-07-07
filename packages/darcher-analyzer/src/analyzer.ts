@@ -1,14 +1,15 @@
-import {TxState} from "./rpc/common_pb";
+import {TxState} from "@darcher/rpc";
 import {
     TxFinishedMsg,
     TxStateChangeMsg,
     TxStateControlMsg,
     TxTraverseStartMsg
-} from "./rpc/darcher_controller_service_pb";
+} from "@darcher/rpc";
 import {logger, prettifyHash} from "./common";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {DBMonitorService} from "./service/dbmonitorService";
+import config from "@darcher/config";
 
 /**
  * Extend TxState to introduce logical tx state (reverted, re-executed)
@@ -92,7 +93,7 @@ export class Analyzer {
         logger.info("Wait for 500 ms")
         setTimeout(async () => {
             try {
-                let data = await this.dbMonitorService.GetAllData();
+                let data = await this.dbMonitorService.getAllData(config.dapp.address, config.dapp.dbName);
                 console.log(data);
             } catch (e) {
                 logger.error("Get all data error", e);
