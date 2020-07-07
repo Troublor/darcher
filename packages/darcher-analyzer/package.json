@@ -1,0 +1,42 @@
+{
+  "name": "darcher-analyzer",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/Troublor/darcher"
+  },
+  "author": "Troublor",
+  "license": "ISC",
+  "scripts": {
+    "start:darcher": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.8.3",
+    "@types/google-protobuf": "^3.7.2",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "chai": "^4.2.0",
+    "es6-promise": "^4.2.8",
+    "google-protobuf": "^3.12.2",
+    "grpc": "^1.24.3",
+    "jayson": "^3.2.0",
+    "lodash": "^4.17.15",
+    "log4js": "^6.2.1",
+    "mocha": "^7.0.0",
+    "request": "^2.88.2",
+    "ts-enum-util": "^4.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.4",
+    "ws": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.7",
+    "@types/es6-promise": "^3.3.0",
+    "@types/lodash": "^4.14.155",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^13.13.11",
+    "@types/shelljs": "^0.8.6",
+    "@types/ws": "^7.2.6",
+    "express": "^4.17.1",
+    "shelljs": "^0.8.3",
+    "ts-protoc-gen": "^0.12.0"
+  }
+}

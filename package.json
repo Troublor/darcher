@@ -13,19 +13,23 @@
     "darcher-analyzer",
     "darcher-dbmonitor-browser",
     "darcher-rpc",
-    "darcher-go-ethereum"
+    "darcher-go-ethereum",
+    "darcher-config"
   ],
   "scripts": {
     "test": "mocha -r ts-node/register darcher-analyzer/test/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
     "build:proto": "./scripts/compile_pb.sh",
-    "build:ethmonitor": "cd darcher-go-ethereum && make ethmonitor",
-    "build:geth": "cd darcher-go-ethereum && make geth",
+    "build:ethmonitor": "cd packages/darcher-go-ethereum && make ethmonitor",
+    "build:geth": "cd packages/darcher-go-ethereum && make geth",
+    "build:dbmonitor-browser": "yarn workspace packages/darcher-dbmonitor-browser build",
     "build": "npm-run-all build:*",
+    "watch:dbmonitor-browser": "yarn workspace packages/darcher-dbmonitor-browser watch",
     "start:darcher": "yarn workspace darcher-analyzer start:darcher",
-    "start:ethmonitor": "cd darcher-go-ethereum && go run cmd/ethmonitor/main.go --controller darcher --port 8989"
+    "start:ethmonitor": "cd packages/darcher-go-ethereum && go run cmd/ethmonitor/main.go --controller darcher --port 8989"
   },
   "dependencies": {
+    "@types/chrome": "^0.0.117",
     "google-protobuf": "^3.12.2",
     "grpc": "^1.24.3",
     "grpc-tools": "^1.9.0",
