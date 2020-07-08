@@ -10,7 +10,6 @@ import {Logger} from "./helpers";
 import MessageSender = chrome.runtime.MessageSender;
 import Tab = chrome.tabs.Tab;
 import {ControlMsg, DBContent, RequestType, TableContent} from "./rpc/dbmonitor_service_pb";
-import config from "@darcher/config"
 import {Error} from "./rpc/common_pb";
 
 class TabMaster {
@@ -22,16 +21,20 @@ class TabMaster {
     // websocket connection with dArcher
     private ws: WebSocket;
     // active tabs with address as their key
-    private tabs: { [address: string]: Tab };
+    private readonly tabs: { [address: string]: Tab };
 
     private dbSnapshot: DBSnapshot;
+
+    constructor(darcherUrl: string) {
+        this.darcherUrl = darcherUrl;
+        this.tabs = {};
+    }
 
     /**
      * 1. start websocket connection with dArcher
      * 2. listen for chrome messages
      */
-    public start(darcherUrl: string) {
-        this.darcherUrl = darcherUrl;
+    public start() {
         // listen for chrome messages (SettingMsg)
         chrome.runtime.onMessage.addListener(((message: SettingMsg, sender, sendResponse) => {
             // only SettingMsg will be sent to background
@@ -63,7 +66,7 @@ class TabMaster {
      */
     private async onWsMessage(message: any) {
         let request = ControlMsg.deserializeBinary(new Uint8Array(await message.data.arrayBuffer()));
-        if (!this.tabs[request.getAddress()]) {
+        if (!this.tabs[request.getDbAddress()]) {
             // if no tab is registered, return serviceNotAvailable error
             request.setErr(Error.SERVICENOTAVAILABLEERR);
             this.ws.send(request.serializeBinary());
@@ -71,7 +74,7 @@ class TabMaster {
         }
         switch (request.getType()) {
             case RequestType.GET_ALL_DATA:
-                let address = request.getAddress();
+                let address = request.getDbAddress();
                 // get all db data and send to darcher via websocket
                 this.getAllDBData(this.tabs[address], request.getDbName()).then(value => {
                     request.setData(value)
@@ -108,15 +111,8 @@ class TabMaster {
 
     private onSettingMsg(msg: SettingMsg, sender: MessageSender): SettingMsg | undefined {
         switch (msg.operation) {
-            case SettingMsgOperation.FETCH:
-                msg.domain = this.monitorDomain;
-                msg.dbNames = this.dbNames;
-                return msg;
-            case SettingMsgOperation.UPDATE:
-                this.monitorDomain = msg.domain;
-                this.dbNames = msg.dbNames;
-                return undefined;
             case SettingMsgOperation.REGISTER:
+                Logger.info("Monitor registered", "domain", msg.domain)
                 this.tabs[msg.domain] = sender.tab;
                 return undefined;
             default:
@@ -149,6 +145,7 @@ class TabMaster {
     }
 }
 
-let master = new TabMaster();
+// @ts-ignore WS_PORT is dynamically set in webpack.dynamic.js
+let master = new TabMaster(`ws://localhost:${WS_PORT}`);
 
-master.start(`ws://localhost:${config.rpcPort["darcher-dbmonitor"].ws}`);
+master.start();

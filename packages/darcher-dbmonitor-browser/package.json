@@ -5,7 +5,7 @@
     "url": "https://github.com/Troublor/darcher"
   },
   "scripts": {
-    "watch": "node_modules/.bin/webpack --config webpack/webpack.dev.js --watch",
+    "watch": "node_modules/.bin/webpack --config webpack/webpack.dynamic.js --watch",
     "build": "node_modules/.bin/webpack --config webpack/webpack.prod.js",
     "clean": "node_modules/.bin/rimraf dist",
     "test": "npx jest"

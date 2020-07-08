@@ -7,7 +7,6 @@
   "author": "Troublor",
   "license": "ISC",
   "scripts": {
-    "build": "tsc",
     "start:darcher": "ts-node src/index.ts",
     "test": "mocha --require ts-node/register test/*.test.ts"
   },

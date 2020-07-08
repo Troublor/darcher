@@ -14,23 +14,29 @@
   "scripts": {
     "build:config": "yarn workspace @darcher/config build",
     "build:proto": "yarn workspace @darcher/rpc build",
-    "build:ethmonitor": "cd packages/darcher-go-ethereum && make ethmonitor",
-    "build:geth": "cd packages/darcher-go-ethereum && make geth",
+    "build:ethmonitor": "yarn workspace @darcher/go-ethereum build:ethmonitor",
+    "build:geth": "yarn workspace @darcher/go-ethereum build:geth",
     "build:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser build",
     "build": "npm-run-all build:*",
     "watch:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser watch",
     "start:darcher": "yarn workspace @darcher/analyzer start:darcher",
-    "start:ethmonitor": "cd packages/darcher-go-ethereum && go run cmd/ethmonitor/main.go --controller darcher --port 8989"
+    "start:ethmonitor": "cd packages/darcher-go-ethereum && go run cmd/ethmonitor/main.go --controller darcher --port 8989",
+    "start:cluster": "ts-node scripts/startUtils.ts",
+    "start:config": "ts-node ./scripts/start.ts"
   },
   "dependencies": {
+    "get-port": "^5.1.1",
     "lerna": "^3.22.1",
     "npm-run-all": "^4.1.5",
+    "shelljs": "^0.8.4",
     "ts-node": "^8.10.2",
+    "ttab": "^0.6.1",
     "typescript": "^3.9.6"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
+    "@types/shelljs": "^0.8.8",
     "chai": "^4.2.0",
     "mocha": "^8.0.1"
   }

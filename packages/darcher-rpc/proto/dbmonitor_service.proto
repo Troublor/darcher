@@ -11,7 +11,7 @@ enum RequestType {
 message ControlMsg {
   string id = 1;
   RequestType type = 2;
-  string address = 3;
+  string db_address = 3;
   string db_name = 4;
   bytes data = 5; // data is protobuf-serialized data in terms of specified type
   Error err = 6;

@@ -3,7 +3,6 @@ import http from "http";
 import {getUUID, logger} from "../common";
 import {ControlMsg, DBContent, RequestType} from "@darcher/rpc"
 import {Error as rpcError} from "@darcher/rpc";
-import {$enum} from "ts-enum-util";
 
 /**
  * DB monitor service, to get database data from dapp
@@ -80,7 +79,7 @@ export class DBMonitorService {
         let req = new ControlMsg();
         req.setId(id);
         req.setType(RequestType.GET_ALL_DATA);
-        req.setAddress(address);
+        req.setDbAddress(address);
         req.setDbName(dbName);
         this.conn.send(req.serializeBinary());
         return new Promise<DBContent>((resolve, reject) => {

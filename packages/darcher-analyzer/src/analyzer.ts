@@ -1,4 +1,4 @@
-import {TxState} from "@darcher/rpc";
+import {TxState, Error as rpcError} from "@darcher/rpc";
 import {
     TxFinishedMsg,
     TxStateChangeMsg,
@@ -9,7 +9,7 @@ import {logger, prettifyHash} from "./common";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {DBMonitorService} from "./service/dbmonitorService";
-import config from "@darcher/config";
+import {Config} from "@darcher/config";
 
 /**
  * Extend TxState to introduce logical tx state (reverted, re-executed)
@@ -55,6 +55,7 @@ export function toTxState(ls: LogicalTxState): TxState {
  * Analyzer is for each tx, it controls the tx state via grpc with ethmonitor and collect dapp state change data, to generate analyze report
  */
 export class Analyzer {
+    private readonly config: Config;
     private txHash: string;
     private txState: LogicalTxState;
 
@@ -63,7 +64,8 @@ export class Analyzer {
     private stateChangeWaiting: Promise<LogicalTxState>;
     private stateEmitter: EventEmitter
 
-    constructor(txHash: string, dbmonitorService: DBMonitorService) {
+    constructor(config: Config, txHash: string, dbmonitorService: DBMonitorService) {
+        this.config = config;
         this.txHash = txHash;
         this.dbMonitorService = dbmonitorService;
         this.txState = LogicalTxState.CREATED;
@@ -93,10 +95,18 @@ export class Analyzer {
         logger.info("Wait for 500 ms")
         setTimeout(async () => {
             try {
-                let data = await this.dbMonitorService.getAllData(config.dapp.address, config.dapp.dbName);
-                console.log(data);
+                let data = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                let iter = data.getTablesMap().keys();
+                let key = iter.next();
+                while (!key.done) {
+                    let table = data.getTablesMap().get(key.value);
+                    console.log("table:", key.value);
+                    console.log("keyPath", table.getKeypathList().toString());
+                    console.log("content", table.getEntriesList().toString());
+                    key = iter.next();
+                }
             } catch (e) {
-                logger.error("Get all data error", e);
+                logger.error("Get all data error", $enum(rpcError).getKeyOrDefault(e, e));
             }
             this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
         }, 500);

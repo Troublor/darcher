@@ -18,21 +18,25 @@ let msg: SettingMsg = {
     type: ExtensionMsgType.SETTING,
     operation: SettingMsgOperation.FETCH,
     domain: "",
-    dbNames: []
 }
-chrome.runtime.sendMessage(msg, (response: SettingMsg) => {
-    if (getDomainAndPort(location.href).trim() === response.domain?.trim()) {
+
+// @ts-ignore DB_ADDRESS is webpack env
+if (getDomainAndPort(window.location.href).trim().includes(DB_ADDRESS)) {
+    Logger.info("Domain matched, start monitoring");
+    chrome.runtime.sendMessage(msg, (response: SettingMsg) => {
         // register on background that this page has dbMonitor running
         chrome.runtime.sendMessage(<SettingMsg>{
             type: ExtensionMsgType.SETTING,
             operation: SettingMsgOperation.REGISTER,
+            domain: getDomainAndPort(location.href).trim()
         });
-        Logger.info("Monitor domain matched, start monitoring db");
-        monitorDB(response.dbNames);
-    } else {
-        Logger.info("Monitor domain mismatch, disable monitoring");
-    }
-});
+        Logger.info("Monitor registered");
+        // @ts-ignore DB_NAME is webpack env
+        monitorDB([DB_NAME]);
+    });
+} else {
+    Logger.info("Domain mismatch, disable monitoring");
+}
 
 async function monitorDB(dbNames: string[]) {
     let monitor = new dbMonitor(dbNames);

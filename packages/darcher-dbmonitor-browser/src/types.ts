@@ -26,7 +26,6 @@ export interface SettingMsg extends ExtensionMsg {
     type: ExtensionMsgType.SETTING
     operation: SettingMsgOperation
     domain: string
-    dbNames: string[]
 }
 
 export interface DataMsg extends ExtensionMsg {
