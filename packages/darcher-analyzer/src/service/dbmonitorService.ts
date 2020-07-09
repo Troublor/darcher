@@ -58,6 +58,14 @@ export class DBMonitorService {
                     data = DBContent.deserializeBinary(resp.getData() as Uint8Array);
                     resolveFunc ? resolveFunc(data) : undefined;
                 }
+                break;
+            case RequestType.REFRESH_PAGE:
+                if (resp.getErr() !== rpcError.NILERR) {
+                    rejectFunc ? rejectFunc(resp.getErr()) : undefined;
+                } else {
+                    resolveFunc ? resolveFunc() : undefined;
+                }
+                break;
         }
     }
 
@@ -83,6 +91,21 @@ export class DBMonitorService {
         req.setDbName(dbName);
         this.conn.send(req.serializeBinary());
         return new Promise<DBContent>((resolve, reject) => {
+            this.pendingCalls[id] = [resolve, reject];
+        });
+    }
+
+    public async refreshPage(address: string): Promise<void> {
+        let id = getUUID();
+        if (!this.conn) {
+            throw new Error("DBMonitorService not available")
+        }
+        let req = new ControlMsg();
+        req.setId(id);
+        req.setType(RequestType.REFRESH_PAGE);
+        req.setDbAddress(address);
+        this.conn.send(req.serializeBinary());
+        return new Promise((resolve, reject) => {
             this.pendingCalls[id] = [resolve, reject];
         });
     }

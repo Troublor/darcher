@@ -92,7 +92,8 @@ export class Analyzer {
         } else {
             this.txState = <LogicalTxState>(msg.getTo() as number);
         }
-        logger.info("Wait for 500 ms")
+        logger.info("Wait for 10000 ms")
+        await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
         setTimeout(async () => {
             try {
                 let data = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
@@ -109,7 +110,7 @@ export class Analyzer {
                 logger.error("Get all data error", $enum(rpcError).getKeyOrDefault(e, e));
             }
             this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
-        }, 500);
+        }, 10000);
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
