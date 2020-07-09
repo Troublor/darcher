@@ -77,7 +77,7 @@ export function startCluster(darcher: Darcher, cluster: Cluster) {
     }
 
     // start ethmonitor
-    let ethmonitorCmd = `yarn workspace @darcher/go-ethereum start:ethmonitor --port ${cluster.ethmonitorPort} --controller ${cluster.controller} --darcherPort ${darcher.grpcPort}`;
+    let ethmonitorCmd = `yarn workspace @darcher/go-ethereum start:ethmonitor --port ${cluster.ethmonitorPort} --controller ${cluster.controller} --darcherPort ${darcher.grpcPort} --verbosity 4`;
     shell.exec(`ttab -t "Ethmonitor ${cluster.ethmonitorPort} ${cluster.controller}" ${ethmonitorCmd}`);
 
     setTimeout(async () => {
@@ -130,7 +130,7 @@ export function startCluster(darcher: Darcher, cluster: Cluster) {
 
 export function startDarcher(darcher: Darcher, dbMonitor: DBMonitor, configFile: string) {
     let seg = [`yarn workspace @darcher/analyzer start:darcher`];
-    seg.push(path.join(__dirname, configFile));
+    seg.push(path.join(__dirname, 'configs', configFile));
     let cmd = seg.join(" ");
     shell.exec(`ttab -t Darcher ${cmd}`);
 }

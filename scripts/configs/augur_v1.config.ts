@@ -13,7 +13,7 @@ export default <Config>{
     clusters: [
         <Cluster>{
             ethmonitorPort: 8989,
-            controller: ControllerOptions.darcher,
+            controller: ControllerOptions.console,
             genesisFile: "/Users/troublor/workspace/dArcher/augur/blockchain/v1/genesis.json",
             dir: "/Users/troublor/workspace/dArcher/augur/blockchain/v1",
             keyStoreDir: "/Users/troublor/workspace/dArcher/augur/blockchain/v1/keystore",
