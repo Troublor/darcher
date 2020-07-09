@@ -1,0 +1,21 @@
+{
+  "name": "@darcher/dbmonitor",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/Troublor/darcher"
+  },
+  "main": "src",
+  "scripts": {},
+  "author": "Troublor",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.5.9"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/mongodb": "^3.5.25",
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
+  }
+}
