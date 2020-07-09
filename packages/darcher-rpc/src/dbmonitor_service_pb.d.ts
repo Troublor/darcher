@@ -104,4 +104,5 @@ export namespace DBContent {
 
 export enum RequestType {
     GET_ALL_DATA = 0,
+    REFRESH_PAGE = 1,
 }

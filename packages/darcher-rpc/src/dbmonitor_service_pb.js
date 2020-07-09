@@ -727,7 +727,8 @@ proto.darcher.DBContent.prototype.clearTablesMap = function() {
  * @enum {number}
  */
 proto.darcher.RequestType = {
-  GET_ALL_DATA: 0
+  GET_ALL_DATA: 0,
+  REFRESH_PAGE: 1
 };
 
 goog.object.extend(exports, proto.darcher);

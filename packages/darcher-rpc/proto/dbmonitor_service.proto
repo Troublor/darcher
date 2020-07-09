@@ -6,6 +6,7 @@ import "common.proto";
 
 enum RequestType {
   GET_ALL_DATA = 0;
+  REFRESH_PAGE = 1;
 }
 
 message ControlMsg {
