@@ -11,6 +11,7 @@ import MessageSender = chrome.runtime.MessageSender;
 import Tab = chrome.tabs.Tab;
 import {ControlMsg, DBContent, RequestType, TableContent} from "./rpc/dbmonitor_service_pb";
 import {Error} from "./rpc/common_pb";
+import {EventEmitter} from "events";
 
 class TabMaster {
     private darcherUrl: string;
@@ -22,12 +23,14 @@ class TabMaster {
     private ws: WebSocket;
     // active tabs with address as their key
     private readonly tabs: { [address: string]: Tab };
+    private eventEmitter: EventEmitter;
 
     private dbSnapshot: DBSnapshot;
 
     constructor(darcherUrl: string) {
         this.darcherUrl = darcherUrl;
         this.tabs = {};
+        this.eventEmitter = new EventEmitter();
     }
 
     /**
@@ -72,12 +75,22 @@ class TabMaster {
             this.ws.send(request.serializeBinary());
             return;
         }
+        let address
         switch (request.getType()) {
             case RequestType.GET_ALL_DATA:
-                let address = request.getDbAddress();
+                address = request.getDbAddress();
                 // get all db data and send to darcher via websocket
                 this.getAllDBData(this.tabs[address], request.getDbName()).then(value => {
                     request.setData(value)
+                    this.ws.send(request.serializeBinary());
+                }).catch((err: Error) => {
+                    request.setErr(err);
+                    this.ws.send(request.serializeBinary());
+                });
+                break;
+            case RequestType.REFRESH_PAGE:
+                address = request.getDbAddress();
+                this.refreshPage(this.tabs[address]).then(() => {
                     this.ws.send(request.serializeBinary());
                 }).catch((err: Error) => {
                     request.setErr(err);
@@ -114,6 +127,7 @@ class TabMaster {
             case SettingMsgOperation.REGISTER:
                 Logger.info("Monitor registered", "domain", msg.domain)
                 this.tabs[msg.domain] = sender.tab;
+                this.eventEmitter.emit("register", sender.tab);
                 return undefined;
             default:
                 return undefined;
@@ -141,6 +155,21 @@ class TabMaster {
                 }
                 resolve(Uint8Array.from(data));
             });
+        });
+    }
+
+    private async refreshPage(tab: Tab): Promise<void> {
+        chrome.tabs.executeScript(tab.id, {
+            code: "window.location.reload();",
+        });
+        return new Promise(resolve => {
+            let listener = (newTab: Tab) => {
+                if (tab.id === newTab.id) {
+                    this.eventEmitter.removeListener("register", listener);
+                    resolve();
+                }
+            }
+            this.eventEmitter.on("register", listener);
         });
     }
 }

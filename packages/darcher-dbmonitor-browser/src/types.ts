@@ -14,7 +14,8 @@ export enum SettingMsgOperation {
 }
 
 export enum DataMsgOperation {
-    GET_ALL
+    GET_ALL,
+    REFRESH_PAGE,
 }
 
 export interface ExtensionMsg {
