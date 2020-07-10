@@ -2,6 +2,7 @@ export enum ControllerOptions {
     console = "console",
     trivial = "trivial",
     darcher = "darcher",
+    deploy = "deploy",
 }
 
 export interface Cluster {
