@@ -13,7 +13,7 @@ export default <Config>{
     clusters: [
         <Cluster>{
             ethmonitorPort: 8989,
-            controller: ControllerOptions.trivial,
+            controller: ControllerOptions.deploy,
             genesisFile: "/Users/troublor/workspace/dArcher/giveth/blockchain/home/genesis.json",
             dir: "/Users/troublor/workspace/dArcher/giveth/blockchain/home",
             keyStoreDir: "/Users/troublor/workspace/dArcher/giveth/blockchain/home/keystore",
@@ -25,7 +25,7 @@ export default <Config>{
         },
         <Cluster>{
             ethmonitorPort: 8990,
-            controller: ControllerOptions.trivial,
+            controller: ControllerOptions.deploy,
             genesisFile: "/Users/troublor/workspace/dArcher/giveth/blockchain/foreign/genesis.json",
             dir: "/Users/troublor/workspace/dArcher/augur/blockchain/foreign",
             keyStoreDir: "/Users/troublor/workspace/dArcher/giveth/blockchain/foreign/keystore",
