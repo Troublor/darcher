@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package darcher;
+
+import "common.proto";
+
+option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+
+service ContractVulnerabilityService {
+  rpc getReportsByContractControl(stream GetReportsByContractControlMsg) returns (stream GetReportsByContractControlMsg); // reverse rpc (call from ethmonitor master to worker)
+  rpc getReportsByTransactionControl(stream GetReportsByTransactionControlMsg) returns (stream GetReportsByTransactionControlMsg); // reverse rpc (call from ethmonitor master to worker)
+}
+
+enum ContractVulType {
+  NIL = 0;
+  EXCEPTION_DISORDER = 1;
+  REENTRANCY = 2;
+  TIMESTAMP_DEPENDENCY = 3;
+  BLOCKNUMBER_DEPENDENCY = 4;
+  DANGEROUS_DELEGATECALL = 5;
+  GASLESS_SEND = 6;
+}
+
+message GetReportsByContractControlMsg {
+  Role role = 1;
+  string id = 2;
+  string address = 3;
+  repeated ContractVulReport reports = 4;
+}
+
+message GetReportsByTransactionControlMsg {
+  Role role = 1;
+  string id = 2;
+  string hash = 3;
+  repeated ContractVulReport reports = 4;
+}
+
+message ContractVulReport{
+  string address = 1; // contract address
+  string func_sig = 2; // the signature of function in the contract (optional)
+  string opcode = 3; // the opcode that vulnerability lies (optional)
+  uint64 pc = 4; // the pc of the opcode (optional)
+  string tx_hash = 5; // the transaction that reveals the vulnerability
+  ContractVulType type = 6;
+  string description = 7;
+}

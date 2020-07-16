@@ -60,6 +60,7 @@ GOLANG_COMPILE_FILES=(
   "p2p_network_service.proto"
   "mining_service.proto"
   "darcher_controller_service.proto"
+  "contract_oracle_service.proto"
 )
 compile_golang ${GOLANG_OUTPUT_DIR} ${GOLANG_COMPILE_FILES[@]}
 
@@ -69,6 +70,7 @@ TS_COMPILE_FILES=(
   "common.proto"
   "darcher_controller_service.proto"
   "dbmonitor_service.proto"
+  "contract_oracle_service.proto"
 )
 compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}
 
