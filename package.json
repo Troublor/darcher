@@ -23,7 +23,8 @@
     "start:ethmonitor": "cd packages/darcher-go-ethereum && go run cmd/ethmonitor/main.go --controller darcher --port 8989",
     "start:cluster": "ts-node scripts/startUtils.ts",
     "start:config": "ts-node ./scripts/start.ts",
-    "reset:config": "ts-node ./scripts/reset.ts"
+    "reset:config": "ts-node ./scripts/reset.ts",
+    "test": "yarn workspace @darcher/go-ethereum test"
   },
   "dependencies": {
     "get-port": "^5.1.1",
