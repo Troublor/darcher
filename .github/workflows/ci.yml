@@ -19,6 +19,11 @@ jobs:
         node-version: [10.x]
 
     steps:
+    - name: Setup Go environment
+      uses: actions/setup-go@v2.1.1
+      with:
+        # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+        go-version: 1.13
     - uses: actions/checkout@v2
       with:
         token: 411f6d30c3694512807e6fd2f8e91f44ae6bd8df
