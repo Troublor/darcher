@@ -36,6 +36,6 @@ jobs:
       with:
         cmd: install # will run `yarn install` command
     - name: rebuild
-      run: yarn rebuild
+      run: npm rebuild
     - name: Test
       run: yarn test
