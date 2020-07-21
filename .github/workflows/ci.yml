@@ -19,19 +19,23 @@ jobs:
         node-version: [10.x]
 
     steps:
+    - uses: actions/checkout@v2
+      with:
+        token: 411f6d30c3694512807e6fd2f8e91f44ae6bd8df
+        submodules: true
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.1
       with:
         # The Go version to download (if necessary) and use. Supports semver spec and ranges.
         go-version: 1.13
-    - uses: actions/checkout@v2
-      with:
-        token: 411f6d30c3694512807e6fd2f8e91f44ae6bd8df
-        submodules: true
+    - name: Test Go 1
+      run: go env
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Test Go 1
+      run: go env
     - uses: borales/actions-yarn@v2.0.0
       with:
         cmd: install # will run `yarn install` command
