@@ -20,6 +20,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: 411f6d30c3694512807e6fd2f8e91f44ae6bd8df
+        submodules: true
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
