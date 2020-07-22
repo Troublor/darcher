@@ -78,7 +78,7 @@ export function startCluster(darcher: Darcher, cluster: Cluster) {
 
     // start ethmonitor
     let ethmonitorCmd = `yarn workspace @darcher/go-ethereum start:ethmonitor --port ${cluster.ethmonitorPort} --controller ${cluster.controller} --darcherPort ${darcher.grpcPort} --verbosity 4`;
-    shell.exec(`ttab -t "Ethmonitor ${cluster.ethmonitorPort} ${cluster.controller}" ${ethmonitorCmd}`);
+    shell.exec(`ttab -a iTerm2 -t "Ethmonitor ${cluster.ethmonitorPort} ${cluster.controller}" ${ethmonitorCmd}`);
 
     setTimeout(async () => {
         // start doer
@@ -107,7 +107,7 @@ export function startCluster(darcher: Darcher, cluster: Cluster) {
         }
         seg.push(`console`);
         let doerCmd = seg.join(" ");
-        shell.exec(`ttab -t "DOER ${cluster.ethmonitorPort}" ${doerCmd}`);
+        shell.exec(`ttab -a iTerm2 -t "DOER ${cluster.ethmonitorPort}" ${doerCmd}`);
 
         // start doer
         seg = [`yarn workspace @darcher/go-ethereum start:geth`];
@@ -124,7 +124,7 @@ export function startCluster(darcher: Darcher, cluster: Cluster) {
         seg.push(`--talker`);
         seg.push(`console`);
         let talkerCmd = seg.join(" ");
-        shell.exec(`ttab -t "TALKER ${cluster.ethmonitorPort}" ${talkerCmd}`);
+        shell.exec(`ttab -a iTerm2 -t "TALKER ${cluster.ethmonitorPort}" ${talkerCmd}`);
     }, 1000);
 }
 
@@ -132,7 +132,7 @@ export function startDarcher(darcher: Darcher, dbMonitor: DBMonitor, configFile:
     let seg = [`yarn workspace @darcher/analyzer start:darcher`];
     seg.push(path.join(__dirname, 'configs', configFile));
     let cmd = seg.join(" ");
-    shell.exec(`ttab -t Darcher ${cmd}`);
+    shell.exec(`ttab -a iTerm2 -t Darcher ${cmd}`);
 }
 
 export function startDBMonitor(darcher: Darcher, dbMonitor: DBMonitor) {
@@ -143,7 +143,7 @@ export function startDBMonitor(darcher: Darcher, dbMonitor: DBMonitor) {
         seg.push(`--env.dbAddress ${dbMonitor.dbAddress}`)
         seg.push(`--env.dbName ${dbMonitor.dbName}`);
         let cmd = seg.join(" ");
-        shell.exec(`ttab -t "dbmonitor-browser watcher" ${cmd}`);
+        shell.exec(`ttab -a iTerm2 -t "dbmonitor-browser watcher" ${cmd}`);
     } else if (dbMonitor.db === DBOptions.mongoDB) {
 
     }
