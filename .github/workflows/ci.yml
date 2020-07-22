@@ -28,16 +28,14 @@ jobs:
       with:
         # The Go version to download (if necessary) and use. Supports semver spec and ranges.
         go-version: 1.13
-    - name: Test Go 1
-      run: go env
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Test Go 1
-      run: go env
     - uses: borales/actions-yarn@v2.0.0
       with:
         cmd: install # will run `yarn install` command
+    - name: rebuild
+      run: npm rebuild
     - name: Test
       run: yarn test
