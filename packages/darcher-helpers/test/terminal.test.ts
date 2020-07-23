@@ -1,12 +1,11 @@
 import {expect} from "chai";
-import {Command, executeInNewTab} from "../src";
+import {Command, executeInNewTab, Tab, TerminalWindow} from "../src";
 
 describe("terminal Commands", () => {
     it('should append success', function () {
         let cmd = new Command("ls");
         cmd.append("-a");
         expect(cmd.toString()).to.equal("ls -a");
-        executeInNewTab(cmd);
     });
 
     it('should concat success', function () {
@@ -16,3 +15,15 @@ describe("terminal Commands", () => {
         expect(cmd1.concat(cmd2).toString()).to.equal("ls && cd /");
     });
 })
+
+// describe("terminal and tab", () => {
+//     it('should tab work correctly', function () {
+//         let tab = new Tab(new Command("ls"));
+//         tab.open();
+//     });
+//
+//     it('should window work correctly', function () {
+//         let tab = new TerminalWindow(new Tab(new Command("ls")), new Tab(new Command("uname")));
+//         tab.open();
+//     });
+// })
