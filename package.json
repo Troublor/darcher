@@ -10,7 +10,8 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "packages/darcher-examples/**/*"
+    "packages/darcher-examples/*",
+    "packages/darcher-examples/*/*"
   ],
   "scripts": {
     "build:config": "yarn workspace @darcher/config build",
