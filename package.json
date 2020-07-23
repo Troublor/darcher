@@ -9,7 +9,8 @@
   "license": "ISC",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/darcher-examples/**/*"
   ],
   "scripts": {
     "build:config": "yarn workspace @darcher/config build",
