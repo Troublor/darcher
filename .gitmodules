@@ -4,3 +4,9 @@
 [submodule "packages/darcher-examples/giveth/feathers-giveth"]
 	path = packages/darcher-examples/giveth/feathers-giveth
 	url = https://github.com/Troublor/feathers-giveth.git
+[submodule "packages/darcher-examples/giveth/giveth-dapp"]
+	path = packages/darcher-examples/giveth/giveth-dapp
+	url = https://github.com/Troublor/giveth-dapp.git
+[submodule "packages/darcher-examples/augurproject/augur"]
+	path = packages/darcher-examples/augurproject/augur
+	url = https://github.com/Troublor/augur.git
