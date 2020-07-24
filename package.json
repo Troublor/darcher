@@ -10,6 +10,7 @@
   "private": true,
   "workspaces": [
     "packages/*",
+    "packages/darcher-examples/*",
     "packages/darcher-examples/*/*"
   ],
   "scripts": {
@@ -25,10 +26,7 @@
     "start:cluster": "ts-node scripts/startUtils.ts",
     "start:config": "ts-node ./scripts/start.ts",
     "reset:config": "ts-node ./scripts/reset.ts",
-    "test": "yarn workspace @darcher/go-ethereum test",
-
-    "//": "The following scripts are for darcher examples, e.g. Augur, Giveth",
-    "start:giveth": "ts-node packages/darcher-examples/giveth/scripts/start.ts"
+    "test": "yarn workspace @darcher/go-ethereum test"
   },
   "dependencies": {
     "get-port": "^5.1.1",
