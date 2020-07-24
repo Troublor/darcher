@@ -7,6 +7,7 @@ option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
 enum Role {
   DOER = 0;
   TALKER = 1;
+  DAPP = 2;
 }
 
 enum Error {
