@@ -1,17 +1,17 @@
-import {Cluster, Config, ControllerOptions, Darcher, DBMonitor, DBOptions} from "@darcher/config";
+import {ClusterConfig, Config, ControllerOptions, DarcherConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
 
 export default <Config>{
-    darcher: <Darcher>{
+    darcher: <DarcherConfig>{
         grpcPort: 1236,
         wsPort: 1237,
     },
-    dbMonitor: <DBMonitor>{
+    dbMonitor: <DBMonitorConfig>{
         db: DBOptions.indexedDB,
         dbName: "friend_database",
         dbAddress: "localhost:63342",
     },
     clusters: [
-        <Cluster>{
+        <ClusterConfig>{
             ethmonitorPort: 8989,
             controller: ControllerOptions.console,
             genesisFile: "/Users/troublor/workspace/dArcher/augur/blockchain/v1/genesis.json",

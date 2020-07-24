@@ -54,6 +54,51 @@ export class Command {
     }
 }
 
+export class Tab {
+    // whether to open a new window
+    public w: boolean
+    // the command to be executed in this tab
+    public cmd: Command;
+    // working directory of this tab
+    public pwd: string;
+    // tab title
+    public title: string
+
+    constructor(cmd?: Command, w: boolean = false, pwd: string = undefined, title: string = undefined) {
+        this.cmd = cmd;
+        this.w = w;
+        this.pwd = pwd;
+        this.title = title
+    }
+
+    public open() {
+        executeInNewTab(this.cmd, this.w, this.pwd, this.title);
+    }
+}
+
+export class TerminalWindow {
+    private tabs: Tab[];
+
+    constructor(...tabs: Tab[]) {
+        this.tabs = [...tabs];
+    }
+
+    public addTabs(...tabs: Tab[]) {
+        this.tabs.push(...tabs);
+    }
+
+    // open the terminal window
+    public open() {
+        let first = true;
+        // only open the first tab in new window
+        for (let tab of this.tabs) {
+            tab.w = first;
+            tab.open();
+            first = false;
+        }
+    }
+}
+
 /**
  * Execute the given command at a new terminal tab
  * @param cmd the command to be executed
