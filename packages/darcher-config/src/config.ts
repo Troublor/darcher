@@ -5,7 +5,7 @@ export enum ControllerOptions {
     deploy = "deploy",
 }
 
-export interface Cluster {
+export interface ClusterConfig {
     ethmonitorPort: number
     controller: ControllerOptions
     genesisFile: string
@@ -18,7 +18,7 @@ export interface Cluster {
     extra?: string
 }
 
-export interface Darcher {
+export interface DarcherConfig {
     grpcPort: number,
     wsPort: number,
 }
@@ -28,16 +28,16 @@ export enum DBOptions {
     mongoDB = "mongoDB",
 }
 
-export interface DBMonitor {
+export interface DBMonitorConfig {
     db: DBOptions
     dbName: string
     dbAddress: string
 }
 
 export interface Config {
-    darcher: Darcher
-    clusters: Cluster[]
-    dbMonitor: DBMonitor
+    darcher: DarcherConfig
+    clusters: ClusterConfig[]
+    dbMonitor: DBMonitorConfig
 }
 
 const config = {
@@ -52,7 +52,7 @@ const config = {
         "dbName": "friend_database",
     },
     "clusters": [
-        <Cluster>{
+        <ClusterConfig>{
             ethmonitorPort: 8989,
             controller: ControllerOptions.console,
             genesisFile: "/Users/troublor/workspace/dArcher/augur/blockchain/v1/genesis.json",
