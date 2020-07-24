@@ -8,11 +8,15 @@
   "author": "Troublor",
   "license": "ISC",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "packages/darcher-examples/*",
-    "packages/darcher-examples/*/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "packages/darcher-examples/*"
+    ],
+    "nohoist": [
+      "packages/darcher-examples/*/*"
+    ]
+  },
   "scripts": {
     "build:config": "yarn workspace @darcher/config build",
     "build:proto": "yarn workspace @darcher/rpc build",
