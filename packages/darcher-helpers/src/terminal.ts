@@ -64,7 +64,7 @@ export class Tab {
     // tab title
     public title: string
 
-    constructor(cmd: Command, w: boolean = false, pwd: string = undefined, title: string = undefined) {
+    constructor(cmd?: Command, w: boolean = false, pwd: string = undefined, title: string = undefined) {
         this.cmd = cmd;
         this.w = w;
         this.pwd = pwd;
