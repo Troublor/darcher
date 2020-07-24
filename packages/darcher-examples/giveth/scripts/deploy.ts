@@ -1,8 +1,8 @@
 import {darcherConfig, foreignClusterConfig, homeClusterConfig} from "./config/giveth.config";
 import {BlockchainCluster, Command} from "@darcher/helpers";
-import * as shell from "shelljs";
 import {ControllerOptions} from "@darcher/config";
 import * as child_process from "child_process";
+import * as path from "path";
 
 async function deployContracts() {
     // reset clusters
@@ -19,7 +19,8 @@ async function deployContracts() {
     setTimeout(() => {
         // deploy, since shelljs does not support interactive terminal input (stdin),
         // we use native child_process to deploy (since the deploy-local script requires command line input)
-        child_process.execFileSync("yarn", ["workspace", "feathers-giveth", "deploy-local"], {stdio: 'inherit'});
+        child_process.execFileSync("yarn", ["deploy-local"],
+            {stdio: 'inherit', cwd: path.join(__dirname, "..", "feathers-giveth")});
     }, 1000);
 }
 
