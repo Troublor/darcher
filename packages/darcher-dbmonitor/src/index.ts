@@ -12,9 +12,9 @@ export default class DBMonitor {
     private adapter: Adapter;
     private client: Client;
 
-    constructor(config: Config) {
+    constructor(logger: Logger, config: Config) {
         this.config = config;
-        this.logger = new Logger("dbmonitor")
+        this.logger = logger;
     }
 
     public async start() {
