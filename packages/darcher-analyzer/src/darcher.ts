@@ -4,11 +4,12 @@
 import {DarcherController, DarcherServer} from "./service";
 import {SelectTxControlMsg, TxReceivedMsg} from "@darcher/rpc";
 import {Analyzer} from "./analyzer";
-import {logger} from "./common";
 import {Config} from "@darcher/config";
+import {Logger} from "@darcher/helpers";
 
 export class Darcher {
     private readonly config: Config;
+    private readonly logger: Logger;
 
     private readonly server: DarcherServer;
 
@@ -16,8 +17,9 @@ export class Darcher {
 
     private readonly darcherController: DarcherController;
 
-    constructor(config: Config) {
+    constructor(logger: Logger, config: Config) {
         this.config = config;
+        this.logger = logger;
         this.server = new DarcherServer(config.analyzer.grpcPort, config.analyzer.wsPort);
         this.analyzers = {};
         this.darcherController = <DarcherController>{
@@ -33,9 +35,9 @@ export class Darcher {
 
     /* darcher controller handlers start */
     private async onTxReceived(msg: TxReceivedMsg): Promise<void> {
-        logger.info("Tx received", "tx", msg.getHash());
+        this.logger.info("Tx received", "tx", msg.getHash());
         // new tx, initialize analyzer for it
-        let analyzer = new Analyzer(this.config, msg.getHash(), this.server.dbMonitorService);
+        let analyzer = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService);
         // register analyzer's handlers
         this.analyzers[msg.getHash()] = analyzer;
         this.darcherController.onTxTraverseStart = analyzer.onTxTraverseStart.bind(analyzer);

@@ -10,8 +10,8 @@ import {
     TxTraverseStartMsg
 } from "@darcher/rpc";
 import {TxState} from "@darcher/rpc";
-import {logger} from "../common";
 import {Empty} from "google-protobuf/google/protobuf/empty_pb";
+import {Logger} from "@darcher/helpers";
 
 export interface DarcherController {
     onTxStateChange: (msg: TxStateChangeMsg) => Promise<void>;
@@ -23,10 +23,12 @@ export interface DarcherController {
 }
 
 export class DarcherControllerService implements IDarcherControllerServiceServer {
+    private readonly logger: Logger;
     private _handler: DarcherController = undefined;
 
-    constructor() {
-        logger.info("DarcherControllerService started");
+    constructor(logger: Logger) {
+        this.logger = logger;
+        this.logger.info("DarcherControllerService started");
     }
 
     get handler(): DarcherController {

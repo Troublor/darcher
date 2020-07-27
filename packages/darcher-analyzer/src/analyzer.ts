@@ -10,6 +10,7 @@ import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {DBMonitorService} from "./service/dbmonitorService";
 import {Config} from "@darcher/config";
+import {Logger} from "@darcher/helpers";
 
 /**
  * Extend TxState to introduce logical tx state (reverted, re-executed)
@@ -56,6 +57,7 @@ export function toTxState(ls: LogicalTxState): TxState {
  */
 export class Analyzer {
     private readonly config: Config;
+    private readonly logger: Logger;
     private txHash: string;
     private txState: LogicalTxState;
 
@@ -64,8 +66,9 @@ export class Analyzer {
     private stateChangeWaiting: Promise<LogicalTxState>;
     private stateEmitter: EventEmitter
 
-    constructor(config: Config, txHash: string, dbmonitorService: DBMonitorService) {
+    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DBMonitorService) {
         this.config = config;
+        this.logger = logger;
         this.txHash = txHash;
         this.dbMonitorService = dbmonitorService;
         this.txState = LogicalTxState.CREATED;
@@ -75,7 +78,7 @@ export class Analyzer {
 
     /* darcher controller handlers start */
     public async onTxStateChange(msg: TxStateChangeMsg): Promise<void> {
-        logger.info("Tx state changed", "from", $enum(TxState).getKeyOrThrow(msg.getFrom()), "to", $enum(TxState).getKeyOrThrow(msg.getTo()));
+        this.logger.info("Tx state changed", "from", $enum(TxState).getKeyOrThrow(msg.getFrom()), "to", $enum(TxState).getKeyOrThrow(msg.getTo()));
         if (msg.getFrom() === TxState.EXECUTED &&
             msg.getTo() === TxState.PENDING &&
             this.txState === LogicalTxState.EXECUTED) {
@@ -87,12 +90,12 @@ export class Analyzer {
             // re-execute
             this.txState = LogicalTxState.REEXECUTED;
         } else if (!isEqualState(msg.getFrom(), this.txState)) {
-            logger.warn("Tx state inconsistent,", "expect", $enum(LogicalTxState).getKeyOrThrow(this.txState), "got", $enum(TxState).getKeyOrThrow(msg.getFrom()));
+            this.logger.warn("Tx state inconsistent,", "expect", $enum(LogicalTxState).getKeyOrThrow(this.txState), "got", $enum(TxState).getKeyOrThrow(msg.getFrom()));
             this.txState = <LogicalTxState>(msg.getTo() as number);
         } else {
             this.txState = <LogicalTxState>(msg.getTo() as number);
         }
-        logger.info("Wait for 10000 ms")
+        this.logger.info("Wait for 10000 ms")
         await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
         setTimeout(async () => {
             try {
@@ -107,18 +110,18 @@ export class Analyzer {
                     key = iter.next();
                 }
             } catch (e) {
-                logger.error("Get all data error", $enum(rpcError).getKeyOrDefault(e, e));
+                this.logger.error("Get all data error", $enum(rpcError).getKeyOrDefault(e, e));
             }
             this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
         }, 10000);
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
-        logger.info("Tx traverse started", "tx", prettifyHash(msg.getHash()));
+        this.logger.info("Tx traverse started", "tx", prettifyHash(msg.getHash()));
     }
 
     public async onTxFinished(msg: TxFinishedMsg): Promise<void> {
-        logger.info("Tx traverse finished", "tx", prettifyHash(msg.getHash()));
+        this.logger.info("Tx traverse finished", "tx", prettifyHash(msg.getHash()));
     }
 
     public async askForNextState(msg: TxStateControlMsg): Promise<TxState> {
