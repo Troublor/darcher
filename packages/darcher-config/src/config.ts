@@ -18,7 +18,7 @@ export interface ClusterConfig {
     extra?: string
 }
 
-export interface DarcherConfig {
+export interface AnalyzerConfig {
     grpcPort: number,
     wsPort: number,
 }
@@ -35,7 +35,7 @@ export interface DBMonitorConfig {
 }
 
 export interface Config {
-    darcher: DarcherConfig
+    analyzer: AnalyzerConfig
     clusters: ClusterConfig[]
     dbMonitor: DBMonitorConfig
 }
