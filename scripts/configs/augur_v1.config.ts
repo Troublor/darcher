@@ -1,7 +1,7 @@
-import {ClusterConfig, Config, ControllerOptions, DarcherConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
+import {ClusterConfig, Config, ControllerOptions, AnalyzerConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
 
 export default <Config>{
-    darcher: <DarcherConfig>{
+    analyzer: <AnalyzerConfig>{
         grpcPort: 1236,
         wsPort: 1237,
     },

@@ -1,4 +1,4 @@
-import {ClusterConfig, ControllerOptions, DarcherConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
+import {ClusterConfig, ControllerOptions, AnalyzerConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
 
 export const homeClusterConfig = <ClusterConfig>{
     ethmonitorPort: 8989,
@@ -32,7 +32,7 @@ export const dbMonitorConfig = <DBMonitorConfig>{
     dbAddress: "localhost:63342",
 };
 
-export const darcherConfig = <DarcherConfig>{
+export const darcherConfig = <AnalyzerConfig>{
     grpcPort: 1236,
     wsPort: 1237,
 };

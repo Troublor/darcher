@@ -18,7 +18,7 @@ export class Darcher {
 
     constructor(config: Config) {
         this.config = config;
-        this.server = new DarcherServer(config.darcher.grpcPort, config.darcher.wsPort);
+        this.server = new DarcherServer(config.analyzer.grpcPort, config.analyzer.wsPort);
         this.analyzers = {};
         this.darcherController = <DarcherController>{
             onTxReceived: this.onTxReceived.bind(this),

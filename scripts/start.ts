@@ -18,17 +18,17 @@ import(path.join(__dirname, "configs", `${configName}`)).then((m) => {
     let config = m.default as Config;
     if (config.clusters.some(cluster => cluster.controller === ControllerOptions.darcher)) {
         // start darcher
-        startDarcher(config.darcher, config.dbMonitor, configName);
+        startDarcher(config.analyzer, config.dbMonitor, configName);
     }
 
     // start blockchain clusters
     for (let cluster of config.clusters) {
-        startCluster(config.darcher, cluster);
+        startCluster(config.analyzer, cluster);
     }
 
     if (config.clusters.some(cluster => cluster.controller === ControllerOptions.darcher)) {
         // start dbmonitor
-        startDBMonitor(config.darcher, config.dbMonitor);
+        startDBMonitor(config.analyzer, config.dbMonitor);
     }
 });
 

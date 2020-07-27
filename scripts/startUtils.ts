@@ -1,4 +1,4 @@
-import config, {ClusterConfig, DarcherConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
+import config, {ClusterConfig, AnalyzerConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
 import * as shell from "shelljs";
 import * as path from "path";
 import * as getPort from "get-port";
@@ -60,7 +60,7 @@ export function resetCluster(cluster: ClusterConfig): boolean {
     shell.exec(gethCmd);
 }
 
-export function startCluster(darcher: DarcherConfig, cluster: ClusterConfig) {
+export function startCluster(darcher: AnalyzerConfig, cluster: ClusterConfig) {
     if (!testAndMakeDir(cluster.dir)) {
         console.error(`mkdir ${cluster.dir} failed`);
         return false;
@@ -128,14 +128,14 @@ export function startCluster(darcher: DarcherConfig, cluster: ClusterConfig) {
     }, 1000);
 }
 
-export function startDarcher(darcher: DarcherConfig, dbMonitor: DBMonitorConfig, configFile: string) {
+export function startDarcher(darcher: AnalyzerConfig, dbMonitor: DBMonitorConfig, configFile: string) {
     let seg = [`yarn workspace @darcher/analyzer start:darcher`];
     seg.push(path.join(__dirname, 'configs', configFile));
     let cmd = seg.join(" ");
     shell.exec(`ttab -a iTerm2 -t Darcher ${cmd}`);
 }
 
-export function startDBMonitor(darcher: DarcherConfig, dbMonitor: DBMonitorConfig) {
+export function startDBMonitor(darcher: AnalyzerConfig, dbMonitor: DBMonitorConfig) {
     if (dbMonitor.db === DBOptions.indexedDB) {
         // start dbmonitor-browser
         let seg = [`yarn workspace @darcher/dbmonitor-browser watch`];
