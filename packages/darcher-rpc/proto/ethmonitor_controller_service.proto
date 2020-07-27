@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 
 option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
 
-service DarcherControllerService {
+service EthmonitorControllerService {
   rpc notifyTxReceived(TxReceivedMsg) returns (google.protobuf.Empty) {}
   rpc notifyTxFinished(TxFinishedMsg) returns (google.protobuf.Empty) {}
   rpc notifyTxTraverseStart(TxTraverseStartMsg) returns (google.protobuf.Empty) {}

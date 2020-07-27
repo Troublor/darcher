@@ -59,7 +59,7 @@ GOLANG_COMPILE_FILES=(
   "blockchain_status_service.proto"
   "p2p_network_service.proto"
   "mining_service.proto"
-  "darcher_controller_service.proto"
+  "ethmonitor_controller_service.proto"
   "contract_oracle_service.proto"
 )
 compile_golang ${GOLANG_OUTPUT_DIR} ${GOLANG_COMPILE_FILES[@]}
@@ -68,7 +68,7 @@ compile_golang ${GOLANG_OUTPUT_DIR} ${GOLANG_COMPILE_FILES[@]}
 TS_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-rpc/src
 TS_COMPILE_FILES=(
   "common.proto"
-  "darcher_controller_service.proto"
+  "ethmonitor_controller_service.proto"
   "dbmonitor_service.proto"
   "contract_oracle_service.proto"
 )
