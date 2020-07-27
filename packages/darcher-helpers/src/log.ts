@@ -11,20 +11,20 @@ export class Logger {
         this.logger.level = "debug";
     }
 
-    public info(msg: string) {
-        this.logger.info(`[${module}] ${msg}`);
+    public info(msg: string, args: any[]) {
+        this.logger.info(`[${module}] ${msg}`, ...args);
     }
 
-    public debug(msg: string) {
-        this.logger.debug(`[${module}] ${msg}`);
+    public debug(msg: string, args: any[]) {
+        this.logger.debug(`[${module}] ${msg}`, ...args);
     }
 
-    public warn(msg: string) {
-        this.logger.warn(`[${module}] ${msg}`);
+    public warn(msg: string, args: any[]) {
+        this.logger.warn(`[${module}] ${msg}`, ...args);
     }
 
-    public error(msg: string) {
-        this.logger.error(`[${module}] ${msg}`);
+    public error(msg: string, args: any[]) {
+        this.logger.error(`[${module}] ${msg}`, ...args);
     }
 }
 
