@@ -102,6 +102,46 @@ export namespace DBContent {
     }
 }
 
+export class GetAllDataControlMsg extends jspb.Message { 
+    getRole(): common_pb.Role;
+    setRole(value: common_pb.Role): GetAllDataControlMsg;
+
+    getId(): string;
+    setId(value: string): GetAllDataControlMsg;
+
+    getDbAddress(): string;
+    setDbAddress(value: string): GetAllDataControlMsg;
+
+    getDbName(): string;
+    setDbName(value: string): GetAllDataControlMsg;
+
+
+    hasContent(): boolean;
+    clearContent(): void;
+    getContent(): DBContent | undefined;
+    setContent(value?: DBContent): GetAllDataControlMsg;
+
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): GetAllDataControlMsg.AsObject;
+    static toObject(includeInstance: boolean, msg: GetAllDataControlMsg): GetAllDataControlMsg.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: GetAllDataControlMsg, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetAllDataControlMsg;
+    static deserializeBinaryFromReader(message: GetAllDataControlMsg, reader: jspb.BinaryReader): GetAllDataControlMsg;
+}
+
+export namespace GetAllDataControlMsg {
+    export type AsObject = {
+        role: common_pb.Role,
+        id: string,
+        dbAddress: string,
+        dbName: string,
+        content?: DBContent.AsObject,
+    }
+}
+
 export enum RequestType {
     GET_ALL_DATA = 0,
     REFRESH_PAGE = 1,

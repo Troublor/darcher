@@ -5,7 +5,7 @@ package darcher;
 import "common.proto";
 
 service DBMonitorService {
-  rpc getAllDataControl(stream ControlMsg) returns (stream ControlMsg);
+  rpc getAllDataControl(stream GetAllDataControlMsg) returns (stream GetAllDataControlMsg);
 }
 
 enum RequestType {
@@ -30,3 +30,12 @@ message TableContent {
 message DBContent {
   map<string, TableContent> tables = 1;
 }
+
+message GetAllDataControlMsg {
+  Role role = 1;
+  string id = 2;
+  string db_address = 3;
+  string db_name = 4;
+  DBContent content = 5;
+}
+

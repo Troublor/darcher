@@ -10,6 +10,7 @@ export enum Role {
     DOER = 0,
     TALKER = 1,
     DAPP = 2,
+    DBMONITOR = 3,
 }
 
 export enum Error {

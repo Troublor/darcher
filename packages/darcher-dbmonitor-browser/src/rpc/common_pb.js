@@ -21,7 +21,8 @@ goog.exportSymbol('proto.darcher.TxState', null, global);
 proto.darcher.Role = {
   DOER: 0,
   TALKER: 1,
-  DAPP: 2
+  DAPP: 2,
+  DBMONITOR: 3
 };
 
 /**
