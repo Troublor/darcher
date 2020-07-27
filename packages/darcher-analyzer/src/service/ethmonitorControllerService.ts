@@ -1,4 +1,4 @@
-import {IDarcherControllerServiceServer} from "@darcher/rpc";
+import {IEthmonitorControllerServiceServer} from "@darcher/rpc";
 import {sendUnaryData, ServerUnaryCall} from "grpc";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 import {
@@ -13,7 +13,7 @@ import {TxState} from "@darcher/rpc";
 import {Empty} from "google-protobuf/google/protobuf/empty_pb";
 import {Logger} from "@darcher/helpers";
 
-export interface DarcherController {
+export interface EthmonitorController {
     onTxStateChange: (msg: TxStateChangeMsg) => Promise<void>;
     askForNextState: (msg: TxStateControlMsg) => Promise<TxState>;
     onTxReceived: (msg: TxReceivedMsg) => Promise<void>;
@@ -22,20 +22,20 @@ export interface DarcherController {
     selectTxToTraverse: (msg: SelectTxControlMsg) => Promise<string>;
 }
 
-export class DarcherControllerService implements IDarcherControllerServiceServer {
+export class EthmonitorControllerService implements IEthmonitorControllerServiceServer {
     private readonly logger: Logger;
-    private _handler: DarcherController = undefined;
+    private _handler: EthmonitorController = undefined;
 
     constructor(logger: Logger) {
         this.logger = logger;
         this.logger.info("DarcherControllerService started");
     }
 
-    get handler(): DarcherController {
+    get handler(): EthmonitorController {
         return this._handler;
     }
 
-    set handler(value: DarcherController) {
+    set handler(value: EthmonitorController) {
         this._handler = value;
     }
 
