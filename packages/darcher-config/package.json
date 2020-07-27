@@ -7,6 +7,7 @@
   "author": "Troublor",
   "license": "ISC",
   "main": "src",
+  "types": "src",
   "scripts": {
     "build": "tsc"
   },
