@@ -1,14 +1,15 @@
 import * as WebSocket from "ws";
 import http from "http";
-import {getUUID, Logger} from "@darcher/helpers";
-import {ControlMsg, DBContent, RequestType} from "@darcher/rpc"
+import {getUUID, Logger, PromiseKit, ReverseRPCClient} from "@darcher/helpers";
+import {ControlMsg, DBContent, GetAllDataControlMsg, IDBMonitorServiceServer, RequestType} from "@darcher/rpc"
 import {Error as rpcError} from "@darcher/rpc";
+import {ServerDuplexStream} from "grpc";
 
 /**
  * DB monitor service, to get database data from dapp
  * Since grpc does not support bidirectional stream in browser, we use websocket as transport to simulate bidirectional stream
  */
-export class DBMonitorService {
+export class DBMonitorServiceViaWebsocket {
     private readonly logger: Logger;
     private readonly port: number;
     private wss: WebSocket.Server;
@@ -16,18 +17,30 @@ export class DBMonitorService {
     // connection with dbmonitor
     private conn: WebSocket;
     // reverse rpc pending calls
-    private readonly pendingCalls: { [id: string]: [Function, Function] }; // map from call id to promise resolve/reject functions
+    private readonly pendingCalls: { [id: string]: PromiseKit<any> }; // map from call id to promise resolve/reject functions
 
-    constructor(logger: Logger,port: number) {
+    constructor(logger: Logger, port: number) {
         this.logger = logger;
         this.port = port;
         this.pendingCalls = {};
     }
 
-    public start() {
+    public async start(): Promise<void> {
         this.wss = new WebSocket.Server({port: this.port});
         this.wss.on("connection", this.onConnection);
         this.wss.on("error", this.onError);
+    }
+
+    public async shutdown(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.wss.close(err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        })
     }
 
     /* websocket handlers start */
@@ -50,7 +63,7 @@ export class DBMonitorService {
         if (!resp.getId()) {
             return
         }
-        let [resolveFunc, rejectFunc] = this.pendingCalls[resp.getId()];
+        let {resolve: resolveFunc, reject: rejectFunc} = this.pendingCalls[resp.getId()];
         let data = null;
         switch (resp.getType()) {
             case RequestType.GET_ALL_DATA:
@@ -93,7 +106,7 @@ export class DBMonitorService {
         req.setDbName(dbName);
         this.conn.send(req.serializeBinary());
         return new Promise<DBContent>((resolve, reject) => {
-            this.pendingCalls[id] = [resolve, reject];
+            this.pendingCalls[id] = {resolve, reject};
         });
     }
 
@@ -108,7 +121,51 @@ export class DBMonitorService {
         req.setDbAddress(address);
         this.conn.send(req.serializeBinary());
         return new Promise((resolve, reject) => {
-            this.pendingCalls[id] = [resolve, reject];
+            this.pendingCalls[id] = {resolve, reject};
         });
     }
+}
+
+export class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
+    private readonly logger: Logger;
+
+    private readonly getAllDataControlReverseRPC: ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>;
+
+    constructor(logger: Logger) {
+        this.logger = logger;
+        this.getAllDataControlReverseRPC = new ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>();
+    }
+
+    public async waitForRRPCEstablishment(): Promise<void> {
+        await this.getAllDataControlReverseRPC.waitForEstablishment();
+    }
+
+    /**
+     * Establish getAllDataControl reverse rpc
+     * @param call
+     */
+    getAllDataControl(call: ServerDuplexStream<GetAllDataControlMsg, GetAllDataControlMsg>): void {
+        if (this.getAllDataControlReverseRPC.established) {
+            this.logger.warn("getAllDataControlReverseRPC already established, ignore new request");
+            return
+        }
+        // serve the initial call
+        this.logger.info("getAllDataControl reverse RPC connected");
+        this.getAllDataControlReverseRPC.establish(call);
+    }
+
+    /**
+     * Public function to getAllData
+     * @param request
+     */
+    public getAllData(request: GetAllDataControlMsg): Promise<GetAllDataControlMsg> {
+        return new Promise<GetAllDataControlMsg>((resolve, reject) => {
+            if (!this.getAllDataControlReverseRPC) {
+                reject("dbmonitor getAllData service not available");
+                return
+            }
+            this.getAllDataControlReverseRPC.call(request).then(resolve).catch(reject);
+        });
+    }
+
 }

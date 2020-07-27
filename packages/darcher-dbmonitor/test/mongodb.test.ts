@@ -13,13 +13,12 @@ describe("mongodb", () => {
             await mongoClient.close();
         });
     });
-    it('should adapter getAllData work', function () {
+    it('should adapter getAllData work', async function () {
         let adapter = new MongodbAdapter("mongodb://localhost:27017");
-        adapter.connect().then(async adapter => {
-            let dbContent = await adapter.getAllData("giveth");
-            // giveth database should have 10 collections
-            expect(dbContent.getTablesMap().keys()).to.be.lengthOf(10);
-            await adapter.close();
-        })
+        await adapter.connect();
+        let dbContent = await adapter.getAllData("giveth");
+        // giveth database should have 10 collections
+        expect(dbContent.getTablesMap().getLength()).to.be.equal(10);
+        await adapter.close();
     });
 });

@@ -17,7 +17,7 @@ export default class DBMonitor {
         this.logger = logger;
     }
 
-    public async start() {
+    public async start(): Promise<void> {
         let analyzerAddress;
         // connect db adapter
         switch (this.config.dbMonitor.db) {
@@ -29,6 +29,10 @@ export default class DBMonitor {
         // start client
         this.client = new Client(this.logger, analyzerAddress);
         this.client.serveGetAllDataControl(this.getAllDataControlHandler);
+    }
+
+    public shutdown(): Promise<void> {
+        return this.adapter.close()
     }
 
     getAllDataControlHandler: ReverseRPCHandler<GetAllDataControlMsg, GetAllDataControlMsg>

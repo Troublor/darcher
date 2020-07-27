@@ -16,7 +16,7 @@ export class MongodbAdapter implements Adapter {
     async connect(): Promise<Adapter> {
         return new Promise<Adapter>((resolve, reject) => {
             this.mongoClient.connect()
-                .then(() => {
+                .then(async () => {
                     resolve(this);
                 })
                 .catch((e: Error) => {

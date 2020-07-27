@@ -5,3 +5,8 @@ export function getUUID(): string {
     id++;
     return ret;
 }
+
+export type PromiseKit<T> = {
+    resolve: (value?: T | PromiseLike<T>) => void;
+    reject: (reason?: any) => void;
+}

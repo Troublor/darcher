@@ -8,7 +8,7 @@ import {
 import {logger, prettifyHash} from "./common";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
-import {DBMonitorService} from "./service/dbmonitorService";
+import {DBMonitorServiceViaWebsocket} from "./service/dbmonitorService";
 import {Config} from "@darcher/config";
 import {Logger} from "@darcher/helpers";
 
@@ -61,12 +61,12 @@ export class Analyzer {
     private txHash: string;
     private txState: LogicalTxState;
 
-    dbMonitorService: DBMonitorService;
+    dbMonitorService: DBMonitorServiceViaWebsocket;
 
     private stateChangeWaiting: Promise<LogicalTxState>;
     private stateEmitter: EventEmitter
 
-    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DBMonitorService) {
+    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DBMonitorServiceViaWebsocket) {
         this.config = config;
         this.logger = logger;
         this.txHash = txHash;

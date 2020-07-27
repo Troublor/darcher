@@ -3,7 +3,7 @@
  */
 import {DBMonitorServiceClient, GetAllDataControlMsg, Role} from "@darcher/rpc";
 import * as grpc from "grpc";
-import {getUUID, Logger, ReverseRPC, ReverseRPCHandler} from "@darcher/helpers";
+import {getUUID, Logger, ReverseRPCServer, ReverseRPCHandler} from "@darcher/helpers";
 
 
 export class Client {
@@ -14,7 +14,7 @@ export class Client {
     private conn: DBMonitorServiceClient;
 
     // reverse RPCs
-    private getAllDataReverseRPC: ReverseRPC<GetAllDataControlMsg, GetAllDataControlMsg>
+    private getAllDataReverseRPC: ReverseRPCServer<GetAllDataControlMsg, GetAllDataControlMsg>
 
     constructor(logger: Logger, analyzerAddr: string) {
         this.analyzerAddr = analyzerAddr;
@@ -33,7 +33,7 @@ export class Client {
         let stream = this.conn.getAllDataControl(req);
         stream.write(req)
         // initial reverse rpc
-        this.getAllDataReverseRPC = new ReverseRPC<GetAllDataControlMsg, GetAllDataControlMsg>(stream);
+        this.getAllDataReverseRPC = new ReverseRPCServer<GetAllDataControlMsg, GetAllDataControlMsg>(stream);
         this.getAllDataReverseRPC.serve(handler).catch(err => {
             this.logger.error(err.toString());
         });
