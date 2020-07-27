@@ -9,6 +9,7 @@ import * as jspb from "google-protobuf";
 export enum Role {
     DOER = 0,
     TALKER = 1,
+    DAPP = 2,
 }
 
 export enum Error {

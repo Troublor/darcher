@@ -4,6 +4,10 @@ package darcher;
 
 import "common.proto";
 
+service DBMonitorService {
+  rpc getAllDataControl(stream ControlMsg) returns (stream ControlMsg);
+}
+
 enum RequestType {
   GET_ALL_DATA = 0;
   REFRESH_PAGE = 1;
