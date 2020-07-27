@@ -5,10 +5,12 @@
     "url": "https://github.com/Troublor/darcher"
   },
   "main": "src",
+  "types": "src",
   "scripts": {},
   "author": "Troublor",
   "license": "ISC",
   "dependencies": {
+    "grpc": "^1.24.3",
     "mongodb": "^3.5.9"
   },
   "devDependencies": {
