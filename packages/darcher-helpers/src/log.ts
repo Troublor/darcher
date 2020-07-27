@@ -11,19 +11,19 @@ export class Logger {
         this.logger.level = "debug";
     }
 
-    public info(msg: string, args: any[]) {
+    public info(msg: string, ...args: any[]) {
         this.logger.info(`[${module}] ${msg}`, ...args);
     }
 
-    public debug(msg: string, args: any[]) {
+    public debug(msg: string, ...args: any[]) {
         this.logger.debug(`[${module}] ${msg}`, ...args);
     }
 
-    public warn(msg: string, args: any[]) {
+    public warn(msg: string, ...args: any[]) {
         this.logger.warn(`[${module}] ${msg}`, ...args);
     }
 
-    public error(msg: string, args: any[]) {
+    public error(msg: string, ...args: any[]) {
         this.logger.error(`[${module}] ${msg}`, ...args);
     }
 }
