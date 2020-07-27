@@ -25,6 +25,10 @@ export class MongodbAdapter implements Adapter {
         });
     }
 
+    async close(): Promise<void> {
+        return this.mongoClient.close();
+    }
+
     async getAllData(dbName: string): Promise<DBContent> {
         let dbContent = new DBContent();
         const collections = await this.mongoClient.db(dbName).collections();

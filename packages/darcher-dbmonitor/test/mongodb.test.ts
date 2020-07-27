@@ -17,7 +17,9 @@ describe("mongodb", () => {
         let adapter = new MongodbAdapter("mongodb://localhost:27017");
         adapter.connect().then(async adapter => {
             let dbContent = await adapter.getAllData("giveth");
-            console.log(dbContent.toString());
+            // giveth database should have 10 collections
+            expect(dbContent.getTablesMap().keys()).to.be.lengthOf(10);
+            await adapter.close();
         })
     });
 });
