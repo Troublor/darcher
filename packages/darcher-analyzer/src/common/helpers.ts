@@ -54,11 +54,3 @@ export function prettifyHash(hash: string): string {
     }
     return `${hash.substring(startIndex, startIndex + 6)}…${hash.substring(hash.length - 6, hash.length)}`;
 }
-
-let id = 0;
-
-export function getUUID(): string {
-    let ret = id.toString();
-    id++;
-    return ret;
-}
