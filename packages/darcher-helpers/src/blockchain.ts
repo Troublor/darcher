@@ -1,7 +1,7 @@
 import {
     Config,
     ClusterConfig,
-    DarcherConfig,
+    AnalyzerConfig,
     DBMonitorConfig,
     DBOptions
 } from "@darcher/config";
@@ -168,14 +168,14 @@ export class BlockchainCluster {
     }
 }
 
-export function startDarcher(darcher: DarcherConfig, dbMonitor: DBMonitorConfig, configFile: string) {
+export function startDarcher(darcher: AnalyzerConfig, dbMonitor: DBMonitorConfig, configFile: string) {
     let seg = [`yarn workspace @darcher/analyzer start:darcher`];
     seg.push(path.join(__dirname, 'configs', configFile));
     let cmd = seg.join(" ");
     shell.exec(`ttab -a iTerm2 -t Darcher ${cmd}`);
 }
 
-export function startDBMonitor(darcher: DarcherConfig, dbMonitor: DBMonitorConfig) {
+export function startDBMonitor(darcher: AnalyzerConfig, dbMonitor: DBMonitorConfig) {
     if (dbMonitor.db === DBOptions.indexedDB) {
         // start dbmonitor-browser
         let seg = [`yarn workspace @darcher/dbmonitor-browser watch`];

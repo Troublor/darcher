@@ -6,11 +6,14 @@
   },
   "author": "Troublor",
   "main": "src",
+  "types": "src",
   "license": "ISC",
   "scripts": {
     "test": "mocha --require ts-node/register test/**/*.test.ts"
   },
   "dependencies": {
+    "grpc": "^1.24.3",
+    "log4js": "^6.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
