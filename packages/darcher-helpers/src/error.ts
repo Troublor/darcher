@@ -1,4 +1,3 @@
-import {TypeInfo} from "ts-node";
 import * as grpc from "grpc";
 
 export enum DarcherErrorCode {
@@ -6,6 +5,7 @@ export enum DarcherErrorCode {
     ServiceCancelled,
     GRPCRawError,
     Timout,
+    DBAdapterNotLoaded,
 }
 
 export class DarcherError extends Error {
@@ -34,15 +34,23 @@ export class ServiceCancelledError extends DarcherError {
 
 export class GRPCRawError extends DarcherError {
     public readonly grpcError: grpc.ServiceError;
+    public readonly serviceName: string;
 
-    constructor(grpcErr: grpc.ServiceError) {
-        super(DarcherErrorCode.GRPCRawError, grpcErr.message);
+    constructor(serviceName: string = '', grpcErr: grpc.ServiceError) {
+        super(DarcherErrorCode.GRPCRawError, `${serviceName} grpc error: ${grpcErr.message}`);
         this.grpcError = grpcErr;
+        this.serviceName = serviceName;
     }
 }
 
 export class TimeoutError extends DarcherError {
     constructor() {
         super(DarcherErrorCode.Timout, `timeout`);
+    }
+}
+
+export class DBAdapterNotLoaded extends DarcherError {
+    constructor() {
+        super(DarcherErrorCode.DBAdapterNotLoaded, `dbmonitor adapter not loaded`);
     }
 }

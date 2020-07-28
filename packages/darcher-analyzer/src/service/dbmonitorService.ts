@@ -133,7 +133,7 @@ export class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
 
     constructor(logger: Logger) {
         this.logger = logger;
-        this.getAllDataControlReverseRPC = new ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>();
+        this.getAllDataControlReverseRPC = new ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>("getAllData");
     }
 
     public async waitForRRPCEstablishment(): Promise<void> {
@@ -164,10 +164,6 @@ export class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
      */
     public getAllData(request: GetAllDataControlMsg): Promise<GetAllDataControlMsg> {
         return new Promise<GetAllDataControlMsg>((resolve, reject) => {
-            if (!this.getAllDataControlReverseRPC) {
-                reject("dbmonitor getAllData service not available");
-                return
-            }
             this.getAllDataControlReverseRPC.call(request).then(resolve).catch(reject);
         });
     }
