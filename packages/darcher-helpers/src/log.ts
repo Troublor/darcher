@@ -1,11 +1,14 @@
 import * as log4js from "log4js";
+import {DarcherError} from "./error";
+import {EventEmitter} from "events";
 
-export class Logger {
+export class Logger extends EventEmitter {
 
     private logger: log4js.Logger;
     private module: string;
 
     constructor(module?: string) {
+        super();
         this.module = module;
         this.logger = log4js.getLogger();
     }
@@ -30,8 +33,9 @@ export class Logger {
         this.logger.warn(`[${module}] ${msg}`, ...args);
     }
 
-    public error(msg: string, ...args: any[]) {
-        this.logger.error(`[${module}] ${msg}`, ...args);
+    public error(e: DarcherError) {
+        this.emit("error", e);
+        this.logger.error(`[${module}] ${e.message}`);
     }
 }
 
