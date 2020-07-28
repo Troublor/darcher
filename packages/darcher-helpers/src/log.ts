@@ -41,7 +41,7 @@ export class Logger extends EventEmitter {
     }
 
     public error(e: DarcherError) {
-        this.emit("error", e.code);
+        this.emit("error", e);
         this.logger.error(`[${this._module}] [${$enum(DarcherErrorCode).getKeyOrDefault(e.code, "Unknown")}] ${e.message}`);
     }
 }
