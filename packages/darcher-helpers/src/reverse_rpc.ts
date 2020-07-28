@@ -3,6 +3,7 @@ import * as grpc from "grpc";
 import {status} from "grpc";
 import {EventEmitter} from "events";
 import {PromiseKit} from "./utility";
+import {DarcherError, GRPCRawError, ServiceCancelledError, ServiceNotAvailableError} from "./error";
 
 export type ReverseRPCHandler<ReqT, RespT> = (req: ReqT) => Promise<RespT>;
 
@@ -35,10 +36,11 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
             this.stream.on("error", (e: grpc.ServiceError) => {
                 switch (e.code) {
                     case status.CANCELLED:
-                        resolve();
+                        reject(new ServiceCancelledError());
                         break;
                     default:
-                        reject(e);
+                        reject(new GRPCRawError(e));
+                        break;
                 }
             });
             this.stream.on("close", resolve);
@@ -66,7 +68,7 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
 export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifiable> {
 
     private stream: grpc.ServerDuplexStream<ReqT, RespT>;
-    private readonly pendingCalls: { [id: string]: PromiseKit<RespT> };
+    private pendingCalls: { [id: string]: PromiseKit<RespT> };
     private emitter: EventEmitter;
     private _established: boolean;
 
@@ -85,6 +87,7 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
         this._established = true;
         this.stream = stream;
         this.stream.on("data", this.onData);
+        this.stream.on("error", this.onError);
     }
 
     public waitForEstablishment(): Promise<void> {
@@ -96,6 +99,24 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
             }
         })
     }
+
+    private onError = (e: grpc.ServiceError) => {
+        let err: DarcherError;
+        switch (e.code) {
+            case status.CANCELLED:
+                err = new ServiceCancelledError();
+                break;
+            default:
+                err = new GRPCRawError(e);
+                break;
+        }
+        for (let id in this.pendingCalls) {
+            let {reject} = this.pendingCalls[id];
+            reject(err);
+            this.pendingCalls = undefined;
+            this._established = false;
+        }
+    };
 
     private onData = (data: RespT) => {
         if (data.getId() in this.pendingCalls) {
@@ -110,6 +131,10 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
      */
     public async call(request: ReqT): Promise<RespT> {
         return new Promise<RespT>((resolve, reject) => {
+            if (!this.established) {
+                reject(new ServiceNotAvailableError());
+                return;
+            }
             this.pendingCalls[request.getId()] = {resolve, reject};
             this.stream.write(request);
         });
