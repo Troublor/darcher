@@ -23,23 +23,21 @@ logger.level = "off";
 let darcherServer: DarcherServer;
 let dbmonitor: DBMonitor;
 describe("connection with dbmonitor", async () => {
-
-    const before = async () => {
+    before(async () => {
         darcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
         dbmonitor = new DBMonitor(logger, config);
         await darcherServer.start();
         await dbmonitor.start();
         await darcherServer.waitForRRPCEstablishment();
-    };
+    });
 
 
-    const after = async () => {
+    after(async () => {
         await dbmonitor.shutdown();
         await darcherServer.shutdown();
-    };
+    });
 
     it('should successfully getAllData', async () => {
-        await before();
         let req = new GetAllDataControlMsg();
         req.setRole(Role.DBMONITOR)
             .setId(getUUID())
@@ -47,7 +45,6 @@ describe("connection with dbmonitor", async () => {
             .setDbName(config.dbMonitor.dbName);
         let resp = await darcherServer.dbMonitorServiceViaGRPC.getAllData(req);
         expect(resp.getContent().getTablesMap().getLength()).to.be.equal(10);
-        await after();
     });
 
 });
