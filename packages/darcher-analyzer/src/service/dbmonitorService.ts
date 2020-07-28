@@ -1,6 +1,6 @@
 import * as WebSocket from "ws";
 import http from "http";
-import {getUUID, Logger, PromiseKit, ReverseRPCClient} from "@darcher/helpers";
+import {getUUID, Logger, PromiseKit, ReverseRPCClient, WebsocketError} from "@darcher/helpers";
 import {ControlMsg, DBContent, GetAllDataControlMsg, IDBMonitorServiceServer, RequestType} from "@darcher/rpc"
 import {Error as rpcError} from "@darcher/rpc";
 import {ServerDuplexStream} from "grpc";
@@ -85,7 +85,7 @@ export class DBMonitorServiceViaWebsocket {
     }
 
     private onError = (error: Error) => {
-        this.logger.error("Websocket error", error);
+        this.logger.error(new WebsocketError(error));
     }
 
     /* websocket handlers end */
