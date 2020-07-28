@@ -18,8 +18,9 @@ import {
     RequestType, Role
 } from "@darcher/rpc"
 import {ServerDuplexStream} from "grpc";
+import {Service} from "@darcher/helpers";
 
-export class DbMonitorService {
+export class DbMonitorService implements Service {
     private readonly logger: Logger;
     private readonly wsPort: number; // grpc port is not needed because grpc is opened upstream
 
@@ -43,7 +44,7 @@ export class DbMonitorService {
     }
 
     public async waitForEstablishment(): Promise<void> {
-        await this.grpcTransport.waitForRRPCEstablishment();
+        await this.grpcTransport.waitForEstablishment();
     }
 
     public async getAllData(dbAddress: string, dbName: string): Promise<DBContent> {
@@ -71,7 +72,7 @@ export class DbMonitorService {
  * DB monitor service, to get database data from dapp
  * Since grpc does not support bidirectional stream in browser, we use websocket as transport to simulate bidirectional stream
  */
-class DBMonitorServiceViaWebsocket {
+class DBMonitorServiceViaWebsocket implements Service {
     private readonly logger: Logger;
     private readonly port: number;
     private wss: WebSocket.Server;
@@ -103,6 +104,10 @@ class DBMonitorServiceViaWebsocket {
                 }
             });
         })
+    }
+
+    waitForEstablishment(): Promise<void> {
+        return Promise.resolve();
     }
 
     /* websocket handlers start */
@@ -188,7 +193,7 @@ class DBMonitorServiceViaWebsocket {
     }
 }
 
-class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
+class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer, Service {
     private readonly logger: Logger;
 
     private readonly getAllDataControlReverseRPC: ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>;
@@ -198,7 +203,11 @@ class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
         this.getAllDataControlReverseRPC = new ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>("getAllData");
     }
 
-    public async waitForRRPCEstablishment(): Promise<void> {
+    start(): Promise<void> {
+        return Promise.resolve();
+    }
+
+    public async waitForEstablishment(): Promise<void> {
         await this.getAllDataControlReverseRPC.waitForEstablishment();
     }
 

@@ -5,12 +5,12 @@ import {
 } from "@darcher/rpc";
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
-import {Logger} from "@darcher/helpers";
+import {Logger, Service} from "@darcher/helpers";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
  */
-export class DarcherServer extends Server {
+export class DarcherServer extends Server implements Service {
     private readonly logger: Logger;
     private readonly grpcPort: number;
     private readonly websocketPort: number;
@@ -44,7 +44,7 @@ export class DarcherServer extends Server {
         super.start();
     }
 
-    public async waitForRRPCEstablishment(): Promise<void> {
+    public async waitForEstablishment(): Promise<void> {
         return new Promise(resolve => {
             // resolve if one of the dbmonitor service is
             this.dbMonitorService.waitForEstablishment().then(resolve);

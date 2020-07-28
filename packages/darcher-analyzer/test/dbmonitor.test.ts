@@ -29,7 +29,7 @@ describe("dbmonitor service", async () => {
         dbmonitor = new DBMonitor(logger, config);
         await darcherServer.start();
         await dbmonitor.start();
-        await darcherServer.waitForRRPCEstablishment();
+        await darcherServer.waitForEstablishment();
     });
 
 
