@@ -38,4 +38,8 @@ export class Client {
             this.logger.error(err.toString());
         });
     }
+
+    public async shutdown(): Promise<void> {
+        await this.getAllDataReverseRPC.close();
+    }
 }

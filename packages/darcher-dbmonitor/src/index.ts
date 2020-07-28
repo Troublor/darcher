@@ -31,8 +31,9 @@ export default class DBMonitor {
         this.client.serveGetAllDataControl(this.getAllDataControlHandler);
     }
 
-    public shutdown(): Promise<void> {
-        return this.adapter.close()
+    public async shutdown(): Promise<void> {
+        await this.client.shutdown();
+        await this.adapter.close();
     }
 
     getAllDataControlHandler: ReverseRPCHandler<GetAllDataControlMsg, GetAllDataControlMsg>

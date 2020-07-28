@@ -44,7 +44,7 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
     /**
      * close the reverse rpc service
      */
-    public close() {
+    public async close(): Promise<void> {
         this.stream.cancel();
     }
 }
@@ -99,5 +99,9 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
             });
             this.stream.write(request);
         });
+    }
+
+    public async close(): Promise<void> {
+        return Promise.resolve();
     }
 }

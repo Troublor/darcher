@@ -52,9 +52,9 @@ export class DarcherServer extends Server {
 
     public async shutdown(): Promise<void> {
         return new Promise(async resolve => {
-            this.forceShutdown();
+            await this.dbMonitorServiceViaGRPC.shutdown();
             await this.dbMonitorServiceViaWebsocket.shutdown();
-            resolve();
+            this.tryShutdown(resolve)
         });
     }
 

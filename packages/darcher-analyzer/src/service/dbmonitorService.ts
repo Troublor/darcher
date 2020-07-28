@@ -140,6 +140,10 @@ export class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
         await this.getAllDataControlReverseRPC.waitForEstablishment();
     }
 
+    public async shutdown(): Promise<void> {
+        await this.getAllDataControlReverseRPC.close();
+    }
+
     /**
      * Establish getAllDataControl reverse rpc
      * @param call
