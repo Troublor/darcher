@@ -19,6 +19,7 @@ import {
 } from "@darcher/rpc"
 import {ServerDuplexStream} from "grpc";
 import {Service} from "@darcher/helpers";
+import {EventEmitter} from "events";
 
 export class DbMonitorService implements Service {
     private readonly logger: Logger;
@@ -44,7 +45,11 @@ export class DbMonitorService implements Service {
     }
 
     public async waitForEstablishment(): Promise<void> {
-        await this.grpcTransport.waitForEstablishment();
+        return new Promise(resolve => {
+            // resolve when either of the two transport is established
+            this.grpcTransport.waitForEstablishment().then(resolve);
+            this.wsTransport.waitForEstablishment().then(resolve);
+        });
     }
 
     public async getAllData(dbAddress: string, dbName: string): Promise<DBContent> {
@@ -82,10 +87,13 @@ class DBMonitorServiceViaWebsocket implements Service {
     // reverse rpc pending calls
     private readonly pendingCalls: { [id: string]: PromiseKit<any> }; // map from call id to promise resolve/reject functions
 
+    private emitter: EventEmitter;
+
     constructor(logger: Logger, port: number) {
         this.logger = logger;
         this.port = port;
         this.pendingCalls = {};
+        this.emitter = new EventEmitter();
     }
 
     public async start(): Promise<void> {
@@ -107,13 +115,24 @@ class DBMonitorServiceViaWebsocket implements Service {
     }
 
     waitForEstablishment(): Promise<void> {
-        return Promise.resolve();
+        return new Promise<void>(resolve => {
+            this.emitter.once("establish", resolve);
+            if (this.conn) {
+                this.emitter.removeListener("establish", resolve);
+                resolve();
+            }
+        })
     }
 
     /* websocket handlers start */
     private onConnection = (ws: WebSocket, request: http.IncomingMessage) => {
+        if (this.conn) {
+            this.logger.warn("Websocket connection with dbmonitor already established, ignore new connection");
+            return
+        }
         this.logger.info("Websocket connection with dbmonitor opened");
         this.conn = ws;
+        this.emitter.emit("establish");
         ws.on("message", this.onMessage);
         ws.on("close", () => {
             this.logger.info("Websocket connection with dbmonitor closed")
@@ -234,9 +253,7 @@ class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer, Service {
      * @param request
      */
     public getAllData(request: GetAllDataControlMsg): Promise<GetAllDataControlMsg> {
-        return new Promise<GetAllDataControlMsg>((resolve, reject) => {
-            this.getAllDataControlReverseRPC.call(request).then(resolve).catch(reject);
-        });
+        return this.getAllDataControlReverseRPC.call(request);
     }
 
 }

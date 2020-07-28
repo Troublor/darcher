@@ -6,7 +6,6 @@ import {Client} from "../src/client";
 import {getUUID, Logger, ServiceNotAvailableError, sleep} from "@darcher/helpers";
 import {Config, DBOptions} from "@darcher/config";
 import {DarcherServer} from "@darcher/analyzer/src/service";
-import {GetAllDataControlMsg, Role} from "@darcher/rpc";
 import DBMonitor from "../src";
 
 describe("dbmonitor", () => {
@@ -54,6 +53,7 @@ describe("dbmonitor", () => {
         dbmonitor = new DBMonitor(logger, config);
         await dbmonitor.start()
         await darcherServer.waitForEstablishment()
+        await sleep(200);
         expect(eventSpy.called).to.be.false;
         // try getAllData
         await expect(darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName)).not.to.be.eventually.rejected;

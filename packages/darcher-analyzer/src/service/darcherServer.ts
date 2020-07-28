@@ -25,6 +25,10 @@ export class DarcherServer extends Server implements Service {
         this.websocketPort = websocketPort;
         this._ethmonitorControllerService = new EthmonitorControllerService(this.logger);
         this._dbMonitorService = new DbMonitorService(this.logger, websocketPort);
+        this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
+        this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
+        let addr = `localhost:${this.grpcPort}`;
+        this.bind(addr, ServerCredentials.createInsecure());
     }
 
     /**
@@ -32,29 +36,23 @@ export class DarcherServer extends Server implements Service {
      */
     public async start(): Promise<void> {
         // start websocket services
-        await this._dbMonitorService.start()
+        await this._dbMonitorService.start();
         this.logger.info(`Darcher websocket started at ${this.websocketPort}`);
 
         // start grpc services
-        this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
-        this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
-        let addr = `localhost:${this.grpcPort}`;
-        this.bind(addr, ServerCredentials.createInsecure());
-        this.logger.info(`Darcher grpc server started at ${addr}`);
+        this.logger.info(`Darcher grpc server started at localhost:${this.grpcPort}`);
         super.start();
     }
 
     public async waitForEstablishment(): Promise<void> {
-        return new Promise(resolve => {
-            // resolve if one of the dbmonitor service is
-            this.dbMonitorService.waitForEstablishment().then(resolve);
-        })
+        await this.dbMonitorService.waitForEstablishment();
     }
 
     public async shutdown(): Promise<void> {
         return new Promise(async resolve => {
             await this.dbMonitorService.shutdown();
-            this.tryShutdown(resolve)
+            this.forceShutdown()
+            resolve();
         });
     }
 
