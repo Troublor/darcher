@@ -19,6 +19,7 @@ let config: Config = {
     clusters: [],
 }
 let logger = new Logger("dbmonitor_test");
+logger.level = "off";
 let darcherServer: DarcherServer;
 let dbmonitor: DBMonitor;
 describe("connection with dbmonitor", async () => {

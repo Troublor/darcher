@@ -8,7 +8,14 @@ export class Logger {
     constructor(module?: string) {
         this.module = module;
         this.logger = log4js.getLogger();
-        this.logger.level = "debug";
+    }
+
+    get level(): string {
+        return this.logger.level;
+    }
+
+    set level(lvl: string) {
+        this.logger.level = lvl;
     }
 
     public info(msg: string, ...args: any[]) {
