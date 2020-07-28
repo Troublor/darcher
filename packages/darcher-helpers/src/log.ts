@@ -12,6 +12,9 @@ export class Logger extends EventEmitter {
         super();
         this._module = _module;
         this.logger = log4js.getLogger();
+        // add an empty error listener to prevent error being thrown
+        this.on("error", function () {
+        });
     }
 
     get level(): string {
@@ -35,7 +38,7 @@ export class Logger extends EventEmitter {
     }
 
     public error(e: DarcherError) {
-        this.emit("error", e);
+        this.emit("error", e.code);
         this.logger.error(`[${this._module}] [${$enum(DarcherErrorCode).getKeyOrDefault(e.code, "Unknown")}] ${e.message}`);
     }
 }
