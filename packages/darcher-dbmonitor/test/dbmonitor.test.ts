@@ -3,7 +3,7 @@ import * as chaiAsPromised from "chai-as-promised";
 import {expect} from "chai";
 import * as sinon from "sinon";
 import {Client} from "../src/client";
-import { getUUID, Logger, ServiceNotAvailableError, sleep} from "@darcher/helpers";
+import {getUUID, Logger, ServiceNotAvailableError, sleep} from "@darcher/helpers";
 import {Config, DBOptions} from "@darcher/config";
 import {DarcherServer} from "@darcher/analyzer/src/service";
 import {GetAllDataControlMsg, Role} from "@darcher/rpc";
@@ -56,9 +56,7 @@ describe("dbmonitor", () => {
         await darcherServer.waitForRRPCEstablishment()
         expect(eventSpy.called).to.be.false;
         // try getAllData
-        let req = new GetAllDataControlMsg();
-        req.setRole(Role.DBMONITOR).setId(getUUID()).setDbAddress(config.dbMonitor.dbAddress).setDbName(config.dbMonitor.dbName);
-        await expect(darcherServer.dbMonitorServiceViaGRPC.getAllData(req)).not.to.be.eventually.rejected;
+        await expect(darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName)).not.to.be.eventually.rejected;
         await dbmonitor.shutdown();
         await darcherServer.shutdown();
     });

@@ -1,15 +1,77 @@
 import * as WebSocket from "ws";
 import http from "http";
-import {getUUID, Logger, PromiseKit, ReverseRPCClient, WebsocketError} from "@darcher/helpers";
-import {ControlMsg, DBContent, GetAllDataControlMsg, IDBMonitorServiceServer, RequestType} from "@darcher/rpc"
-import {Error as rpcError} from "@darcher/rpc";
+import {
+    DarcherError,
+    DarcherErrorCode,
+    getUUID,
+    Logger,
+    PromiseKit,
+    ReverseRPCClient, ServiceNotAvailableError,
+    WebsocketError
+} from "@darcher/helpers";
+import {
+    ControlMsg,
+    DBContent,
+    Error as rpcError,
+    GetAllDataControlMsg,
+    IDBMonitorServiceServer,
+    RequestType, Role
+} from "@darcher/rpc"
 import {ServerDuplexStream} from "grpc";
+
+export class DbMonitorService {
+    private readonly logger: Logger;
+    private readonly wsPort: number; // grpc port is not needed because grpc is opened upstream
+
+    public readonly wsTransport: DBMonitorServiceViaWebsocket;
+    public readonly grpcTransport: DBMonitorServiceViaGRPC;
+
+    constructor(logger: Logger, wsPort: number) {
+        this.logger = logger;
+        this.wsPort = wsPort;
+        this.wsTransport = new DBMonitorServiceViaWebsocket(logger, wsPort);
+        this.grpcTransport = new DBMonitorServiceViaGRPC(logger);
+    }
+
+    public async start(): Promise<void> {
+        await this.wsTransport.start();
+    }
+
+    public async shutdown(): Promise<void> {
+        await this.wsTransport.shutdown();
+        await this.grpcTransport.shutdown();
+    }
+
+    public async waitForEstablishment(): Promise<void> {
+        await this.grpcTransport.waitForRRPCEstablishment();
+    }
+
+    public async getAllData(dbAddress: string, dbName: string): Promise<DBContent> {
+        try {
+            return await this.wsTransport.getAllData(dbAddress, dbName);
+        } catch (e) {
+            if (e.code === DarcherErrorCode.ServiceNotAvailable) {
+                // ws transport is not available, try grpc transport, throw any error this time
+                let request = new GetAllDataControlMsg();
+                request.setRole(Role.DBMONITOR).setId(getUUID()).setDbAddress(dbAddress).setDbName(dbName);
+                let resp = await this.grpcTransport.getAllData(request);
+                return resp.getContent();
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    public async refreshPage(dbAddress: string): Promise<void> {
+        return await this.wsTransport.refreshPage(dbAddress);
+    }
+}
 
 /**
  * DB monitor service, to get database data from dapp
  * Since grpc does not support bidirectional stream in browser, we use websocket as transport to simulate bidirectional stream
  */
-export class DBMonitorServiceViaWebsocket {
+class DBMonitorServiceViaWebsocket {
     private readonly logger: Logger;
     private readonly port: number;
     private wss: WebSocket.Server;
@@ -97,7 +159,7 @@ export class DBMonitorServiceViaWebsocket {
     public async getAllData(address: string, dbName: string): Promise<DBContent> {
         let id = getUUID();
         if (!this.conn) {
-            throw new Error("DBMonitorService not available")
+            throw new ServiceNotAvailableError("getAllData");
         }
         let req = new ControlMsg();
         req.setId(id);
@@ -126,7 +188,7 @@ export class DBMonitorServiceViaWebsocket {
     }
 }
 
-export class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
+class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer {
     private readonly logger: Logger;
 
     private readonly getAllDataControlReverseRPC: ReverseRPCClient<GetAllDataControlMsg, GetAllDataControlMsg>;

@@ -34,11 +34,13 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.11",
     "@types/shelljs": "^0.8.6",
+    "@types/sinon": "^9.0.4",
     "chai": "^4.2.0",
     "express": "^4.17.1",
     "mocha": "^8.0.1",
     "nyc": "^15.1.0",
     "shelljs": "^0.8.3",
+    "sinon": "^9.0.2",
     "ts-protoc-gen": "^0.12.0"
   }
 }

@@ -1,28 +1,29 @@
 import {Config, DBOptions} from "@darcher/config";
-import {getUUID, Logger} from "@darcher/helpers";
+import {getUUID, Logger, sleep} from "@darcher/helpers";
 import DBMonitor from "@darcher/dbmonitor";
 import {DarcherServer} from "../src/service";
 import {GetAllDataControlMsg, Role} from "@darcher/rpc";
 import {expect} from "chai";
+import * as sinon from "sinon";
 
+describe("dbmonitor service", async () => {
+    let config: Config = {
+        analyzer: {
+            grpcPort: 1234,
+            wsPort: 1235,
+        },
+        dbMonitor: {
+            db: DBOptions.mongoDB,
+            dbAddress: "mongodb://localhost:27017",
+            dbName: "giveth",
+        },
+        clusters: [],
+    }
+    let logger = new Logger("dbmonitor_test");
+    logger.level = "off";
+    let darcherServer: DarcherServer;
+    let dbmonitor: DBMonitor;
 
-let config: Config = {
-    analyzer: {
-        grpcPort: 1234,
-        wsPort: 1235,
-    },
-    dbMonitor: {
-        db: DBOptions.mongoDB,
-        dbAddress: "mongodb://localhost:27017",
-        dbName: "giveth",
-    },
-    clusters: [],
-}
-let logger = new Logger("dbmonitor_test");
-logger.level = "off";
-let darcherServer: DarcherServer;
-let dbmonitor: DBMonitor;
-describe("connection with dbmonitor", async () => {
     before(async () => {
         darcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
         dbmonitor = new DBMonitor(logger, config);
@@ -38,13 +39,20 @@ describe("connection with dbmonitor", async () => {
     });
 
     it('should successfully getAllData', async () => {
-        let req = new GetAllDataControlMsg();
-        req.setRole(Role.DBMONITOR)
-            .setId(getUUID())
-            .setDbAddress(config.dbMonitor.dbAddress)
-            .setDbName(config.dbMonitor.dbName);
-        let resp = await darcherServer.dbMonitorServiceViaGRPC.getAllData(req);
-        expect(resp.getContent().getTablesMap().getLength()).to.be.equal(10);
+        let resp = await darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName);
+        expect(resp.getTablesMap().getLength()).to.be.equal(10);
     });
 
+    it('should give warning when try to establish an already established service', async function () {
+        let eventSpy = sinon.spy();
+        logger.on("warn", eventSpy);
+        darcherServer.dbMonitorService.grpcTransport.getAllDataControl(null);
+        await sleep(100);
+        expect(eventSpy.called).to.be.true;
+        expect(eventSpy.args[0][0]).to.contain("already established");
+    });
+
+    it('should websocket transport work well', function () {
+
+    });
 });
