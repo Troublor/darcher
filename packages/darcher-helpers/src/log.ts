@@ -12,7 +12,7 @@ export class Logger extends EventEmitter {
         super();
         this._module = _module;
         this.logger = log4js.getLogger();
-        // add an empty error listener to prevent error being thrown
+        // add an empty error listener to prevent error being thrown, see https://nodejs.org/api/events.html#events_error_events
         this.on("error", function () {
         });
     }
