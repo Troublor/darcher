@@ -3,7 +3,7 @@
  */
 import {DBMonitorServiceClient, GetAllDataControlMsg, Role} from "@darcher/rpc";
 import * as grpc from "grpc";
-import {getUUID, Logger, ReverseRPCServer, ReverseRPCHandler} from "@darcher/helpers";
+import {getUUID, Logger, ReverseRPCServer, ReverseRPCHandler, DarcherError} from "@darcher/helpers";
 
 
 export class Client {
@@ -25,7 +25,7 @@ export class Client {
     /**
      * Serve getAllData reverse rpc
      */
-    public async serveGetAllDataControl(handler: ReverseRPCHandler<GetAllDataControlMsg, GetAllDataControlMsg>) {
+    public serveGetAllDataControl(handler: ReverseRPCHandler<GetAllDataControlMsg, GetAllDataControlMsg>) {
         // send an initial message to register reverse rpc
         const req = new GetAllDataControlMsg();
         req.setRole(Role.DBMONITOR);
@@ -34,7 +34,9 @@ export class Client {
         stream.write(req)
         // initial reverse rpc
         this.getAllDataReverseRPC = new ReverseRPCServer<GetAllDataControlMsg, GetAllDataControlMsg>("getAllData", stream);
-        await this.getAllDataReverseRPC.serve(handler);
+        this.getAllDataReverseRPC.serve(handler).catch((e: DarcherError) => {
+            this.logger.error(e);
+        });
     }
 
     public async shutdown(): Promise<void> {

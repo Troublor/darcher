@@ -1,15 +1,25 @@
 import {MongoClient} from "mongodb";
 import * as chai from "chai";
+import * as chaiAsPromised from "chai-as-promised";
 import {expect} from "chai";
 import {MongodbAdapter} from "../src/adapters/mongodbAdapter";
-import {Client} from "../src/client";
-import {Logger, ServiceNotAvailableError} from "@darcher/helpers";
-import * as chaiAsPromised from "chai-as-promised";
+import {
+    BadConfigurationError,
+} from "@darcher/helpers";
 
 describe("mongodb", () => {
-    before(() => {
+    before(async () => {
         chai.use(chaiAsPromised);
+    });
+
+    after(async () => {
+
     })
+
+    it('should throw exception when connect to a wrong mongodb url', async function () {
+        const adapter = new MongodbAdapter("mongodb://localhost:27015");
+        await expect(adapter.connect()).to.be.eventually.rejectedWith(BadConfigurationError);
+    });
 
     it('should be able to connect', async function () {
         const mongoClient = new MongoClient("mongodb://localhost:27017", {
@@ -27,9 +37,5 @@ describe("mongodb", () => {
         // giveth database should have 10 collections
         expect(dbContent.getTablesMap().getLength()).to.be.equal(10);
         await adapter.close();
-    });
-    it('should throw exception when analyzer is not available', async function () {
-        let client = new Client(new Logger("dbmonitor_test"), "localhost:5242");
-        await expect(client.serveGetAllDataControl(null)).to.be.rejectedWith(ServiceNotAvailableError);
     });
 });
