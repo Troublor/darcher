@@ -1,9 +1,10 @@
 import {Role} from "@darcher/rpc";
+import * as grpc from "grpc";
+import {status} from "grpc";
+import {EventEmitter} from "events";
+import {PromiseKit} from "./utility";
 
 export type ReverseRPCHandler<ReqT, RespT> = (req: ReqT) => Promise<RespT>;
-
-import * as grpc from "grpc";
-import {EventEmitter} from "events";
 
 export interface Identifiable {
     getRole(): Role;
@@ -31,8 +32,17 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
      */
     public async serve(handler: ReverseRPCHandler<ReqT, RespT>): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            this.stream.on("error", reject);
+            this.stream.on("error", (e: grpc.ServiceError) => {
+                switch (e.code) {
+                    case status.CANCELLED:
+                        resolve();
+                        break;
+                    default:
+                        reject(e);
+                }
+            });
             this.stream.on("close", resolve);
+            this.stream.on("end", resolve);
             this.stream.on("data", async data => {
                 // pass request to handler
                 let resp = await handler(data);
@@ -56,6 +66,7 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
 export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifiable> {
 
     private stream: grpc.ServerDuplexStream<ReqT, RespT>;
+    private readonly pendingCalls: { [id: string]: PromiseKit<RespT> };
     private emitter: EventEmitter;
     private _established: boolean;
 
@@ -66,12 +77,14 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
     constructor() {
         this.emitter = new EventEmitter();
         this._established = false;
+        this.pendingCalls = {};
     }
 
     public establish(stream: grpc.ServerDuplexStream<ReqT, RespT>) {
         this.emitter.emit("establish");
         this._established = true;
         this.stream = stream;
+        this.stream.on("data", this.onData);
     }
 
     public waitForEstablishment(): Promise<void> {
@@ -84,19 +97,20 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
         })
     }
 
+    private onData = (data: RespT) => {
+        if (data.getId() in this.pendingCalls) {
+            this.pendingCalls[data.getId()].resolve(data);
+            delete this.pendingCalls[data.getId()];
+        }
+    }
+
     /**
      * Call the reverse rpc, this will return a promise which resolves when the rpc returns, and rejects when error
      * @param request
      */
     public async call(request: ReqT): Promise<RespT> {
-        return new Promise((resolve, reject) => {
-            this.stream.on("error", reject);
-            this.stream.on("data", async (data: RespT) => {
-                if (data.getId() === request.getId()) {
-                    // resolve the promise
-                    resolve(data);
-                }
-            });
+        return new Promise<RespT>((resolve, reject) => {
+            this.pendingCalls[request.getId()] = {resolve, reject};
             this.stream.write(request);
         });
     }
