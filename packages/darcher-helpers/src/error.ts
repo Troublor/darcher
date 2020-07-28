@@ -1,17 +1,24 @@
 import * as grpc from "grpc";
 
 export enum DarcherErrorCode {
+    // error wrapper types
+    WebSocketError,
+    GRPCRawError,
+    BadConfiguration,
+
+    // customized types
     ServiceNotAvailable,
     ServiceCancelled,
-    GRPCRawError,
     Timout,
     DBAdapterNotLoaded,
-    BadConfiguration,
 }
 
 export class DarcherError extends Error {
+    public readonly code: DarcherErrorCode;
+
     constructor(code: DarcherErrorCode, message: string) {
         super(message);
+        this.code = code;
     }
 }
 
@@ -62,5 +69,13 @@ export class BadConfigurationError extends DarcherError {
     constructor(e: Error, message?: string) {
         super(DarcherErrorCode.BadConfiguration, message);
         this.rawError = e;
+    }
+}
+
+export class WebsocketError extends DarcherError {
+    public readonly wsError: Error;
+
+    constructor(e: Error) {
+        super(DarcherErrorCode.WebSocketError, e.message)
     }
 }

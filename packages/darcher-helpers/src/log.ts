@@ -1,6 +1,7 @@
 import * as log4js from "log4js";
-import {DarcherError} from "./error";
+import {DarcherError, DarcherErrorCode} from "./error";
 import {EventEmitter} from "events";
+import {$enum} from "ts-enum-util";
 
 export class Logger extends EventEmitter {
 
@@ -35,7 +36,7 @@ export class Logger extends EventEmitter {
 
     public error(e: DarcherError) {
         this.emit("error", e);
-        this.logger.error(`[${this._module}] ${e.message}`);
+        this.logger.error(`[${this._module}] [${$enum(DarcherErrorCode).getKeyOrDefault(e.code, "Unknown")}] ${e.message}`);
     }
 }
 

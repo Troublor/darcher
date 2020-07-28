@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "grpc": "^1.24.3",
-    "log4js": "^6.3.0"
+    "log4js": "^6.3.0",
+    "ts-enum-util": "^4.0.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
