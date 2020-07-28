@@ -6,6 +6,7 @@ export enum DarcherErrorCode {
     GRPCRawError,
     Timout,
     DBAdapterNotLoaded,
+    BadConfiguration,
 }
 
 export class DarcherError extends Error {
@@ -49,8 +50,17 @@ export class TimeoutError extends DarcherError {
     }
 }
 
-export class DBAdapterNotLoaded extends DarcherError {
+export class DBAdapterNotLoadedError extends DarcherError {
     constructor() {
         super(DarcherErrorCode.DBAdapterNotLoaded, `dbmonitor adapter not loaded`);
+    }
+}
+
+export class BadConfigurationError extends DarcherError {
+    public readonly rawError: Error
+
+    constructor(e: Error, message?: string) {
+        super(DarcherErrorCode.BadConfiguration, message);
+        this.rawError = e;
     }
 }
