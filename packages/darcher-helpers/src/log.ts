@@ -26,14 +26,17 @@ export class Logger extends EventEmitter {
     }
 
     public info(msg: string, ...args: any[]) {
+        this.emit("info", msg, ...args);
         this.logger.info(`[${this._module}] ${msg}`, ...args);
     }
 
     public debug(msg: string, ...args: any[]) {
+        this.emit("debug", msg, ...args);
         this.logger.debug(`[${this._module}] ${msg}`, ...args);
     }
 
     public warn(msg: string, ...args: any[]) {
+        this.emit("warn", msg, ...args);
         this.logger.warn(`[${this._module}] ${msg}`, ...args);
     }
 
