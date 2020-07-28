@@ -4,20 +4,19 @@ import {
     IDBMonitorServiceServer, IEthmonitorControllerServiceServer
 } from "@darcher/rpc";
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
-import {DBMonitorServiceViaGRPC, DBMonitorServiceViaWebsocket} from "./dbmonitorService";
-import {Logger} from "@darcher/helpers";
+import {DbMonitorService} from "./dbmonitorService";
+import {Logger, Service} from "@darcher/helpers";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
  */
-export class DarcherServer extends Server {
+export class DarcherServer extends Server implements Service {
     private readonly logger: Logger;
     private readonly grpcPort: number;
     private readonly websocketPort: number;
 
     private readonly _ethmonitorControllerService: EthmonitorControllerService;
-    private readonly _dbMonitorServiceViaWebsocket: DBMonitorServiceViaWebsocket;
-    private readonly _dbMonitorServiceViaGRPC: DBMonitorServiceViaGRPC;
+    private readonly _dbMonitorService: DbMonitorService;
 
     constructor(logger: Logger, grpcPort: number, websocketPort: number) {
         super();
@@ -25,8 +24,11 @@ export class DarcherServer extends Server {
         this.grpcPort = grpcPort;
         this.websocketPort = websocketPort;
         this._ethmonitorControllerService = new EthmonitorControllerService(this.logger);
-        this._dbMonitorServiceViaWebsocket = new DBMonitorServiceViaWebsocket(this.logger, websocketPort);
-        this._dbMonitorServiceViaGRPC = new DBMonitorServiceViaGRPC(this.logger);
+        this._dbMonitorService = new DbMonitorService(this.logger, websocketPort);
+        this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
+        this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
+        let addr = `localhost:${this.grpcPort}`;
+        this.bind(addr, ServerCredentials.createInsecure());
     }
 
     /**
@@ -34,27 +36,23 @@ export class DarcherServer extends Server {
      */
     public async start(): Promise<void> {
         // start websocket services
-        await this._dbMonitorServiceViaWebsocket.start()
+        await this._dbMonitorService.start();
         this.logger.info(`Darcher websocket started at ${this.websocketPort}`);
 
         // start grpc services
-        this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
-        this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorServiceViaGRPC);
-        let addr = `localhost:${this.grpcPort}`;
-        this.bind(addr, ServerCredentials.createInsecure());
-        this.logger.info(`Darcher grpc server started at ${addr}`);
+        this.logger.info(`Darcher grpc server started at localhost:${this.grpcPort}`);
         super.start();
     }
 
-    public async waitForRRPCEstablishment(): Promise<void> {
-        return this.dbMonitorServiceViaGRPC.waitForRRPCEstablishment();
+    public async waitForEstablishment(): Promise<void> {
+        await this.dbMonitorService.waitForEstablishment();
     }
 
     public async shutdown(): Promise<void> {
         return new Promise(async resolve => {
-            await this.dbMonitorServiceViaGRPC.shutdown();
-            await this.dbMonitorServiceViaWebsocket.shutdown();
-            this.tryShutdown(resolve)
+            await this.dbMonitorService.shutdown();
+            this.forceShutdown()
+            resolve();
         });
     }
 
@@ -62,11 +60,7 @@ export class DarcherServer extends Server {
         return this._ethmonitorControllerService;
     }
 
-    get dbMonitorServiceViaWebsocket(): DBMonitorServiceViaWebsocket {
-        return this._dbMonitorServiceViaWebsocket;
-    }
-
-    get dbMonitorServiceViaGRPC(): DBMonitorServiceViaGRPC {
-        return this._dbMonitorServiceViaGRPC;
+    get dbMonitorService(): DbMonitorService {
+        return this._dbMonitorService;
     }
 }

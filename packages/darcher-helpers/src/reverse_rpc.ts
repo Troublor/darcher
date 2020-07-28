@@ -3,6 +3,7 @@ import * as grpc from "grpc";
 import {status} from "grpc";
 import {EventEmitter} from "events";
 import {PromiseKit} from "./utility";
+import {DarcherError, GRPCRawError, ServiceCancelledError, ServiceNotAvailableError} from "./error";
 
 export type ReverseRPCHandler<ReqT, RespT> = (req: ReqT) => Promise<RespT>;
 
@@ -17,10 +18,11 @@ export interface Identifiable {
  * This is actually the grpc client but acts logically as reverse RPC server.
  */
 export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifiable> {
-
+    private readonly name: string;
     private stream: grpc.ClientDuplexStream<RespT, ReqT>
 
-    constructor(stream: grpc.ClientDuplexStream<RespT, ReqT>) {
+    constructor(name: string, stream: grpc.ClientDuplexStream<RespT, ReqT>) {
+        this.name = name;
         this.stream = stream;
     }
 
@@ -35,10 +37,14 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
             this.stream.on("error", (e: grpc.ServiceError) => {
                 switch (e.code) {
                     case status.CANCELLED:
-                        resolve();
+                        reject(new ServiceCancelledError(this.name));
+                        break;
+                    case status.UNAVAILABLE:
+                        reject(new ServiceNotAvailableError(this.name));
                         break;
                     default:
-                        reject(e);
+                        reject(new GRPCRawError(this.name, e));
+                        break;
                 }
             });
             this.stream.on("close", resolve);
@@ -64,9 +70,9 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
  * This is actually the grpc server but acts logically as reverse RPC client.
  */
 export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifiable> {
-
+    private readonly name: string;
     private stream: grpc.ServerDuplexStream<ReqT, RespT>;
-    private readonly pendingCalls: { [id: string]: PromiseKit<RespT> };
+    private pendingCalls: { [id: string]: PromiseKit<RespT> };
     private emitter: EventEmitter;
     private _established: boolean;
 
@@ -74,7 +80,8 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
         return this._established;
     }
 
-    constructor() {
+    constructor(name: string) {
+        this.name = name;
         this.emitter = new EventEmitter();
         this._established = false;
         this.pendingCalls = {};
@@ -85,6 +92,7 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
         this._established = true;
         this.stream = stream;
         this.stream.on("data", this.onData);
+        this.stream.on("error", this.onError);
     }
 
     public waitForEstablishment(): Promise<void> {
@@ -96,6 +104,24 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
             }
         })
     }
+
+    private onError = (e: grpc.ServiceError) => {
+        let err: DarcherError;
+        switch (e.code) {
+            case status.CANCELLED:
+                err = new ServiceCancelledError(this.name);
+                break;
+            default:
+                err = new GRPCRawError(this.name, e);
+                break;
+        }
+        for (let id in this.pendingCalls) {
+            let {reject} = this.pendingCalls[id];
+            reject(err);
+            this.pendingCalls = undefined;
+            this._established = false;
+        }
+    };
 
     private onData = (data: RespT) => {
         if (data.getId() in this.pendingCalls) {
@@ -110,6 +136,10 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
      */
     public async call(request: ReqT): Promise<RespT> {
         return new Promise<RespT>((resolve, reject) => {
+            if (!this.established) {
+                reject(new ServiceNotAvailableError());
+                return;
+            }
             this.pendingCalls[request.getId()] = {resolve, reject};
             this.stream.write(request);
         });

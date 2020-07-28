@@ -8,9 +8,9 @@ import {
 import {logger, prettifyHash} from "./common";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
-import {DBMonitorServiceViaWebsocket} from "./service/dbmonitorService";
 import {Config} from "@darcher/config";
 import {Logger} from "@darcher/helpers";
+import {DbMonitorService} from "./service/dbmonitorService";
 
 /**
  * Extend TxState to introduce logical tx state (reverted, re-executed)
@@ -61,12 +61,14 @@ export class Analyzer {
     private txHash: string;
     private txState: LogicalTxState;
 
-    dbMonitorService: DBMonitorServiceViaWebsocket;
+    dbMonitorService: DbMonitorService;
 
     private stateChangeWaiting: Promise<LogicalTxState>;
-    private stateEmitter: EventEmitter
+    private stateEmitter: EventEmitter;
 
-    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DBMonitorServiceViaWebsocket) {
+    // use for analysis
+
+    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DbMonitorService) {
         this.config = config;
         this.logger = logger;
         this.txHash = txHash;
@@ -110,7 +112,7 @@ export class Analyzer {
                     key = iter.next();
                 }
             } catch (e) {
-                this.logger.error("Get all data error", $enum(rpcError).getKeyOrDefault(e, e));
+                this.logger.error(e);
             }
             this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
         }, 10000);

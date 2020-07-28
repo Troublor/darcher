@@ -11,7 +11,7 @@ import {
 } from "@darcher/rpc";
 import {TxState} from "@darcher/rpc";
 import {Empty} from "google-protobuf/google/protobuf/empty_pb";
-import {Logger} from "@darcher/helpers";
+import {Logger, Service} from "@darcher/helpers";
 
 export interface EthmonitorController {
     onTxStateChange: (msg: TxStateChangeMsg) => Promise<void>;
@@ -22,7 +22,7 @@ export interface EthmonitorController {
     selectTxToTraverse: (msg: SelectTxControlMsg) => Promise<string>;
 }
 
-export class EthmonitorControllerService implements IEthmonitorControllerServiceServer {
+export class EthmonitorControllerService implements IEthmonitorControllerServiceServer, Service {
     private readonly logger: Logger;
     private _handler: EthmonitorController = undefined;
 
@@ -37,6 +37,18 @@ export class EthmonitorControllerService implements IEthmonitorControllerService
 
     set handler(value: EthmonitorController) {
         this._handler = value;
+    }
+
+    start(): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    shutdown(): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    waitForEstablishment(): Promise<void> {
+        return Promise.resolve(undefined);
     }
 
     askForNextState(call: ServerUnaryCall<TxStateControlMsg>, callback: sendUnaryData<TxStateControlMsg>): void {

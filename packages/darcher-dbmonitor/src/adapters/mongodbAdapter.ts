@@ -1,6 +1,7 @@
 import Adapter from "./adapter";
 import {DBContent, TableContent} from "@darcher/rpc";
 import {MongoClient} from "mongodb";
+import {BadConfigurationError} from "@darcher/helpers";
 
 export class MongodbAdapter implements Adapter {
     private readonly dbAddress: string;
@@ -10,6 +11,8 @@ export class MongodbAdapter implements Adapter {
         this.dbAddress = dbAddress;
         this.mongoClient = new MongoClient(this.dbAddress, {
             useUnifiedTopology: true,
+            connectTimeoutMS: 500,
+            serverSelectionTimeoutMS: 500,
         });
     }
 
@@ -20,7 +23,7 @@ export class MongodbAdapter implements Adapter {
                     resolve(this);
                 })
                 .catch((e: Error) => {
-                    reject(e);
+                    reject(new BadConfigurationError(e, "cannot connect to mongodb"));
                 });
         });
     }

@@ -1,53 +1,93 @@
 import {Config, DBOptions} from "@darcher/config";
-import {getUUID, Logger} from "@darcher/helpers";
+import {Logger, sleep} from "@darcher/helpers";
 import DBMonitor from "@darcher/dbmonitor";
 import {DarcherServer} from "../src/service";
-import {GetAllDataControlMsg, Role} from "@darcher/rpc";
 import {expect} from "chai";
+import * as chai from "chai";
+import * as sinon from "sinon";
+import * as chaiAsPromised from "chai-as-promised";
+import {MockWsClient} from "./utils/mock_client";
 
+describe("dbmonitor service", async () => {
 
-let config: Config = {
-    analyzer: {
-        grpcPort: 1234,
-        wsPort: 1235,
-    },
-    dbMonitor: {
-        db: DBOptions.mongoDB,
-        dbAddress: "mongodb://localhost:27017",
-        dbName: "giveth",
-    },
-    clusters: [],
-}
-let logger = new Logger("dbmonitor_test");
-logger.level = "off";
-let darcherServer: DarcherServer;
-let dbmonitor: DBMonitor;
-describe("connection with dbmonitor", async () => {
+    let config: Config = {
+        analyzer: {
+            grpcPort: 1234,
+            wsPort: 1235,
+        },
+        dbMonitor: {
+            db: DBOptions.mongoDB,
+            dbAddress: "mongodb://localhost:27017",
+            dbName: "giveth",
+        },
+        clusters: [],
+    }
+    let logger = new Logger("dbmonitor_test");
+    logger.level = "off";
 
-    const before = async () => {
-        darcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
-        dbmonitor = new DBMonitor(logger, config);
-        await darcherServer.start();
-        await dbmonitor.start();
-        await darcherServer.waitForRRPCEstablishment();
-    };
-
-
-    const after = async () => {
-        await dbmonitor.shutdown();
-        await darcherServer.shutdown();
-    };
-
-    it('should successfully getAllData', async () => {
-        await before();
-        let req = new GetAllDataControlMsg();
-        req.setRole(Role.DBMONITOR)
-            .setId(getUUID())
-            .setDbAddress(config.dbMonitor.dbAddress)
-            .setDbName(config.dbMonitor.dbName);
-        let resp = await darcherServer.dbMonitorServiceViaGRPC.getAllData(req);
-        expect(resp.getContent().getTablesMap().getLength()).to.be.equal(10);
-        await after();
+    before(async () => {
+        chai.use(chaiAsPromised);
     });
 
+    after(async () => {
+
+    })
+    it('should successfully getAllData', async () => {
+        let darcherServer: DarcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
+        let dbmonitor: DBMonitor = new DBMonitor(logger, config);
+        await darcherServer.start();
+        await dbmonitor.start();
+        await darcherServer.waitForEstablishment();
+
+        let resp = await darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName);
+        expect(resp.getTablesMap().getLength()).to.be.equal(10);
+
+        await dbmonitor.shutdown();
+        await darcherServer.shutdown();
+    });
+
+    it('should give warning when try to establish an already established service', async function () {
+        let darcherServer: DarcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
+        let dbmonitor: DBMonitor = new DBMonitor(logger, config);
+        await darcherServer.start();
+        await dbmonitor.start();
+        await darcherServer.waitForEstablishment();
+
+        let eventSpy = sinon.spy();
+        logger.on("warn", eventSpy);
+        darcherServer.dbMonitorService.grpcTransport.getAllDataControl(null);
+        await sleep(100);
+        expect(eventSpy.called).to.be.true;
+        expect(eventSpy.args[0][0]).to.contain("already established");
+
+        await dbmonitor.shutdown();
+        await darcherServer.shutdown();
+    });
+
+    it('should websocket transport getAddData', async function () {
+        let darcherServer: DarcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
+        let wsMockClient = new MockWsClient(logger, `ws://localhost:${config.analyzer.wsPort}`);
+        await darcherServer.start();
+        await wsMockClient.start();
+        await darcherServer.waitForEstablishment();
+
+        let content = await darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName);
+        expect(content.getTablesMap().has("mock")).to.be.true;
+
+        await wsMockClient.shutdown();
+        await darcherServer.shutdown();
+    });
+
+    it('should websocket transport refresh page', async function () {
+        let darcherServer: DarcherServer = new DarcherServer(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
+        let wsMockClient = new MockWsClient(logger, `ws://localhost:${config.analyzer.wsPort}`);
+        await darcherServer.start();
+        await wsMockClient.start();
+        await darcherServer.waitForEstablishment();
+
+        await expect(darcherServer.dbMonitorService.refreshPage(config.dbMonitor.dbAddress)).not.to.be.rejected;
+
+        await wsMockClient.shutdown();
+        await darcherServer.shutdown();
+    });
 });

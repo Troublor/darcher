@@ -9,18 +9,18 @@ service DAppTestDriverService {
   /**
   DApp driver should call notifyTestStart() rpc once when test starts
    */
-  rpc notifyTestStart(TestStartMsg) returns (google.protobuf.Empty);
+  rpc notifyTestStart(TestStartMsg) returns (google.protobuf.Empty) {}
 
   /**
   DApp driver should call notifyTestEnd() rpc once when test ends
    */
-  rpc notifyTestEnd(TestStartMsg) returns (google.protobuf.Empty);
+  rpc notifyTestEnd(TestStartMsg) returns (google.protobuf.Empty) {}
 
   /**
   Each time DApp driver performs a `send transaction` operation, it should call waitForTxProcess() rpc immediately after transaction is send.
   This rpc call may block for arbitrary amount of time. DApp driver must wait for this rpc call to return.
    */
-  rpc waitForTxProcess(TxMsg) returns (google.protobuf.Empty);
+  rpc waitForTxProcess(TxMsg) returns (google.protobuf.Empty) {}
 
   /**
   Reverse rpc to let darcher control dapp driver.
@@ -28,7 +28,12 @@ service DAppTestDriverService {
   Client should first send an initial DAppDriverControlMsg to server and maintain the input/output stream and act as a logical rpc server.
   During the connection, server may send a DAppDriverControlMsg as request to client and client should respond with the same (role, id, dapp_name, instance_id)
    */
-  rpc dappDriverControl(stream DAppDriverControlMsg) returns (stream DAppDriverControlMsg);
+  rpc dappDriverControl(stream DAppDriverControlMsg) returns (stream DAppDriverControlMsg) {}
+
+  /**
+  DApp driver should call notifyConsoleError when there is an error in dapp console
+   */
+  rpc notifyConsoleError(ConsoleErrorMsg) returns (google.protobuf.Empty) {}
 }
 
 message TestStartMsg {
