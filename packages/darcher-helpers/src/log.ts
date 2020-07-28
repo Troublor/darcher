@@ -5,11 +5,11 @@ import {EventEmitter} from "events";
 export class Logger extends EventEmitter {
 
     private logger: log4js.Logger;
-    private module: string;
+    private _module: string;
 
-    constructor(module?: string) {
+    constructor(_module?: string) {
         super();
-        this.module = module;
+        this._module = _module;
         this.logger = log4js.getLogger();
     }
 
@@ -22,20 +22,20 @@ export class Logger extends EventEmitter {
     }
 
     public info(msg: string, ...args: any[]) {
-        this.logger.info(`[${module}] ${msg}`, ...args);
+        this.logger.info(`[${this._module}] ${msg}`, ...args);
     }
 
     public debug(msg: string, ...args: any[]) {
-        this.logger.debug(`[${module}] ${msg}`, ...args);
+        this.logger.debug(`[${this._module}] ${msg}`, ...args);
     }
 
     public warn(msg: string, ...args: any[]) {
-        this.logger.warn(`[${module}] ${msg}`, ...args);
+        this.logger.warn(`[${this._module}] ${msg}`, ...args);
     }
 
     public error(e: DarcherError) {
         this.emit("error", e);
-        this.logger.error(`[${module}] ${e.message}`);
+        this.logger.error(`[${this._module}] ${e.message}`);
     }
 }
 
