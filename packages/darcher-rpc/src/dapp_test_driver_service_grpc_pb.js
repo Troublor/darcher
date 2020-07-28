@@ -6,6 +6,17 @@ var dapp_test_driver_service_pb = require('./dapp_test_driver_service_pb.js');
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
 var common_pb = require('./common_pb.js');
 
+function serialize_darcher_ConsoleErrorMsg(arg) {
+  if (!(arg instanceof dapp_test_driver_service_pb.ConsoleErrorMsg)) {
+    throw new Error('Expected argument of type darcher.ConsoleErrorMsg');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_darcher_ConsoleErrorMsg(buffer_arg) {
+  return dapp_test_driver_service_pb.ConsoleErrorMsg.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_darcher_DAppDriverControlMsg(arg) {
   if (!(arg instanceof dapp_test_driver_service_pb.DAppDriverControlMsg)) {
     throw new Error('Expected argument of type darcher.DAppDriverControlMsg');
@@ -107,6 +118,19 @@ dappDriverControl: {
     requestDeserialize: deserialize_darcher_DAppDriverControlMsg,
     responseSerialize: serialize_darcher_DAppDriverControlMsg,
     responseDeserialize: deserialize_darcher_DAppDriverControlMsg,
+  },
+  // *
+// DApp driver should call notifyConsoleError when there is an error in dapp console
+notifyConsoleError: {
+    path: '/darcher.DAppTestDriverService/notifyConsoleError',
+    requestStream: false,
+    responseStream: false,
+    requestType: dapp_test_driver_service_pb.ConsoleErrorMsg,
+    responseType: google_protobuf_empty_pb.Empty,
+    requestSerialize: serialize_darcher_ConsoleErrorMsg,
+    requestDeserialize: deserialize_darcher_ConsoleErrorMsg,
+    responseSerialize: serialize_google_protobuf_Empty,
+    responseDeserialize: deserialize_google_protobuf_Empty,
   },
 };
 

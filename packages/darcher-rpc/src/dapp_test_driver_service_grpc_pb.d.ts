@@ -14,6 +14,7 @@ interface IDAppTestDriverServiceService extends grpc.ServiceDefinition<grpc.Unty
     notifyTestEnd: IDAppTestDriverServiceService_InotifyTestEnd;
     waitForTxProcess: IDAppTestDriverServiceService_IwaitForTxProcess;
     dappDriverControl: IDAppTestDriverServiceService_IdappDriverControl;
+    notifyConsoleError: IDAppTestDriverServiceService_InotifyConsoleError;
 }
 
 interface IDAppTestDriverServiceService_InotifyTestStart extends grpc.MethodDefinition<dapp_test_driver_service_pb.TestStartMsg, google_protobuf_empty_pb.Empty> {
@@ -52,6 +53,15 @@ interface IDAppTestDriverServiceService_IdappDriverControl extends grpc.MethodDe
     responseSerialize: grpc.serialize<dapp_test_driver_service_pb.DAppDriverControlMsg>;
     responseDeserialize: grpc.deserialize<dapp_test_driver_service_pb.DAppDriverControlMsg>;
 }
+interface IDAppTestDriverServiceService_InotifyConsoleError extends grpc.MethodDefinition<dapp_test_driver_service_pb.ConsoleErrorMsg, google_protobuf_empty_pb.Empty> {
+    path: string; // "/darcher.DAppTestDriverService/notifyConsoleError"
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<dapp_test_driver_service_pb.ConsoleErrorMsg>;
+    requestDeserialize: grpc.deserialize<dapp_test_driver_service_pb.ConsoleErrorMsg>;
+    responseSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
+    responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
+}
 
 export const DAppTestDriverServiceService: IDAppTestDriverServiceService;
 
@@ -60,6 +70,7 @@ export interface IDAppTestDriverServiceServer {
     notifyTestEnd: grpc.handleUnaryCall<dapp_test_driver_service_pb.TestStartMsg, google_protobuf_empty_pb.Empty>;
     waitForTxProcess: grpc.handleUnaryCall<dapp_test_driver_service_pb.TxMsg, google_protobuf_empty_pb.Empty>;
     dappDriverControl: grpc.handleBidiStreamingCall<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
+    notifyConsoleError: grpc.handleUnaryCall<dapp_test_driver_service_pb.ConsoleErrorMsg, google_protobuf_empty_pb.Empty>;
 }
 
 export interface IDAppTestDriverServiceClient {
@@ -75,6 +86,9 @@ export interface IDAppTestDriverServiceClient {
     dappDriverControl(): grpc.ClientDuplexStream<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
     dappDriverControl(options: Partial<grpc.CallOptions>): grpc.ClientDuplexStream<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
     dappDriverControl(metadata: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientDuplexStream<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
+    notifyConsoleError(request: dapp_test_driver_service_pb.ConsoleErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyConsoleError(request: dapp_test_driver_service_pb.ConsoleErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyConsoleError(request: dapp_test_driver_service_pb.ConsoleErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
 }
 
 export class DAppTestDriverServiceClient extends grpc.Client implements IDAppTestDriverServiceClient {
@@ -90,4 +104,7 @@ export class DAppTestDriverServiceClient extends grpc.Client implements IDAppTes
     public waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     public dappDriverControl(options?: Partial<grpc.CallOptions>): grpc.ClientDuplexStream<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
     public dappDriverControl(metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientDuplexStream<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
+    public notifyConsoleError(request: dapp_test_driver_service_pb.ConsoleErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyConsoleError(request: dapp_test_driver_service_pb.ConsoleErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyConsoleError(request: dapp_test_driver_service_pb.ConsoleErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
 }
