@@ -97,7 +97,7 @@ TS_COMPILE_FILES=(
 compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}
 
 # common java compilation (compiled to @darcher/crawljax/rpc)
-JAVA_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-crawljax/rpc
+JAVA_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-crawljax/rpc/src/main/java/org/kristen/rpc
 JAVA_COMPILE_FILES=(
   "common.proto"
   "dapp_test_driver_service.proto"
