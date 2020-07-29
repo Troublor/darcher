@@ -52,6 +52,25 @@ function compile_ts() {
     ${COMPILE_TARGETS}
 }
 
+function compile_java() {
+  # Java compilation
+  OUTPUT_DIR=$1
+  echo -e "===java compiled files:==="
+  COMPILE_TARGETS=""
+  for ((index = 2; index <= $#; ++index)); do
+    COMPILE_TARGETS="$COMPILE_TARGETS $PROTOBUF_DIR/${!index}"
+    echo -e "$PROTOBUF_DIR/${!index}"
+  done
+  echo -e "===java compilation output dir:==="
+  echo -e ${OUTPUT_DIR}
+  echo -e ""
+
+  protoc \
+    -I="${PROTOBUF_DIR}" \
+    --java_out="${OUTPUT_DIR}" \
+    ${COMPILE_TARGETS}
+}
+
 # darcher-go-ethereum golang compilation
 GOLANG_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-go-ethereum/ethmonitor/rpc
 GOLANG_COMPILE_FILES=(
@@ -76,6 +95,15 @@ TS_COMPILE_FILES=(
 )
 # shellcheck disable=SC2068
 compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}
+
+# common java compilation (compiled to @darcher/crawljax/rpc)
+JAVA_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-crawljax/rpc
+JAVA_COMPILE_FILES=(
+  "common.proto"
+  "dapp_test_driver_service.proto"
+)
+# shellcheck disable=SC2068
+compile_java ${JAVA_OUTPUT_DIR} ${JAVA_COMPILE_FILES[@]}
 
 echo "" >./src/index.d.ts
 echo -e "module.exports = Object.assign(" >./src/index.js
