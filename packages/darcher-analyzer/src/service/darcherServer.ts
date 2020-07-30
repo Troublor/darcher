@@ -1,11 +1,18 @@
 import {Server, ServerCredentials} from "grpc";
 import {
-    DBMonitorServiceService, EthmonitorControllerServiceService,
-    IDBMonitorServiceServer, IEthmonitorControllerServiceServer
+    ContractVulnerabilityServiceService, DAppTestDriverServiceService,
+    DBMonitorServiceService,
+    EthmonitorControllerServiceService,
+    IContractVulnerabilityServiceServer,
+    IDAppTestDriverServiceServer,
+    IDBMonitorServiceServer,
+    IEthmonitorControllerServiceServer
 } from "@darcher/rpc";
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
 import {Logger, Service} from "@darcher/helpers";
+import {ContractVulnerabilityService} from "./contractVulnerabilityService";
+import {DappTestDriverService} from "./dappTestDriverService";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
@@ -17,6 +24,8 @@ export class DarcherServer extends Server implements Service {
 
     private readonly _ethmonitorControllerService: EthmonitorControllerService;
     private readonly _dbMonitorService: DbMonitorService;
+    private readonly _contractVulnerabilityService: ContractVulnerabilityService;
+    private readonly _dappTestDriverService: DappTestDriverService;
 
     constructor(logger: Logger, grpcPort: number, websocketPort: number) {
         super();
@@ -25,8 +34,12 @@ export class DarcherServer extends Server implements Service {
         this.websocketPort = websocketPort;
         this._ethmonitorControllerService = new EthmonitorControllerService(this.logger);
         this._dbMonitorService = new DbMonitorService(this.logger, websocketPort);
+        this._contractVulnerabilityService = new ContractVulnerabilityService(this.logger);
+        this._dappTestDriverService = new DappTestDriverService(this.logger);
         this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
         this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
+        this.addService<IContractVulnerabilityServiceServer>(ContractVulnerabilityServiceService, this._contractVulnerabilityService);
+        this.addService<IDAppTestDriverServiceServer>(DAppTestDriverServiceService, this._dappTestDriverService);
         let addr = `localhost:${this.grpcPort}`;
         this.bind(addr, ServerCredentials.createInsecure());
     }
@@ -38,6 +51,8 @@ export class DarcherServer extends Server implements Service {
         // start websocket services
         await this._dbMonitorService.start();
         this.logger.info(`Darcher websocket started at ${this.websocketPort}`);
+        await this.dappTestDriverService.start();
+        await this.contractVulnerabilityService.start();
 
         // start grpc services
         this.logger.info(`Darcher grpc server started at localhost:${this.grpcPort}`);
@@ -46,11 +61,16 @@ export class DarcherServer extends Server implements Service {
 
     public async waitForEstablishment(): Promise<void> {
         await this.dbMonitorService.waitForEstablishment();
+        await this.contractVulnerabilityService.waitForEstablishment();
+        await this.ethmonitorControllerService.waitForEstablishment();
+        await this.dappTestDriverService.waitForEstablishment();
     }
 
     public async shutdown(): Promise<void> {
         return new Promise(async resolve => {
             await this.dbMonitorService.shutdown();
+            await this.dappTestDriverService.shutdown();
+            await this.contractVulnerabilityService.shutdown();
             this.forceShutdown()
             resolve();
         });
@@ -62,5 +82,13 @@ export class DarcherServer extends Server implements Service {
 
     get dbMonitorService(): DbMonitorService {
         return this._dbMonitorService;
+    }
+
+    get contractVulnerabilityService(): ContractVulnerabilityService {
+        return this._contractVulnerabilityService;
+    }
+
+    get dappTestDriverService(): DappTestDriverService {
+        return this._dappTestDriverService;
     }
 }
