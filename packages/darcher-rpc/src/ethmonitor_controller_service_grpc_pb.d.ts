@@ -16,6 +16,7 @@ interface IEthmonitorControllerServiceService extends grpc.ServiceDefinition<grp
     notifyTxStateChangeMsg: IEthmonitorControllerServiceService_InotifyTxStateChangeMsg;
     askForNextState: IEthmonitorControllerServiceService_IaskForNextState;
     selectTx: IEthmonitorControllerServiceService_IselectTx;
+    notifyTxError: IEthmonitorControllerServiceService_InotifyTxError;
 }
 
 interface IEthmonitorControllerServiceService_InotifyTxReceived extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxReceivedMsg, google_protobuf_empty_pb.Empty> {
@@ -72,6 +73,15 @@ interface IEthmonitorControllerServiceService_IselectTx extends grpc.MethodDefin
     responseSerialize: grpc.serialize<ethmonitor_controller_service_pb.SelectTxControlMsg>;
     responseDeserialize: grpc.deserialize<ethmonitor_controller_service_pb.SelectTxControlMsg>;
 }
+interface IEthmonitorControllerServiceService_InotifyTxError extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxErrorMsg, google_protobuf_empty_pb.Empty> {
+    path: string; // "/darcher.EthmonitorControllerService/notifyTxError"
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxErrorMsg>;
+    requestDeserialize: grpc.deserialize<ethmonitor_controller_service_pb.TxErrorMsg>;
+    responseSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
+    responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
+}
 
 export const EthmonitorControllerServiceService: IEthmonitorControllerServiceService;
 
@@ -82,6 +92,7 @@ export interface IEthmonitorControllerServiceServer {
     notifyTxStateChangeMsg: grpc.handleUnaryCall<ethmonitor_controller_service_pb.TxStateChangeMsg, google_protobuf_empty_pb.Empty>;
     askForNextState: grpc.handleUnaryCall<ethmonitor_controller_service_pb.TxStateControlMsg, ethmonitor_controller_service_pb.TxStateControlMsg>;
     selectTx: grpc.handleUnaryCall<ethmonitor_controller_service_pb.SelectTxControlMsg, ethmonitor_controller_service_pb.SelectTxControlMsg>;
+    notifyTxError: grpc.handleUnaryCall<ethmonitor_controller_service_pb.TxErrorMsg, google_protobuf_empty_pb.Empty>;
 }
 
 export interface IEthmonitorControllerServiceClient {
@@ -103,6 +114,9 @@ export interface IEthmonitorControllerServiceClient {
     selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
+    notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
 }
 
 export class EthmonitorControllerServiceClient extends grpc.Client implements IEthmonitorControllerServiceClient {
@@ -125,4 +139,7 @@ export class EthmonitorControllerServiceClient extends grpc.Client implements IE
     public selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     public selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     public selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
+    public notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
 }

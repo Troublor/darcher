@@ -14,6 +14,7 @@ service EthmonitorControllerService {
   rpc notifyTxStateChangeMsg(TxStateChangeMsg) returns (google.protobuf.Empty) {}
   rpc askForNextState(TxStateControlMsg) returns (TxStateControlMsg) {}
   rpc selectTx(SelectTxControlMsg) returns (SelectTxControlMsg) {}
+  rpc notifyTxError(TxErrorMsg) returns (google.protobuf.Empty) {}
 }
 
 message TxReceivedMsg {
@@ -43,4 +44,19 @@ message TxStateControlMsg {
 message SelectTxControlMsg {
   repeated string candidate_hashes = 1;
   string selection = 2;
+}
+
+/**
+TxError refers to errors that make transaction cannot be mined, or transaction is reverted due to internal errors in smart contract.
+ */
+enum TxErrorType {
+  NIL_TxErr = 0; // nil type, should not be used.
+  REVERT = 1; // internal error in smart contract occurs, transaction is reverted
+  REJECT = 2; // bad transaction which cannot be mined and rejected by evm
+}
+
+message TxErrorMsg {
+  string hash = 1;
+  TxErrorType type = 2;
+  string description = 3;
 }

@@ -17,6 +17,17 @@ function deserialize_darcher_SelectTxControlMsg(buffer_arg) {
   return ethmonitor_controller_service_pb.SelectTxControlMsg.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_darcher_TxErrorMsg(arg) {
+  if (!(arg instanceof ethmonitor_controller_service_pb.TxErrorMsg)) {
+    throw new Error('Expected argument of type darcher.TxErrorMsg');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_darcher_TxErrorMsg(buffer_arg) {
+  return ethmonitor_controller_service_pb.TxErrorMsg.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_darcher_TxFinishedMsg(arg) {
   if (!(arg instanceof ethmonitor_controller_service_pb.TxFinishedMsg)) {
     throw new Error('Expected argument of type darcher.TxFinishedMsg');
@@ -150,6 +161,17 @@ var EthmonitorControllerServiceService = exports.EthmonitorControllerServiceServ
     requestDeserialize: deserialize_darcher_SelectTxControlMsg,
     responseSerialize: serialize_darcher_SelectTxControlMsg,
     responseDeserialize: deserialize_darcher_SelectTxControlMsg,
+  },
+  notifyTxError: {
+    path: '/darcher.EthmonitorControllerService/notifyTxError',
+    requestStream: false,
+    responseStream: false,
+    requestType: ethmonitor_controller_service_pb.TxErrorMsg,
+    responseType: google_protobuf_empty_pb.Empty,
+    requestSerialize: serialize_darcher_TxErrorMsg,
+    requestDeserialize: deserialize_darcher_TxErrorMsg,
+    responseSerialize: serialize_google_protobuf_Empty,
+    responseDeserialize: deserialize_google_protobuf_Empty,
   },
 };
 
