@@ -52,7 +52,7 @@ describe("dbmonitor", () => {
         await darcherServer.start();
         dbmonitor = new DBMonitor(logger, config);
         await dbmonitor.start()
-        await darcherServer.waitForEstablishment()
+        await darcherServer.dbMonitorService.waitForEstablishment();
         await sleep(200);
         expect(eventSpy.called).to.be.false;
         // try getAllData

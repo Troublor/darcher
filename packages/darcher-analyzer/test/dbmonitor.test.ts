@@ -37,7 +37,7 @@ describe("dbmonitor service", async () => {
         let dbmonitor: DBMonitor = new DBMonitor(logger, config);
         await darcherServer.start();
         await dbmonitor.start();
-        await darcherServer.waitForEstablishment();
+        await darcherServer.dbMonitorService.waitForEstablishment();
 
         let resp = await darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName);
         expect(resp.getTablesMap().getLength()).to.be.equal(10);
@@ -51,7 +51,7 @@ describe("dbmonitor service", async () => {
         let dbmonitor: DBMonitor = new DBMonitor(logger, config);
         await darcherServer.start();
         await dbmonitor.start();
-        await darcherServer.waitForEstablishment();
+        await darcherServer.dbMonitorService.waitForEstablishment();
 
         let eventSpy = sinon.spy();
         logger.on("warn", eventSpy);
@@ -69,7 +69,7 @@ describe("dbmonitor service", async () => {
         let wsMockClient = new MockWsClient(logger, `ws://localhost:${config.analyzer.wsPort}`);
         await darcherServer.start();
         await wsMockClient.start();
-        await darcherServer.waitForEstablishment();
+        await darcherServer.dbMonitorService.waitForEstablishment();
 
         let content = await darcherServer.dbMonitorService.getAllData(config.dbMonitor.dbAddress, config.dbMonitor.dbName);
         expect(content.getTablesMap().has("mock")).to.be.true;
@@ -83,7 +83,7 @@ describe("dbmonitor service", async () => {
         let wsMockClient = new MockWsClient(logger, `ws://localhost:${config.analyzer.wsPort}`);
         await darcherServer.start();
         await wsMockClient.start();
-        await darcherServer.waitForEstablishment();
+        await darcherServer.dbMonitorService.waitForEstablishment();
 
         await expect(darcherServer.dbMonitorService.refreshPage(config.dbMonitor.dbAddress)).not.to.be.rejected;
 

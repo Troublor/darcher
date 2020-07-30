@@ -1,11 +1,13 @@
 import {Server, ServerCredentials} from "grpc";
 import {
-    DBMonitorServiceService, EthmonitorControllerServiceService,
+    ContractVulnerabilityServiceService,
+    DBMonitorServiceService, EthmonitorControllerServiceService, IContractVulnerabilityServiceServer,
     IDBMonitorServiceServer, IEthmonitorControllerServiceServer
 } from "@darcher/rpc";
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
 import {Logger, Service} from "@darcher/helpers";
+import {ContractVulnerabilityService} from "./contractVulnerabilityService";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
@@ -17,6 +19,7 @@ export class DarcherServer extends Server implements Service {
 
     private readonly _ethmonitorControllerService: EthmonitorControllerService;
     private readonly _dbMonitorService: DbMonitorService;
+    private readonly _contractVulnerabilityService: ContractVulnerabilityService;
 
     constructor(logger: Logger, grpcPort: number, websocketPort: number) {
         super();
@@ -25,8 +28,10 @@ export class DarcherServer extends Server implements Service {
         this.websocketPort = websocketPort;
         this._ethmonitorControllerService = new EthmonitorControllerService(this.logger);
         this._dbMonitorService = new DbMonitorService(this.logger, websocketPort);
+        this._contractVulnerabilityService = new ContractVulnerabilityService(this.logger);
         this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
         this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
+        this.addService<IContractVulnerabilityServiceServer>(ContractVulnerabilityServiceService, this._contractVulnerabilityService);
         let addr = `localhost:${this.grpcPort}`;
         this.bind(addr, ServerCredentials.createInsecure());
     }
@@ -46,6 +51,8 @@ export class DarcherServer extends Server implements Service {
 
     public async waitForEstablishment(): Promise<void> {
         await this.dbMonitorService.waitForEstablishment();
+        await this.contractVulnerabilityService.waitForEstablishment();
+        await this.ethmonitorControllerService.waitForEstablishment();
     }
 
     public async shutdown(): Promise<void> {
@@ -62,5 +69,9 @@ export class DarcherServer extends Server implements Service {
 
     get dbMonitorService(): DbMonitorService {
         return this._dbMonitorService;
+    }
+
+    get contractVulnerabilityService(): ContractVulnerabilityService {
+        return this._contractVulnerabilityService;
     }
 }
