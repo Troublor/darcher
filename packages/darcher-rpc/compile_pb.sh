@@ -97,16 +97,16 @@ TS_COMPILE_FILES=(
   "ethmonitor_controller_service.proto"
   "dbmonitor_service.proto"
   "contract_oracle_service.proto"
-  "dapp_test_driver_service.proto"
+  "dapp_test_service.proto"
 )
 # shellcheck disable=SC2068
 compile_ts ${TS_OUTPUT_DIR} ${TS_COMPILE_FILES[@]}
 
 # common java compilation (compiled to @darcher/crawljax/rpc)
-JAVA_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-crawljax/rpc/src/main/java/org/kristen/rpc
+JAVA_OUTPUT_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-crawljax/rpc/src/main/java
 JAVA_COMPILE_FILES=(
   "common.proto"
-  "dapp_test_driver_service.proto"
+  "dapp_test_service.proto"
 )
 # shellcheck disable=SC2068
 compile_java ${JAVA_OUTPUT_DIR} ${JAVA_COMPILE_FILES[@]}

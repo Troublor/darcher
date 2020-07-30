@@ -5,6 +5,8 @@ package darcher;
 import "google/protobuf/empty.proto";
 import "common.proto";
 
+option java_package = "org.kristen.rpc.darcher";
+
 service DAppTestDriverService {
   /**
   DApp driver should call notifyTestStart() rpc once when test starts

@@ -7,6 +7,6 @@ module.exports = Object.assign(
 	require("./dbmonitor_service_grpc_pb"),
 	require("./contract_oracle_service_pb"),
 	require("./contract_oracle_service_grpc_pb"),
-	require("./dapp_test_driver_service_pb"),
-	require("./dapp_test_driver_service_grpc_pb"),
+	require("./dapp_test_service_pb"),
+	require("./dapp_test_service_grpc_pb"),
 );

@@ -3,6 +3,7 @@ syntax = "proto3";
 package darcher;
 
 option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+option java_package = "org.kristen.rpc.darcher";
 
 enum Role {
   DOER = 0;
