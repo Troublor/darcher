@@ -1,4 +1,4 @@
-import {IEthmonitorControllerServiceServer} from "@darcher/rpc";
+import {ContractVulReport, IEthmonitorControllerServiceServer, TxErrorMsg} from "@darcher/rpc";
 import {sendUnaryData, ServerUnaryCall} from "grpc";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 import {
@@ -20,6 +20,8 @@ export interface EthmonitorController {
     onTxFinished: (msg: TxFinishedMsg) => Promise<void>;
     onTxTraverseStart: (msg: TxTraverseStartMsg) => Promise<void>;
     selectTxToTraverse: (msg: SelectTxControlMsg) => Promise<string>;
+    onTxError: (msg: TxErrorMsg) => Promise<void>;
+    onContractVulnerability: (msg: ContractVulReport) => Promise<void>;
 }
 
 export class EthmonitorControllerService implements IEthmonitorControllerServiceServer, Service {
@@ -115,6 +117,26 @@ export class EthmonitorControllerService implements IEthmonitorControllerService
                 let reply = call.request;
                 reply.setSelection(select)
                 callback(null, reply);
+            });
+        }
+    }
+
+    notifyContractVulnerability(call: ServerUnaryCall<ContractVulReport>, callback: sendUnaryData<Empty>): void {
+        if (this.handler === undefined || !this.handler.onContractVulnerability) {
+            callback(null, new Empty());
+        } else {
+            this.handler.onContractVulnerability(call.request).then(() => {
+                callback(null, new Empty());
+            });
+        }
+    }
+
+    notifyTxError(call: ServerUnaryCall<TxErrorMsg>, callback: sendUnaryData<Empty>): void {
+        if (this.handler === undefined || !this.handler.onTxError) {
+            callback(null, new Empty());
+        } else {
+            this.handler.onTxError(call.request).then(() => {
+                callback(null, new Empty());
             });
         }
     }

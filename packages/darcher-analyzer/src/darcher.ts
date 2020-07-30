@@ -2,7 +2,7 @@
  * Darcher listen for new txs and start a analyzer for each tx
  */
 import {EthmonitorController, DarcherServer} from "./service";
-import {SelectTxControlMsg, TxReceivedMsg} from "@darcher/rpc";
+import {ContractVulReport, SelectTxControlMsg, TxErrorMsg, TxReceivedMsg} from "@darcher/rpc";
 import {Analyzer} from "./analyzer";
 import {Config} from "@darcher/config";
 import {Logger} from "@darcher/helpers";
@@ -25,6 +25,8 @@ export class Darcher {
         this.ethmonitorController = <EthmonitorController>{
             onTxReceived: this.onTxReceived.bind(this),
             selectTxToTraverse: this.selectTxToTraverse.bind(this),
+            onContractVulnerability: this.onContractVulnerability.bind(this),
+            onTxError: this.onTxError.bind(this),
         }
     }
 
@@ -44,7 +46,7 @@ export class Darcher {
     private async onTxReceived(msg: TxReceivedMsg): Promise<void> {
         this.logger.info("Tx received", "tx", msg.getHash());
         // new tx, initialize analyzer for it
-        let analyzer = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorServiceViaWebsocket);
+        let analyzer = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService);
         // register analyzer's handlers
         this.analyzers[msg.getHash()] = analyzer;
         this.ethmonitorController.onTxTraverseStart = analyzer.onTxTraverseStart.bind(analyzer);
@@ -55,6 +57,14 @@ export class Darcher {
 
     private async selectTxToTraverse(msg: SelectTxControlMsg): Promise<string> {
         return msg.getCandidateHashesList()[0];
+    }
+
+    private async onContractVulnerability(report: ContractVulReport): Promise<void> {
+
+    }
+
+    private async onTxError(txErrorMsg: TxErrorMsg): Promise<void> {
+
     }
 
     /* darcher controller handlers end */
