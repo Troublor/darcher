@@ -19,6 +19,7 @@ import {$enum} from "ts-enum-util";
 import {Config} from "@darcher/config";
 import {Logger} from "@darcher/helpers";
 import {DbMonitorService} from "./service/dbmonitorService";
+import {Oracle, Report} from "./oracle";
 
 /**
  * Extend TxState to introduce logical tx state (reverted, re-executed)
@@ -75,6 +76,13 @@ export class Analyzer {
     private stateEmitter: EventEmitter;
 
     // use for analysis
+    oracles: Oracle[] = [];
+    // txError cache, will be cleaned when forwarded to oracles
+    txErrors: TxErrorMsg[] = [];
+    // contractVulnerability cache, will be cleaned when forwarded to oracles
+    contractVulReports: ContractVulReport[] = [];
+    // consoleError cache, will be cleaned when forwarded to oracles
+    consoleErrors: ConsoleErrorMsg[] = [];
 
     constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DbMonitorService) {
         this.config = config;
@@ -105,25 +113,9 @@ export class Analyzer {
         } else {
             this.txState = <LogicalTxState>(msg.getTo() as number);
         }
-        this.logger.info("Wait for 10000 ms")
-        await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
-        setTimeout(async () => {
-            try {
-                let data = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
-                let iter = data.getTablesMap().keys();
-                let key = iter.next();
-                while (!key.done) {
-                    let table = data.getTablesMap().get(key.value);
-                    console.log("table:", key.value);
-                    console.log("keyPath", table.getKeypathList().toString());
-                    console.log("content", table.getEntriesList().toString());
-                    key = iter.next();
-                }
-            } catch (e) {
-                this.logger.error(e);
-            }
-            this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
-        }, 10000);
+        // apply oracles, this may block for a while
+        await this.applyOracles(this.txState);
+        this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
@@ -135,6 +127,7 @@ export class Analyzer {
     }
 
     public async askForNextState(msg: TxStateControlMsg): Promise<TxState> {
+        // before tell ethmonitor next state, make sure previous state has been reached
         await this.stateChangeWaiting;
         if (this.txState === LogicalTxState.CREATED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
@@ -171,12 +164,13 @@ export class Analyzer {
     }
 
     public async onTxError(msg: TxErrorMsg): Promise<void> {
-
+        this.txErrors.push(msg);
     }
 
     public async onContractVulnerability(msg: ContractVulReport): Promise<void> {
-
+        this.contractVulReports.push(msg);
     }
+
     /* darcher controller handlers end */
 
     /* dappTestDriverService handlers start */
@@ -189,12 +183,64 @@ export class Analyzer {
     }
 
     public async onConsoleError(msg: ConsoleErrorMsg): Promise<void> {
-
+        this.consoleErrors.push(msg);
     }
 
+    /**
+     * This method will be called through grpc by dapp test driver and will cause dapp test driver pause.
+     *
+     * This method will wait until the whole tx lifecycle traverse is finished and then resolve the promise.
+     * @param msg
+     */
     public async waitForTxProcess(msg: TxMsg): Promise<void> {
-
+        return new Promise(resolve => {
+            // only resolve the promise when stateEmitter has emitted LogicalTxState.CONFIRMED
+            // at this time tx lifecycle traverse should finished
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), resolve);
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.DROPPED), resolve);
+        });
     }
 
     /* dappTestDriverService handlers end */
+
+
+    /**
+     * Call each oracle's onTxState method, forwarding current txState, dbContent, txErrors, contractVulReports and consoleErrors
+     * to each oracle and clean txErrors, contractVulReports, consoleErrors
+     *
+     * This method will first wait for a time limit for dapp to handle transaction state change.
+     * @param txState The state that transaction is at currently
+     */
+    private async applyOracles(txState: LogicalTxState): Promise<void> {
+        // the time limit (milliseconds) for dapp to handle tx state change
+        const timeLimit = 10000;
+        return new Promise(async resolve => {
+            await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+            setTimeout(async () => {
+                // call dbMonitor service to get dbContent
+                let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                // forward to each oracle
+                for (let oracle of this.oracles) {
+                    oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
+                }
+                // clean txErrors, contractVulReports, consoleErrors, because they are cache for only one tx state
+                this.txErrors = [];
+                this.contractVulReports = [];
+                this.consoleErrors = [];
+
+                resolve();
+            }, timeLimit);
+        })
+    }
+
+    /**
+     * Get bug reports of all oracles, if there is no bug, an empty array will be returned
+     */
+    public getBugReports(): Report[] {
+        let reports: Report[] = [];
+        for (let oracle of this.oracles) {
+            reports.push(...oracle.getBugReports());
+        }
+        return reports;
+    }
 }
