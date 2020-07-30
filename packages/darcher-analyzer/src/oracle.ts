@@ -2,10 +2,13 @@
 This file defines test oracles for on-chain-off-chain synchronization bugs
  */
 import {LogicalTxState} from "./analyzer";
-import {ConsoleErrorMsg, ContractVulReport, DBContent,} from "@darcher/rpc";
+import {ConsoleErrorMsg, ContractVulReport, DBContent, TxErrorMsg,} from "@darcher/rpc";
 
 export enum OracleType {
-
+    ContractVulnerability,
+    ConsoleError,
+    TransactionError,
+    DataInconsistency,
 }
 
 /**
@@ -21,21 +24,24 @@ export interface Oracle {
     /**
      * should return whether this transaction's execution violates the oracle (is buggy)
      */
-    isBuggy(): boolean
+    isBuggy(): boolean;
 
     /**
      * getter for oracle type
      */
-    type(): OracleType
+    type(): OracleType;
+
+    getBugReports(): Report[];
 
     /**
      * This method should be called only when transaction is at each transaction state.
      * @param txState The transaction state that transaction is currently at
      * @param dbContent The database content (after change in response to the transaction state) in dapp
+     * @param txErrors The tx execution error during this tx state
      * @param contractVulReports The contract vulnerability reports during this transaction state
      * @param consoleErrors The dapp console errors during this transaction state
      */
-    onTxState(txState: LogicalTxState, dbContent: DBContent, contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void;
+    onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void;
 }
 
 export interface Report {
