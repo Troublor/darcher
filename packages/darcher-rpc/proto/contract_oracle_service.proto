@@ -3,12 +3,15 @@ syntax = "proto3";
 package darcher;
 
 import "common.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
 
 service ContractVulnerabilityService {
   rpc getReportsByContractControl(stream GetReportsByContractControlMsg) returns (stream GetReportsByContractControlMsg); // reverse rpc (call from ethmonitor master to worker)
   rpc getReportsByTransactionControl(stream GetReportsByTransactionControlMsg) returns (stream GetReportsByTransactionControlMsg); // reverse rpc (call from ethmonitor master to worker)
+  // actively notify tx error to ethmonitor
+  rpc notifyTxError(TxErrorMsg) returns (google.protobuf.Empty) {}
 }
 
 enum ContractVulType {

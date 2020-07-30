@@ -14,6 +14,8 @@ var global = Function('return this')();
 
 var common_pb = require('./common_pb.js');
 goog.object.extend(proto, common_pb);
+var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
+goog.object.extend(proto, google_protobuf_empty_pb);
 goog.exportSymbol('proto.darcher.ContractVulReport', null, global);
 goog.exportSymbol('proto.darcher.ContractVulType', null, global);
 goog.exportSymbol('proto.darcher.GetReportsByContractControlMsg', null, global);

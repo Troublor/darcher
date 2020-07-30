@@ -5,6 +5,18 @@ var grpc = require('grpc');
 var ethmonitor_controller_service_pb = require('./ethmonitor_controller_service_pb.js');
 var common_pb = require('./common_pb.js');
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
+var contract_oracle_service_pb = require('./contract_oracle_service_pb.js');
+
+function serialize_darcher_ContractVulReport(arg) {
+  if (!(arg instanceof contract_oracle_service_pb.ContractVulReport)) {
+    throw new Error('Expected argument of type darcher.ContractVulReport');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_darcher_ContractVulReport(buffer_arg) {
+  return contract_oracle_service_pb.ContractVulReport.deserializeBinary(new Uint8Array(buffer_arg));
+}
 
 function serialize_darcher_SelectTxControlMsg(arg) {
   if (!(arg instanceof ethmonitor_controller_service_pb.SelectTxControlMsg)) {
@@ -18,14 +30,14 @@ function deserialize_darcher_SelectTxControlMsg(buffer_arg) {
 }
 
 function serialize_darcher_TxErrorMsg(arg) {
-  if (!(arg instanceof ethmonitor_controller_service_pb.TxErrorMsg)) {
+  if (!(arg instanceof common_pb.TxErrorMsg)) {
     throw new Error('Expected argument of type darcher.TxErrorMsg');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
 function deserialize_darcher_TxErrorMsg(buffer_arg) {
-  return ethmonitor_controller_service_pb.TxErrorMsg.deserializeBinary(new Uint8Array(buffer_arg));
+  return common_pb.TxErrorMsg.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_darcher_TxFinishedMsg(arg) {
@@ -162,14 +174,27 @@ var EthmonitorControllerServiceService = exports.EthmonitorControllerServiceServ
     responseSerialize: serialize_darcher_SelectTxControlMsg,
     responseDeserialize: deserialize_darcher_SelectTxControlMsg,
   },
-  notifyTxError: {
+  // notify tx error to darcher analyzer
+notifyTxError: {
     path: '/darcher.EthmonitorControllerService/notifyTxError',
     requestStream: false,
     responseStream: false,
-    requestType: ethmonitor_controller_service_pb.TxErrorMsg,
+    requestType: common_pb.TxErrorMsg,
     responseType: google_protobuf_empty_pb.Empty,
     requestSerialize: serialize_darcher_TxErrorMsg,
     requestDeserialize: deserialize_darcher_TxErrorMsg,
+    responseSerialize: serialize_google_protobuf_Empty,
+    responseDeserialize: deserialize_google_protobuf_Empty,
+  },
+  // notify contract vulnerability to darcher analyzer
+notifyContractVulnerability: {
+    path: '/darcher.EthmonitorControllerService/notifyContractVulnerability',
+    requestStream: false,
+    responseStream: false,
+    requestType: contract_oracle_service_pb.ContractVulReport,
+    responseType: google_protobuf_empty_pb.Empty,
+    requestSerialize: serialize_darcher_ContractVulReport,
+    requestDeserialize: deserialize_darcher_ContractVulReport,
     responseSerialize: serialize_google_protobuf_Empty,
     responseDeserialize: deserialize_google_protobuf_Empty,
   },

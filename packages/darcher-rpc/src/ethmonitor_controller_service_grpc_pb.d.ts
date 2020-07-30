@@ -8,6 +8,7 @@ import * as grpc from "grpc";
 import * as ethmonitor_controller_service_pb from "./ethmonitor_controller_service_pb";
 import * as common_pb from "./common_pb";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
+import * as contract_oracle_service_pb from "./contract_oracle_service_pb";
 
 interface IEthmonitorControllerServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     notifyTxReceived: IEthmonitorControllerServiceService_InotifyTxReceived;
@@ -17,6 +18,7 @@ interface IEthmonitorControllerServiceService extends grpc.ServiceDefinition<grp
     askForNextState: IEthmonitorControllerServiceService_IaskForNextState;
     selectTx: IEthmonitorControllerServiceService_IselectTx;
     notifyTxError: IEthmonitorControllerServiceService_InotifyTxError;
+    notifyContractVulnerability: IEthmonitorControllerServiceService_InotifyContractVulnerability;
 }
 
 interface IEthmonitorControllerServiceService_InotifyTxReceived extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxReceivedMsg, google_protobuf_empty_pb.Empty> {
@@ -73,12 +75,21 @@ interface IEthmonitorControllerServiceService_IselectTx extends grpc.MethodDefin
     responseSerialize: grpc.serialize<ethmonitor_controller_service_pb.SelectTxControlMsg>;
     responseDeserialize: grpc.deserialize<ethmonitor_controller_service_pb.SelectTxControlMsg>;
 }
-interface IEthmonitorControllerServiceService_InotifyTxError extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxErrorMsg, google_protobuf_empty_pb.Empty> {
+interface IEthmonitorControllerServiceService_InotifyTxError extends grpc.MethodDefinition<common_pb.TxErrorMsg, google_protobuf_empty_pb.Empty> {
     path: string; // "/darcher.EthmonitorControllerService/notifyTxError"
     requestStream: false;
     responseStream: false;
-    requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxErrorMsg>;
-    requestDeserialize: grpc.deserialize<ethmonitor_controller_service_pb.TxErrorMsg>;
+    requestSerialize: grpc.serialize<common_pb.TxErrorMsg>;
+    requestDeserialize: grpc.deserialize<common_pb.TxErrorMsg>;
+    responseSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
+    responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
+}
+interface IEthmonitorControllerServiceService_InotifyContractVulnerability extends grpc.MethodDefinition<contract_oracle_service_pb.ContractVulReport, google_protobuf_empty_pb.Empty> {
+    path: string; // "/darcher.EthmonitorControllerService/notifyContractVulnerability"
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<contract_oracle_service_pb.ContractVulReport>;
+    requestDeserialize: grpc.deserialize<contract_oracle_service_pb.ContractVulReport>;
     responseSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
@@ -92,7 +103,8 @@ export interface IEthmonitorControllerServiceServer {
     notifyTxStateChangeMsg: grpc.handleUnaryCall<ethmonitor_controller_service_pb.TxStateChangeMsg, google_protobuf_empty_pb.Empty>;
     askForNextState: grpc.handleUnaryCall<ethmonitor_controller_service_pb.TxStateControlMsg, ethmonitor_controller_service_pb.TxStateControlMsg>;
     selectTx: grpc.handleUnaryCall<ethmonitor_controller_service_pb.SelectTxControlMsg, ethmonitor_controller_service_pb.SelectTxControlMsg>;
-    notifyTxError: grpc.handleUnaryCall<ethmonitor_controller_service_pb.TxErrorMsg, google_protobuf_empty_pb.Empty>;
+    notifyTxError: grpc.handleUnaryCall<common_pb.TxErrorMsg, google_protobuf_empty_pb.Empty>;
+    notifyContractVulnerability: grpc.handleUnaryCall<contract_oracle_service_pb.ContractVulReport, google_protobuf_empty_pb.Empty>;
 }
 
 export interface IEthmonitorControllerServiceClient {
@@ -114,9 +126,12 @@ export interface IEthmonitorControllerServiceClient {
     selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
-    notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTxError(request: common_pb.TxErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTxError(request: common_pb.TxErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTxError(request: common_pb.TxErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyContractVulnerability(request: contract_oracle_service_pb.ContractVulReport, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyContractVulnerability(request: contract_oracle_service_pb.ContractVulReport, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyContractVulnerability(request: contract_oracle_service_pb.ContractVulReport, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
 }
 
 export class EthmonitorControllerServiceClient extends grpc.Client implements IEthmonitorControllerServiceClient {
@@ -139,7 +154,10 @@ export class EthmonitorControllerServiceClient extends grpc.Client implements IE
     public selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     public selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
     public selectTx(request: ethmonitor_controller_service_pb.SelectTxControlMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: ethmonitor_controller_service_pb.SelectTxControlMsg) => void): grpc.ClientUnaryCall;
-    public notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    public notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    public notifyTxError(request: ethmonitor_controller_service_pb.TxErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTxError(request: common_pb.TxErrorMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTxError(request: common_pb.TxErrorMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTxError(request: common_pb.TxErrorMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyContractVulnerability(request: contract_oracle_service_pb.ContractVulReport, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyContractVulnerability(request: contract_oracle_service_pb.ContractVulReport, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyContractVulnerability(request: contract_oracle_service_pb.ContractVulReport, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
 }
