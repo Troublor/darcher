@@ -1,4 +1,12 @@
-import {TxState, Error as rpcError} from "@darcher/rpc";
+import {
+    TxState,
+    TestStartMsg,
+    TestEndMsg,
+    ConsoleErrorMsg,
+    TxMsg,
+    TxErrorMsg,
+    ContractVulReport
+} from "@darcher/rpc";
 import {
     TxFinishedMsg,
     TxStateChangeMsg,
@@ -162,5 +170,31 @@ export class Analyzer {
         }
     }
 
+    public async onTxError(msg: TxErrorMsg): Promise<void> {
+
+    }
+
+    public async onContractVulnerability(msg: ContractVulReport): Promise<void> {
+
+    }
     /* darcher controller handlers end */
+
+    /* dappTestDriverService handlers start */
+    public async onTestStart(msg: TestStartMsg): Promise<void> {
+
+    }
+
+    public async onTestEnd(msg: TestEndMsg): Promise<void> {
+
+    }
+
+    public async onConsoleError(msg: ConsoleErrorMsg): Promise<void> {
+
+    }
+
+    public async waitForTxProcess(msg: TxMsg): Promise<void> {
+
+    }
+
+    /* dappTestDriverService handlers end */
 }
