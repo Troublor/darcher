@@ -28,6 +28,17 @@ function deserialize_darcher_DAppDriverControlMsg(buffer_arg) {
   return dapp_test_driver_service_pb.DAppDriverControlMsg.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_darcher_TestEndMsg(arg) {
+  if (!(arg instanceof dapp_test_driver_service_pb.TestEndMsg)) {
+    throw new Error('Expected argument of type darcher.TestEndMsg');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_darcher_TestEndMsg(buffer_arg) {
+  return dapp_test_driver_service_pb.TestEndMsg.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_darcher_TestStartMsg(arg) {
   if (!(arg instanceof dapp_test_driver_service_pb.TestStartMsg)) {
     throw new Error('Expected argument of type darcher.TestStartMsg');
@@ -82,10 +93,10 @@ notifyTestEnd: {
     path: '/darcher.DAppTestDriverService/notifyTestEnd',
     requestStream: false,
     responseStream: false,
-    requestType: dapp_test_driver_service_pb.TestStartMsg,
+    requestType: dapp_test_driver_service_pb.TestEndMsg,
     responseType: google_protobuf_empty_pb.Empty,
-    requestSerialize: serialize_darcher_TestStartMsg,
-    requestDeserialize: deserialize_darcher_TestStartMsg,
+    requestSerialize: serialize_darcher_TestEndMsg,
+    requestDeserialize: deserialize_darcher_TestEndMsg,
     responseSerialize: serialize_google_protobuf_Empty,
     responseDeserialize: deserialize_google_protobuf_Empty,
   },

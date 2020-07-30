@@ -26,12 +26,12 @@ interface IDAppTestDriverServiceService_InotifyTestStart extends grpc.MethodDefi
     responseSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
-interface IDAppTestDriverServiceService_InotifyTestEnd extends grpc.MethodDefinition<dapp_test_driver_service_pb.TestStartMsg, google_protobuf_empty_pb.Empty> {
+interface IDAppTestDriverServiceService_InotifyTestEnd extends grpc.MethodDefinition<dapp_test_driver_service_pb.TestEndMsg, google_protobuf_empty_pb.Empty> {
     path: string; // "/darcher.DAppTestDriverService/notifyTestEnd"
     requestStream: false;
     responseStream: false;
-    requestSerialize: grpc.serialize<dapp_test_driver_service_pb.TestStartMsg>;
-    requestDeserialize: grpc.deserialize<dapp_test_driver_service_pb.TestStartMsg>;
+    requestSerialize: grpc.serialize<dapp_test_driver_service_pb.TestEndMsg>;
+    requestDeserialize: grpc.deserialize<dapp_test_driver_service_pb.TestEndMsg>;
     responseSerialize: grpc.serialize<google_protobuf_empty_pb.Empty>;
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
@@ -67,7 +67,7 @@ export const DAppTestDriverServiceService: IDAppTestDriverServiceService;
 
 export interface IDAppTestDriverServiceServer {
     notifyTestStart: grpc.handleUnaryCall<dapp_test_driver_service_pb.TestStartMsg, google_protobuf_empty_pb.Empty>;
-    notifyTestEnd: grpc.handleUnaryCall<dapp_test_driver_service_pb.TestStartMsg, google_protobuf_empty_pb.Empty>;
+    notifyTestEnd: grpc.handleUnaryCall<dapp_test_driver_service_pb.TestEndMsg, google_protobuf_empty_pb.Empty>;
     waitForTxProcess: grpc.handleUnaryCall<dapp_test_driver_service_pb.TxMsg, google_protobuf_empty_pb.Empty>;
     dappDriverControl: grpc.handleBidiStreamingCall<dapp_test_driver_service_pb.DAppDriverControlMsg, dapp_test_driver_service_pb.DAppDriverControlMsg>;
     notifyConsoleError: grpc.handleUnaryCall<dapp_test_driver_service_pb.ConsoleErrorMsg, google_protobuf_empty_pb.Empty>;
@@ -77,9 +77,9 @@ export interface IDAppTestDriverServiceClient {
     notifyTestStart(request: dapp_test_driver_service_pb.TestStartMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     notifyTestStart(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     notifyTestStart(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    notifyTestEnd(request: dapp_test_driver_service_pb.TestStartMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    notifyTestEnd(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    notifyTestEnd(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTestEnd(request: dapp_test_driver_service_pb.TestEndMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTestEnd(request: dapp_test_driver_service_pb.TestEndMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    notifyTestEnd(request: dapp_test_driver_service_pb.TestEndMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
@@ -96,9 +96,9 @@ export class DAppTestDriverServiceClient extends grpc.Client implements IDAppTes
     public notifyTestStart(request: dapp_test_driver_service_pb.TestStartMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     public notifyTestStart(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     public notifyTestStart(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    public notifyTestEnd(request: dapp_test_driver_service_pb.TestStartMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    public notifyTestEnd(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
-    public notifyTestEnd(request: dapp_test_driver_service_pb.TestStartMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTestEnd(request: dapp_test_driver_service_pb.TestEndMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTestEnd(request: dapp_test_driver_service_pb.TestEndMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
+    public notifyTestEnd(request: dapp_test_driver_service_pb.TestEndMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     public waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     public waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;
     public waitForTxProcess(request: dapp_test_driver_service_pb.TxMsg, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: google_protobuf_empty_pb.Empty) => void): grpc.ClientUnaryCall;

@@ -14,7 +14,7 @@ service DAppTestDriverService {
   /**
   DApp driver should call notifyTestEnd() rpc once when test ends
    */
-  rpc notifyTestEnd(TestStartMsg) returns (google.protobuf.Empty) {}
+  rpc notifyTestEnd(TestEndMsg) returns (google.protobuf.Empty) {}
 
   /**
   Each time DApp driver performs a `send transaction` operation, it should call waitForTxProcess() rpc immediately after transaction is send.
