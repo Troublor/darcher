@@ -69,6 +69,12 @@ function compile_java() {
     -I="${PROTOBUF_DIR}" \
     --java_out="${OUTPUT_DIR}" \
     ${COMPILE_TARGETS}
+
+  protoc \
+    --plugin=protoc-gen-grpc-java=./resources/protoc-gen-grpc-java \
+    --grpc-java_out="${OUTPUT_DIR}" \
+    --proto_path="$PROTOBUF_DIR" \
+    ${COMPILE_TARGETS}
 }
 
 # darcher-go-ethereum golang compilation
