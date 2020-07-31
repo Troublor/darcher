@@ -61,7 +61,13 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
      * close the reverse rpc service
      */
     public async close(): Promise<void> {
-        this.stream.cancel();
+        return new Promise(resolve => {
+            if (this.stream) {
+                this.stream.end(resolve);
+                return;
+            }
+            resolve();
+        });
     }
 }
 
@@ -146,6 +152,12 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
     }
 
     public async close(): Promise<void> {
-        return Promise.resolve();
+        return new Promise(resolve => {
+            if (this.stream) {
+                this.stream.end();
+                resolve();
+            }
+            resolve();
+        })
     }
 }

@@ -10,7 +10,8 @@ import {
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
 import {Logger, Service} from "@darcher/helpers";
-import {DappTestDriverService} from "./dappTestDriverService";
+import {DappTestDriverService, DappTestDriverServiceHandler} from "./dappTestDriverService";
+import {prettifyHash} from "../common";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
@@ -78,5 +79,42 @@ export class DarcherServer extends Server implements Service {
 
     get dappTestDriverService(): DappTestDriverService {
         return this._dappTestDriverService;
+    }
+}
+
+export class MockDarcherServer extends DarcherServer {
+    public txProcessTime: number = 10000;
+    constructor(logger: Logger, grpcPort: number) {
+        // for now we do not use wsPort, so just give a random port
+        super(logger, grpcPort, 9999);
+        // register dappTestDriverService handler
+        this.dappTestDriverService.handler = <DappTestDriverServiceHandler>{
+            onTestStart: msg => {
+                logger.info(`onTestStart dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()}`);
+                return Promise.resolve();
+            },
+            onTestEnd: msg => {
+                logger.info(`onTestEnd dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()}`);
+                return Promise.resolve();
+            },
+            onConsoleError: msg => {
+                logger.info(`onConsoleError dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} err=${msg.getErrorString()}`);
+                return Promise.resolve();
+            },
+            waitForTxProcess: async msg => {
+                logger.info(`waitForTxProcess refresh page and wait 10 seconds. dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())} from=${prettifyHash(msg.getFrom())} to=${prettifyHash(msg.getTo())}`);
+                await this.dappTestDriverService.refreshPage();
+                return new Promise<void>(resolve => {
+                    setTimeout(() => {
+                        logger.info(`waitForTxProcess finish dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())}`);
+                        resolve();
+                    }, this.txProcessTime);
+                });
+            }
+        }
+    }
+
+    async waitForEstablishment(): Promise<void> {
+        await this.dappTestDriverService.waitForEstablishment();
     }
 }

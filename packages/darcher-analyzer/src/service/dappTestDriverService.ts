@@ -62,11 +62,12 @@ export class DappTestDriverService implements IDAppTestDriverServiceServer, Serv
             return;
         }
         // serve the initial call
-        this.logger.info("dappDriver reverse RPC connected");
-        let msg = call.read() as DAppDriverControlMsg;
-        this.dappName = msg.getDappName();
-        this.dappInstanceId = msg.getInstanceId();
-        this.dappDriverControlReverseRPC.establish(call);
+        call.once("data", (msg: DAppDriverControlMsg)=>{
+            this.logger.info("dappDriver reverse RPC connected");
+            this.dappName = msg.getDappName();
+            this.dappInstanceId = msg.getInstanceId();
+            this.dappDriverControlReverseRPC.establish(call);
+        })
     }
 
     notifyConsoleError(call: ServerUnaryCall<ConsoleErrorMsg>, callback: sendUnaryData<Empty>): void {
