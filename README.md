@@ -10,6 +10,11 @@ Detecting bugs induced by DApp-blockchain interaction in decentralized applicati
 
 ### Usage
 
+First of all, install dependencies.
+```
+yarn
+```
+
 #### Start MockDarcherServer
 
 ```
