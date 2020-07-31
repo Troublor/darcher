@@ -7,6 +7,7 @@
   "author": "Troublor",
   "license": "ISC",
   "scripts": {
+    "start:MockDarcherServer": "ts-node scripts/startMockDarcherServer.ts",
     "start:darcher": "ts-node src/index.ts",
     "test": "mocha --require ts-node/register test/*.test.ts",
     "coverage": "nyc yarn test"
@@ -25,6 +26,7 @@
     "log4js": "^6.2.1",
     "request": "^2.88.2",
     "ts-enum-util": "^4.0.2",
+    "ts-node": "^8.10.2",
     "ws": "6.0.0"
   },
   "devDependencies": {
