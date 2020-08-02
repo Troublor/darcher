@@ -2,14 +2,14 @@
 
 source ./env.sh
 
-$GETH --datadir $BLOCKCHAIN_DIR/doer \
+exec $GETH --datadir $BLOCKCHAIN_DIR/doer \
       --networkid 2020 \
       --nodiscover \
       --nousb \
       --ipcdisable \
       --port 30303 \
       --http --http.api eth,txpool,net --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain="*" \
-      --ws --wsport --ws.addr 0.0.0.0 8546 --wsorigins "*" \
+      --ws --ws.addr 0.0.0.0 --wsport 8546 --wsorigins "*" \
       --syncmode full \
       --graphql --graphql.port 8547 \
       --keystore $BLOCKCHAIN_DIR/keystore \

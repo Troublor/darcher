@@ -2,7 +2,7 @@
 
 source ./env.sh
 
-$GETH --datadir $BLOCKCHAIN_DIR/doer \
+exec $GETH --datadir $BLOCKCHAIN_DIR/doer \
       --networkid 2020 \
       --nodiscover \
       --nousb \

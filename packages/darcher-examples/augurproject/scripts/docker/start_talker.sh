@@ -2,7 +2,7 @@
 
 source ./env.sh
 
-$GETH --datadir $BLOCKCHAIN_DIR/talker \
+exec $GETH --datadir $BLOCKCHAIN_DIR/talker \
       --networkid 2020 \
       --nodiscover \
       --nousb \

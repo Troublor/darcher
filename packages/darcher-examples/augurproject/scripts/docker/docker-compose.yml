@@ -2,7 +2,8 @@ version: '3'
 services:
   ethmonitor:
     image: darcher/augur-base:latest
-    entrypoint: /bin/sh /start_ethmonitor.sh
+    entrypoint: ["/bin/sh", "start_ethmonitor.sh"]
+    stop_signal: SIGINT
     environment:
       ETHMONITOR_PORT: 8989
       ETHMONITOR_CONTROLLER: trivial
@@ -10,7 +11,8 @@ services:
 
   doer:
     image: darcher/augur-base:latest
-    entrypoint: /bin/sh /start_doer.sh
+    entrypoint: ["/bin/sh", "start_doer.sh"]
+    stop_signal: SIGINT
     environment:
       ETHMONITOR_ADDR: ethmonitor:8989
       VERBOSITY: 3
@@ -23,7 +25,8 @@ services:
 
   talker:
     image: darcher/augur-base:latest
-    entrypoint: /bin/sh /start_talker.sh
+    entrypoint: ["/bin/sh", "start_talker.sh"]
+    stop_signal: SIGINT
     network_mode: service:doer
     environment:
       ETHMONITOR_ADDR: ethmonitor:8989
