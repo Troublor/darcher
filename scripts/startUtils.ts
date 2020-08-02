@@ -77,7 +77,7 @@ export function startCluster(darcher: AnalyzerConfig, cluster: ClusterConfig) {
     }
 
     // start ethmonitor
-    let ethmonitorCmd = `yarn workspace @darcher/go-ethereum start:ethmonitor --ethmonitor.port ${cluster.ethmonitorPort} --ethmonitor.controller ${cluster.controller} --analyzer.port ${darcher.grpcPort} --verbosity 4`;
+    let ethmonitorCmd = `yarn workspace @darcher/go-ethereum start:ethmonitor --ethmonitor.port ${cluster.ethmonitorPort} --ethmonitor.controller ${cluster.controller} --analyzer.address localhost${darcher.grpcPort} --verbosity 4`;
     shell.exec(`ttab -a iTerm2 -t "Ethmonitor ${cluster.ethmonitorPort} ${cluster.controller}" ${ethmonitorCmd}`);
 
     setTimeout(async () => {
@@ -101,7 +101,7 @@ export function startCluster(darcher: AnalyzerConfig, cluster: ClusterConfig) {
         if (cluster.graphqlPort) {
             seg.push(`--graphql --graphql.port ${cluster.graphqlPort}`);
         }
-        seg.push(`--ethmonitor.port ${cluster.ethmonitorPort}`);
+        seg.push(`--ethmonitor.address localhost:${cluster.ethmonitorPort}`);
         if (cluster.extra) {
             seg.push(cluster.extra);
         }
@@ -120,7 +120,7 @@ export function startCluster(darcher: AnalyzerConfig, cluster: ClusterConfig) {
         seg.push(`--nodiscover`);
         seg.push(`--ipcdisable`);
         seg.push(`--syncmode full`);
-        seg.push(`--ethmonitor.port ${cluster.ethmonitorPort}`);
+        seg.push(`--ethmonitor.address localhost:${cluster.ethmonitorPort}`);
         seg.push(`--ethmonitor.talker`);
         seg.push(`console`);
         let talkerCmd = seg.join(" ");

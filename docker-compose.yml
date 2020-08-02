@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  executables:
+    build:
+      context: ./packages/darcher-go-ethereum
+      dockerfile: Dockerfile_executables
+    image: darcher/go-ethereum/executables
+
+

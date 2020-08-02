@@ -9,7 +9,10 @@
   "license": "ISC",
   "scripts": {
     "deploy:giveth": "ts-node ./giveth/scripts/deploy.ts",
-    "start:giveth": "ts-node ./giveth/scripts/start.ts"
+    "start:giveth": "ts-node ./giveth/scripts/start.ts",
+
+    "deply:augur": "cd augurproject/scripts && bash ./deploy.sh",
+    "docker:build:augur-base": "cd augurproject/scripts && bash ./docker_build_augur-base.sh"
   },
   "dependencies": {
     "ts-node": "^8.10.2",

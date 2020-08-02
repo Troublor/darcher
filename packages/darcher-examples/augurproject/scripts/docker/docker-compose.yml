@@ -1,0 +1,30 @@
+version: '3'
+services:
+  ethmonitor:
+    image: darcher/augur-base:latest
+    entrypoint: /bin/sh /start_ethmonitor.sh
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: trivial
+      VERBOSITY: 4
+
+  doer:
+    image: darcher/augur-base:latest
+    entrypoint: /bin/sh /start_doer.sh
+    environment:
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "8547:8547"
+      - "30303:30303"
+      - "30303:30303/udp"
+
+  talker:
+    image: darcher/augur-base:latest
+    entrypoint: /bin/sh /start_talker.sh
+    network_mode: service:doer
+    environment:
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
