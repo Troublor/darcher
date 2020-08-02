@@ -17,20 +17,14 @@ import {Command, Tab, TerminalWindow} from "./terminal";
  * A cluster acts as a whole blockchain network to handle Ethereum transactions with reorganization features.
  */
 export class BlockchainCluster {
-    private readonly analyzerPort: number;
     private readonly config: ClusterConfig;
-    private readonly verbosity: number;
 
     /**
      * The cluster is constructed with cluster configurations
      * @param config ClusterConfig defined in @darcher/config
-     * @param analyzerPort analyzerPort defined in DarcherConfig of @darcher/config
-     * @param verbosity
      */
-    constructor(config: ClusterConfig, analyzerPort: number, verbosity: number = 3) {
+    constructor(config: ClusterConfig) {
         this.config = config;
-        this.analyzerPort = analyzerPort;
-        this.verbosity = verbosity;
     }
 
     private static testAndMakeDir(path: string): boolean {
@@ -113,8 +107,8 @@ export class BlockchainCluster {
         let cmdEthmonitor = new Command(`yarn workspace @darcher/go-ethereum start:ethmonitor`);
         cmdEthmonitor.append(`--ethmonitor.port ${this.config.ethmonitorPort}`);
         cmdEthmonitor.append(`--ethmonitor.controller ${this.config.controller}`);
-        cmdEthmonitor.append(`--analyzer.port ${this.analyzerPort}`);
-        cmdEthmonitor.append(`--verbosity ${this.verbosity}`);
+        cmdEthmonitor.append(`--analyzer.address ${this.config.analyzerAddress}`);
+        cmdEthmonitor.append(`--verbosity ${this.config.verbosity}`);
         let tab0 = new Tab(cmdEthmonitor, false, undefined, `Ethmonitor-${this.config.ethmonitorPort}`);
 
         // start Doer

@@ -6,6 +6,7 @@ export enum ControllerOptions {
 }
 
 export interface ClusterConfig {
+    analyzerAddress?: string // address to the analyzer grpc endpoint
     ethmonitorPort: number
     controller: ControllerOptions
     genesisFile: string
@@ -15,6 +16,7 @@ export interface ClusterConfig {
     httpPort?: number
     wsPort?: number
     graphqlPort?: number
+    verbosity: number // go-ethereum verbosity level
     extra?: string
 }
 
