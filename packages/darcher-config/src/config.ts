@@ -16,7 +16,7 @@ export interface ClusterConfig {
     httpPort?: number
     wsPort?: number
     graphqlPort?: number
-    verbosity: number // go-ethereum verbosity level
+    verbosity?: number // go-ethereum verbosity level, default=3
     extra?: string
 }
 

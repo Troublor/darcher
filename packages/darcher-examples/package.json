@@ -12,6 +12,7 @@
     "start:giveth": "ts-node ./giveth/scripts/start.ts",
 
     "deply:augur": "cd augurproject/scripts && bash ./deploy.sh",
+    "start:augur": "ts-node augurproject/scripts/start_augur_blockchain.ts",
     "docker:build:augur-base": "cd augurproject/scripts && bash ./docker_build_augur-base.sh"
   },
   "dependencies": {

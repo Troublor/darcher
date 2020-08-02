@@ -107,8 +107,10 @@ export class BlockchainCluster {
         let cmdEthmonitor = new Command(`yarn workspace @darcher/go-ethereum start:ethmonitor`);
         cmdEthmonitor.append(`--ethmonitor.port ${this.config.ethmonitorPort}`);
         cmdEthmonitor.append(`--ethmonitor.controller ${this.config.controller}`);
-        cmdEthmonitor.append(`--analyzer.address ${this.config.analyzerAddress}`);
-        cmdEthmonitor.append(`--verbosity ${this.config.verbosity}`);
+        if (this.config.analyzerAddress) {
+            cmdEthmonitor.append(`--analyzer.address ${this.config.analyzerAddress}`);
+        }
+        cmdEthmonitor.append(`--verbosity ${this.config.verbosity ? this.config.verbosity : 3}`);
         let tab0 = new Tab(cmdEthmonitor, false, undefined, `Ethmonitor-${this.config.ethmonitorPort}`);
 
         // start Doer
@@ -131,7 +133,7 @@ export class BlockchainCluster {
             cmdDoer.append(`--graphql --graphql.port ${this.config.graphqlPort}`);
         }
         cmdDoer.append(`--syncmode full`);
-        cmdDoer.append(`--ethmonitor.port ${this.config.ethmonitorPort}`);
+        cmdDoer.append(`--ethmonitor.address localhost:${this.config.ethmonitorPort}`);
         if (this.config.extra) {
             cmdDoer.append(this.config.extra);
         }
@@ -149,7 +151,7 @@ export class BlockchainCluster {
         cmdTalker.append(`--nodiscover`);
         cmdTalker.append(`--ipcdisable`);
         cmdTalker.append(`--syncmode full`);
-        cmdTalker.append(`--ethmonitor.port ${this.config.ethmonitorPort}`);
+        cmdTalker.append(`--ethmonitor.address localhost:${this.config.ethmonitorPort}`);
         cmdTalker.append(`--ethmonitor.talker`);
         cmdTalker.append(`console`);
         let tab2 = new Tab(cmdTalker, false, undefined, `TALKER-${this.config.ethmonitorPort}`);
