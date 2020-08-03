@@ -4,12 +4,15 @@ This file defines test oracles for on-chain-off-chain synchronization bugs
 import {LogicalTxState} from "./analyzer";
 import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg,} from "@darcher/rpc";
 import * as _ from "lodash";
+import {prettifyHash} from "./common";
+import {$enum} from "ts-enum-util";
 
 export enum OracleType {
     ContractVulnerability = "ContractVulnerability",
     ConsoleError = "ConsoleError",
     TransactionError = "TransactionError",
     DataInconsistency = "DataInconsistency",
+    UnreliableTxHash = "UnreliableTxHash"
 }
 
 /**
@@ -47,13 +50,13 @@ export enum Severity {
 }
 
 export interface Report {
-    dappName: string;
-    txHash: string;
-    type: OracleType;
-    message: string;
-    severity: Severity
+    txHash(): string;
 
-    toString(): string;
+    type(): OracleType;
+
+    message(): string;
+
+    severity(): Severity
 }
 
 /**
@@ -79,9 +82,30 @@ export class DBChangeOracle implements Oracle {
     }
 
     getBugReports(): Report[] {
+        let reports: Report[] = [];
         // we will consider DBContent at CREATED state to be the base-line
-        // TODO apply oracle
-        return [];
+        let base: DBContent = this.contentMap[LogicalTxState.CREATED];
+        let pending: DBContent = this.contentMap[LogicalTxState.PENDING];
+        let pendingDiff = new DBContentDiff(base, pending);
+        if (!pendingDiff.zero()) {
+            // DBContent should not be changed in pending state (Low).
+            reports.push(new UnreliableTxHashReport(
+                this.txHash,
+                LogicalTxState.PENDING,
+                pendingDiff,
+            ))
+        }
+        let removed: DBContent = this.contentMap[LogicalTxState.REMOVED];
+        let removedDiff = new DBContentDiff(pending, removed);
+        if (!removedDiff.zero()) {
+            // DBContent in tx pending state should be equal to that in tx removed state (High).
+            reports.push(new DataInconsistencyReport(
+                this.txHash,
+                LogicalTxState.REMOVED,
+                removedDiff,
+            ))
+        }
+        return reports;
     }
 
     isBuggy(): boolean {
@@ -96,6 +120,73 @@ export class DBChangeOracle implements Oracle {
         return OracleType.DataInconsistency;
     }
 }
+
+/**
+ * Bug reports for UnreliableTxHash type. Persistent changes shouldn't be made at pending state
+ */
+class UnreliableTxHashReport implements Report{
+    private readonly _txHash: string;
+    private readonly dbContentDiff: DBContentDiff;
+    private readonly txState: LogicalTxState;
+
+    constructor(txHash: string, txState: LogicalTxState, dbContentDiff: DBContentDiff) {
+        this._txHash = txHash;
+        this.dbContentDiff = dbContentDiff;
+        this.txState = txState;
+    }
+
+    severity(): Severity {
+        return Severity.High;
+    }
+
+    txHash(): string {
+        return this._txHash;
+    }
+
+    type(): OracleType {
+        return OracleType.UnreliableTxHash;
+    }
+
+    message(): string {
+        // TODO print more information
+        return `[${OracleType.UnreliableTxHash}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
+    }
+
+}
+
+/**
+ * Bug reports for DataInconsistency type
+ */
+class DataInconsistencyReport implements Report {
+    private readonly _txHash: string;
+    private readonly dbContentDiff: DBContentDiff;
+    private readonly txState: LogicalTxState;
+
+    constructor(txHash: string, txState: LogicalTxState, dbContentDiff: DBContentDiff) {
+        this._txHash = txHash;
+        this.dbContentDiff = dbContentDiff;
+        this.txState = txState;
+    }
+
+    severity(): Severity {
+        return Severity.High;
+    }
+
+    txHash(): string {
+        return this._txHash;
+    }
+
+    type(): OracleType {
+        return OracleType.DataInconsistency;
+    }
+
+    message(): string {
+        // TODO print more information
+        return `[${OracleType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
+    }
+
+}
+
 
 /**
  * This class represent the difference between two DBContent instance.
@@ -288,8 +379,17 @@ export class TxErrorOracle implements Oracle {
     }
 
     getBugReports(): Report[] {
-        // TODO apply oracle
-        return [];
+        let reports: Report[] = [];
+        for (let state of $enum(LogicalTxState).getKeys()) {
+            for (let txErrorMsg of this.txErrorMap[state]) {
+                reports.push(new TxErrorReport(
+                    this.txHash,
+                    $enum(LogicalTxState).getValueOrDefault(state),
+                    txErrorMsg
+                ));
+            }
+        }
+        return reports;
     }
 
     isBuggy(): boolean {
@@ -307,6 +407,37 @@ export class TxErrorOracle implements Oracle {
 
     type(): OracleType {
         return OracleType.TransactionError;
+    }
+}
+
+/**
+ * Bug reports for TxError type
+ */
+class TxErrorReport implements Report {
+    private readonly _txHash: string;
+    private readonly errorMsg: TxErrorMsg;
+    private readonly txState: LogicalTxState;
+
+    constructor(txHash: string, txState: LogicalTxState, errorMsg: TxErrorMsg) {
+        this._txHash = txHash;
+        this.txState = txState;
+        this.errorMsg = errorMsg;
+    }
+
+    type(): OracleType {
+        return OracleType.TransactionError;
+    }
+
+    severity(): Severity {
+        return Severity.Medium;
+    }
+
+    txHash(): string {
+        return this._txHash;
+    }
+
+    message(): string {
+        return `[${OracleType.TransactionError}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.errorMsg.getDescription()}`;
     }
 }
 
@@ -328,8 +459,17 @@ export class ContractVulnerabilityOracle implements Oracle {
     }
 
     getBugReports(): Report[] {
-        // TODO apply oracles
-        return [];
+        let reports: Report[] = [];
+        for (let state of $enum(LogicalTxState).getKeys()) {
+            for (let contractVulMsg of this.contractVulMap[state]) {
+                reports.push(new ContractVulnerabilityReport(
+                    this.txHash,
+                    $enum(LogicalTxState).getValueOrDefault(state),
+                    contractVulMsg,
+                ));
+            }
+        }
+        return reports;
     }
 
     isBuggy(): boolean {
@@ -347,6 +487,38 @@ export class ContractVulnerabilityOracle implements Oracle {
 
     type(): OracleType {
         return OracleType.ContractVulnerability;
+    }
+
+}
+
+/**
+ * Bug reports for ContractVulnerability type
+ */
+class ContractVulnerabilityReport implements Report {
+    private readonly _txHash: string;
+    private readonly contractVulReport: ContractVulReport;
+    private readonly txState: LogicalTxState;
+
+    constructor(txHash: string, txState: LogicalTxState, contractVulReport: ContractVulReport) {
+        this._txHash = txHash;
+        this.contractVulReport = contractVulReport;
+        this.txState = txState;
+    }
+
+    severity(): Severity {
+        return Severity.High;
+    }
+
+    txHash(): string {
+        return this._txHash;
+    }
+
+    type(): OracleType {
+        return OracleType.ContractVulnerability;
+    }
+
+    message(): string {
+        return `[${OracleType.ContractVulnerability}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.contractVulReport.getDescription()}`;
     }
 
 }
@@ -369,8 +541,17 @@ export class ConsoleErrorOracle implements Oracle {
     }
 
     getBugReports(): Report[] {
-        // TODO apply oracles
-        return [];
+        let reports: Report[] = [];
+        for (let state of $enum(LogicalTxState).getKeys()) {
+            for (let consoleErrorMsg of this.consoleErrorMap[state]) {
+                reports.push(new ConsoleErrorReport(
+                    this.txHash,
+                    $enum(LogicalTxState).getValueOrDefault(state),
+                    consoleErrorMsg,
+                ));
+            }
+        }
+        return reports;
     }
 
     isBuggy(): boolean {
@@ -388,6 +569,38 @@ export class ConsoleErrorOracle implements Oracle {
 
     type(): OracleType {
         return OracleType.ConsoleError;
+    }
+
+}
+
+/**
+ * Bug reports for ConsoleError type
+ */
+class ConsoleErrorReport implements Report {
+    private readonly _txHash: string;
+    private readonly consoleError: ConsoleErrorMsg;
+    private readonly txState: LogicalTxState;
+
+    constructor(txHash: string, txState: LogicalTxState, consoleErrorMsg: ConsoleErrorMsg) {
+        this._txHash = txHash;
+        this.consoleError = consoleErrorMsg;
+        this.txState = txState;
+    }
+
+    severity(): Severity {
+        return Severity.Low;
+    }
+
+    txHash(): string {
+        return this._txHash;
+    }
+
+    type(): OracleType {
+        return OracleType.ConsoleError;
+    }
+
+    message(): string {
+        return `[${OracleType.ConsoleError}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.consoleError.getErrorString()}`;
     }
 
 }
