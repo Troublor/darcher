@@ -104,7 +104,7 @@ export class DBChangeOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        return false;
+        return this.getBugReports().length > 0;
     }
 
     onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void {
