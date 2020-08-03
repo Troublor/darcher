@@ -30,7 +30,7 @@
     "start:cluster": "ts-node scripts/startUtils.ts",
     "start:config": "ts-node ./scripts/start.ts",
     "reset:config": "ts-node ./scripts/reset.ts",
-    "test": "yarn workspace @darcher/go-ethereum test"
+    "test": "yarn workspace @darcher/dbmonitor test && yarn workspace @darcher/analyzer test"
   },
   "dependencies": {
     "get-port": "^5.1.1",

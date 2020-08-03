@@ -9,7 +9,7 @@
   "scripts": {
     "start:MockDarcherServer": "ts-node scripts/startMockDarcherServer.ts",
     "start:darcher": "ts-node src/index.ts",
-    "test": "mocha --require ts-node/register test/*.test.ts",
+    "test": "mocha --require ts-node/register test/**/*.test.ts",
     "coverage": "nyc yarn test"
   },
   "dependencies": {
