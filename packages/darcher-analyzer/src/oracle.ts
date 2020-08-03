@@ -2,7 +2,8 @@
 This file defines test oracles for on-chain-off-chain synchronization bugs
  */
 import {LogicalTxState} from "./analyzer";
-import {ConsoleErrorMsg, ContractVulReport, DBContent, TxErrorMsg,} from "@darcher/rpc";
+import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg,} from "@darcher/rpc";
+import * as _ from "lodash";
 
 export enum OracleType {
     ContractVulnerability = "ContractVulnerability",
@@ -93,6 +94,175 @@ export class DBChangeOracle implements Oracle {
 
     type(): OracleType {
         return OracleType.DataInconsistency;
+    }
+}
+
+/**
+ * This class represent the difference between two DBContent instance.
+ */
+export class DBContentDiff {
+    public readonly from: DBContent;
+    public readonly to: DBContent;
+
+    private _tableDiffs: { [tableName: string]: TableContentDiff };
+
+    constructor(from: DBContent, to: DBContent) {
+        this.from = from;
+        this.to = to;
+        this.calDiff();
+    }
+
+    /**
+     * Calculate the difference between two DBContent instance.
+     */
+    private calDiff() {
+        this._tableDiffs = {};
+        this.from.getTablesMap().forEach((fromTable, tableName) => {
+            if (!this.to.getTablesMap().has(tableName)) {
+                // for now, we suppose no table will be created or deleted during execution
+                return;
+            }
+            let toTable = this.to.getTablesMap().get(tableName);
+            this._tableDiffs[tableName] = new TableContentDiff(tableName, fromTable, toTable);
+        });
+    }
+
+    /**
+     * Whether no difference or not
+     */
+    public zero(): boolean {
+        return _.values(this._tableDiffs).every(value => value.zero());
+    }
+
+    get tableDiffs(): { [tableName: string]: TableContentDiff } {
+        return this._tableDiffs;
+    }
+}
+
+/**
+ * This class represent the difference between two TableContent instance (must be with same table name).
+ */
+export class TableContentDiff {
+    public readonly tableName: string;
+    public readonly from: TableContent;
+    public readonly to: TableContent;
+
+    private _deletedRecords: TableRecord[];
+    private _addedRecords: TableRecord[];
+    private _changedRecords: TableRecordChange[];
+
+    constructor(tableName: string, from: TableContent, to: TableContent) {
+        this.tableName = tableName;
+        this.from = from;
+        this.to = to;
+        this.calDiff();
+    }
+
+    /**
+     * Calculate the difference between two TableContent instance.
+     */
+    private calDiff() {
+        let fromRecords: TableRecord[] = [];
+        let toRecords: TableRecord[] = [];
+        // convert to list of TableRecord
+        for (let f_r of this.from.getEntriesList()) {
+            fromRecords.push(new TableRecord(this.from.getKeypathList(), f_r));
+        }
+        for (let t_r of this.to.getEntriesList()) {
+            toRecords.push(new TableRecord(this.to.getKeypathList(), t_r));
+        }
+
+        // calculate diff
+        this._deletedRecords = _.differenceWith(fromRecords, toRecords, (f, t) => f.sameKeyAs(t));
+        this._addedRecords = _.differenceWith(toRecords, fromRecords, (f, t) => f.sameKeyAs(t));
+        this._changedRecords = [];
+        for (let f of fromRecords) {
+            for (let t of toRecords) {
+                if (f.sameKeyAs(t) && !f.equalTo(t)) {
+                    // changed records are those with same key but not equal
+                    this._changedRecords.push(new TableRecordChange(f, t));
+                }
+            }
+        }
+    }
+
+    /**
+     * Whether no difference or not
+     */
+    public zero(): boolean {
+        return this._addedRecords.length === 0 && this._deletedRecords.length === 0 && this._changedRecords.length === 0;
+    }
+
+    get deletedRecords(): TableRecord[] {
+        return this._deletedRecords;
+    }
+
+    get addedRecords(): TableRecord[] {
+        return this._addedRecords;
+    }
+
+    get changedRecords(): TableRecordChange[] {
+        return this._changedRecords;
+    }
+}
+
+/**
+ * The change of two records
+ */
+export class TableRecordChange {
+    public readonly from: TableRecord;
+    public readonly to: TableRecord;
+
+    constructor(from: TableRecord, to: TableRecord) {
+        this.from = from;
+        this.to = to;
+    }
+}
+
+/**
+ * One entry in each table
+ */
+export class TableRecord {
+    public readonly keyPath: string[];
+    public readonly data: { [key: string]: any };
+
+    constructor(keyPath: string[], data: object | string) {
+        this.keyPath = keyPath;
+        switch (typeof data) {
+            case "string":
+                // unmarshal json if data is a string
+                this.data = JSON.parse(data);
+                break;
+            default:
+                this.data = data;
+                break;
+        }
+    }
+
+    /**
+     * If another TableRecord has the same key as this.
+     * @param another
+     */
+    public sameKeyAs(another: TableRecord): boolean {
+        if (!_.isEqual(this.keyPath.sort(), another.keyPath.sort())) {
+            // short circuit if they have different key path
+            return false;
+        }
+        for (let key of this.keyPath) {
+            if (this.data[key] === undefined || another.data[key] === undefined) {
+                // this branch should not happen, because key must be set
+                return false;
+            }
+            // all key must be the same
+            if (!_.isEqual(this.data[key], another.data[key])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public equalTo(another: TableRecord): boolean {
+        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(this.data, another.data);
     }
 }
 
