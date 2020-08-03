@@ -25,7 +25,7 @@ This script will start MockDarcherServer with gRPC port on `localhost:1234`. `Ct
 
 ### Examples: Augur
 
-First, install dependencies for Augur submodule.
+First, make sure Augur submodule (`packages/darcher-examples/augurproject/augur`) has been cloned, then install dependencies for Augur submodule.
 
 ```shell script
 cd packages/darcher-examples/augurproject/augur && yarn
