@@ -13,11 +13,10 @@ import {
     TxStateControlMsg,
     TxTraverseStartMsg
 } from "@darcher/rpc";
-import {logger, prettifyHash} from "./common";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {Config} from "@darcher/config";
-import {Logger} from "@darcher/helpers";
+import {Logger, prettifyHash} from "@darcher/helpers";
 import {DbMonitorService} from "./service/dbmonitorService";
 import {Oracle, Report} from "./oracle";
 

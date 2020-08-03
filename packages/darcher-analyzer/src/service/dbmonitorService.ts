@@ -1,7 +1,6 @@
 import * as WebSocket from "ws";
 import http from "http";
 import {
-    DarcherError,
     DarcherErrorCode,
     getUUID,
     Logger,

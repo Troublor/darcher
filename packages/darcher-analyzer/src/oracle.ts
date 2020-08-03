@@ -4,7 +4,7 @@ This file defines test oracles for on-chain-off-chain synchronization bugs
 import {LogicalTxState} from "./analyzer";
 import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg,} from "@darcher/rpc";
 import * as _ from "lodash";
-import {prettifyHash} from "./common";
+import {prettifyHash} from "@darcher/helpers";
 import {$enum} from "ts-enum-util";
 
 export enum OracleType {

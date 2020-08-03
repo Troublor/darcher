@@ -9,9 +9,8 @@ import {
 } from "@darcher/rpc";
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
-import {Logger, Service} from "@darcher/helpers";
+import {Logger, prettifyHash, Service} from "@darcher/helpers";
 import {DappTestDriverService, DappTestDriverServiceHandler} from "./dappTestDriverService";
-import {prettifyHash} from "../common";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
