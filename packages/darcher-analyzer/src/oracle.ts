@@ -7,7 +7,7 @@ import * as _ from "lodash";
 import {prettifyHash} from "@darcher/helpers";
 import {$enum} from "ts-enum-util";
 
-export enum OracleType {
+export enum VulnerabilityType {
     ContractVulnerability = "ContractVulnerability",
     ConsoleError = "ConsoleError",
     TransactionError = "TransactionError",
@@ -24,11 +24,6 @@ export interface Oracle {
      * should return whether this transaction's execution violates the oracle (is buggy)
      */
     isBuggy(): boolean;
-
-    /**
-     * getter for oracle type
-     */
-    type(): OracleType;
 
     getBugReports(): Report[];
 
@@ -52,7 +47,7 @@ export enum Severity {
 export interface Report {
     txHash(): string;
 
-    type(): OracleType;
+    type(): VulnerabilityType;
 
     message(): string;
 
@@ -115,10 +110,6 @@ export class DBChangeOracle implements Oracle {
     onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void {
         this.contentMap[txState] = dbContent;
     }
-
-    type(): OracleType {
-        return OracleType.DataInconsistency;
-    }
 }
 
 /**
@@ -143,13 +134,13 @@ class UnreliableTxHashReport implements Report {
         return this._txHash;
     }
 
-    type(): OracleType {
-        return OracleType.UnreliableTxHash;
+    type(): VulnerabilityType {
+        return VulnerabilityType.UnreliableTxHash;
     }
 
     message(): string {
         // TODO print more information
-        return `[${OracleType.UnreliableTxHash}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
+        return `[${VulnerabilityType.UnreliableTxHash}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
     }
 
 }
@@ -176,13 +167,13 @@ class DataInconsistencyReport implements Report {
         return this._txHash;
     }
 
-    type(): OracleType {
-        return OracleType.DataInconsistency;
+    type(): VulnerabilityType {
+        return VulnerabilityType.DataInconsistency;
     }
 
     message(): string {
         // TODO print more information
-        return `[${OracleType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
+        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
     }
 
 }
@@ -405,9 +396,6 @@ export class TxErrorOracle implements Oracle {
         this.txErrorMap[txState].push(...txErrors);
     }
 
-    type(): OracleType {
-        return OracleType.TransactionError;
-    }
 }
 
 /**
@@ -424,8 +412,8 @@ class TxErrorReport implements Report {
         this.errorMsg = errorMsg;
     }
 
-    type(): OracleType {
-        return OracleType.TransactionError;
+    type(): VulnerabilityType {
+        return VulnerabilityType.TransactionError;
     }
 
     severity(): Severity {
@@ -437,7 +425,7 @@ class TxErrorReport implements Report {
     }
 
     message(): string {
-        return `[${OracleType.TransactionError}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.errorMsg.getDescription()}`;
+        return `[${VulnerabilityType.TransactionError}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.errorMsg.getDescription()}`;
     }
 }
 
@@ -485,10 +473,6 @@ export class ContractVulnerabilityOracle implements Oracle {
         this.contractVulMap[txState].push(...contractVulReports);
     }
 
-    type(): OracleType {
-        return OracleType.ContractVulnerability;
-    }
-
 }
 
 /**
@@ -513,12 +497,12 @@ class ContractVulnerabilityReport implements Report {
         return this._txHash;
     }
 
-    type(): OracleType {
-        return OracleType.ContractVulnerability;
+    type(): VulnerabilityType {
+        return VulnerabilityType.ContractVulnerability;
     }
 
     message(): string {
-        return `[${OracleType.ContractVulnerability}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.contractVulReport.getDescription()}`;
+        return `[${VulnerabilityType.ContractVulnerability}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.contractVulReport.getDescription()}`;
     }
 
 }
@@ -567,10 +551,6 @@ export class ConsoleErrorOracle implements Oracle {
         this.consoleErrorMap[txState].push(...consoleErrors);
     }
 
-    type(): OracleType {
-        return OracleType.ConsoleError;
-    }
-
 }
 
 /**
@@ -595,12 +575,12 @@ class ConsoleErrorReport implements Report {
         return this._txHash;
     }
 
-    type(): OracleType {
-        return OracleType.ConsoleError;
+    type(): VulnerabilityType {
+        return VulnerabilityType.ConsoleError;
     }
 
     message(): string {
-        return `[${OracleType.ConsoleError}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.consoleError.getErrorString()}`;
+        return `[${VulnerabilityType.ConsoleError}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}: ${this.consoleError.getErrorString()}`;
     }
 
 }
