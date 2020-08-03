@@ -66,18 +66,18 @@ export interface Report {
  */
 export class DBChangeOracle implements Oracle {
     private readonly txHash: string;
-    private readonly contentMap: { [txState in keyof typeof LogicalTxState]: DBContent };
+    private readonly contentMap: { [txState in LogicalTxState]: DBContent };
 
     constructor(txHash: string) {
         this.txHash = txHash;
         this.contentMap = {
-            CREATED: null,
-            PENDING: null,
-            EXECUTED: null,
-            REMOVED: null,
-            REEXECUTED: null,
-            CONFIRMED: null,
-            DROPPED: null,
+            [LogicalTxState.CREATED]: null,
+            [LogicalTxState.PENDING]: null,
+            [LogicalTxState.EXECUTED]: null,
+            [LogicalTxState.REMOVED]: null,
+            [LogicalTxState.REEXECUTED]: null,
+            [LogicalTxState.CONFIRMED]: null,
+            [LogicalTxState.DROPPED]: null,
         };
     }
 
@@ -124,7 +124,7 @@ export class DBChangeOracle implements Oracle {
 /**
  * Bug reports for UnreliableTxHash type. Persistent changes shouldn't be made at pending state
  */
-class UnreliableTxHashReport implements Report{
+class UnreliableTxHashReport implements Report {
     private readonly _txHash: string;
     private readonly dbContentDiff: DBContentDiff;
     private readonly txState: LogicalTxState;
@@ -363,28 +363,28 @@ export class TableRecord {
  */
 export class TxErrorOracle implements Oracle {
     private readonly txHash: string;
-    private readonly txErrorMap: { [txState in keyof typeof LogicalTxState]: TxErrorMsg[] }
+    private readonly txErrorMap: { [txState in LogicalTxState]: TxErrorMsg[] }
 
     constructor(txHash: string) {
         this.txHash = txHash;
         this.txErrorMap = {
-            CREATED: [],
-            PENDING: [],
-            EXECUTED: [],
-            REMOVED: [],
-            REEXECUTED: [],
-            CONFIRMED: [],
-            DROPPED: [],
+            [LogicalTxState.CREATED]: [],
+            [LogicalTxState.PENDING]: [],
+            [LogicalTxState.EXECUTED]: [],
+            [LogicalTxState.REMOVED]: [],
+            [LogicalTxState.REEXECUTED]: [],
+            [LogicalTxState.CONFIRMED]: [],
+            [LogicalTxState.DROPPED]: [],
         };
     }
 
     getBugReports(): Report[] {
         let reports: Report[] = [];
-        for (let state of $enum(LogicalTxState).getKeys()) {
+        for (let state of $enum(LogicalTxState).getValues()) {
             for (let txErrorMsg of this.txErrorMap[state]) {
                 reports.push(new TxErrorReport(
                     this.txHash,
-                    $enum(LogicalTxState).getValueOrDefault(state),
+                    state,
                     txErrorMsg
                 ));
             }
@@ -393,7 +393,7 @@ export class TxErrorOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        for (let state in this.txErrorMap) {
+        for (let state of $enum(LogicalTxState).getValues()) {
             if (this.txErrorMap[state].length > 0) {
                 return true;
             }
@@ -443,28 +443,28 @@ class TxErrorReport implements Report {
 
 export class ContractVulnerabilityOracle implements Oracle {
     private readonly txHash: string;
-    private readonly contractVulMap: { [txState in keyof typeof LogicalTxState]: ContractVulReport[] }
+    private readonly contractVulMap: { [txState in LogicalTxState]: ContractVulReport[] }
 
     constructor(txHash: string) {
         this.txHash = txHash;
         this.contractVulMap = {
-            CREATED: [],
-            PENDING: [],
-            EXECUTED: [],
-            REMOVED: [],
-            REEXECUTED: [],
-            CONFIRMED: [],
-            DROPPED: [],
+            [LogicalTxState.CREATED]: [],
+            [LogicalTxState.PENDING]: [],
+            [LogicalTxState.EXECUTED]: [],
+            [LogicalTxState.REMOVED]: [],
+            [LogicalTxState.REEXECUTED]: [],
+            [LogicalTxState.CONFIRMED]: [],
+            [LogicalTxState.DROPPED]: [],
         }
     }
 
     getBugReports(): Report[] {
         let reports: Report[] = [];
-        for (let state of $enum(LogicalTxState).getKeys()) {
+        for (let state of $enum(LogicalTxState).getValues()) {
             for (let contractVulMsg of this.contractVulMap[state]) {
                 reports.push(new ContractVulnerabilityReport(
                     this.txHash,
-                    $enum(LogicalTxState).getValueOrDefault(state),
+                    state,
                     contractVulMsg,
                 ));
             }
@@ -473,7 +473,7 @@ export class ContractVulnerabilityOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        for (let state in this.contractVulMap) {
+        for (let state of $enum(LogicalTxState).getValues()) {
             if (this.contractVulMap[state].length > 0) {
                 return true;
             }
@@ -525,28 +525,28 @@ class ContractVulnerabilityReport implements Report {
 
 export class ConsoleErrorOracle implements Oracle {
     private readonly txHash: string;
-    private readonly consoleErrorMap: { [txState in keyof typeof LogicalTxState]: ConsoleErrorMsg[] }
+    private readonly consoleErrorMap: { [txState in LogicalTxState]: ConsoleErrorMsg[] }
 
     constructor(txHash: string) {
         this.txHash = txHash;
         this.consoleErrorMap = {
-            CREATED: [],
-            PENDING: [],
-            EXECUTED: [],
-            REMOVED: [],
-            REEXECUTED: [],
-            CONFIRMED: [],
-            DROPPED: [],
+            [LogicalTxState.CREATED]: [],
+            [LogicalTxState.PENDING]: [],
+            [LogicalTxState.EXECUTED]: [],
+            [LogicalTxState.REMOVED]: [],
+            [LogicalTxState.REEXECUTED]: [],
+            [LogicalTxState.CONFIRMED]: [],
+            [LogicalTxState.DROPPED]: [],
         }
     }
 
     getBugReports(): Report[] {
         let reports: Report[] = [];
-        for (let state of $enum(LogicalTxState).getKeys()) {
+        for (let state of $enum(LogicalTxState).getValues()) {
             for (let consoleErrorMsg of this.consoleErrorMap[state]) {
                 reports.push(new ConsoleErrorReport(
                     this.txHash,
-                    $enum(LogicalTxState).getValueOrDefault(state),
+                    state,
                     consoleErrorMsg,
                 ));
             }
@@ -555,7 +555,7 @@ export class ConsoleErrorOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        for (let state in this.consoleErrorMap) {
+        for (let state of $enum(LogicalTxState).getValues()) {
             if (this.consoleErrorMap[state].length > 0) {
                 return true;
             }
