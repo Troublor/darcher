@@ -22,7 +22,7 @@ import {DbMonitorService} from "./service/dbmonitorService";
 import {Oracle, Report} from "./oracle";
 
 /**
- * Extend TxState to introduce logical tx state (reverted, re-executed)
+ * Extend TxState to introduce logical tx state (removed, re-executed)
  */
 export enum LogicalTxState {
     CREATED,
@@ -30,7 +30,7 @@ export enum LogicalTxState {
     EXECUTED,
     DROPPED,
     CONFIRMED,
-    REVERTED,
+    REMOVED,
     REEXECUTED,
 }
 
@@ -39,7 +39,7 @@ export function isEqualState(s: TxState, ls: LogicalTxState): boolean {
         return true;
     }
     return s === TxState.EXECUTED && ls === LogicalTxState.REEXECUTED ||
-        s === TxState.PENDING && ls === LogicalTxState.REVERTED;
+        s === TxState.PENDING && ls === LogicalTxState.REMOVED;
 }
 
 export function toTxState(ls: LogicalTxState): TxState {
@@ -56,7 +56,7 @@ export function toTxState(ls: LogicalTxState): TxState {
             return TxState.PENDING;
         case LogicalTxState.REEXECUTED:
             return TxState.EXECUTED;
-        case LogicalTxState.REVERTED:
+        case LogicalTxState.REMOVED:
             return TxState.PENDING;
     }
 }
@@ -100,9 +100,9 @@ export class Analyzer {
         if (msg.getFrom() === TxState.EXECUTED &&
             msg.getTo() === TxState.PENDING &&
             this.txState === LogicalTxState.EXECUTED) {
-            // revert
-            this.txState = LogicalTxState.REVERTED;
-        } else if (this.txState === LogicalTxState.REVERTED &&
+            // remove
+            this.txState = LogicalTxState.REMOVED;
+        } else if (this.txState === LogicalTxState.REMOVED &&
             msg.getFrom() === TxState.PENDING &&
             msg.getTo() === TxState.EXECUTED) {
             // re-execute
@@ -141,10 +141,10 @@ export class Analyzer {
             return TxState.EXECUTED;
         } else if (this.txState === LogicalTxState.EXECUTED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REVERTED), resolve)
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REMOVED), resolve)
             });
             return TxState.PENDING;
-        } else if (this.txState === LogicalTxState.REVERTED) {
+        } else if (this.txState === LogicalTxState.REMOVED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
                 this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REEXECUTED), resolve)
             });

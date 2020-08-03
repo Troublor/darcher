@@ -7,6 +7,6 @@ describe("logical tx state", () => {
         expect(isEqualState(TxState.CREATED, LogicalTxState.CREATED)).to.be.true;
         expect(isEqualState(TxState.PENDING, LogicalTxState.PENDING)).to.be.true;
         expect(isEqualState(TxState.EXECUTED, LogicalTxState.REEXECUTED)).to.be.true;
-        expect(isEqualState(TxState.PENDING, LogicalTxState.REVERTED)).to.be.true;
+        expect(isEqualState(TxState.PENDING, LogicalTxState.REMOVED)).to.be.true;
     });
 })
