@@ -127,7 +127,7 @@ class UnreliableTxHashReport implements Report {
     }
 
     severity(): Severity {
-        return Severity.High;
+        return Severity.Low;
     }
 
     txHash(): string {
