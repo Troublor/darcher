@@ -1,7 +1,26 @@
-import {DBContentDiff, TableContentDiff, TableRecord} from "../src/oracle";
+import {
+    ConsoleErrorOracle,
+    ContractVulnerabilityOracle,
+    DBChangeOracle,
+    DBContentDiff,
+    VulnerabilityType,
+    Severity,
+    TableContentDiff,
+    TableRecord,
+    TxErrorOracle
+} from "../src/oracle";
 import {expect} from "chai";
-import {DBContent, TableContent} from "@darcher/rpc";
+import {
+    ConsoleErrorMsg,
+    ContractVulReport,
+    ContractVulType,
+    DBContent,
+    TableContent,
+    TxErrorMsg,
+    TxErrorType
+} from "@darcher/rpc";
 import * as _ from "lodash";
+import {LogicalTxState} from "../src";
 
 describe("DBChangeOracle", () => {
     it('should TableRecord sameKeyAs works right', function () {
@@ -270,5 +289,91 @@ describe("DBChangeOracle", () => {
         let tableDiff = difference.tableDiffs["table2"];
         expect(tableDiff.deletedRecords).to.be.lengthOf(1);
         expect(tableDiff.addedRecords).to.be.lengthOf(1);
+    });
+
+    it('should ConsoleErrorOracle works well', function () {
+        let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
+        let oracle = new ConsoleErrorOracle(txHash);
+        oracle.onTxState(LogicalTxState.REMOVED, null, [], [], [
+            new ConsoleErrorMsg().setDappName("test_dapp").setInstanceId("1").setErrorString("console error"),
+        ]);
+        expect(oracle.isBuggy()).to.be.true;
+        expect(oracle.getBugReports()).to.be.lengthOf(1);
+        expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.ConsoleError);
+        expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.Low);
+        expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
+        expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.ConsoleError)
+    });
+
+    it('should TransactionErrorOracle works well', function () {
+        let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
+        let oracle = new TxErrorOracle(txHash);
+        oracle.onTxState(LogicalTxState.REMOVED, null, [
+            new TxErrorMsg().setHash(txHash).setType(TxErrorType.REVERT).setDescription("Transaction error"),
+        ], [], []);
+        expect(oracle.isBuggy()).to.be.true;
+        expect(oracle.getBugReports()).to.be.lengthOf(1);
+        expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.TransactionError);
+        expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.Medium);
+        expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
+        expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.TransactionError)
+    });
+
+    it('should ContractVulnerabilityOracle works well', function () {
+        let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
+        let oracle = new ContractVulnerabilityOracle(txHash);
+        oracle.onTxState(LogicalTxState.REMOVED, null, [], [
+            new ContractVulReport().setTxHash(txHash).setType(ContractVulType.REENTRANCY),
+        ], []);
+        expect(oracle.isBuggy()).to.be.true;
+        expect(oracle.getBugReports()).to.be.lengthOf(1);
+        expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.ContractVulnerability);
+        expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.High);
+        expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
+        expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.ContractVulnerability)
+    });
+
+    it('should DBChangeOracle works well', function () {
+        let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
+        let oracle = new DBChangeOracle(txHash);
+        let createdContent = new DBContent();
+        createdContent.getTablesMap()
+            .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
+                JSON.stringify({
+                    "id": "1",
+                    "data": "aaa",
+                })
+            ]));
+        let pendingContent = new DBContent();
+        pendingContent.getTablesMap()
+            .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
+                JSON.stringify({
+                    "id": "1",
+                    "data": "aaa",
+                    "created": false,
+                }),
+            ]));
+        let removedContent = new DBContent();
+        removedContent.getTablesMap()
+            .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
+                JSON.stringify({
+                    "id": "1",
+                    "data": "aaa",
+                    "created": true,
+                }),
+            ]));
+        oracle.onTxState(LogicalTxState.CREATED, createdContent, [], [], []);
+        oracle.onTxState(LogicalTxState.PENDING, pendingContent, [], [], []);
+        oracle.onTxState(LogicalTxState.REMOVED, removedContent, [], [], []);
+        expect(oracle.isBuggy()).to.be.true;
+        expect(oracle.getBugReports()).to.be.lengthOf(2);
+        expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.UnreliableTxHash);
+        expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.Low);
+        expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
+        expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.UnreliableTxHash)
+        expect(oracle.getBugReports()[1].type()).to.be.equal(VulnerabilityType.DataInconsistency);
+        expect(oracle.getBugReports()[1].severity()).to.be.equal(Severity.High);
+        expect(oracle.getBugReports()[1].txHash()).to.be.equal(txHash);
+        expect(oracle.getBugReports()[1].message()).to.include(VulnerabilityType.DataInconsistency)
     });
 });
