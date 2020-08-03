@@ -12,7 +12,7 @@ function reset_blockchain() {
 
 function start_blockchain_deploy() {
   nohup $GETH --datadir $BLOCKCHAIN_DIR/doer \
-    --networkid 2020 \
+    --networkid 123456 \
     --nodiscover \
     --ipcdisable \
     --port 30303 \

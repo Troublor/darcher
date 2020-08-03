@@ -3,7 +3,7 @@
 source ./env.sh
 
 exec $GETH --datadir $BLOCKCHAIN_DIR/doer \
-      --networkid 2020 \
+      --networkid 123456 \
       --nodiscover \
       --nousb \
       --ipcdisable \

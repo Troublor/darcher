@@ -17,7 +17,7 @@ const config = <Config>{
             genesisFile: path.join(__dirname, "blockchain", "genesis.json"),
             dir: path.join(__dirname, "blockchain"),
             keyStoreDir: path.join(__dirname, "blockchain", "keystore"),
-            networkId: 2020,
+            networkId: 123456,
             httpPort: 8545,
             wsPort: 8546,
             graphqlPort: 8547,
