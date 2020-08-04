@@ -5,7 +5,7 @@ import {
     getUUID,
     Logger,
     PromiseKit,
-    ReverseRPCClient, ServiceNotAvailableError,
+    ReverseRPCClient, ServiceNotAvailableError, TimeoutError,
     WebsocketError
 } from "@darcher/helpers";
 import {
@@ -153,7 +153,17 @@ class DBMonitorServiceViaWebsocket implements Service {
         switch (resp.getType()) {
             case RequestType.GET_ALL_DATA:
                 if (resp.getErr() !== rpcError.NILERR) {
-                    rejectFunc ? rejectFunc(resp.getErr()) : undefined;
+                    switch (resp.getErr()) {
+                        case rpcError.SERVICENOTAVAILABLEERR:
+                            rejectFunc ? rejectFunc(new ServiceNotAvailableError("dbMonitor")) : "dbMonitor service not available";
+                            break;
+                        case rpcError.TIMEOUTERR:
+                            rejectFunc ? rejectFunc(new TimeoutError()) : "dbMonitor service timeout";
+                            break;
+                        case rpcError.INTERNALERR:
+                            rejectFunc ? rejectFunc(new Error("dbMonitor internal error")) : "dbMonitor service timeout";
+                            break;
+                    }
                 } else {
                     data = DBContent.deserializeBinary(resp.getData() as Uint8Array);
                     resolveFunc ? resolveFunc(data) : undefined;
