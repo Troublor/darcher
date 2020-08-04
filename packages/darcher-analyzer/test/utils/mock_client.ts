@@ -3,6 +3,9 @@ import {ControlMsg, DBContent, RequestType, TableContent} from "@darcher/rpc";
 import {Logger, Service, WebsocketError} from "@darcher/helpers";
 import * as WebSocket from "ws";
 
+/**
+ * This mock ws client is used to test DarcherServer ws service.
+ */
 export class MockWsClient implements Service {
     private logger: Logger;
     // stores

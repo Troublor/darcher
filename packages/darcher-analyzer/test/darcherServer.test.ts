@@ -11,13 +11,14 @@ import {
 import * as grpc from "grpc";
 import * as sinon from "sinon";
 import {expect} from "chai";
+import {Config, DBOptions} from "@darcher/config";
 
 class MockDarcherServerClient {
     readonly dappTestDriverServiceClient: DAppTestDriverServiceClient;
     readonly dappDriverControlReverseRPC: ReverseRPCServer<DAppDriverControlMsg, DAppDriverControlMsg>;
 
-    constructor(logger: Logger, grpcPort: number) {
-        this.dappTestDriverServiceClient = new DAppTestDriverServiceClient(`localhost:${grpcPort}`, grpc.credentials.createInsecure());
+    constructor(logger: Logger, config: Config) {
+        this.dappTestDriverServiceClient = new DAppTestDriverServiceClient(`localhost:${config.analyzer.grpcPort}`, grpc.credentials.createInsecure());
         let stream = this.dappTestDriverServiceClient.dappDriverControl();
         stream.write(new DAppDriverControlMsg().setRole(Role.DAPP).setId(getUUID()));
         this.dappDriverControlReverseRPC = new ReverseRPCServer<DAppDriverControlMsg, DAppDriverControlMsg>("dappDriverControl", stream);
@@ -29,8 +30,15 @@ class MockDarcherServerClient {
 }
 
 describe("darcherServer", () => {
-    const grpcPort = 1234;
-    const wsPort = 1235;
+    const config = <Config>{
+        analyzer: {
+            grpcPort: 1234,
+            wsPort: 1235,
+        },
+        dbMonitor: {},
+        clusters: [],
+    }
+
     const logger = new Logger("darcherServer_test");
     // logger.level = "off";
 
@@ -38,11 +46,11 @@ describe("darcherServer", () => {
         let eventSpy = sinon.spy();
         logger.on("info", eventSpy);
 
-        let mock = new MockDarcherServer(logger, grpcPort);
+        let mock = new MockDarcherServer(logger, config);
         mock.txProcessTime = 100;
         await mock.start();
 
-        let client = new MockDarcherServerClient(logger, grpcPort);
+        let client = new MockDarcherServerClient(logger, config);
         await mock.waitForEstablishment();
 
         // test dappTestService

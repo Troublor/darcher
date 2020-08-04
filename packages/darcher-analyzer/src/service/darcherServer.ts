@@ -11,12 +11,14 @@ import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
 import {Logger, prettifyHash, Service} from "@darcher/helpers";
 import {DappTestDriverService, DappTestDriverServiceHandler} from "./dappTestDriverService";
+import * as prompts from "prompts";
+import {Config} from "@darcher/config";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
  */
 export class DarcherServer extends Server implements Service {
-    private readonly logger: Logger;
+    protected readonly logger: Logger;
     private readonly grpcPort: number;
     private readonly websocketPort: number;
 
@@ -83,29 +85,44 @@ export class DarcherServer extends Server implements Service {
 
 export class MockDarcherServer extends DarcherServer {
     public txProcessTime: number = 10000;
-    constructor(logger: Logger, grpcPort: number) {
+    private config: Config;
+
+    constructor(logger: Logger, config: Config) {
         // for now we do not use wsPort, so just give a random port
-        super(logger, grpcPort, 9999);
+        super(logger, config.analyzer.grpcPort, config.analyzer.wsPort);
+        this.config = config;
         // register dappTestDriverService handler
+        this.dappTestDriverService.waitForEstablishment().then(this.dappTestDriverServiceTestControl.bind(this));
+
+        // dbmonitor-browser test logic
+        this.dbMonitorService.waitForEstablishment().then(this.dbMonitorServiceTestControl.bind(this));
+    }
+
+    async waitForEstablishment(): Promise<void> {
+        await this.dappTestDriverService.waitForEstablishment();
+    }
+
+    private async dappTestDriverServiceTestControl() {
+        this.logger.info("DAppTestDriverService is connected.");
         this.dappTestDriverService.handler = <DappTestDriverServiceHandler>{
             onTestStart: msg => {
-                logger.info(`onTestStart dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()}`);
+                this.logger.info(`onTestStart dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()}`);
                 return Promise.resolve();
             },
             onTestEnd: msg => {
-                logger.info(`onTestEnd dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()}`);
+                this.logger.info(`onTestEnd dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()}`);
                 return Promise.resolve();
             },
             onConsoleError: msg => {
-                logger.info(`onConsoleError dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} err=${msg.getErrorString()}`);
+                this.logger.info(`onConsoleError dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} err=${msg.getErrorString()}`);
                 return Promise.resolve();
             },
             waitForTxProcess: async msg => {
-                logger.info(`waitForTxProcess refresh page and wait 10 seconds. dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())} from=${prettifyHash(msg.getFrom())} to=${prettifyHash(msg.getTo())}`);
+                this.logger.info(`waitForTxProcess refresh page and wait 10 seconds. dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())} from=${prettifyHash(msg.getFrom())} to=${prettifyHash(msg.getTo())}`);
                 await this.dappTestDriverService.refreshPage();
                 return new Promise<void>(resolve => {
                     setTimeout(() => {
-                        logger.info(`waitForTxProcess finish dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())}`);
+                        this.logger.info(`waitForTxProcess finish dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())}`);
                         resolve();
                     }, this.txProcessTime);
                 });
@@ -113,7 +130,23 @@ export class MockDarcherServer extends DarcherServer {
         }
     }
 
-    async waitForEstablishment(): Promise<void> {
-        await this.dappTestDriverService.waitForEstablishment();
+    private async dbMonitorServiceTestControl() {
+        this.logger.info("DBMonitorService is connected.");
+        while (true) {
+            let response = await prompts({
+                type: "text",
+                name: "value",
+                message: "Fetch DBContent?",
+            });
+            if (response.value.includes("exit")) {
+                break;
+            }
+            try {
+                let content = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                console.log(JSON.stringify(content.toObject(), null, 2));
+            }catch (e) {
+                this.logger.error(e);
+            }
+        }
     }
 }

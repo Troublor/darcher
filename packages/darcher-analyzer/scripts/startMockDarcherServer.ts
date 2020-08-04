@@ -1,21 +1,33 @@
 import {MockDarcherServer} from "../src/service";
 import {Logger} from "@darcher/helpers";
+import {Config, DBOptions} from "@darcher/config";
 
-const grpcPort = 1234;
 const txProcessTime = 10000; // 10 seconds
 
 const logger = new Logger("MockDarcherServer");
+logger.level = "debug";
+
+const config = <Config>{
+    analyzer: {
+        grpcPort: 1234,
+        wsPort: 1235,
+    },
+    dbMonitor: {
+        db: DBOptions.indexedDB,
+        dbAddress: "localhost:63342",
+        dbName: "friend_database",
+    },
+    clusters: [],
+}
 
 async function main() {
-    let mockServer = new MockDarcherServer(logger, grpcPort);
+    let mockServer = new MockDarcherServer(logger, config);
     mockServer.txProcessTime = txProcessTime;
     await mockServer.start();
     process.on('SIGINT', async function () {
         console.log(">>> Caught interrupt signal");
         await mockServer.shutdown();
     });
-    logger.info("waiting for reverse rpc to be established");
-    await mockServer.waitForEstablishment();
 }
 
 main().then(() => {
