@@ -79,13 +79,16 @@ class TabMaster {
         switch (request.getType()) {
             case RequestType.GET_ALL_DATA:
                 address = request.getDbAddress();
+                Logger.info(`Receive GetAllData request, dbAddress=${address}, dbName=${request.getDbName()}`);
                 // get all db data and send to darcher via websocket
                 this.getAllDBData(this.tabs[address], request.getDbName()).then(value => {
                     request.setData(value)
                     this.ws.send(request.serializeBinary());
+                    Logger.info(`Served GetAllData request, dbAddress=${address}, dbName=${request.getDbName()}`);
                 }).catch((err: Error) => {
                     request.setErr(err);
                     this.ws.send(request.serializeBinary());
+                    Logger.error(`GetAllData request error, err=${err.toString()}, dbAddress=${address}, dbName=${request.getDbName()}`);
                 });
                 break;
             case RequestType.REFRESH_PAGE:
@@ -175,6 +178,6 @@ class TabMaster {
 }
 
 // @ts-ignore WS_PORT is dynamically set in webpack.dynamic.js
-let master = new TabMaster(`ws://localhost:${WS_PORT}`);
+let master = new TabMaster(ANALYZER_WS_ADDR);
 
 master.start();

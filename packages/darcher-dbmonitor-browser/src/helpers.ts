@@ -30,7 +30,7 @@ class logger {
             return
         }
         let now = new Date();
-        console.debug(`[${logger.lvl2String(level)}] [${now.toLocaleDateString()} ${now.toLocaleTimeString()}]`, ...msgs);
+        console.log(`[${logger.lvl2String(level)}] [${now.toLocaleDateString()} ${now.toLocaleTimeString()}]`, ...msgs);
     }
 
     public info(...msgs: any[]) {

@@ -85,11 +85,12 @@ class dbMonitor {
                     message.data = null;
                     return message
                 }
+                Logger.info(`Get GetAllData request, dbName=${message.dbName}`);
                 let dbContent = await this.dbFetcherMap[message.dbName].getAll();
                 message.data = dbContent.serializeBinary();
                 let controlMsg = new ControlMsg();
                 controlMsg.setData(message.data);
-                console.log(controlMsg.serializeBinary());
+                Logger.info(`Served GetAllData request, dbName=${message.dbName}`);
                 return message;
             default:
                 return undefined;

@@ -7,9 +7,9 @@ module.exports = env => {
         plugins: [
             // exclude locale files in moment
             new webpack.DefinePlugin({
-                WS_PORT: env.wsPort,
-                DB_ADDRESS: JSON.stringify(env.dbAddress),
-                DB_NAME: JSON.stringify(env.dbName),
+                ANALYZER_WS_ADDR: JSON.stringify(`${env.wsAddr}`),
+                DB_ADDRESS: JSON.stringify(`${env.dbAddress}`),
+                DB_NAME: JSON.stringify(`${env.dbName}`),
             }),
         ]
     });
