@@ -77,5 +77,6 @@ export class WebsocketError extends DarcherError {
 
     constructor(e: Error) {
         super(DarcherErrorCode.WebSocketError, e.message)
+        this.wsError = e;
     }
 }
