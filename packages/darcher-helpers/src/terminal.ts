@@ -1,6 +1,7 @@
 /*
 This module defines helpers for uses of terminal, including execute commands in new terminal tab and so on.
  */
+import {spawn} from "child_process";
 import * as shell from "shelljs";
 
 export class Command {
@@ -14,7 +15,13 @@ export class Command {
      * @param segments
      */
     constructor(...segments: string[]) {
-        this.payload = [...segments];
+        this.payload = [];
+        for (let seg of segments) {
+            let ss = seg.split(" ");
+            for (let s of ss) {
+                s.length > 0 ? this.payload.push(s) : undefined;
+            }
+        }
         this.otherCmds = [];
     }
 
@@ -23,7 +30,12 @@ export class Command {
      * @param segments
      */
     public append(...segments: string[]): Command {
-        this.payload.push(...segments)
+        for (let seg of segments) {
+            let ss = seg.split(" ");
+            for (let s of ss) {
+                s.length > 0 ? this.payload.push(s) : undefined;
+            }
+        }
         return this;
     }
 
@@ -52,6 +64,20 @@ export class Command {
             return `${this.payload.join(" ")} && ${this.otherCmds.map(cmd => cmd.toString()).join(" && ")}`;
         }
     }
+
+    /**
+     * get the child_process.spawn-like command
+     */
+    get command(): string {
+        return this.payload.length > 0 ? this.payload[0] : undefined;
+    }
+
+    /**
+     * get the child_process.spawn-like args list
+     */
+    get args(): string[] {
+        return this.payload.length > 0 ? this.payload.slice(1) : undefined;
+    }
 }
 
 export class Tab {
@@ -62,7 +88,9 @@ export class Tab {
     // working directory of this tab
     public pwd: string;
     // tab title
-    public title: string
+    public title: string;
+
+    public pid: number;
 
     constructor(cmd?: Command, w: boolean = false, pwd: string = undefined, title: string = undefined) {
         this.cmd = cmd;

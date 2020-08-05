@@ -14,6 +14,12 @@ describe("terminal Commands", () => {
         expect(cmd1.copy().concat(cmd2).toString()).to.equal("ls && cd /");
         expect(cmd1.concat(cmd2).toString()).to.equal("ls && cd /");
     });
+
+    it('should get command correct', function () {
+        let cmd = new Command("ls -a  -l");
+        expect(cmd.args).to.be.lengthOf(2);
+        expect(cmd.command).to.be.equal("ls");
+    });
 })
 
 // describe("terminal and tab", () => {
