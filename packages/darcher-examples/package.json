@@ -7,14 +7,13 @@
   "author": "Troublor",
   "license": "ISC",
   "scripts": {
-    "deploy:giveth": "ts-node ./giveth/scripts/deploy.ts",
-    "start:giveth": "ts-node ./giveth/scripts/start.ts",
-    "deply:augur": "cd augurproject/scripts && bash ./deploy.sh",
-    "start:augur-blockchain": "ts-node augurproject/scripts/start_augur_blockchain.ts",
-    "docker:build:augur-blockchain": "cd augurproject/scripts && bash ./docker_build_augur-base.sh",
-    "docker:start:augur-blockchain": "docker-compose -f augurproject/scripts/docker/docker-compose.yml up",
-    "docker:stop:augur-blockchain": "docker-compose -f augurproject/scripts/docker/docker-compose.yml down",
-    "start:augur-docker": "ts-node augurproject/scripts/start_augur_all_docker.ts"
+    "giveth:deploy": "ts-node ./giveth/scripts/deploy.ts",
+    "giveth:start": "ts-node ./giveth/scripts/start.ts",
+    "augur:deploy": "ts-node ./augurproject/scripts/deploy.ts",
+    "augur:start": "ts-node ./augurproject/scripts/start.ts",
+    "augur:docker:build": "ts-node ./augurproject/scripts/build_docker.ts",
+    "augur:docker:start": "ts-node ./augurproject/scripts/start_using_docker.ts",
+    "augur:docker:stop": "docker-compose -f augurproject/scripts/docker/docker-compose.yml down"
   },
   "dependencies": {
     "shelljs": "^0.8.4",

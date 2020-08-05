@@ -35,15 +35,21 @@ cd ../../../../  # go back to darcher root dir
 #### Prepare Augur
 
 ```shell script
-yarn workspace @darcher/examples docker:build:augur-blockchain
+yarn workspace @darcher/examples augur:deploy
 ```
 
-This script will run for about 10 minutes, initiating a new blockchain and deploy Augur smart contracts. After that, the blockchain will be used to create a docker image tagged `darcher/augur-base:latest`.
+This script will run for about 10 minutes, initiating a new blockchain and deploy Augur smart contracts. After that, run: 
+
+```shell script
+yarn workspace @darcher/examples augur:docker:build
+
+```
+This will build a docker image tagged `darcher/augur-base:latest`. With Augur contracts deployed in it. 
 
 #### Start Augur Service
 
 ```shell script
-yarn workspace @darcher/examples start:augur-docker
+yarn workspace @darcher/examples augur:docker:start
 ```
 
 This script does the following things:
@@ -55,5 +61,5 @@ A **new terminal window** with two tabs will be opened, one is `gsn-relay` servi
 
 To stop the service, just use `Ctrl-C` to interrupt the two opened tabs and use this script to stop docker containers:
 ```shell script
-yarn workspace @darcher/examples docker:stop:augur-blockchain
+yarn workspace @darcher/examples augur:docker:stop
 ```
