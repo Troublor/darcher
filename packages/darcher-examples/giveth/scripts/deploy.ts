@@ -7,21 +7,23 @@ import * as path from "path";
 async function deployContracts() {
     // reset clusters
     homeClusterConfig.controller = ControllerOptions.deploy;
-    let homeCluster = new BlockchainCluster(homeClusterConfig, darcherConfig.grpcPort);
+    let homeCluster = new BlockchainCluster(homeClusterConfig);
     homeCluster.reset();
-    await homeCluster.start();
+    await homeCluster.deploy(true);
     foreignClusterConfig.controller = ControllerOptions.deploy;
-    let foreignCluster = new BlockchainCluster(foreignClusterConfig, darcherConfig.grpcPort);
+    let foreignCluster = new BlockchainCluster(foreignClusterConfig);
     foreignCluster.reset();
-    await foreignCluster.start();
+    await foreignCluster.deploy(true);
 
-    // wait for 1 second for blockchain clusters to start
-    setTimeout(() => {
-        // deploy, since shelljs does not support interactive terminal input (stdin),
-        // we use native child_process to deploy (since the deploy-local script requires command line input)
-        child_process.execFileSync("yarn", ["deploy-local"],
+    try {
+        child_process.spawnSync("yarn", ["deploy-local"],
             {stdio: 'inherit', cwd: path.join(__dirname, "..", "feathers-giveth")});
-    }, 1000);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await homeCluster.stop();
+        await foreignCluster.stop();
+    }
 }
 
 deployContracts();

@@ -1,29 +1,34 @@
 import {ClusterConfig, ControllerOptions, AnalyzerConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
+import * as path from "path";
+
+const blockchainDir = path.join(__dirname, "..", "blockchain");
 
 export const homeClusterConfig = <ClusterConfig>{
     ethmonitorPort: 8989,
     controller: ControllerOptions.deploy,
-    genesisFile: "/Users/troublor/workspace/dArcher/giveth/blockchain/home/genesis.json",
-    dir: "/Users/troublor/workspace/dArcher/giveth/blockchain/home",
-    keyStoreDir: "/Users/troublor/workspace/dArcher/giveth/blockchain/home/keystore",
+    genesisFile: path.join(blockchainDir, "home_network", "genesis.json"),
+    dir: path.join(blockchainDir, "home_network"),
+    keyStoreDir: path.join(blockchainDir, "home_network", "keystore"),
     networkId: 66,
     httpPort: 8545,
     wsPort: 9545,
     graphqlPort: 8547,
     extra: "",
+    verbosity: 3,
 };
 
 export const foreignClusterConfig = <ClusterConfig>{
     ethmonitorPort: 8990,
     controller: ControllerOptions.deploy,
-    genesisFile: "/Users/troublor/workspace/dArcher/giveth/blockchain/foreign/genesis.json",
-    dir: "/Users/troublor/workspace/dArcher/augur/blockchain/foreign",
-    keyStoreDir: "/Users/troublor/workspace/dArcher/giveth/blockchain/foreign/keystore",
+    genesisFile: path.join(blockchainDir, "foreign_network", "genesis.json"),
+    dir: path.join(blockchainDir, "foreign_network"),
+    keyStoreDir: path.join(blockchainDir, "foreign_network", "keystore"),
     networkId: 67,
     httpPort: 8546,
     wsPort: 9546,
     graphqlPort: 9547,
     extra: "",
+    verbosity: 3,
 };
 
 export const dbMonitorConfig = <DBMonitorConfig>{
