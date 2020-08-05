@@ -9,7 +9,7 @@ import * as shell from "shelljs";
 import * as path from "path";
 import * as getPort from "get-port";
 import {Command, Tab, TerminalWindow} from "./terminal";
-import {spawn} from "child_process";
+import {spawn, exec} from "child_process";
 import {sleep} from "./utility";
 import axios from "axios";
 import {ETHMONITOR_PATH, GETH_PATH} from "./defines";
@@ -137,7 +137,9 @@ export class BlockchainCluster {
         if (this.config.extra) {
             cmdDoer.append(this.config.extra);
         }
-        cmdDoer.append(`console`);
+        if (!background) {
+            cmdDoer.append(`console`);
+        }
 
         let cmdTalker = new Command(GETH_PATH);
         cmdTalker.append(`--verbosity ${this.config.verbosity ? this.config.verbosity : 3}`)
@@ -153,17 +155,21 @@ export class BlockchainCluster {
         cmdTalker.append(`--nodiscover`);
         cmdTalker.append(`--ipcdisable`);
         cmdTalker.append(`--syncmode full`);
-        cmdTalker.append(`console`);
+        if (!background) {
+            cmdTalker.append(`console`);
+        }
 
         let returned: boolean | { doerPID: number, talkerPID: number };
 
         if (background) {
             // open in the background
             let doerProcess = spawn(cmdDoer.command, cmdDoer.args, {
+                stdio: ['ignore', 'ignore', 'ignore'],
                 detached: true,
             });
             doerProcess.unref();
             let talkerProcess = spawn(cmdTalker.command, cmdTalker.args, {
+                stdio: ['ignore', 'ignore', 'ignore'],
                 detached: true,
             });
             talkerProcess.unref();
