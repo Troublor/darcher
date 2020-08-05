@@ -1,19 +1,16 @@
-import {darcherConfig, foreignClusterConfig, homeClusterConfig} from "./config/giveth.config";
-import {BlockchainCluster, Command} from "@darcher/helpers";
-import {ControllerOptions} from "@darcher/config";
+import {BlockchainCluster, loadConfig} from "@darcher/helpers";
+import {Config} from "@darcher/config";
 import * as child_process from "child_process";
 import * as path from "path";
 
-async function deployContracts() {
+async function deployContracts(config: Config) {
     // reset clusters
-    homeClusterConfig.controller = ControllerOptions.deploy;
-    let homeCluster = new BlockchainCluster(homeClusterConfig);
-    homeCluster.reset();
-    await homeCluster.deploy(true);
-    foreignClusterConfig.controller = ControllerOptions.deploy;
-    let foreignCluster = new BlockchainCluster(foreignClusterConfig);
-    foreignCluster.reset();
-    await foreignCluster.deploy(true);
+    let cluster1 = new BlockchainCluster(config.clusters[0]);
+    cluster1.reset();
+    await cluster1.deploy(true);
+    let cluster2 = new BlockchainCluster(config.clusters[1]);
+    cluster2.reset();
+    await cluster2.deploy(true);
 
     try {
         child_process.spawnSync("yarn", ["deploy-local"],
@@ -21,9 +18,11 @@ async function deployContracts() {
     } catch (e) {
         console.error(e);
     } finally {
-        await homeCluster.stop();
-        await foreignCluster.stop();
+        await cluster1.stop();
+        await cluster2.stop();
     }
 }
 
-deployContracts();
+loadConfig(path.join(__dirname, "config", "giveth.config.ts")).then(async config => {
+    await deployContracts(config);
+})

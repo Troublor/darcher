@@ -1,21 +1,20 @@
-import {BlockchainCluster, Command, Tab, TerminalWindow} from "@darcher/helpers";
+import {BlockchainCluster, Command, loadConfig, Tab, TerminalWindow} from "@darcher/helpers";
 import * as path from "path";
 import {darcherConfig, foreignClusterConfig, homeClusterConfig} from "./config/giveth.config";
+import {Config} from "@darcher/config";
 
 /**
- * Start home blockchain network
+ * Start foreign and home blockchain network
  */
-export function startHomeBlockchain() {
-    let homeCluster = new BlockchainCluster(homeClusterConfig, darcherConfig.grpcPort);
-    homeCluster.start();
-}
-
-/**
- * Start foreign blockchain network
- */
-export function startForeignBlockchain() {
-    let foreignCluster = new BlockchainCluster(foreignClusterConfig, darcherConfig.grpcPort);
-    foreignCluster.start();
+async function startBlockchains(config: Config) {
+    if (config.clusters.length != 2) {
+        console.error("giveth requires two blockchain: home network and foreign network");
+        return;
+    }
+    let cluster1 = new BlockchainCluster(config.clusters[0]);
+    await cluster1.start();
+    let cluster2 = new BlockchainCluster(config.clusters[1]);
+    await cluster2.start();
 }
 
 /**
@@ -45,15 +44,16 @@ function startGivethDApp(window: TerminalWindow) {
     window.addTabs(tab);
 }
 
-startHomeBlockchain();
-startForeignBlockchain();
+loadConfig(path.join(__dirname, "config", "giveth.config.ts")).then(async config => {
+    await startBlockchains(config);
+    // wait for 1 second for blockchain to start
+    setTimeout(() => {
+        let window = new TerminalWindow();
+        startFeathersGiveth(window)
+        startGivethDApp(window);
+        window.open();
+    }, 3000);
+});
 
-// wait for 1 second for blockchain to start
-setTimeout(() => {
-    let window = new TerminalWindow();
-    startFeathersGiveth(window)
-    startGivethDApp(window);
-    window.open();
-}, 1000);
 
 

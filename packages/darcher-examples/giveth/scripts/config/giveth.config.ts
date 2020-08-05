@@ -1,4 +1,4 @@
-import {ClusterConfig, ControllerOptions, AnalyzerConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
+import {ClusterConfig, ControllerOptions, AnalyzerConfig, DBMonitorConfig, DBOptions, Config} from "@darcher/config";
 import * as path from "path";
 
 const blockchainDir = path.join(__dirname, "..", "blockchain");
@@ -41,3 +41,12 @@ export const darcherConfig = <AnalyzerConfig>{
     grpcPort: 1236,
     wsPort: 1237,
 };
+
+export default <Config>{
+    analyzer: darcherConfig,
+    dbMonitor: dbMonitorConfig,
+    clusters: [
+        foreignClusterConfig,
+        homeClusterConfig,
+    ]
+}
