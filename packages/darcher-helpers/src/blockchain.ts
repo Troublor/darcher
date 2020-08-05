@@ -134,6 +134,7 @@ export class BlockchainCluster {
             cmdDoer.append(`--graphql --graphql.port ${this.config.graphqlPort}`);
         }
         cmdDoer.append(`--syncmode full`);
+        cmdDoer.append(`--miner.mineWhenTx`);
         if (this.config.extra) {
             cmdDoer.append(this.config.extra);
         }
@@ -329,7 +330,7 @@ export class BlockchainCluster {
     /**
      * Stop the cluster processes. This only takes effect when cluster is started/deployed at background.
      */
-    public stop() {
+    public async stop() {
         for (let pid of [this.ethmonitorPID, this.doerPID, this.talkerPID]) {
             if (pid) {
                 process.kill(pid, "SIGINT");
