@@ -9,6 +9,9 @@
   "scripts": {
     "giveth:deploy": "ts-node ./giveth/scripts/deploy.ts",
     "giveth:start": "ts-node ./giveth/scripts/start.ts",
+    "giveth:docker:build": "ts-node ./giveth/scripts/build_docker.ts",
+    "giveth:docker:start": "ts-node ./giveth/scripts/start_using_docker.ts",
+    "giveth:docker:stop": "docker-compose -f giveth/scripts/docker/docker-compose.yml down",
     "augur:deploy": "ts-node ./augurproject/scripts/deploy.ts",
     "augur:start": "ts-node ./augurproject/scripts/start.ts",
     "augur:docker:build": "ts-node ./augurproject/scripts/build_docker.ts",

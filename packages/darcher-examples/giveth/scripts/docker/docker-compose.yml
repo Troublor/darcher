@@ -1,0 +1,61 @@
+version: '3'
+services:
+  foreign_ethmonitor:
+    image: darcher/giveth-base:latest
+    entrypoint: ["/bin/sh", "start_foreign_ethmonitor.sh"]
+    stop_signal: SIGINT
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: trivial
+      VERBOSITY: 4
+
+  foreign_doer:
+    image: darcher/giveth-base:latest
+    entrypoint: ["/bin/sh", "start_foreign_doer.sh"]
+    stop_signal: SIGINT
+    environment:
+      ETHMONITOR_ADDR: foreign_ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8546:8545"
+      - "9546:8546"
+      - "9547:8547"
+
+  foreign_talker:
+    image: darcher/giveth-base:latest
+    entrypoint: ["/bin/sh", "start_foreign_talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:foreign_doer
+    environment:
+      ETHMONITOR_ADDR: foreign_ethmonitor:8989
+      VERBOSITY: 3
+
+  home_ethmonitor:
+    image: darcher/giveth-base:latest
+    entrypoint: ["/bin/sh", "start_home_ethmonitor.sh"]
+    stop_signal: SIGINT
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: trivial
+      VERBOSITY: 4
+
+  home_doer:
+    image: darcher/giveth-base:latest
+    entrypoint: ["/bin/sh", "start_home_doer.sh"]
+    stop_signal: SIGINT
+    environment:
+      ETHMONITOR_ADDR: home_ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "9545:8546"
+      - "8547:8547"
+
+  home_talker:
+    image: darcher/giveth-base:latest
+    entrypoint: ["/bin/sh", "start_home_talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:home_doer
+    environment:
+      ETHMONITOR_ADDR: home_ethmonitor:8989
+      VERBOSITY: 3

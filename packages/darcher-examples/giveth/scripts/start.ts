@@ -22,7 +22,7 @@ async function startBlockchains(config: Config) {
  * yarn start:networks
  * yarn start
  */
-function startFeathersGiveth(window: TerminalWindow) {
+export function startFeathersGiveth(window: TerminalWindow) {
     let cmd1 = new Command("yarn");
     cmd1.append("start:networks");
     let tab1 = new Tab(cmd1, false, path.join(__dirname, "..", "feathers-giveth"));
@@ -37,23 +37,26 @@ function startFeathersGiveth(window: TerminalWindow) {
  * Start giveth dapp
  * yarn start
  */
-function startGivethDApp(window: TerminalWindow) {
+export function startGivethDApp(window: TerminalWindow) {
     let cmd = new Command("yarn");
     cmd.append("start");
     let tab = new Tab(cmd, false, path.join(__dirname, "..", "giveth-dapp"));
     window.addTabs(tab);
 }
 
-loadConfig(path.join(__dirname, "config", "giveth.config.ts")).then(async config => {
-    await startBlockchains(config);
-    // wait for 1 second for blockchain to start
-    setTimeout(() => {
-        let window = new TerminalWindow();
-        startFeathersGiveth(window)
-        startGivethDApp(window);
-        window.open();
-    }, 3000);
-});
+if (require.main === module) {
+    loadConfig(path.join(__dirname, "config", "giveth.config.ts")).then(async config => {
+        await startBlockchains(config);
+        // wait for 1 second for blockchain to start
+        setTimeout(() => {
+            let window = new TerminalWindow();
+            startFeathersGiveth(window)
+            startGivethDApp(window);
+            window.open();
+        }, 3000);
+    });
+
+}
 
 
 
