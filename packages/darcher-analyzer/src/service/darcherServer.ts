@@ -13,6 +13,8 @@ import {Logger, prettifyHash, Service} from "@darcher/helpers";
 import {DappTestDriverService, DappTestDriverServiceHandler} from "./dappTestDriverService";
 import * as prompts from "prompts";
 import {Config} from "@darcher/config";
+import * as fs from "fs";
+import * as path from "path";
 
 /**
  * Darcher server maintain grpc or websocket connection with different components of darcher project.
@@ -136,15 +138,21 @@ export class MockDarcherServer extends DarcherServer {
             let response = await prompts({
                 type: "text",
                 name: "value",
-                message: "Fetch DBContent?",
+                message: "Fetch DBContent? enter json file name",
             });
-            if (response.value.includes("exit")) {
+            if (response.value === "exit") {
                 break;
             }
             try {
                 let content = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
-                console.log(JSON.stringify(content.toObject(), null, 2));
-            }catch (e) {
+                if (response.value !== "") {
+                    // if file name is not empty, save to json file in data/*.json
+                    fs.writeFileSync(path.join(__dirname, "..", "..", "data", `${response.value}.json`), JSON.stringify(content.toObject(), null, 2));
+                    this.logger.info(`dbContent saved to  ${response.value}.json`);
+                }else {
+                    console.log(JSON.stringify(content.toObject(), null, 2));
+                }
+            } catch (e) {
                 this.logger.error(e);
             }
         }

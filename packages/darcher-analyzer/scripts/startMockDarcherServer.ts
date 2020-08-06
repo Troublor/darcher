@@ -14,8 +14,8 @@ const config = <Config>{
     },
     dbMonitor: {
         db: DBOptions.indexedDB,
-        dbAddress: "localhost:63342",
-        dbName: "friend_database",
+        dbAddress: "localhost:8080",
+        dbName: "augur-123456",
     },
     clusters: [],
 }
