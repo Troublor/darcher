@@ -128,7 +128,7 @@ export class BlockchainCluster {
             cmdDoer.append(`--http -http.api admin,eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
         }
         if (this.config.wsPort) {
-            cmdDoer.append(`--ws --wsport ${this.config.httpPort} --wsorigins "*"`);
+            cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
         }
         if (this.config.graphqlPort) {
             cmdDoer.append(`--graphql --graphql.port ${this.config.graphqlPort}`);
@@ -263,7 +263,7 @@ export class BlockchainCluster {
             cmdDoer.append(`--http -http.api eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
         }
         if (this.config.wsPort) {
-            cmdDoer.append(`--ws --wsport ${this.config.httpPort} --wsorigins "*"`);
+            cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
         }
         if (this.config.graphqlPort) {
             cmdDoer.append(`--graphql --graphql.port ${this.config.graphqlPort}`);
