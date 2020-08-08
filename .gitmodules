@@ -13,6 +13,3 @@
 [submodule "packages/darcher-crawljax"]
 	path = packages/darcher-crawljax
 	url = https://github.com/KristenLawrence/darcher-crawljax.git
-[submodule "packages/darcher-paper"]
-	path = packages/darcher-paper
-	url = https://github.com/Troublor/darcher-paper.git
