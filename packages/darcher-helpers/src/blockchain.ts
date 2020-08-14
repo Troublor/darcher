@@ -1,18 +1,13 @@
-import {
-    Config,
-    ClusterConfig,
-    AnalyzerConfig,
-    DBMonitorConfig,
-    DBOptions
-} from "@darcher/config";
+import {AnalyzerConfig, ClusterConfig, DBMonitorConfig, DBOptions} from "@darcher/config";
 import * as shell from "shelljs";
 import * as path from "path";
 import * as getPort from "get-port";
 import {Command, Tab, TerminalWindow} from "./terminal";
-import {spawn, exec} from "child_process";
+import {spawn} from "child_process";
 import {sleep} from "./utility";
 import axios from "axios";
 import {ETHMONITOR_PATH, GETH_PATH} from "./defines";
+import * as fs from "fs";
 
 // this script starts ethmonitor clusters according to the config in @darcher/config
 
@@ -130,8 +125,8 @@ export class BlockchainCluster {
         if (this.config.wsPort) {
             cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
         }
-        if (this.config.graphqlPort) {
-            cmdDoer.append(`--graphql --graphql.port ${this.config.graphqlPort}`);
+        if (this.config.graphql) {
+            cmdDoer.append(`--graphql`);
         }
         cmdDoer.append(`--syncmode full`);
         cmdDoer.append(`--miner.mineWhenTx`);
@@ -265,8 +260,8 @@ export class BlockchainCluster {
         if (this.config.wsPort) {
             cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
         }
-        if (this.config.graphqlPort) {
-            cmdDoer.append(`--graphql --graphql.port ${this.config.graphqlPort}`);
+        if (this.config.graphql) {
+            cmdDoer.append(`--graphql`);
         }
         cmdDoer.append(`--syncmode full`);
         cmdDoer.append(`--ethmonitor.address localhost:${this.config.ethmonitorPort}`);
@@ -361,4 +356,21 @@ export function startDBMonitor(darcher: AnalyzerConfig, dbMonitor: DBMonitorConf
     } else if (dbMonitor.db === DBOptions.mongoDB) {
 
     }
+}
+
+/**
+ * Get a list of account addresses stored in darcher/keystore
+ */
+export function getPredefinedAccounts(): string[] {
+    return fs.readdirSync(path.join(__dirname, "..", "..", "..", "keystore"))
+        .sort()
+        .map(name => name.split("-")[1].split(".")[0]);
+}
+
+/**
+ * Copy the predefined accounts to the given keystore dir
+ * @param keystore the keystore to copy accounts to
+ */
+export function copyPredefinedAccounts(keystore: string) {
+    shell.cp(path.join(__dirname, "..", "..", "..", "keystore", "*"), keystore);
 }

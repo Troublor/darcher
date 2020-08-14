@@ -15,7 +15,7 @@ export interface ClusterConfig {
     networkId?: number
     httpPort?: number
     wsPort?: number
-    graphqlPort?: number
+    graphql?: boolean
     verbosity?: number // go-ethereum verbosity level, default=3
     extra?: string
 }
@@ -63,7 +63,7 @@ const config = {
             networkId: 123456,
             httpPort: 8545,
             wsPort: 8546,
-            graphqlPort: 8547,
+            graphql: true,
             extra: "",
         }
     ]

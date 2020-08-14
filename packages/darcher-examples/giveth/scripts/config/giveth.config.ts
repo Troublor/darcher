@@ -12,7 +12,7 @@ export const homeClusterConfig = <ClusterConfig>{
     networkId: 66,
     httpPort: 8545,
     wsPort: 9545,
-    graphqlPort: 8547,
+    graphql: true,
     extra: "",
     verbosity: 3,
 };
@@ -26,7 +26,7 @@ export const foreignClusterConfig = <ClusterConfig>{
     networkId: 67,
     httpPort: 8546,
     wsPort: 9546,
-    graphqlPort: 9547,
+    graphql: true,
     extra: "",
     verbosity: 3,
 };
