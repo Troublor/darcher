@@ -120,7 +120,7 @@ export class BlockchainCluster {
         cmdDoer.append(`--nodiscover`);
         cmdDoer.append(`--ipcdisable`);
         if (this.config.httpPort) {
-            cmdDoer.append(`--http -http.api admin,eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
+            cmdDoer.append(`--http -http.api admin,miner,eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
         }
         if (this.config.wsPort) {
             cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
@@ -204,6 +204,27 @@ export class BlockchainCluster {
             "method": "admin_addPeer",
             "params": [nodeInfo.result.enode],
             "id": 2,
+        });
+        if (resp.status != 200) {
+            return false;
+        }
+        // let doer mine one block to make coinbase have non-zero ETH
+        resp = await axios.post(`http://localhost:${this.config.httpPort}`, {
+            "jsonrpc": "2.0",
+            "method": "miner_mineBlocks",
+            "params": [1],
+            "id": 3,
+        });
+        if (resp.status != 200) {
+            return false;
+        }
+        await sleep(500);
+        // set mining task as TxMonitor task
+        resp = await axios.post(`http://localhost:${this.config.httpPort}`, {
+            "jsonrpc": "2.0",
+            "method": "miner_mineWhenTx",
+            "params": [],
+            "id": 4,
         });
         if (resp.status != 200) {
             return false;
@@ -364,6 +385,7 @@ export function startDBMonitor(darcher: AnalyzerConfig, dbMonitor: DBMonitorConf
 export function getPredefinedAccounts(): string[] {
     return fs.readdirSync(path.join(__dirname, "..", "..", "..", "keystore"))
         .sort()
+        .filter(value => value.startsWith("account"))
         .map(name => name.split("-")[1].split(".")[0]);
 }
 
@@ -373,4 +395,11 @@ export function getPredefinedAccounts(): string[] {
  */
 export function copyPredefinedAccounts(keystore: string) {
     shell.cp(path.join(__dirname, "..", "..", "..", "keystore", "*"), keystore);
+}
+
+/**
+ * Get the passwords.txt file path of the passwords of predefined accounts.
+ */
+export function getPredefinedAccountsPasswords(): string {
+    return path.join(__dirname, "..", "..", "..", "keystore", "passwords.txt");
 }
