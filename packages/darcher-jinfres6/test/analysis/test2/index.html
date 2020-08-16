@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dArcher Test 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+<button onclick="Deploy()">Deploy Contract</button>
+<script>
+    // Let's imagine you want to receive an ether tip
+    const from = '0x2ecb718297080ff730269176e42c8278aa193434';
+    const web3 = new Web3(ethereum);
+    const bytecode = "6080604052348015600f57600080fd5b507f4be3cc765465b935ed0199e6e8b6be8003a65e3329002a60e7a817f3b734e88233604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a1603f8060806000396000f3fe6080604052600080fdfea2646970667358221220fd91b74592ed3d345b06a1ca136ed6ed155ee97c1f8467ec97bdf78c4b91a8fd64736f6c63430006020033";
+    const abi = [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "ConstructEvent",
+            "type": "event"
+        }
+    ];
+    web3.eth.subscribe('logs', {}, function (error, result) {
+        if (!error)
+            console.log("result:", result);
+        else
+            console.log("err:", error);
+    });
+
+    function Deploy() {
+        let myContract = new web3.eth.Contract(abi);
+        myContract.deploy({
+            data: bytecode,
+        }).send({
+            from: from,
+        }).on('error', function (error) {
+            console.log("error:", error)
+        }).on('transactionHash', function (transactionHash) {
+            console.log("hash:", transactionHash);
+        }).on('receipt', function (receipt) {
+            console.log("receipt:", receipt) // contains the new contract address
+        });
+    }
+</script>
+</body>
+</html>

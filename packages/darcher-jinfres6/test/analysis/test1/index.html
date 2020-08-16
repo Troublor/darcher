@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dArcher Test 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+<button onclick="Click()">Click Me</button>
+<button onclick="Deploy()">Deploy Contract</button>
+<script>
+    // Let's imagine you want to receive an ether tip
+    const from = '0x2ecb718297080ff730269176e42c8278aa193434';
+    const to = '0x4adeb0603a214531e01eb664b15c2c2793136508';
+    const value = '0xde0b6b3a7640000'; // an ether has 18 decimals, here in hex.
+    const desiredNetwork = '2020'; // ethMonitor network ID.
+    const web3Instance = new Web3(new Web3.providers.WebsocketProvider("ws://127.0.0.1:8546"));
+    const web3 = new Web3(ethereum);
+    const contractAddr = "0x0Aa27e4B13D5c08A8767B36a0ACb76ED4549B7EA";
+    const bytecode = '0x608060405234801561001057600080fd5b506103ff806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806327e235e314610051578063a5f7c148146100a9578063d83b066e146100f7578063f8b2cb4f14610125575b600080fd5b6100936004803603602081101561006757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061017d565b6040518082815260200191505060405180910390f35b6100f5600480360360408110156100bf57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610195565b005b6101236004803603602081101561010d57600080fd5b81019080803590602001909291905050506102d0565b005b6101676004803603602081101561013b57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610381565b6040518082815260200191505060405180910390f35b60006020528060005260406000206000915090505481565b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282540392505081905550806000808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825401925050819055507f8b0c34a52f9e28d78caaa7066cd047b398dae74941a208b77777420f492bd7e1338383604051808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828152602001935050505060405180910390a15050565b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020819055507fc8fcd8d9fc0e78c740e2b67cd7fbedcd02b880acb075862df2acd0f12984f57b3382604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a150565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054905091905056fea2646970667358221220fd25cae5100a565363a35262dfe72b33d96d0f6a3e59e1910b6800feb4e07dfc64736f6c63430006020033';
+    const abi = [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "balance",
+                    "type": "int256"
+                }
+            ],
+            "name": "GetBalance",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "int256",
+                    "name": "b",
+                    "type": "int256"
+                }
+            ],
+            "name": "setBalance",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "balance",
+                    "type": "int256"
+                }
+            ],
+            "name": "SetBalance",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "int256",
+                    "name": "balance",
+                    "type": "int256"
+                }
+            ],
+            "name": "transfer",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "int256",
+                    "name": "value",
+                    "type": "int256"
+                }
+            ],
+            "name": "Transfer",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "balances",
+            "outputs": [
+                {
+                    "internalType": "int256",
+                    "name": "",
+                    "type": "int256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "addr",
+                    "type": "address"
+                }
+            ],
+            "name": "getBalance",
+            "outputs": [
+                {
+                    "internalType": "int256",
+                    "name": "balance",
+                    "type": "int256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+
+    // Detect whether the current browser is ethereum-compatible,
+    // and handle the case where it isn't:
+    if (typeof window.ethereum === 'undefined') {
+        alert('Looks like you need a Dapp browser to get started.');
+        alert('Consider installing MetaMask!');
+    } else {
+
+        // In the case the user has MetaMask installed, you can easily
+        // ask them to sign in and reveal their accounts:
+        ethereum.enable()
+
+            // Remember to handle the case they reject the request:
+            .catch(function (reason) {
+                if (reason === 'User rejected provider access') {
+                    // The user didn't want to sign in!
+                } else {
+                    // This shouldn't happen, so you might want to log this...
+                    alert('There was an issue signing you in.')
+                }
+            })
+            // In the case they approve the log-in request, you'll receive their accounts:
+            .then(function (accounts) {
+                // You also should verify the user is on the correct network:
+                if (ethereum.networkVersion !== desiredNetwork) {
+                    alert('This application requires the main network, please switch it in your MetaMask UI.')
+
+                    // We plan to provide an API to make this request in the near future.
+                    // https://github.com/MetaMask/metamask-extension/issues/3663
+                }
+
+                // Once you have a reference to user accounts,
+                // you can suggest transactions and signatures:
+                const account = accounts[0];
+                if (account !== from) {
+                    alert("please use the test account")
+                }
+                // sendEtherFrom(account, function (err, transaction) {
+                //     if (err) {
+                //         return alert(`Sorry you weren't able to contribute!`)
+                //     }
+                //
+                //     alert('Thanks for your successful contribution!')
+                // })
+            })
+    }
+    let inst = new web3.eth.Contract(abi, contractAddr);
+    // inst.events.allEvents({
+    //     fromBlock: 'genesis'
+    // }, function (err, event) {
+    //     console.log("event:", event);
+    // }).on("connected", function (subscriptionId) {
+    //     console.log("connected:", subscriptionId);
+    // })
+    //     .on('data', function (event) {
+    //         console.log("data:", event); // same results as the optional callback above
+    //     })
+    //     .on('changed', function (event) {
+    //         // remove event from local database
+    //         console.log("changed:", event);
+    //     })
+    //     .on('error', function (error, receipt) { // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
+    //         console.log("err:", error);
+    //         console.log(receipt)
+    //     });
+    var subscription = inst.events.SetBalance({
+        fromBlock: "earliest",
+    }, function (error, result) {
+        if (!error)
+            console.log(result);
+        else
+            console.log("default:", error);
+    })
+        .on("connected", function (subscriptionId) {
+            console.log(subscriptionId);
+        })
+        .on("data", function (log) {
+            console.log("data:", log);
+        })
+        .on("changed", function (log) {
+            console.log("changed:", log)
+        }).on("error", function (log) {
+            console.log("err:", log);
+        });
+    console.log(subscription);
+    // unsubscribes the subscription
+    // subscription.unsubscribe(function (error, success) {
+    //     if (success)
+    //         console.log('Successfully unsubscribed!');
+    // });
+
+    function Deploy() {
+        let myContract = new web3.eth.Contract(abi);
+        myContract.deploy({
+            data: bytecode,
+        }).send({
+            from: from,
+        }, function (error, transactionHash) {
+            console.log(transactionHash);
+        }).on('error', function (error) {
+            console.log(error)
+        }).on('transactionHash', function (transactionHash) {
+            console.log(transactionHash);
+        }).on('receipt', function (receipt) {
+            console.log(receipt) // contains the new contract address
+        });
+
+    }
+
+    function Click() {
+
+        // inst.methods.getBalance().call({from: from}).then(function (result) {
+        //     console.log(result)
+        // });
+        // web3Instance.eth.personal.unlockAccount(from, "backto");
+        let listener = inst.methods.setBalance(200).send({
+            from: from,
+            gas: 0xafef00
+        }).on("transactionHash", function (hash) {
+            console.log("transaction hash:", hash)
+        }).on("receipt", function (receipt) {
+            console.log("receipt:", receipt);
+        }).on("confirmation", function (confirmationNumber, receipt) {
+            console.log("confirmations:", confirmationNumber);
+        }).on("error", function (err) {
+            console.log("err:", err);
+
+        });
+        // web3.eth.sendTransaction({
+        //     from: from,
+        //     to: to,
+        //     value: 1000000000,
+        // }).on("transactionHash", function (hash) {
+        //     console.log("transaction hash:", hash)
+        // }).on("receipt", function (receipt) {
+        //     console.log("receipt:", receipt);
+        // }).on("confirmation", function (confirmationNumber, receipt) {
+        //     console.log("confirmations:", confirmationNumber);
+        // }).on("error", function (err) {
+        //     console.log("err:", err);
+        // });
+    }
+</script>
+</body>
+</html>
