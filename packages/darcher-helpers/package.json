@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "escodegen": "^2.0.0",
+    "esprima": "^4.0.1",
     "grpc": "^1.24.3",
     "log4js": "^6.3.0",
     "ts-enum-util": "^4.0.2"

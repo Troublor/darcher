@@ -403,3 +403,39 @@ export function copyPredefinedAccounts(keystore: string) {
 export function getPredefinedAccountsPasswords(): string {
     return path.join(__dirname, "..", "..", "..", "keystore", "passwords.txt");
 }
+
+/**
+ * Given the truffle deploy result json file path, return the object containing the contractName, abi, and address.
+ * If the given file is not a valid json file or the content is not truffle deployment output, an error will be thrown.
+ * @param truffleJsonFilePath
+ */
+export function getTruffleDeployedContract(truffleJsonFilePath: string): { contractName: string, abi: object, deployment: { [networkId: number]: { address: string } } } {
+    let obj = JSON.parse(fs.readFileSync(truffleJsonFilePath, 'utf8'));
+    if (obj == null) {
+        throw new Error(`${truffleJsonFilePath} is not a valid json file`);
+    }
+    let ret: { contractName: string, abi: object, deployment: { [networkId: number]: { address: string } } } = {
+        contractName: "",
+        abi: null,
+        deployment: {},
+    };
+    if (!obj.hasOwnProperty("contractName") || !obj.hasOwnProperty("abi")) {
+        throw new Error(`${truffleJsonFilePath} is not a truffle deployment result json file, missing contractName and abi`);
+    }
+    ret["contractName"] = obj["contractName"];
+    ret["abi"] = obj["abi"];
+    if (!obj.hasOwnProperty("networks")) {
+        return ret;
+    }
+    let networks = obj["networks"];
+    for (let networkId in networks) {
+        if (networks.hasOwnProperty(networkId)) {
+            let id = parseInt(networkId);
+            if (isNaN(id)) {
+                continue;
+            }
+            ret.deployment[id] = {address: networks[networkId].address};
+        }
+    }
+    return ret;
+}

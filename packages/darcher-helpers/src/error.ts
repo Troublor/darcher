@@ -11,6 +11,9 @@ export enum DarcherErrorCode {
     ServiceCancelled,
     Timout,
     DBAdapterNotLoaded,
+
+    // miscellaneous
+    Raw,
 }
 
 export class DarcherError extends Error {
