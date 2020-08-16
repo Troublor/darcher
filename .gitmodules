@@ -22,3 +22,6 @@
 [submodule "packages/darcher-examples/DemocracyEarch/DemocracyDAO"]
 	path = packages/darcher-examples/DemocracyEarch/DemocracyDAO
 	url = https://github.com/Troublor/DemocracyDAO.git
+[submodule "packages/darcher-examples/DemocracyEarch/tokens"]
+	path = packages/darcher-examples/DemocracyEarch/tokens
+	url = https://github.com/Troublor/tokens.git

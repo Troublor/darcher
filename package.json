@@ -30,10 +30,11 @@
     "start:cluster": "ts-node scripts/startUtils.ts",
     "start:config": "ts-node ./scripts/start.ts",
     "reset:config": "ts-node ./scripts/reset.ts",
-    "test": "yarn workspace @darcher/dbmonitor test && yarn workspace @darcher/analyzer test"
+    "test": "yarn workspace @darcher/dbmonitor test && yarn workspace @darcher/analyzer test && yarn workspace @darcher/helpers test"
   },
   "dependencies": {
     "get-port": "^5.1.1",
+    "keythereum": "^1.0.4",
     "lerna": "^3.22.1",
     "npm-run-all": "^4.1.5",
     "shelljs": "^0.8.4",
