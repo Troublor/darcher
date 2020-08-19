@@ -20,10 +20,12 @@ export interface Identifiable {
 export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifiable> {
     private readonly name: string;
     private stream: grpc.ClientDuplexStream<RespT, ReqT>
+    private emitter: EventEmitter
 
     constructor(name: string, stream: grpc.ClientDuplexStream<RespT, ReqT>) {
         this.name = name;
         this.stream = stream;
+        this.emitter = new EventEmitter();
     }
 
     /**
@@ -40,6 +42,7 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
                         reject(new ServiceCancelledError(this.name));
                         break;
                     case status.UNAVAILABLE:
+                        console.log("unavailable");
                         reject(new ServiceNotAvailableError(this.name));
                         break;
                     default:
@@ -48,7 +51,12 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
                 }
             });
             this.stream.on("close", resolve);
-            this.stream.on("end", resolve);
+            this.stream.on("end", () => {
+                // if stream is ended from the other side, we also end from our side as well.
+                this.stream.end();
+                resolve();
+            });
+            this.emitter.on("close", resolve);
             this.stream.on("data", async data => {
                 // pass request to handler
                 let resp = await handler(data);
@@ -63,7 +71,9 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
     public async close(): Promise<void> {
         return new Promise(resolve => {
             if (this.stream) {
-                this.stream.end(resolve);
+                this.stream.end();
+                this.emitter.emit("close");
+                resolve();
                 return;
             }
             resolve();
@@ -96,9 +106,22 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
     public establish(stream: grpc.ServerDuplexStream<ReqT, RespT>) {
         this.emitter.emit("establish");
         this._established = true;
+        if (this.stream) {
+            // if previously there is already a connect, end that first
+            this.stream.end();
+        }
         this.stream = stream;
-        this.stream.on("data", this.onData);
-        this.stream.on("error", this.onError);
+        stream.on("data", this.onData);
+        stream.on("error", this.onError);
+        stream.on("end", () => {
+            // if the stream is ended by the other side, we also end from our side too, and set reverse rpc not established.
+            if (this.stream === stream) {
+                // to avoid data race, we check whether the ended stream is current this.stream
+                this.stream?.end();
+                this.stream = undefined;
+                this._established = false;
+            }
+        });
     }
 
     public waitForEstablishment(): Promise<void> {
@@ -124,7 +147,7 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
         for (let id in this.pendingCalls) {
             let {reject} = this.pendingCalls[id];
             reject(err);
-            this.pendingCalls = undefined;
+            this.pendingCalls[id] = undefined;
             this._established = false;
         }
     };
