@@ -58,8 +58,7 @@ export class DappTestDriverService implements IDAppTestDriverServiceServer, Serv
      */
     dappDriverControl(call: ServerDuplexStream<DAppDriverControlMsg, DAppDriverControlMsg>): void {
         if (this.dappDriverControlReverseRPC.established) {
-            this.logger.warn("dappDriverReverseRPC already established, ignore new request");
-            return;
+            this.logger.warn("dappDriverReverseRPC repeat establish, override previous connection");
         }
         // serve the initial call
         call.once("data", (msg: DAppDriverControlMsg)=>{
