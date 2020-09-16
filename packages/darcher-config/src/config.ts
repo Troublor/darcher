@@ -3,6 +3,7 @@ export enum ControllerOptions {
     trivial = "trivial",
     darcher = "darcher",
     deploy = "deploy",
+    traverse = "traverse",
 }
 
 export interface ClusterConfig {
