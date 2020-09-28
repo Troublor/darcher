@@ -4,7 +4,9 @@ name: Task Manager
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on: issues
+on: 
+  issues:
+    types: [opened, labeled]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,6 +24,6 @@ jobs:
         uses: pozil/auto-assign-issue@v1.0.1
         with:
           # The GITHUB_TOKEN, neede to update the Issue
-          repo-token: ${{ github.token }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           # Comma separated list of user names
           assignees: Troublor
