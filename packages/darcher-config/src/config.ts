@@ -29,6 +29,7 @@ export interface AnalyzerConfig {
 export enum DBOptions {
     indexedDB = "indexedDB",
     mongoDB = "mongoDB",
+    extensionStorage = "extensionStorage",
 }
 
 export interface DBMonitorConfig {
