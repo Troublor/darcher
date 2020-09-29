@@ -2,7 +2,7 @@
  * Darcher listen for new txs and start a analyzer for each tx
  */
 import {EthmonitorController, DarcherServer} from "./service";
-import {ContractVulReport, SelectTxControlMsg, TxErrorMsg, TxReceivedMsg, TxState} from "@darcher/rpc";
+import {SelectTxControlMsg, TxReceivedMsg, TxState} from "@darcher/rpc";
 import {Analyzer} from "./analyzer";
 import {Config} from "@darcher/config";
 import {Logger, prettifyHash} from "@darcher/helpers";
@@ -73,13 +73,13 @@ export class Darcher {
             await analyzer.onTxTraverseStart(msg1);
         };
         this.ethmonitorController.onTxFinished = async msg1 => {
-            this.logger.info("Tx traverse finished", "tx", prettifyHash(msg1.getHash()));
             await analyzer.onTxFinished(msg1);
             // save transaction state log
             fs.writeFileSync(
                 path.join(this.logDir, `${msg.getHash()}.json`),
                 JSON.stringify(analyzer.log, null, 2),
             );
+            this.logger.info("Tx traverse finished", "tx", prettifyHash(msg1.getHash()));
         };
         this.ethmonitorController.onTxStateChange = async msg1 => {
             this.logger.debug(`Transaction state changed from ${$enum(TxState).getKeyOrDefault(msg1.getFrom(), undefined)} to ${$enum(TxState).getKeyOrDefault(msg1.getTo(), undefined)}`)

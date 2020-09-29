@@ -1,14 +1,12 @@
 import {
-    TxState,
-    TestStartMsg,
-    TestEndMsg,
     ConsoleErrorMsg,
-    TxMsg,
+    ContractVulReport,
+    TestEndMsg,
+    TestStartMsg,
     TxErrorMsg,
-    ContractVulReport, DBContent
-} from "@darcher/rpc";
-import {
     TxFinishedMsg,
+    TxMsg,
+    TxState,
     TxStateChangeMsg,
     TxStateControlMsg,
     TxTraverseStartMsg
@@ -16,7 +14,7 @@ import {
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {Config} from "@darcher/config";
-import {Logger, prettifyHash} from "@darcher/helpers";
+import {Logger} from "@darcher/helpers";
 import {DbMonitorService} from "./service/dbmonitorService";
 import {Oracle, Report} from "./oracle";
 
@@ -95,7 +93,9 @@ export class Analyzer {
         this.dbMonitorService = dbmonitorService;
         this.txState = LogicalTxState.CREATED;
         this.stateEmitter = new EventEmitter();
-        this.stateChangeWaiting = Promise.resolve(LogicalTxState.CREATED);
+        this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CREATED), resolve)
+        });
         this.log = <TransactionLog>{
             hash: txHash,
             states: {
@@ -134,9 +134,13 @@ export class Analyzer {
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
+        // fire the TxStateChange event on CREATED state, this is a fake event just used to apply oracles on CREATED state
+        await this.onTxStateChange(new TxStateChangeMsg().setHash(this.txHash).setFrom(undefined).setTo(TxState.CREATED));
     }
 
     public async onTxFinished(msg: TxFinishedMsg): Promise<void> {
+        // wait for tx state changed to CONFIRMED
+        await this.stateChangeWaiting;
     }
 
     public async askForNextState(msg: TxStateControlMsg): Promise<TxState> {
@@ -225,18 +229,20 @@ export class Analyzer {
      * @param txState The state that transaction is at currently
      */
     private async applyOracles(txState: LogicalTxState): Promise<void> {
+        this.logger.debug("Apply oracle on transaction", "state", $enum(LogicalTxState).getKeyOrDefault(txState, undefined));
         // the time limit (milliseconds) for dapp to handle tx state change
         const timeLimit = 10000;
         return new Promise(async resolve => {
             try {
                 await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
-            } catch (e){
+            } catch (e) {
                 this.logger.error(e);
             }
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
                 try {
                     let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                    this.logger.debug("GetAllData", "state", $enum(LogicalTxState).getKeyOrDefault(txState, undefined), "data", dbContent.toObject());
                     // forward to each oracle
                     for (let oracle of this.oracles) {
                         oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
