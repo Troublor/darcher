@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "chalk": "^4.1.0",
     "escodegen": "^2.0.0",
     "esprima": "^4.0.1",
     "grpc": "^1.24.3",
