@@ -2,14 +2,15 @@
  * Darcher listen for new txs and start a analyzer for each tx
  */
 import {EthmonitorController, DarcherServer} from "./service";
-import {ContractVulReport, SelectTxControlMsg, TxErrorMsg, TxReceivedMsg} from "@darcher/rpc";
+import {ContractVulReport, SelectTxControlMsg, TxErrorMsg, TxReceivedMsg, TxState} from "@darcher/rpc";
 import {Analyzer} from "./analyzer";
 import {Config} from "@darcher/config";
-import {Logger} from "@darcher/helpers";
+import {Logger, prettifyHash} from "@darcher/helpers";
 import {DappTestDriverServiceHandler} from "./service/dappTestDriverService";
 import * as path from "path";
 import * as fs from "fs";
 import {existsSync, mkdirSync} from "fs";
+import {$enum} from "ts-enum-util";
 
 export class Darcher {
     private readonly config: Config;
@@ -76,8 +77,17 @@ export class Darcher {
                 JSON.stringify(analyzer.log, null, 2),
             );
         };
-        this.ethmonitorController.onTxStateChange = analyzer.onTxStateChange.bind(analyzer);
-        this.ethmonitorController.askForNextState = analyzer.askForNextState.bind(analyzer);
+        this.ethmonitorController.onTxStateChange = async msg1 => {
+            this.logger.debug(`transaction state changed from ${$enum(TxState).getKeyOrDefault(msg1.getFrom(), undefined)} to ${$enum(TxState).getKeyOrDefault(msg1.getTo(), undefined)}`)
+            await analyzer.onTxStateChange.bind(analyzer)(msg1);
+        };
+        this.ethmonitorController.askForNextState = async msg1 => {
+            let nextState = await analyzer.askForNextState.bind(analyzer)(msg1);
+            this.logger.debug(
+                `decide state transition for ${prettifyHash(msg.getHash())} from ${$enum(TxState).getKeyOrDefault(msg1.getCurrentState(), undefined)} to ${$enum(TxState).getKeyOrDefault(nextState, undefined)}`
+            )
+            return nextState;
+        };
         this.ethmonitorController.onContractVulnerability = analyzer.onContractVulnerability.bind(analyzer);
         this.ethmonitorController.onTxError = analyzer.onTxError.bind(analyzer);
         // register dapp test driver handlers
@@ -88,7 +98,9 @@ export class Darcher {
     }
 
     private async selectTxToTraverse(msg: SelectTxControlMsg): Promise<string> {
-        return msg.getCandidateHashesList()[0];
+        let selected = msg.getCandidateHashesList()[0];
+        this.logger.debug(`Transaction ${prettifyHash(selected)} selected`);
+        return selected;
     }
 
     /* darcher controller handlers end */

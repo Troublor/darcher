@@ -5,7 +5,10 @@ import {
     getUUID,
     Logger,
     PromiseKit,
-    ReverseRPCClient, ServiceNotAvailableError, TimeoutError,
+    ReverseRPCClient,
+    Service,
+    ServiceNotAvailableError,
+    TimeoutError,
     WebsocketError
 } from "@darcher/helpers";
 import {
@@ -14,10 +17,10 @@ import {
     Error as rpcError,
     GetAllDataControlMsg,
     IDBMonitorServiceServer,
-    RequestType, Role
+    RequestType,
+    Role
 } from "@darcher/rpc"
 import {ServerDuplexStream} from "grpc";
-import {Service} from "@darcher/helpers";
 import {EventEmitter} from "events";
 
 export class DbMonitorService implements Service {
@@ -208,7 +211,7 @@ class DBMonitorServiceViaWebsocket implements Service {
     public async refreshPage(address: string): Promise<void> {
         let id = getUUID();
         if (!this.conn) {
-            throw new Error("DBMonitorService not available")
+            throw new ServiceNotAvailableError("refreshPage");
         }
         let req = new ControlMsg();
         req.setId(id);

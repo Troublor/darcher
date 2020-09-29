@@ -231,15 +231,23 @@ export class Analyzer {
         // the time limit (milliseconds) for dapp to handle tx state change
         const timeLimit = 10000;
         return new Promise(async resolve => {
-            await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+            try {
+                await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+            } catch (e){
+                this.logger.error(e);
+            }
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
-                let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
-                // forward to each oracle
-                for (let oracle of this.oracles) {
-                    oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
+                try {
+                    let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                    // forward to each oracle
+                    for (let oracle of this.oracles) {
+                        oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
+                    }
+                    this.log.states[txState] = dbContent.toObject();
+                } catch (e) {
+                    this.logger.error(e);
                 }
-                this.log.states[txState] = dbContent.toObject();
                 // clean txErrors, contractVulReports, consoleErrors, because they are cache for only one tx state
                 this.txErrors = [];
                 this.contractVulReports = [];
