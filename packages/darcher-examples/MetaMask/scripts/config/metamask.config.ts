@@ -4,8 +4,8 @@ import {AnalyzerConfig, ClusterConfig, Config, ControllerOptions, DBMonitorConfi
 const blockchainDir = path.join(__dirname, "..", "..", "blockchain");
 
 export const clusterConfig: ClusterConfig = {
-    analyzerAddress: "",
-    controller: ControllerOptions.console,
+    analyzerAddress: "localhost:1234",
+    controller: ControllerOptions.darcher,
     dir: blockchainDir,
     ethmonitorPort: 8989,
     extra: "",
@@ -14,19 +14,19 @@ export const clusterConfig: ClusterConfig = {
     httpPort: 8545,
     keyStoreDir: path.join(blockchainDir, "keystore"),
     networkId: 2020,
-    verbosity: 3,
+    verbosity: 4,
     wsPort: 8546
 }
 
 export const dbMonitorConfig = <DBMonitorConfig>{
     db: DBOptions.extensionStorage,
-    dbName: "friend_database",
-    dbAddress: "localhost:63342",
+    dbName: "",
+    dbAddress: "",
 };
 
 export const darcherConfig = <AnalyzerConfig>{
-    grpcPort: 1236,
-    wsPort: 1237,
+    grpcPort: 1234,
+    wsPort: 1235,
 };
 
 export default <Config>{

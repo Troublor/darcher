@@ -19,7 +19,8 @@
     "augur:docker:stop": "docker-compose -f augurproject/scripts/docker/docker-compose.yml down",
     "democracyEarch:deploy": "ts-node ./DemocracyEarch/scripts/deploy.ts",
     "metamask:deploy": "ts-node ./MetaMask/scripts/deploy.ts",
-    "metamask:start": "ts-node ./MetaMask/scripts/start.ts"
+    "metamask:start_blockchian": "ts-node MetaMask/scripts/start_blockchain.ts",
+    "metamask:start_darcher": "ts-node MetaMask/scripts/start_darcher.ts"
   },
   "dependencies": {
     "shelljs": "^0.8.4",
