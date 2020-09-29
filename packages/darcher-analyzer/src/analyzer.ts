@@ -112,7 +112,6 @@ export class Analyzer {
 
     /* darcher controller handlers start */
     public async onTxStateChange(msg: TxStateChangeMsg): Promise<void> {
-        this.logger.info("Tx state changed", "from", $enum(TxState).getKeyOrThrow(msg.getFrom()), "to", $enum(TxState).getKeyOrThrow(msg.getTo()));
         if (msg.getFrom() === TxState.EXECUTED &&
             msg.getTo() === TxState.PENDING &&
             this.txState === LogicalTxState.EXECUTED) {
@@ -135,11 +134,9 @@ export class Analyzer {
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
-        this.logger.info("Tx traverse started", "tx", prettifyHash(msg.getHash()));
     }
 
     public async onTxFinished(msg: TxFinishedMsg): Promise<void> {
-        this.logger.info("Tx traverse finished", "tx", prettifyHash(msg.getHash()));
     }
 
     public async askForNextState(msg: TxStateControlMsg): Promise<TxState> {

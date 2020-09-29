@@ -63,14 +63,18 @@ export class Darcher {
 
     /* darcher controller handlers start */
     private async onTxReceived(msg: TxReceivedMsg): Promise<void> {
-        this.logger.info("Tx received", "tx", msg.getHash());
+        this.logger.debug("Transaction received", "tx", msg.getHash());
         // new tx, initialize analyzer for it
         let analyzer = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService);
         // register analyzer's handlers
         this.analyzers[msg.getHash()] = analyzer;
-        this.ethmonitorController.onTxTraverseStart = analyzer.onTxTraverseStart.bind(analyzer);
+        this.ethmonitorController.onTxTraverseStart = async msg1 => {
+            this.logger.info("Tx traverse started", "tx", prettifyHash(msg1.getHash()));
+            await analyzer.onTxTraverseStart(msg1);
+        };
         this.ethmonitorController.onTxFinished = async msg1 => {
-            await analyzer.onTxFinished.bind(analyzer)(msg1);
+            this.logger.info("Tx traverse finished", "tx", prettifyHash(msg1.getHash()));
+            await analyzer.onTxFinished(msg1);
             // save transaction state log
             fs.writeFileSync(
                 path.join(this.logDir, `${msg.getHash()}.json`),
@@ -78,18 +82,24 @@ export class Darcher {
             );
         };
         this.ethmonitorController.onTxStateChange = async msg1 => {
-            this.logger.debug(`transaction state changed from ${$enum(TxState).getKeyOrDefault(msg1.getFrom(), undefined)} to ${$enum(TxState).getKeyOrDefault(msg1.getTo(), undefined)}`)
-            await analyzer.onTxStateChange.bind(analyzer)(msg1);
+            this.logger.debug(`Transaction state changed from ${$enum(TxState).getKeyOrDefault(msg1.getFrom(), undefined)} to ${$enum(TxState).getKeyOrDefault(msg1.getTo(), undefined)}`)
+            await analyzer.onTxStateChange(msg1);
         };
         this.ethmonitorController.askForNextState = async msg1 => {
-            let nextState = await analyzer.askForNextState.bind(analyzer)(msg1);
+            let nextState = await analyzer.askForNextState(msg1);
             this.logger.debug(
-                `decide state transition for ${prettifyHash(msg.getHash())} from ${$enum(TxState).getKeyOrDefault(msg1.getCurrentState(), undefined)} to ${$enum(TxState).getKeyOrDefault(nextState, undefined)}`
+                `Decide state transition for ${prettifyHash(msg.getHash())} from ${$enum(TxState).getKeyOrDefault(msg1.getCurrentState(), undefined)} to ${$enum(TxState).getKeyOrDefault(nextState, undefined)}`
             )
             return nextState;
         };
-        this.ethmonitorController.onContractVulnerability = analyzer.onContractVulnerability.bind(analyzer);
-        this.ethmonitorController.onTxError = analyzer.onTxError.bind(analyzer);
+        this.ethmonitorController.onContractVulnerability = async msg1 => {
+            this.logger.debug(`Get contract vulnerability report: ${msg1.getDescription()}`);
+            await analyzer.onContractVulnerability(msg1);
+        };
+        this.ethmonitorController.onTxError = async msg1 => {
+            this.logger.debug(`Found transaction error: ${msg1.getDescription()}`);
+            await analyzer.onTxError(msg1);
+        };
         // register dapp test driver handlers
         this.dappTestDriverHandler.onTestStart = analyzer.onTestStart.bind(analyzer);
         this.dappTestDriverHandler.onTestEnd = analyzer.onTestEnd.bind(analyzer);
@@ -99,7 +109,7 @@ export class Darcher {
 
     private async selectTxToTraverse(msg: SelectTxControlMsg): Promise<string> {
         let selected = msg.getCandidateHashesList()[0];
-        this.logger.debug(`Transaction ${prettifyHash(selected)} selected`);
+        this.logger.debug(`Transaction selected to traverse`, "tx", prettifyHash(selected));
         return selected;
     }
 
