@@ -5,7 +5,7 @@ import {
     ConsoleErrorMsg,
     TxMsg,
     TxErrorMsg,
-    ContractVulReport
+    ContractVulReport, DBContent
 } from "@darcher/rpc";
 import {
     TxFinishedMsg,
@@ -69,6 +69,11 @@ export class Analyzer {
     private txHash: string;
     private txState: LogicalTxState;
 
+    /**
+     * A log used for offline analysis
+     */
+    public readonly log: TransactionLog;
+
     dbMonitorService: DbMonitorService;
 
     private stateChangeWaiting: Promise<LogicalTxState>;
@@ -91,6 +96,18 @@ export class Analyzer {
         this.txState = LogicalTxState.CREATED;
         this.stateEmitter = new EventEmitter();
         this.stateChangeWaiting = Promise.resolve(LogicalTxState.CREATED);
+        this.log = <TransactionLog>{
+            hash: txHash,
+            states: {
+                [LogicalTxState.CREATED]: null,
+                [LogicalTxState.PENDING]: null,
+                [LogicalTxState.EXECUTED]: null,
+                [LogicalTxState.REMOVED]: null,
+                [LogicalTxState.REEXECUTED]: null,
+                [LogicalTxState.CONFIRMED]: null,
+                [LogicalTxState.DROPPED]: null,
+            }
+        }
     }
 
     /* darcher controller handlers start */
@@ -222,6 +239,7 @@ export class Analyzer {
                 for (let oracle of this.oracles) {
                     oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
                 }
+                this.log.states[txState] = dbContent;
                 // clean txErrors, contractVulReports, consoleErrors, because they are cache for only one tx state
                 this.txErrors = [];
                 this.contractVulReports = [];
@@ -241,5 +259,21 @@ export class Analyzer {
             reports.push(...oracle.getBugReports());
         }
         return reports;
+    }
+}
+
+/**
+ * This class records database changes in each state of transaction
+ */
+export interface TransactionLog {
+    hash: string,
+    states: {
+        [LogicalTxState.CREATED]: DBContent | null,
+        [LogicalTxState.PENDING]: DBContent | null,
+        [LogicalTxState.EXECUTED]: DBContent | null,
+        [LogicalTxState.REMOVED]: DBContent | null,
+        [LogicalTxState.REEXECUTED]: DBContent | null,
+        [LogicalTxState.CONFIRMED]: DBContent | null,
+        [LogicalTxState.DROPPED]: DBContent | null,
     }
 }

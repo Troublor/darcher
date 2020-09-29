@@ -7,10 +7,14 @@ import {Analyzer} from "./analyzer";
 import {Config} from "@darcher/config";
 import {Logger} from "@darcher/helpers";
 import {DappTestDriverServiceHandler} from "./service/dappTestDriverService";
+import * as path from "path";
+import * as fs from "fs";
+import {existsSync, mkdirSync} from "fs";
 
 export class Darcher {
     private readonly config: Config;
     private readonly logger: Logger;
+    private readonly logDir: string;
 
     private readonly server: DarcherServer;
 
@@ -31,6 +35,15 @@ export class Darcher {
             selectTxToTraverse: this.selectTxToTraverse.bind(this),
         }
         this.dappTestDriverHandler = <DappTestDriverServiceHandler>{};
+        const now = new Date();
+        this.logDir = path.join(
+            __dirname, "..", "data",
+            `${now.getFullYear()}-${now.getMonth()}-${now.getDay()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+        );
+        this.logger.info(`Transaction states log will be stored in ${this.logDir}`);
+        if (!existsSync(this.logDir)) {
+            mkdirSync(this.logDir)
+        }
     }
 
     /**
@@ -38,11 +51,13 @@ export class Darcher {
      */
     public async start(): Promise<void> {
         this.server.ethmonitorControllerService.handler = this.ethmonitorController;
-        return this.server.start();
+        await this.server.start();
+        this.logger.info("Darcher started");
     }
 
     public async shutdown(): Promise<void> {
-        return this.server.shutdown();
+        await this.server.shutdown();
+        this.logger.info("Darcher shutdown")
     }
 
     /* darcher controller handlers start */
@@ -53,7 +68,14 @@ export class Darcher {
         // register analyzer's handlers
         this.analyzers[msg.getHash()] = analyzer;
         this.ethmonitorController.onTxTraverseStart = analyzer.onTxTraverseStart.bind(analyzer);
-        this.ethmonitorController.onTxFinished = analyzer.onTxFinished.bind(analyzer);
+        this.ethmonitorController.onTxFinished = async msg1 => {
+            await analyzer.onTxFinished.bind(analyzer)(msg1);
+            // save transaction state log
+            fs.writeFileSync(
+                path.join(this.logDir, `${msg.getHash()}.json`),
+                JSON.stringify(analyzer.log, null, 2),
+            );
+        };
         this.ethmonitorController.onTxStateChange = analyzer.onTxStateChange.bind(analyzer);
         this.ethmonitorController.askForNextState = analyzer.askForNextState.bind(analyzer);
         this.ethmonitorController.onContractVulnerability = analyzer.onContractVulnerability.bind(analyzer);
