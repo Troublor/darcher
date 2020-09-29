@@ -239,7 +239,7 @@ export class Analyzer {
                 for (let oracle of this.oracles) {
                     oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
                 }
-                this.log.states[txState] = dbContent;
+                this.log.states[txState] = dbContent.toObject();
                 // clean txErrors, contractVulReports, consoleErrors, because they are cache for only one tx state
                 this.txErrors = [];
                 this.contractVulReports = [];
@@ -268,12 +268,12 @@ export class Analyzer {
 export interface TransactionLog {
     hash: string,
     states: {
-        [LogicalTxState.CREATED]: DBContent | null,
-        [LogicalTxState.PENDING]: DBContent | null,
-        [LogicalTxState.EXECUTED]: DBContent | null,
-        [LogicalTxState.REMOVED]: DBContent | null,
-        [LogicalTxState.REEXECUTED]: DBContent | null,
-        [LogicalTxState.CONFIRMED]: DBContent | null,
-        [LogicalTxState.DROPPED]: DBContent | null,
+        [LogicalTxState.CREATED]: object | null,
+        [LogicalTxState.PENDING]: object | null,
+        [LogicalTxState.EXECUTED]: object | null,
+        [LogicalTxState.REMOVED]: object | null,
+        [LogicalTxState.REEXECUTED]: object | null,
+        [LogicalTxState.CONFIRMED]: object | null,
+        [LogicalTxState.DROPPED]: object | null,
     }
 }
