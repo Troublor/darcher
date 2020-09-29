@@ -14,7 +14,7 @@ import {
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {Config} from "@darcher/config";
-import {Logger} from "@darcher/helpers";
+import {Logger, prettifyHash} from "@darcher/helpers";
 import {DbMonitorService} from "./service/dbmonitorService";
 import {Oracle, Report} from "./oracle";
 
@@ -123,7 +123,12 @@ export class Analyzer {
             // re-execute
             this.txState = LogicalTxState.REEXECUTED;
         } else if (!isEqualState(msg.getFrom(), this.txState)) {
-            this.logger.warn("Tx state inconsistent,", "expect", $enum(LogicalTxState).getKeyOrThrow(this.txState), "got", $enum(TxState).getKeyOrThrow(msg.getFrom()));
+            this.logger.warn("Tx state inconsistent,",
+                {
+                    "expect": $enum(LogicalTxState).getKeyOrThrow(this.txState),
+                    "got": $enum(TxState).getKeyOrThrow(msg.getFrom())
+                }
+            );
             this.txState = <LogicalTxState>(msg.getTo() as number);
         } else {
             this.txState = <LogicalTxState>(msg.getTo() as number);
@@ -229,7 +234,10 @@ export class Analyzer {
      * @param txState The state that transaction is at currently
      */
     private async applyOracles(txState: LogicalTxState): Promise<void> {
-        this.logger.debug("Apply oracle on transaction", "state", $enum(LogicalTxState).getKeyOrDefault(txState, undefined));
+        this.logger.debug("Apply oracle on transaction", {
+            tx: prettifyHash(this.txHash),
+            "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined)
+        });
         // the time limit (milliseconds) for dapp to handle tx state change
         const timeLimit = 10000;
         return new Promise(async resolve => {
@@ -242,7 +250,10 @@ export class Analyzer {
                 // call dbMonitor service to get dbContent
                 try {
                     let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
-                    this.logger.debug("GetAllData", "state", $enum(LogicalTxState).getKeyOrDefault(txState, undefined), "data", dbContent.toObject());
+                    this.logger.debug("GetAllData", {
+                        "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined),
+                        "data": dbContent.toObject()
+                    });
                     // forward to each oracle
                     for (let oracle of this.oracles) {
                         oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);

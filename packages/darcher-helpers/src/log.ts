@@ -87,24 +87,24 @@ export class Logger extends EventEmitter {
         this.logger.level = lvl;
     }
 
-    public info(msg: string, ...args: any[]) {
-        this.emit("info", msg, ...args);
-        this.logger.info(`${msg}`, ...args);
+    public info(msg: string, context?: { [key: string]: any }) {
+        this.emit("info", msg, context);
+        this.logger.info(`${msg}`, context);
     }
 
-    public debug(msg: string, ...args: any[]) {
-        this.emit("debug", msg, ...args);
-        this.logger.debug(`${msg}`, ...args);
+    public debug(msg: string, context?: { [key: string]: any }) {
+        this.emit("debug", msg, context);
+        this.logger.debug(`${msg}`, context);
     }
 
-    public warn(msg: string, ...args: any[]) {
-        this.emit("warn", msg, ...args);
-        this.logger.warn(`${msg}`, ...args);
+    public warn(msg: string, context?: { [key: string]: any }) {
+        this.emit("warn", msg, context);
+        this.logger.warn(`${msg}`, context);
     }
 
     public error(e: DarcherError) {
         this.emit("error", e);
-        this.logger.error(`<${$enum(DarcherErrorCode).getKeyOrDefault(e.code, "Unknown")}> ${e.message}`);
+        this.logger.error(e.message, {type: $enum(DarcherErrorCode).getKeyOrDefault(e.code, "Unknown")});
     }
 }
 
