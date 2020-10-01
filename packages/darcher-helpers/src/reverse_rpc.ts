@@ -166,7 +166,7 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
     public async call(request: ReqT): Promise<RespT> {
         return new Promise<RespT>((resolve, reject) => {
             if (!this.established) {
-                reject(new ServiceNotAvailableError());
+                reject(new ServiceNotAvailableError(this.name));
                 return;
             }
             this.pendingCalls[request.getId()] = {resolve, reject};

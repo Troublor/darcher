@@ -49,11 +49,11 @@ export class DarcherServer extends Server implements Service {
     public async start(): Promise<void> {
         // start websocket services
         await this._dbMonitorService.start();
-        this.logger.info(`Darcher websocket started at ${this.websocketPort}`);
+        this.logger.info(`Darcher websocket started`, {port: this.websocketPort});
         await this.dappTestDriverService.start();
 
         // start grpc services
-        this.logger.info(`Darcher grpc server started at localhost:${this.grpcPort}`);
+        this.logger.info(`Darcher grpc server started`, {port: this.grpcPort});
         super.start();
     }
 

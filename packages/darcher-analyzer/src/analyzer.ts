@@ -1,14 +1,12 @@
 import {
-    TxState,
-    TestStartMsg,
-    TestEndMsg,
     ConsoleErrorMsg,
-    TxMsg,
+    ContractVulReport,
+    TestEndMsg,
+    TestStartMsg,
     TxErrorMsg,
-    ContractVulReport
-} from "@darcher/rpc";
-import {
     TxFinishedMsg,
+    TxMsg,
+    TxState,
     TxStateChangeMsg,
     TxStateControlMsg,
     TxTraverseStartMsg
@@ -69,6 +67,11 @@ export class Analyzer {
     private txHash: string;
     private txState: LogicalTxState;
 
+    /**
+     * A log used for offline analysis
+     */
+    public readonly log: TransactionLog;
+
     dbMonitorService: DbMonitorService;
 
     private stateChangeWaiting: Promise<LogicalTxState>;
@@ -90,12 +93,25 @@ export class Analyzer {
         this.dbMonitorService = dbmonitorService;
         this.txState = LogicalTxState.CREATED;
         this.stateEmitter = new EventEmitter();
-        this.stateChangeWaiting = Promise.resolve(LogicalTxState.CREATED);
+        this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CREATED), resolve)
+        });
+        this.log = <TransactionLog>{
+            hash: txHash,
+            states: {
+                [LogicalTxState.CREATED]: null,
+                [LogicalTxState.PENDING]: null,
+                [LogicalTxState.EXECUTED]: null,
+                [LogicalTxState.REMOVED]: null,
+                [LogicalTxState.REEXECUTED]: null,
+                [LogicalTxState.CONFIRMED]: null,
+                [LogicalTxState.DROPPED]: null,
+            }
+        }
     }
 
     /* darcher controller handlers start */
     public async onTxStateChange(msg: TxStateChangeMsg): Promise<void> {
-        this.logger.info("Tx state changed", "from", $enum(TxState).getKeyOrThrow(msg.getFrom()), "to", $enum(TxState).getKeyOrThrow(msg.getTo()));
         if (msg.getFrom() === TxState.EXECUTED &&
             msg.getTo() === TxState.PENDING &&
             this.txState === LogicalTxState.EXECUTED) {
@@ -107,7 +123,12 @@ export class Analyzer {
             // re-execute
             this.txState = LogicalTxState.REEXECUTED;
         } else if (!isEqualState(msg.getFrom(), this.txState)) {
-            this.logger.warn("Tx state inconsistent,", "expect", $enum(LogicalTxState).getKeyOrThrow(this.txState), "got", $enum(TxState).getKeyOrThrow(msg.getFrom()));
+            this.logger.warn("Tx state inconsistent,",
+                {
+                    "expect": $enum(LogicalTxState).getKeyOrThrow(this.txState),
+                    "got": $enum(TxState).getKeyOrThrow(msg.getFrom())
+                }
+            );
             this.txState = <LogicalTxState>(msg.getTo() as number);
         } else {
             this.txState = <LogicalTxState>(msg.getTo() as number);
@@ -118,11 +139,13 @@ export class Analyzer {
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
-        this.logger.info("Tx traverse started", "tx", prettifyHash(msg.getHash()));
+        // fire the TxStateChange event on CREATED state, this is a fake event just used to apply oracles on CREATED state
+        await this.onTxStateChange(new TxStateChangeMsg().setHash(this.txHash).setFrom(undefined).setTo(TxState.CREATED));
     }
 
     public async onTxFinished(msg: TxFinishedMsg): Promise<void> {
-        this.logger.info("Tx traverse finished", "tx", prettifyHash(msg.getHash()));
+        // wait for tx state changed to CONFIRMED
+        await this.stateChangeWaiting;
     }
 
     public async askForNextState(msg: TxStateControlMsg): Promise<TxState> {
@@ -211,16 +234,33 @@ export class Analyzer {
      * @param txState The state that transaction is at currently
      */
     private async applyOracles(txState: LogicalTxState): Promise<void> {
+        this.logger.debug("Apply oracle on transaction", {
+            tx: prettifyHash(this.txHash),
+            "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined)
+        });
         // the time limit (milliseconds) for dapp to handle tx state change
         const timeLimit = 10000;
         return new Promise(async resolve => {
-            await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+            try {
+                await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+            } catch (e) {
+                this.logger.error(e);
+            }
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
-                let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
-                // forward to each oracle
-                for (let oracle of this.oracles) {
-                    oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
+                try {
+                    let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                    this.logger.debug("GetAllData", {
+                        "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined),
+                        "data": dbContent.toObject()
+                    });
+                    // forward to each oracle
+                    for (let oracle of this.oracles) {
+                        oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
+                    }
+                    this.log.states[txState] = dbContent.toObject();
+                } catch (e) {
+                    this.logger.error(e);
                 }
                 // clean txErrors, contractVulReports, consoleErrors, because they are cache for only one tx state
                 this.txErrors = [];
@@ -241,5 +281,21 @@ export class Analyzer {
             reports.push(...oracle.getBugReports());
         }
         return reports;
+    }
+}
+
+/**
+ * This class records database changes in each state of transaction
+ */
+export interface TransactionLog {
+    hash: string,
+    states: {
+        [LogicalTxState.CREATED]: object | null,
+        [LogicalTxState.PENDING]: object | null,
+        [LogicalTxState.EXECUTED]: object | null,
+        [LogicalTxState.REMOVED]: object | null,
+        [LogicalTxState.REEXECUTED]: object | null,
+        [LogicalTxState.CONFIRMED]: object | null,
+        [LogicalTxState.DROPPED]: object | null,
     }
 }

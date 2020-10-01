@@ -62,8 +62,9 @@ export interface Report {
 export class DBChangeOracle implements Oracle {
     private readonly txHash: string;
     private readonly contentMap: { [txState in LogicalTxState]: DBContent };
+    private readonly filter: DBContentDiffFilter;
 
-    constructor(txHash: string) {
+    constructor(txHash: string, filter: DBContentDiffFilter = {}) {
         this.txHash = txHash;
         this.contentMap = {
             [LogicalTxState.CREATED]: null,
@@ -74,6 +75,7 @@ export class DBChangeOracle implements Oracle {
             [LogicalTxState.CONFIRMED]: null,
             [LogicalTxState.DROPPED]: null,
         };
+        this.filter = filter ? filter : {};
     }
 
     getBugReports(): Report[] {
@@ -81,7 +83,7 @@ export class DBChangeOracle implements Oracle {
         // we will consider DBContent at CREATED state to be the base-line
         let base: DBContent = this.contentMap[LogicalTxState.CREATED];
         let pending: DBContent = this.contentMap[LogicalTxState.PENDING];
-        let pendingDiff = new DBContentDiff(base, pending);
+        let pendingDiff = new DBContentDiff(base, pending, this.filter);
         if (!pendingDiff.zero()) {
             // DBContent should not be changed in pending state (Low).
             reports.push(new UnreliableTxHashReport(
@@ -91,7 +93,7 @@ export class DBChangeOracle implements Oracle {
             ))
         }
         let removed: DBContent = this.contentMap[LogicalTxState.REMOVED];
-        let removedDiff = new DBContentDiff(pending, removed);
+        let removedDiff = new DBContentDiff(pending, removed, this.filter);
         if (!removedDiff.zero()) {
             // DBContent in tx pending state should be equal to that in tx removed state (High).
             reports.push(new DataInconsistencyReport(
@@ -173,9 +175,23 @@ class DataInconsistencyReport implements Report {
 
     message(): string {
         // TODO print more information
-        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
+        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}`;
     }
 
+}
+
+export type FieldPathSet = (string | RegExp)[][] | string[];
+
+export interface TableContentDiffFilter {
+    // specify the fields needed to compare in DBContents, if not specified, compare all
+    includes?: FieldPathSet;
+    // specify the fields needed to be excluded from comparison, if not specified, exclude none
+    // rules in excludes can exclude the fields specified in includes
+    excludes?: FieldPathSet;
+}
+
+export interface DBContentDiffFilter {
+    [tableName: string]: TableContentDiffFilter;
 }
 
 
@@ -185,12 +201,14 @@ class DataInconsistencyReport implements Report {
 export class DBContentDiff {
     public readonly from: DBContent;
     public readonly to: DBContent;
+    private readonly filter: DBContentDiffFilter;
 
     private _tableDiffs: { [tableName: string]: TableContentDiff };
 
-    constructor(from: DBContent, to: DBContent) {
+    constructor(from: DBContent, to: DBContent, filter: DBContentDiffFilter = {}) {
         this.from = from;
         this.to = to;
+        this.filter = filter;
         this.calDiff();
     }
 
@@ -205,7 +223,7 @@ export class DBContentDiff {
                 return;
             }
             let toTable = this.to.getTablesMap().get(tableName);
-            this._tableDiffs[tableName] = new TableContentDiff(tableName, fromTable, toTable);
+            this._tableDiffs[tableName] = new TableContentDiff(tableName, fromTable, toTable, this.filter[tableName]);
         });
     }
 
@@ -232,11 +250,13 @@ export class TableContentDiff {
     private _deletedRecords: TableRecord[];
     private _addedRecords: TableRecord[];
     private _changedRecords: TableRecordChange[];
+    private readonly filter: TableContentDiffFilter;
 
-    constructor(tableName: string, from: TableContent, to: TableContent) {
+    constructor(tableName: string, from: TableContent, to: TableContent, filter: TableContentDiffFilter = {}) {
         this.tableName = tableName;
         this.from = from;
         this.to = to;
+        this.filter = filter ? filter : {};
         this.calDiff();
     }
 
@@ -248,10 +268,10 @@ export class TableContentDiff {
         let toRecords: TableRecord[] = [];
         // convert to list of TableRecord
         for (let f_r of this.from.getEntriesList()) {
-            fromRecords.push(new TableRecord(this.from.getKeypathList(), f_r));
+            fromRecords.push(new TableRecord(this.from.getKeypathList(), f_r, this.filter));
         }
         for (let t_r of this.to.getEntriesList()) {
-            toRecords.push(new TableRecord(this.to.getKeypathList(), t_r));
+            toRecords.push(new TableRecord(this.to.getKeypathList(), t_r, this.filter));
         }
 
         // calculate diff
@@ -307,8 +327,9 @@ export class TableRecordChange {
 export class TableRecord {
     public readonly keyPath: string[];
     public readonly data: { [key: string]: any };
+    private readonly filter: TableContentDiffFilter;
 
-    constructor(keyPath: string[], data: object | string) {
+    constructor(keyPath: string[], data: object | string, filter: TableContentDiffFilter = {}) {
         this.keyPath = keyPath;
         switch (typeof data) {
             case "string":
@@ -319,6 +340,7 @@ export class TableRecord {
                 this.data = data;
                 break;
         }
+        this.filter = filter ? filter : {};
     }
 
     /**
@@ -344,7 +366,77 @@ export class TableRecord {
     }
 
     public equalTo(another: TableRecord): boolean {
-        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(this.data, another.data);
+        let thisData = _.cloneDeep(this.data);
+        let anotherData = _.cloneDeep(another.data);
+        // delete the fields specified in exclusion
+        const deleteField = (data: { [key: string]: any }, excludePath: (string | RegExp)[]) => {
+            for (let key of Object.keys(data)) {
+                let reg = new RegExp(excludePath[0]);
+                if (!reg.test(key)) {
+                    continue;
+                }
+                if (data.hasOwnProperty(key)) {
+                    if (excludePath.length == 1) {
+                        // end of exclude path, delete the field
+                        delete data[key];
+                    } else {
+                        deleteField(data[key], excludePath.slice(1));
+                    }
+                }
+            }
+        };
+        const addField = (data: { [key: string]: any }, selectPath: (string | RegExp)[], reference: { [key: string]: any }) => {
+            for (let key of Object.keys(reference)) {
+                let reg = new RegExp(selectPath[0]);
+                if (!reg.test(key)) {
+                    continue;
+                }
+                if (reference.hasOwnProperty(key)) {
+                    if (selectPath.length == 1) {
+                        // end of include path, add the field
+                        data[key] = reference[key];
+                    } else {
+                        data[key] = {}
+                        addField(data[key], selectPath.slice(1), reference[key]);
+                    }
+                }
+            }
+        };
+
+        const selectFields = (data: { [key: string]: string }, includes: FieldPathSet): { [key: string]: string } => {
+            if (!includes) {
+                // if includes are not specified, include all
+                return _.cloneDeep(data);
+            }
+            let newData = {};
+
+            for (let include of includes) {
+                if (typeof include === "string") {
+                    include = include.split(".");
+                }
+                addField(newData, include, data);
+            }
+
+            return newData;
+        }
+
+        if (this.filter.includes) {
+            // includes are specified, we construct thisData and anotherData using included fields
+            thisData = selectFields(thisData, this.filter.includes);
+            anotherData = selectFields(anotherData, this.filter.includes);
+        }
+
+        if (this.filter.excludes) {
+            for (let exclude of this.filter.excludes) {
+                if (typeof exclude === "string") {
+                    exclude = exclude.split(".");
+                }
+                deleteField(thisData, exclude);
+                deleteField(anotherData, exclude);
+            }
+        }
+
+        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(thisData, anotherData);
     }
 }
 
