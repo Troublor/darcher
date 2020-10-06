@@ -9,7 +9,7 @@ const dbFilter: DBContentDiffFilter = {
             "data.NetworkController",
             "data.CachedBalancesController",
             "data.IncomingTransactionsController",
-            "data.TransactionsController",
+            "data.TransactionController",
         ],
         excludes: [
             ["data", "IncomingTransactionsController", "incomingTransactions", /.*/, "blockNumber"],

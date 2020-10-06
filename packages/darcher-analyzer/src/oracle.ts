@@ -175,7 +175,9 @@ class DataInconsistencyReport implements Report {
 
     message(): string {
         // TODO print more information
-        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}`;
+        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}
+        DB Difference: 
+        ${this.dbContentDiff.report}`;
     }
 
 }
@@ -236,6 +238,19 @@ export class DBContentDiff {
 
     get tableDiffs(): { [tableName: string]: TableContentDiff } {
         return this._tableDiffs;
+    }
+
+    get report(): string {
+        let report = '';
+        for (let table in this.tableDiffs) {
+            if (this.tableDiffs.hasOwnProperty(table)) {
+                report += `$table: ${table}
+                added: ${"\n\t" + this.tableDiffs[table].addedRecords.map(record => record.report).join("\n\t") + "\n"}
+                deleted: ${"\n\t" + this.tableDiffs[table].deletedRecords.map(record => record.report).join("\n\t") + "\n"}
+                changed: ${"\n\t" + this.tableDiffs[table].changedRecords.map(record => record.report).join("\n\t") + "\n"}`
+            }
+        }
+        return report;
     }
 }
 
@@ -319,6 +334,11 @@ export class TableRecordChange {
         this.from = from;
         this.to = to;
     }
+
+    get report(): string {
+        return `from: ${this.from.report}
+                to: ${this.to.report}`
+    }
 }
 
 /**
@@ -365,9 +385,8 @@ export class TableRecord {
         return true;
     }
 
-    public equalTo(another: TableRecord): boolean {
+    get filteredData(): { [key: string]: any } {
         let thisData = _.cloneDeep(this.data);
-        let anotherData = _.cloneDeep(another.data);
         // delete the fields specified in exclusion
         const deleteField = (data: { [key: string]: any }, excludePath: (string | RegExp)[]) => {
             for (let key of Object.keys(data)) {
@@ -396,7 +415,9 @@ export class TableRecord {
                         // end of include path, add the field
                         data[key] = reference[key];
                     } else {
-                        data[key] = {}
+                        if (!data.hasOwnProperty(key)) {
+                            data[key] = {};
+                        }
                         addField(data[key], selectPath.slice(1), reference[key]);
                     }
                 }
@@ -423,7 +444,6 @@ export class TableRecord {
         if (this.filter.includes) {
             // includes are specified, we construct thisData and anotherData using included fields
             thisData = selectFields(thisData, this.filter.includes);
-            anotherData = selectFields(anotherData, this.filter.includes);
         }
 
         if (this.filter.excludes) {
@@ -432,11 +452,17 @@ export class TableRecord {
                     exclude = exclude.split(".");
                 }
                 deleteField(thisData, exclude);
-                deleteField(anotherData, exclude);
             }
         }
+        return thisData;
+    }
 
-        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(thisData, anotherData);
+    public equalTo(another: TableRecord): boolean {
+        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(this.filteredData, another.filteredData);
+    }
+
+    get report(): string {
+        return JSON.stringify(this.filteredData)
     }
 }
 
