@@ -1,7 +1,7 @@
 /*
 This file defines test oracles for on-chain-off-chain synchronization bugs
  */
-import {LogicalTxState} from "./analyzer";
+import {LogicalTxState, TransactionLog} from "./analyzer";
 import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg,} from "@darcher/rpc";
 import * as _ from "lodash";
 import {prettifyHash} from "@darcher/helpers";
@@ -52,6 +52,38 @@ export interface Report {
     message(): string;
 
     severity(): Severity
+}
+
+export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Report[] {
+    interface DBContentObject {
+        tablesMap: [
+            string,
+            {
+                keypathList: string[],
+                entriesList: string[]
+            }
+        ][]
+    }
+
+    function loadDBContent(obj: DBContentObject): DBContent {
+        let content = new DBContent();
+        let tablesMap = obj['tablesMap'];
+        for (let table of tablesMap) {
+            let tableContent = new TableContent();
+            tableContent.setKeypathList(table[1].keypathList);
+            tableContent.setEntriesList(table[1].entriesList);
+            content.getTablesMap().set(table[0], tableContent);
+        }
+        return content;
+    }
+
+    oracle.onTxState(LogicalTxState.CREATED, loadDBContent(log.states[LogicalTxState.CREATED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.PENDING, loadDBContent(log.states[LogicalTxState.PENDING] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.EXECUTED, loadDBContent(log.states[LogicalTxState.EXECUTED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.REMOVED, loadDBContent(log.states[LogicalTxState.REMOVED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.REEXECUTED, loadDBContent(log.states[LogicalTxState.REEXECUTED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.CONFIRMED, loadDBContent(log.states[LogicalTxState.CONFIRMED] as DBContentObject), [], [], []);
+    return oracle.getBugReports();
 }
 
 /**
@@ -336,8 +368,9 @@ export class TableRecordChange {
     }
 
     get report(): string {
-        return `from: ${this.from.report}
-                to: ${this.to.report}`
+        const jsondiffpatch = require("jsondiffpatch");
+        let delta = jsondiffpatch.diff(this.from.filteredData, this.to.filteredData)
+        return jsondiffpatch.formatters.console.format(delta);
     }
 }
 
