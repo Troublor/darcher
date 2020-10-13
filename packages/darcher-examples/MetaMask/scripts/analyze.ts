@@ -13,6 +13,7 @@ const dbFilter: DBContentDiffFilter = {
         excludes: [
             ["data", "IncomingTransactionsController", "incomingTransactions", /.*/, "blockNumber"],
             ["data", "IncomingTransactionsController", "incomingTransactions", /.*/, "time"],
+            ["data", "IncomingTransactionsController", "incomingTxLastFetchedBlocksByNetwork"],
             ["data", "TransactionController", "transactions", /.*/, "time"],
             ["data", "TransactionController", "transactions", /.*/, "history"],
             ["data", "TransactionController", "transactions", /.*/, "submittedTime"],
