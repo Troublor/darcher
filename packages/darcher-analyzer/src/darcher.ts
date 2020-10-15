@@ -79,9 +79,10 @@ export class Darcher {
             await analyzer.onTxFinished(msg1);
             // save transaction state log
             fs.writeFileSync(
-                path.join(this.logDir, `${msg.getHash()}.json`),
+                path.join(this.logDir, `${msg1.getHash()}.json`),
                 JSON.stringify(analyzer.log, null, 2),
             );
+            this.logger.info(`Transaction log stored in ${msg1.getHash()}.json`)
             this.logger.info("Transaction traverse finished", {"tx": prettifyHash(msg1.getHash())});
         };
         this.ethmonitorController.onTxStateChange = async msg1 => {

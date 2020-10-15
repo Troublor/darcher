@@ -62,6 +62,8 @@ export function toTxState(ls: LogicalTxState): TxState {
  * Analyzer is for each tx, it controls the tx state via grpc with ethmonitor and collect dapp state change data, to generate analyze report
  */
 export class Analyzer {
+    public dappStateUpdateTimeLimit = 10000;
+
     private readonly config: Config;
     private readonly logger: Logger;
     private txHash: string;
@@ -239,7 +241,6 @@ export class Analyzer {
             "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined)
         });
         // the time limit (milliseconds) for dapp to handle tx state change
-        const timeLimit = 10000;
         return new Promise(async resolve => {
             try {
                 await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
@@ -268,7 +269,7 @@ export class Analyzer {
                 this.consoleErrors = [];
 
                 resolve();
-            }, timeLimit);
+            }, this.dappStateUpdateTimeLimit);
         })
     }
 
