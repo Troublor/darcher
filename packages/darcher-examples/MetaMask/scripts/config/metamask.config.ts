@@ -14,7 +14,7 @@ export const clusterConfig: ClusterConfig = {
     httpPort: 8545,
     keyStoreDir: path.join(blockchainDir, "keystore"),
     networkId: 2020,
-    verbosity: 4,
+    verbosity: 3,
     wsPort: 8546
 }
 
