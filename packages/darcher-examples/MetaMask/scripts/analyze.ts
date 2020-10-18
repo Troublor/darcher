@@ -1,6 +1,7 @@
 import {analyzeTransactionLog, DBChangeOracle, DBContentDiffFilter, Report} from "@darcher/analyzer/src/oracle";
 import {TransactionLog} from "@darcher/analyzer/src";
 import * as fs from "fs";
+import * as path from "path";
 
 const dbFilter: DBContentDiffFilter = {
     "storage": {
@@ -23,8 +24,13 @@ const dbFilter: DBContentDiffFilter = {
     }
 }
 
-const logContent = fs.readFileSync("/Users/troublor/workspace/darcher/packages/darcher-analyzer/data/2020-8-2 20:25:3/0x6478646ae86a6682c0c1d40b58473497b4025b276cc3064652f86c2600563baa.json");
-const log = JSON.parse(logContent.toString()) as TransactionLog;
-let oracle = new DBChangeOracle(log.hash, dbFilter);
-const reports = analyzeTransactionLog(oracle, log)
-reports.forEach(report => console.log(report.message()));
+const dataDir = "/Users/troublor/workspace/darcher/packages/darcher-analyzer/data/2020-9-4 17:19:10"
+for (const file of fs.readdirSync(dataDir)) {
+    console.log("Analyze", file);
+    const logContent = fs.readFileSync(path.join(dataDir, file));
+    const log = JSON.parse(logContent.toString()) as TransactionLog;
+    let oracle = new DBChangeOracle(log.hash, dbFilter);
+    const reports = analyzeTransactionLog(oracle, log);
+    reports.forEach(report => console.log(report.message()));
+}
+

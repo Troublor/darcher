@@ -79,9 +79,10 @@ export class Darcher {
             await analyzer.onTxFinished(msg1);
             // save transaction state log
             fs.writeFileSync(
-                path.join(this.logDir, `${msg.getHash()}.json`),
+                path.join(this.logDir, `${msg1.getHash()}.json`),
                 JSON.stringify(analyzer.log, null, 2),
             );
+            this.logger.info(`Transaction log stored in ${msg1.getHash()}.json`)
             this.logger.info("Transaction traverse finished", {"tx": prettifyHash(msg1.getHash())});
         };
         this.ethmonitorController.onTxStateChange = async msg1 => {
@@ -119,7 +120,21 @@ export class Darcher {
         this.dappTestDriverHandler.onTestStart = analyzer.onTestStart.bind(analyzer);
         this.dappTestDriverHandler.onTestEnd = analyzer.onTestEnd.bind(analyzer);
         this.dappTestDriverHandler.onConsoleError = analyzer.onConsoleError.bind(analyzer);
-        this.dappTestDriverHandler.waitForTxProcess = analyzer.waitForTxProcess.bind(analyzer);
+        this.dappTestDriverHandler.waitForTxProcess = async msg1 => {
+            this.logger.debug(
+                `DApp waiting for Transaction process`,
+                {
+                    tx: prettifyHash(msg1.getHash()),
+                }
+            );
+            await analyzer.waitForTxProcess;
+            this.logger.debug(
+                `Transaction process complete, resume DApp`,
+                {
+                    tx: prettifyHash(msg1.getHash()),
+                }
+            );
+        };
     }
 
     private async selectTxToTraverse(msg: SelectTxControlMsg): Promise<string> {
