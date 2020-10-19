@@ -25,6 +25,3 @@
 [submodule "packages/darcher-examples/DemocracyEarch/tokens"]
 	path = packages/darcher-examples/DemocracyEarch/tokens
 	url = https://github.com/Troublor/tokens.git
-[submodule "packages/darcher-examples/MetaMask/metamask-extension"]
-	path = packages/darcher-examples/MetaMask/metamask-extension
-	url = https://github.com/MetaMask/metamask-extension.git
