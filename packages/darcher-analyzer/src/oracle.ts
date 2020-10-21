@@ -1,7 +1,7 @@
 /*
 This file defines test oracles for on-chain-off-chain synchronization bugs
  */
-import {LogicalTxState} from "./analyzer";
+import {LogicalTxState, TransactionLog} from "./analyzer";
 import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg,} from "@darcher/rpc";
 import * as _ from "lodash";
 import {prettifyHash} from "@darcher/helpers";
@@ -52,6 +52,38 @@ export interface Report {
     message(): string;
 
     severity(): Severity
+}
+
+export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Report[] {
+    interface DBContentObject {
+        tablesMap: [
+            string,
+            {
+                keypathList: string[],
+                entriesList: string[]
+            }
+        ][]
+    }
+
+    function loadDBContent(obj: DBContentObject): DBContent {
+        let content = new DBContent();
+        let tablesMap = obj['tablesMap'];
+        for (let table of tablesMap) {
+            let tableContent = new TableContent();
+            tableContent.setKeypathList(table[1].keypathList);
+            tableContent.setEntriesList(table[1].entriesList);
+            content.getTablesMap().set(table[0], tableContent);
+        }
+        return content;
+    }
+
+    oracle.onTxState(LogicalTxState.CREATED, loadDBContent(log.states[LogicalTxState.CREATED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.PENDING, loadDBContent(log.states[LogicalTxState.PENDING] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.EXECUTED, loadDBContent(log.states[LogicalTxState.EXECUTED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.REMOVED, loadDBContent(log.states[LogicalTxState.REMOVED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.REEXECUTED, loadDBContent(log.states[LogicalTxState.REEXECUTED] as DBContentObject), [], [], []);
+    oracle.onTxState(LogicalTxState.CONFIRMED, loadDBContent(log.states[LogicalTxState.CONFIRMED] as DBContentObject), [], [], []);
+    return oracle.getBugReports();
 }
 
 /**
@@ -175,7 +207,9 @@ class DataInconsistencyReport implements Report {
 
     message(): string {
         // TODO print more information
-        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}`;
+        return `[${VulnerabilityType.DataInconsistency}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}
+        DB Difference: 
+        ${this.dbContentDiff.report}`;
     }
 
 }
@@ -236,6 +270,19 @@ export class DBContentDiff {
 
     get tableDiffs(): { [tableName: string]: TableContentDiff } {
         return this._tableDiffs;
+    }
+
+    get report(): string {
+        let report = '';
+        for (let table in this.tableDiffs) {
+            if (this.tableDiffs.hasOwnProperty(table)) {
+                report += `$table: ${table}
+                added: ${"\n\t" + this.tableDiffs[table].addedRecords.map(record => record.report).join("\n\t") + "\n"}
+                deleted: ${"\n\t" + this.tableDiffs[table].deletedRecords.map(record => record.report).join("\n\t") + "\n"}
+                changed: ${"\n\t" + this.tableDiffs[table].changedRecords.map(record => record.report).join("\n\t") + "\n"}`
+            }
+        }
+        return report;
     }
 }
 
@@ -319,6 +366,12 @@ export class TableRecordChange {
         this.from = from;
         this.to = to;
     }
+
+    get report(): string {
+        const jsondiffpatch = require("jsondiffpatch");
+        let delta = jsondiffpatch.diff(this.from.filteredData, this.to.filteredData)
+        return jsondiffpatch.formatters.console.format(delta);
+    }
 }
 
 /**
@@ -365,9 +418,8 @@ export class TableRecord {
         return true;
     }
 
-    public equalTo(another: TableRecord): boolean {
+    get filteredData(): { [key: string]: any } {
         let thisData = _.cloneDeep(this.data);
-        let anotherData = _.cloneDeep(another.data);
         // delete the fields specified in exclusion
         const deleteField = (data: { [key: string]: any }, excludePath: (string | RegExp)[]) => {
             for (let key of Object.keys(data)) {
@@ -396,7 +448,9 @@ export class TableRecord {
                         // end of include path, add the field
                         data[key] = reference[key];
                     } else {
-                        data[key] = {}
+                        if (!data.hasOwnProperty(key)) {
+                            data[key] = {};
+                        }
                         addField(data[key], selectPath.slice(1), reference[key]);
                     }
                 }
@@ -423,7 +477,6 @@ export class TableRecord {
         if (this.filter.includes) {
             // includes are specified, we construct thisData and anotherData using included fields
             thisData = selectFields(thisData, this.filter.includes);
-            anotherData = selectFields(anotherData, this.filter.includes);
         }
 
         if (this.filter.excludes) {
@@ -432,11 +485,17 @@ export class TableRecord {
                     exclude = exclude.split(".");
                 }
                 deleteField(thisData, exclude);
-                deleteField(anotherData, exclude);
             }
         }
+        return thisData;
+    }
 
-        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(thisData, anotherData);
+    public equalTo(another: TableRecord): boolean {
+        return _.isEqual(this.keyPath.sort(), another.keyPath.sort()) && _.isEqual(this.filteredData, another.filteredData);
+    }
+
+    get report(): string {
+        return JSON.stringify(this.filteredData)
     }
 }
 

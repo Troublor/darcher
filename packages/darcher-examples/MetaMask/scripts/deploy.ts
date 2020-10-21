@@ -5,7 +5,7 @@ loadConfig(path.join(__dirname, "config", "metamask.config.ts")).then(async conf
     let cluster = new BlockchainCluster(config.clusters[0]);
     cluster.reset();
     try {
-        await cluster.deploy(true);
+        await cluster.deploy(false);
         await sleep(2000);
         console.info("[Success] Blockchain configured");
     } catch (e) {
