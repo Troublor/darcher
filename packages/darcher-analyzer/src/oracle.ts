@@ -115,13 +115,15 @@ export class DBChangeOracle implements Oracle {
         // we will consider DBContent at CREATED state to be the base-line
         let base: DBContent = this.contentMap[LogicalTxState.CREATED];
         let pending: DBContent = this.contentMap[LogicalTxState.PENDING];
-        let pendingDiff = new DBContentDiff(base, pending, this.filter);
-        if (!pendingDiff.zero()) {
-            // DBContent should not be changed in pending state (Low).
+        let confirmed: DBContent = this.contentMap[LogicalTxState.CONFIRMED];
+        let createdConfirmedDiff: DBContentDiff = new DBContentDiff(base, confirmed, this.filter);
+        let pendingConfirmedDiff: DBContentDiff = new DBContentDiff(pending, confirmed, this.filter);
+        if (!createdConfirmedDiff.zero() && pendingConfirmedDiff.zero()) {
+            // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
             reports.push(new UnreliableTxHashReport(
                 this.txHash,
                 LogicalTxState.PENDING,
-                pendingDiff,
+                pendingConfirmedDiff,
             ))
         }
         let removed: DBContent = this.contentMap[LogicalTxState.REMOVED];
