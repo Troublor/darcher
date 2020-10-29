@@ -54,9 +54,9 @@ export class DbMonitorService implements Service {
         });
     }
 
-    public async getAllData(dbAddress: string, dbName: string): Promise<DBContent> {
+    public async getAllData(dbAddress: string, dbName: string, data?: string): Promise<DBContent> {
         try {
-            return await this.wsTransport.getAllData(dbAddress, dbName);
+            return await this.wsTransport.getAllData(dbAddress, dbName, data);
         } catch (e) {
             if (e.code === DarcherErrorCode.ServiceNotAvailable) {
                 // ws transport is not available, try grpc transport, throw any error this time
@@ -192,7 +192,7 @@ class DBMonitorServiceViaWebsocket implements Service {
      * get all db data from dapp
      * @constructor
      */
-    public async getAllData(address: string, dbName: string): Promise<DBContent> {
+    public async getAllData(address: string, dbName: string, data?: string): Promise<DBContent> {
         let id = getUUID();
         if (!this.conn) {
             throw new ServiceNotAvailableError("getAllData");
@@ -202,6 +202,9 @@ class DBMonitorServiceViaWebsocket implements Service {
         req.setType(RequestType.GET_ALL_DATA);
         req.setDbAddress(address);
         req.setDbName(dbName);
+        if (data) {
+            req.setData(Buffer.from(data, 'utf-8'));
+        }
         this.conn.send(req.serializeBinary());
         return new Promise<DBContent>((resolve, reject) => {
             this.pendingCalls[id] = {resolve, reject};

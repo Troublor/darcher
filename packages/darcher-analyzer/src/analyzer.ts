@@ -13,7 +13,7 @@ import {
 } from "@darcher/rpc";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
-import {Config} from "@darcher/config";
+import {Config, DBOptions} from "@darcher/config";
 import {Logger, prettifyHash} from "@darcher/helpers";
 import {DbMonitorService} from "./service/dbmonitorService";
 import {Oracle, Report} from "./oracle";
@@ -250,7 +250,11 @@ export class Analyzer {
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
                 try {
-                    let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                    let data = undefined;
+                    if (this.config.dbMonitor.db === DBOptions.html) {
+                        data = JSON.stringify(this.config.dbMonitor.elements);
+                    }
+                    let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName, data);
                     this.logger.debug("GetAllData", {
                         "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined),
                         "data": dbContent.toObject()

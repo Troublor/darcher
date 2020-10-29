@@ -30,12 +30,15 @@ export enum DBOptions {
     indexedDB = "indexedDB",
     mongoDB = "mongoDB",
     extensionStorage = "extensionStorage",
+    html = "html"
 }
 
 export interface DBMonitorConfig {
     db: DBOptions
     dbName: string
     dbAddress: string
+    // only used in html mode DApp state
+    elements?: { name: string, xpath: string }[]
 }
 
 export interface Config {
