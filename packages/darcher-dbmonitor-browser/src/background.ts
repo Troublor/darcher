@@ -1,183 +1,276 @@
-import {
-    DataMsgOperation,
-    DBSnapshot,
-    ExtensionMsgType,
-    GetAllDataMsg,
-    SettingMsg,
-    SettingMsgOperation
-} from "./types";
-import {Logger} from "./helpers";
-import MessageSender = chrome.runtime.MessageSender;
 import Tab = chrome.tabs.Tab;
-import {ControlMsg, DBContent, RequestType, TableContent} from "./rpc/dbmonitor_service_pb";
+import {MsgType, RequestMsg, TestMsg} from "./types";
+import {getDomainAndPort, Logger} from "./helpers";
+import * as _ from "lodash";
+import {ControlMsg, DBContent, RequestType} from "./rpc/dbmonitor_service_pb";
 import {Error} from "./rpc/common_pb";
-import {EventEmitter} from "events";
+import {cat} from "shelljs";
 
-class TabMaster {
-    private darcherUrl: string;
-    // stores
-    private monitorDomain: string = "localhost:63342";
-    private dbNames: string[] = ["friend_database"];
+class Master {
+    // active tabs with address as their key, each address may have multiple tabs
+    private readonly tabs: { [address: string]: Tab[] };
 
-    // websocket connection with dArcher
-    private ws: WebSocket;
-    // active tabs with address as their key
-    private readonly tabs: { [address: string]: Tab };
-    private eventEmitter: EventEmitter;
-
-    private dbSnapshot: DBSnapshot;
-
-    constructor(darcherUrl: string) {
-        this.darcherUrl = darcherUrl;
+    constructor() {
         this.tabs = {};
-        this.eventEmitter = new EventEmitter();
     }
 
-    /**
-     * 1. start websocket connection with dArcher
-     * 2. listen for chrome messages
-     */
     public start() {
-        // listen for chrome messages (SettingMsg)
-        chrome.runtime.onMessage.addListener(((message: SettingMsg, sender, sendResponse) => {
-            // only SettingMsg will be sent to background
-            let reply = this.onSettingMsg(<SettingMsg>message, sender);
-            if (sendResponse) {
-                sendResponse(reply);
+        // start listen to chrome messages from content-script or popup
+        chrome.runtime.onMessage.addListener((msg: TestMsg, sender, sendResponse) => {
+            switch (msg.type) {
+                case MsgType.TEST:
+                    // receive test message from popup
+                    this.processTestMsg(msg).then(response => {
+                        if (response instanceof DBContent) {
+                            sendResponse(response.toObject());
+                        } else {
+                            sendResponse(response);
+                        }
+                    }).catch((e) => {
+                        sendResponse({
+                            error: e.toString()
+                        });
+                    })
+                    break;
             }
-        }));
+            return true;
+        });
 
-        // start websocket connection with dArcher
-        this.connectWs();
-    }
+        // update tab in this.tabs when it is updated
+        chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+            if (tab.status === "complete") {
+                // only register the tab when it is complete
+                this.registerTab(tab);
+            } else {
+                this.unregisterTab(tabId);
+            }
+        })
 
-    private connectWs() {
-        this.ws = new WebSocket(this.darcherUrl);
-        this.ws.onopen = this.onWsOpen.bind(this);
-        this.ws.onmessage = this.onWsMessage.bind(this);
-        this.ws.onclose = this.onWsClose.bind(this);
-        this.ws.onerror = this.onWsError.bind(this);
-    }
-
-    private onWsOpen = () => {
-        Logger.info("Websocket connection with darcher opened");
+        // remove tab in the this.tabs when the tab is removed/closed
+        chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
+            this.unregisterTab(tabId);
+        });
     }
 
     /**
-     * handle reverse RPCs via websocket from darcher
-     * @param message
+     * Register a new tab
+     * @param tab
+     * @private
      */
-    private async onWsMessage(message: any) {
-        let request = ControlMsg.deserializeBinary(new Uint8Array(await message.data.arrayBuffer()));
-        if (!this.tabs[request.getDbAddress()]) {
-            // if no tab is registered, return serviceNotAvailable error
-            request.setErr(Error.SERVICENOTAVAILABLEERR);
-            this.ws.send(request.serializeBinary());
+    private registerTab(tab: Tab) {
+        if (!tab) {
+            // if tab is invalid
             return;
         }
-        let address
-        switch (request.getType()) {
-            case RequestType.GET_ALL_DATA:
-                address = request.getDbAddress();
-                Logger.info(`Receive GetAllData request, dbAddress=${address}, dbName=${request.getDbName()}`);
-                // get all db data and send to darcher via websocket
-                this.getAllDBData(this.tabs[address], request.getDbName()).then(value => {
-                    request.setData(value)
-                    this.ws.send(request.serializeBinary());
-                    Logger.info(`Served GetAllData request, dbAddress=${address}, dbName=${request.getDbName()}`);
-                }).catch((err: Error) => {
-                    request.setErr(err);
-                    this.ws.send(request.serializeBinary());
-                    Logger.error(`GetAllData request error, err=${err.toString()}, dbAddress=${address}, dbName=${request.getDbName()}`);
-                });
-                break;
-            case RequestType.REFRESH_PAGE:
-                address = request.getDbAddress();
-                this.refreshPage(this.tabs[address]).then(() => {
-                    this.ws.send(request.serializeBinary());
-                }).catch((err: Error) => {
-                    request.setErr(err);
-                    this.ws.send(request.serializeBinary());
-                });
-                break;
-            default:
+
+        const url = tab.url;
+        if (!url) {
+            // if url is empty
+            return;
+        }
+
+        // get the address of the tab: domain+port
+        const address = getDomainAndPort(url).trim();
+        // put the tab in the list of addresses
+        if (this.tabs[address]) {
+            if (!this.tabs[address].some(t => t.id === tab.id)) {
+                // push in the array if not exist
+                this.tabs[address].push(tab);
+            }
+        } else {
+            this.tabs[address] = [tab];
+        }
+
+        Logger.info("Tab registered")
+    }
+
+    /**
+     * Unregister a new tab
+     * @param tabId
+     * @private
+     */
+    private unregisterTab(tabId: number) {
+        for (const address of Object.keys(this.tabs)) {
+            _.remove(this.tabs[address], (value: Tab) => tabId === value.id);
+        }
+    }
+
+    /**
+     * Process the {@link TestMsg} from popup
+     * @param msg
+     * @private
+     */
+    private async processTestMsg(msg: TestMsg): Promise<any> {
+        switch (msg.testType) {
+            case "fetch-html":
+                // simulate a RequestMsg
+                const requestMsg = <RequestMsg>{
+                    type: MsgType.REQUEST,
+                    requestType: "html",
+                    elements: msg.elements,
+                };
+                const resp = await this.getDAppState(msg.address, requestMsg);
+                return DBContent.deserializeBinary(resp);
+            case "refresh":
+                await this.refreshPage(msg.address);
                 return;
+            case "tabs":
+                if (!msg.address) {
+                    return this.tabs;
+                } else {
+                    return this.tabs[msg.address];
+                }
         }
     }
 
     /**
-     * when ws connect closed, try to re-connect darcher
+     * Refresh all the tabs with the address
+     * The promise will resolve when all refresh finish
+     * @param address
+     * @private
      */
-    private onWsClose = () => {
-        Logger.info("Websocket connection with darcher closed");
-        setTimeout(() => {
-            Logger.info("Reconnect websocket with darcher");
-            this.connectWs();
-        }, 1000);
-    }
-
-    private onWsError = (ev: ErrorEvent) => {
-        Logger.error("Websocket error:", ev);
-    }
-
-
-    public saveSnapshot() {
-
-    }
-
-    private onSettingMsg(msg: SettingMsg, sender: MessageSender): SettingMsg | undefined {
-        switch (msg.operation) {
-            case SettingMsgOperation.REGISTER:
-                Logger.info("Monitor registered", "domain", msg.domain)
-                this.tabs[msg.domain] = sender.tab;
-                this.eventEmitter.emit("register", sender.tab);
-                return undefined;
-            default:
-                return undefined;
+    private async refreshPage(address: string) {
+        if (this.tabs[address]) {
+            const refreshOne = async (tab: Tab) => {
+                return new Promise<void>(resolve => {
+                    const cb = (tabId, changeInfo) => {
+                        if (tabId != tab.id) {
+                            return;
+                        }
+                        if (changeInfo.status === "complete") {
+                            chrome.tabs.onUpdated.removeListener(cb);
+                            resolve();
+                        }
+                    };
+                    chrome.tabs.onUpdated.addListener(cb);
+                    chrome.tabs.executeScript(tab.id, {
+                        code: "window.location.reload();",
+                    });
+                });
+            };
+            await Promise.all(this.tabs[address].map(tab => refreshOne(tab)));
         }
     }
 
     /**
-     * Send message to content-script to get All DB data
+     * Send message to content-script to get DApp state
+     * @return the serialized {@link DBContent}
      */
-    private async getAllDBData(tab: Tab, dbName: string): Promise<Uint8Array> {
-        let message: GetAllDataMsg = {
-            type: ExtensionMsgType.DATA,
-            operation: DataMsgOperation.GET_ALL,
-            data: null,
-            dbName: dbName,
-        };
+    private async getDAppState(address: string, msg: RequestMsg): Promise<Uint8Array> {
         return new Promise((resolve, reject) => {
-            chrome.tabs.sendMessage(tab.id, message, (response: GetAllDataMsg) => {
-                if (!response.data) {
+            const tabs = this.tabs[address];
+            if (!tabs || tabs.length === 0) {
+                // no tab available
+                reject(Error.SERVICENOTAVAILABLEERR);
+            }
+            // currently we only send request to the latest tab of this address
+            // TODO need to handle multiple tabs for the same DApp
+            const tab = tabs[tabs.length - 1];
+            // response from tab should be the serialized (Uint8Array) DBContent
+            chrome.tabs.sendMessage(tab.id, msg, (response: Uint8Array) => {
+                if (!response) {
                     reject(Error.SERVICENOTAVAILABLEERR);
                 }
                 let data = [];
-                for (let i in response.data) {
-                    data.push(response.data[i]);
+                for (let i in response) {
+                    data.push(response[i]);
                 }
                 resolve(Uint8Array.from(data));
             });
         });
     }
 
-    private async refreshPage(tab: Tab): Promise<void> {
-        chrome.tabs.executeScript(tab.id, {
-            code: "window.location.reload();",
-        });
-        return new Promise(resolve => {
-            let listener = (newTab: Tab) => {
-                if (tab.id === newTab.id) {
-                    this.eventEmitter.removeListener("register", listener);
-                    resolve();
-                }
+    /**
+     * Process the ControlMsg from @darcher/rpc
+     * @param controlMsg
+     */
+    public async processControlMsg(controlMsg: ControlMsg): Promise<ControlMsg> {
+        return new Promise<ControlMsg>(resolve => {
+            let address
+            switch (controlMsg.getType()) {
+                case RequestType.GET_ALL_DATA:
+                    address = controlMsg.getDbAddress();
+                    Logger.info(`Receive GetAllData request, dbAddress=${address}, dbName=${controlMsg.getDbName()}`);
+                    // get all db data and send to darcher via websocket
+                    let requestMsg: RequestMsg;
+                    if (controlMsg.getDbName().toLowerCase() === "html") {
+                        // we use "html" as a special indication of use html mode to fetch DApp state
+                        // the config for html mode is delivered in ControlMsg.Data
+                        let elements;
+                        if (typeof controlMsg.getData() === "string") {
+                            elements = JSON.parse(controlMsg.getData() as string);
+                        } else {
+                            // bytes array (Uint8Array)
+                            const payload = new TextDecoder("utf-8").decode(controlMsg.getData() as Uint8Array);
+                            elements = JSON.parse(payload);
+                        }
+                        requestMsg = {
+                            type: MsgType.REQUEST,
+                            requestType: "html",
+                            elements: elements,
+                        };
+                    } else {
+                        // indexedDB mode
+                        requestMsg = {
+                            type: MsgType.REQUEST,
+                            requestType: "indexedDB",
+                            dbName: controlMsg.getDbName(),
+                        }
+                    }
+
+                    this.getDAppState(address, requestMsg).then(value => {
+                        controlMsg.setData(value)
+                        resolve(controlMsg);
+                        Logger.info(`Served GetAllData request, dbAddress=${address}, dbName=${controlMsg.getDbName()}`);
+                    }).catch((err: Error) => {
+                        controlMsg.setErr(err);
+                        resolve(controlMsg);
+                        Logger.error(`GetAllData request error, err=${err.toString()}, dbAddress=${address}, dbName=${controlMsg.getDbName()}`);
+                    });
+                    break;
+                case RequestType.REFRESH_PAGE:
+                    address = controlMsg.getDbAddress();
+                    this.refreshPage(address).then(() => {
+                        resolve(controlMsg);
+                    }).catch((err: Error) => {
+                        controlMsg.setErr(err);
+                        resolve(controlMsg);
+                    });
+                    break;
+                default:
+                    return;
             }
-            this.eventEmitter.on("register", listener);
-        });
+        })
     }
 }
 
-// @ts-ignore WS_PORT is dynamically set in webpack.dynamic.js
-let master = new TabMaster(ANALYZER_WS_ADDR);
-
+let master = new Master();
 master.start();
+
+// @ts-ignore WS_PORT is dynamically set in webpack.dynamic.js
+const darcherUrl = ANALYZER_WS_ADDR;
+
+function connectWs() {
+    const ws = new WebSocket(darcherUrl);
+    ws.onopen = () => {
+        Logger.info("Websocket connection with darcher opened");
+    };
+    ws.onmessage = async (message) => {
+        const request = ControlMsg.deserializeBinary(new Uint8Array(await message.data.arrayBuffer()));
+        const response = await master.processControlMsg(request);
+        ws.send(response.serializeBinary());
+    };
+    ws.onclose = () => {
+        // when connection is closed, try to re-connect
+        Logger.info("Websocket connection with darcher closed");
+        setTimeout(() => {
+            Logger.info("Reconnect websocket with darcher");
+            connectWs();
+        }, 1000);
+    };
+    ws.onerror = (ev: ErrorEvent) => {
+        Logger.error("Websocket error:", ev);
+    };
+}
+
+connectWs();
