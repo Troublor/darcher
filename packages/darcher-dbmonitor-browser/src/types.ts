@@ -1,72 +1,37 @@
 import * as _ from "lodash";
 
-/* chrome extension message starts */
-
-export enum ExtensionMsgType {
-    SETTING,
-    DATA,
+export enum MsgType {
+    REQUEST = "request",
+    TEST = "test",
 }
 
-export enum SettingMsgOperation {
-    UPDATE,
-    FETCH,
-    REGISTER, // register that this is tab has dbMonitor running
+// sent from background to content-script
+export interface RequestMsg {
+    type: MsgType.REQUEST
+    requestType: "indexedDB" | "html"
+
+    // indexedDB type fields
+    dbName?: string
+
+    // html type fields
+    elements?: { name: string, xpath: string }[]
 }
 
-export enum DataMsgOperation {
-    GET_ALL,
-    REFRESH_PAGE,
+// sent from popup to background for test purposes
+export interface TestMsg {
+    type: MsgType.TEST
+    testType: "fetch-html" | "refresh"
+
+    address?: string
+    // "fetch-html" type fields
+    elements?: { name: string, xpath: string }[]
 }
 
-export interface ExtensionMsg {
-    type: ExtensionMsgType
-    operation: SettingMsgOperation | DataMsgOperation
-}
-
-export interface SettingMsg extends ExtensionMsg {
-    type: ExtensionMsgType.SETTING
-    operation: SettingMsgOperation
-    domain: string
-}
-
-export interface DataMsg extends ExtensionMsg {
-    type: ExtensionMsgType.DATA,
-    operation: DataMsgOperation,
-}
-
-export interface GetAllDataMsg extends DataMsg {
-    operation: DataMsgOperation.GET_ALL,
-    dbName: string
-    data: Uint8Array //dbContent: DBContent,
-}
-
-/* chrome extension message ends */
-
-
-export enum dArcherControlType {
-    GET_ALL,
-    GET_CHANGE_IN_TIME_RANGE,
-}
-
-export interface dArcherControlMsg {
-    type: dArcherControlType
-    id: number
-}
-
-export interface GetChangeInTimeLimitMsg extends dArcherControlMsg {
-    timeLimit: number
-}
-
-export interface dArcherControlReply {
-    id: number
-    data: any
-    err: string
-}
 
 interface Change {
     key: any
-    from: { [k: string]: object }
-    to: { [k: string]: object }
+    from: { [k: string]: object } | null
+    to: { [k: string]: object } | null
 }
 
 export type DBChange = { [tableName: string]: TableChange }
@@ -145,3 +110,12 @@ export class TableSnapshot {
     }
 }
 
+export interface Config {
+    mode: "indexedDB" | "html"
+    address: string
+}
+
+export interface HtmlModeConfig extends Config {
+    mode: "html",
+    elements: { name: string, xpath: string }[]
+}

@@ -1,62 +1,14 @@
-import {
-    DataMsg,
-    DataMsgOperation,
-    DBChange,
-    DBSnapshot,
-    ExtensionMsgType,
-    GetAllDataMsg,
-    SettingMsg,
-    SettingMsgOperation,
-    TableSnapshot
-} from "./types";
-import {getDomainAndPort, Logger} from "./helpers";
+import {DBChange, DBSnapshot, TableSnapshot} from "./types";
+import {Logger} from "./helpers";
 import Dexie from "dexie";
-import {ControlMsg, DBContent, RequestType, TableContent} from "./rpc/dbmonitor_service_pb";
+import {RequestMsg} from "./types";
+import {DBContent, TableContent} from "./rpc/dbmonitor_service_pb";
 
-// get current domain
-let msg: SettingMsg = {
-    type: ExtensionMsgType.SETTING,
-    operation: SettingMsgOperation.FETCH,
-    domain: "",
-}
-
-// @ts-ignore DB_ADDRESS is webpack env
-if (getDomainAndPort(window.location.href).trim().includes(DB_ADDRESS)) {
-    Logger.info("Domain matched, start monitoring");
-    chrome.runtime.sendMessage(msg, (response: SettingMsg) => {
-        // register on background that this page has dbMonitor running
-        chrome.runtime.sendMessage(<SettingMsg>{
-            type: ExtensionMsgType.SETTING,
-            operation: SettingMsgOperation.REGISTER,
-            domain: getDomainAndPort(location.href).trim()
-        });
-        Logger.info("Monitor registered");
-        // @ts-ignore DB_NAME is webpack env
-        monitorDB([DB_NAME]);
-    });
-} else {
-    Logger.info("Domain mismatch, disable monitoring");
-}
-
-async function monitorDB(dbNames: string[]) {
-    let monitor = new dbMonitor(dbNames);
-    monitor.start();
-    monitor.getAll().then(content => {
-
-    })
-}
-
-
-class dbMonitor {
-    private dbNames: string[]
+class DAppStateFetcher {
     private readonly dbFetcherMap: { [dbName: string]: DBFetcher };
 
-    constructor(dbNames: string[]) {
+    constructor() {
         this.dbFetcherMap = {};
-        this.dbNames = dbNames;
-        for (let dbName of dbNames) {
-            this.dbFetcherMap[dbName] = new DBFetcher(dbName);
-        }
     }
 
     /**
@@ -64,63 +16,77 @@ class dbMonitor {
      */
     public start() {
         // handle db queries
-        chrome.runtime.onMessage.addListener((message: DataMsg, sender, sendResponse) => {
-            // only DataMsg will be sent from background to content-script
-            this.onDataMsg(message).then(reply => {
-                if (reply) {
-                    sendResponse(reply);
-                }
+        chrome.runtime.onMessage.addListener((message: RequestMsg, sender, sendResponse) => {
+            // only RequestMsg will be sent from background to content-script
+            this.processRequestMsg(message).then(reply => {
+                sendResponse(reply);
             });
             return true;
         });
     }
 
-    private async onDataMsg(msg: DataMsg): Promise<DataMsg | undefined> {
-        switch (msg.operation) {
-            case DataMsgOperation.GET_ALL:
-                let message: GetAllDataMsg = <GetAllDataMsg>msg;
-                // TODO currently only support one DB
-                if (!(message.dbName in this.dbFetcherMap)) {
-                    // if dbName does not exist, return null data
-                    message.data = null;
-                    return message
+    /**
+     * Process the {@link RequestMsg}
+     * if request type is to get all data, returns the serialized (Uint8Array) DBContent
+     * @param msg
+     * @private
+     */
+    private async processRequestMsg(msg: RequestMsg): Promise<Uint8Array | undefined> {
+        let dbContent: DBContent;
+        switch (msg.requestType) {
+            case "indexedDB":
+                if (msg.dbName === undefined) {
+                    return undefined;
                 }
-                Logger.info(`Get GetAllData request, dbName=${message.dbName}`);
-                let dbContent = await this.dbFetcherMap[message.dbName].getAll();
-                message.data = dbContent.serializeBinary();
-                let controlMsg = new ControlMsg();
-                controlMsg.setData(message.data);
-                Logger.info(`Served GetAllData request, dbName=${message.dbName}`);
-                return message;
+                if (!(msg.dbName in this.dbFetcherMap)) {
+                    // if dbName does not exist in dbFetcherMap, create one
+                    this.dbFetcherMap[msg.dbName] = new DBFetcher(msg.dbName);
+                }
+                Logger.info(`Get FetchDAppState request, dbName=${msg.dbName}`);
+                dbContent = await this.dbFetcherMap[msg.dbName].getAll();
+                const response = dbContent.serializeBinary();
+                Logger.info(`Served FetchDAppState request, dbName=${msg.dbName}`);
+                return response;
+            case "html":
+                const elements = msg.elements;
+                if (elements === undefined) {
+                    return undefined;
+                }
+                const result = {};
+                elements.forEach(value => {
+                    result[value.name] = DAppStateFetcher.getHtmlElementValue(value.xpath);
+                });
+                const tableContent = new TableContent();
+                tableContent.setKeypathList([])
+                    .addEntries(JSON.stringify(result));
+                dbContent = new DBContent();
+                dbContent.getTablesMap()
+                    .set("html", tableContent);
+                return dbContent.serializeBinary();
             default:
                 return undefined;
         }
     }
 
     /**
-     * Get all database data
+     * Get the innerHTML value of a xpath node
+     * This function always returns a string
+     * @param xpath
+     * @private
      */
-    public async getAll(): Promise<{ [dbName: string]: DBContent }> {
-        let data: { [dbName: string]: DBContent } = {};
-        for (let dbName in this.dbFetcherMap) {
-            data[dbName] = await this.dbFetcherMap[dbName].getAll();
-        }
-        return data;
-    }
-
-    /**
-     * Get database change in the time limit
-     * @param timeLimit time limit (millisecond)
-     */
-    private async getChangeInTimeLimit(timeLimit: number): Promise<any> {
-
+    private static getHtmlElementValue(xpath: string): string | null {
+        const result = document.evaluate(`string(${xpath})`, document, null, XPathResult.STRING_TYPE, null);
+        return result.stringValue
     }
 }
 
+/**
+ * A class to fetch IndexedDB content
+ */
 class DBFetcher {
     private readonly dbName: string;
-    private db: Dexie;
-    private snapshot: DBSnapshot;
+    private db: Dexie | null;
+    private snapshot: DBSnapshot | undefined;
 
     constructor(dbName: string) {
         this.dbName = dbName;
@@ -134,7 +100,10 @@ class DBFetcher {
         }
     }
 
-    public async getAll(): Promise<DBContent> {
+    /**
+     * Get all DB content
+     */
+    public async getAll(): Promise<DBContent | null> {
         try {
             await this.checkDB();
         } catch (e) {
@@ -205,3 +174,6 @@ class DBFetcher {
         return change;
     }
 }
+
+const fetcher = new DAppStateFetcher();
+fetcher.start();

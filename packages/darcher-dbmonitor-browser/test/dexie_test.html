@@ -7,34 +7,35 @@
 
 </head>
 <body>
+<div id="message"></div>
 <script>
 
-    var db = new Dexie("friend_database");
+    var db = new Dexie('friend_database')
     db.version(1).stores({
         friends: '[name+year],shoeSize'
-    });
+    })
 
     //
     // Put some data into it
     //
-    db.friends.put({name: "Nicolas", year: 2, shoeSize: 8}).then(function () {
+    db.friends.put({ name: 'Nicolas', year: 2, shoeSize: 8 }).then(function () {
         //
         // Then when data is stored, read from it
         //
-        return db.friends.get(['Nicolas', 2]);
+        return db.friends.get(['Nicolas', 2])
     }).then(function (friend) {
         //
         // Display the result
         //
-        alert("Nicolas has shoe size " + friend.shoeSize);
+        document.getElementById('message').innerText = 'Nicolas has shoe size ' + friend.shoeSize
     }).catch(function (error) {
         //
         // Finally don't forget to catch any error
         // that could have happened anywhere in the
         // code blocks above.
         //
-        alert("Ooops: " + error);
-    });
+        document.getElementById('message').innerText = error
+    })
 </script>
 </body>
 </html>
