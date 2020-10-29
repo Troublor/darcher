@@ -93,6 +93,20 @@ $(function () {
                 });
         }
     });
+    $("#tabs-btn").on("click", () => {
+        const config: Config = configEditor.getContent() as Config;
+        const testMsg: TestMsg = {
+            type: MsgType.TEST,
+            testType: "tabs",
+            address: config.address
+        }
+
+        notifier.show("Getting...");
+        chrome.runtime.sendMessage(testMsg, response => {
+            notifier.show("Got.");
+            jsonViewer.setContent(response);
+        });
+    })
 
     // save config when window closed
     $(window).on("blur", () => {

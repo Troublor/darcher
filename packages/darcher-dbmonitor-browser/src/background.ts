@@ -38,7 +38,7 @@ class Master {
 
         // update tab in this.tabs when it is updated
         chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-            if (changeInfo.status === "complete") {
+            if (tab.status === "complete") {
                 // only register the tab when it is complete
                 this.registerTab(tab);
             } else {
@@ -73,7 +73,10 @@ class Master {
         const address = getDomainAndPort(url).trim();
         // put the tab in the list of addresses
         if (this.tabs[address]) {
-            this.tabs[address].push(tab);
+            if (!this.tabs[address].some(t => t.id === tab.id)) {
+                // push in the array if not exist
+                this.tabs[address].push(tab);
+            }
         } else {
             this.tabs[address] = [tab];
         }
@@ -97,7 +100,7 @@ class Master {
      * @param msg
      * @private
      */
-    private async processTestMsg(msg: TestMsg): Promise<DBContent | void> {
+    private async processTestMsg(msg: TestMsg): Promise<any> {
         switch (msg.testType) {
             case "fetch-html":
                 // simulate a RequestMsg
@@ -111,6 +114,12 @@ class Master {
             case "refresh":
                 await this.refreshPage(msg.address);
                 return;
+            case "tabs":
+                if (!msg.address) {
+                    return this.tabs;
+                } else {
+                    return this.tabs[msg.address];
+                }
         }
     }
 

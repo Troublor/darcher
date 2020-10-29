@@ -20,7 +20,7 @@ export interface RequestMsg {
 // sent from popup to background for test purposes
 export interface TestMsg {
     type: MsgType.TEST
-    testType: "fetch-html" | "refresh"
+    testType: "fetch-html" | "refresh" | "tabs"
 
     address?: string
     // "fetch-html" type fields
