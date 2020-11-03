@@ -104,6 +104,15 @@ export class MockDarcherServer extends DarcherServer {
         await this.dappTestDriverService.waitForEstablishment();
     }
 
+    private async sleep(ms: number) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve('');
+            }, ms)
+            this.logger.info("Waiting ended.")
+        });
+    }
+
     private async dappTestDriverServiceTestControl() {
         this.logger.info("DAppTestDriverService is connected.");
         this.dappTestDriverService.handler = <DappTestDriverServiceHandler>{
@@ -121,6 +130,9 @@ export class MockDarcherServer extends DarcherServer {
             },
             waitForTxProcess: async msg => {
                 this.logger.info(`waitForTxProcess refresh page and wait 10 seconds. dappName=${msg.getDappName()} instanceId=${msg.getInstanceId()} txHash=${prettifyHash(msg.getHash())} from=${prettifyHash(msg.getFrom())} to=${prettifyHash(msg.getTo())}`);
+                this.logger.info("begin");
+                await this.sleep(10000);
+                this.logger.info("end");
                 await this.dappTestDriverService.refreshPage();
                 return new Promise<void>(resolve => {
                     setTimeout(() => {
