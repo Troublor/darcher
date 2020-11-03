@@ -74,6 +74,12 @@ export class TxMsg extends jspb.Message {
     getTo(): string;
     setTo(value: string): TxMsg;
 
+    getStates(): string;
+    setStates(value: string): TxMsg;
+
+    getEvents(): string;
+    setEvents(value: string): TxMsg;
+
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): TxMsg.AsObject;
@@ -92,6 +98,8 @@ export namespace TxMsg {
         hash: string,
         from: string,
         to: string,
+        states: string,
+        events: string,
     }
 }
 

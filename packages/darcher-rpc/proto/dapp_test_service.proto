@@ -54,6 +54,8 @@ message TxMsg {
   string hash = 3; // hash of the transaction, in the form of hex string
   string from = 4; // transaction sender account, hex string
   string to = 5; // transaction receiver account, hex string
+  string states = 6; // states (name and url) experienced on the dapp so far
+  string events = 7; // events (event type, identification of elements, tag, etc.) executed on the dapp so far
 }
 
 message ConsoleErrorMsg {

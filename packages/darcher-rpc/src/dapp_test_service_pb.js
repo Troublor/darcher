@@ -483,7 +483,9 @@ proto.darcher.TxMsg.toObject = function(includeInstance, msg) {
     instanceId: jspb.Message.getFieldWithDefault(msg, 2, ""),
     hash: jspb.Message.getFieldWithDefault(msg, 3, ""),
     from: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    to: jspb.Message.getFieldWithDefault(msg, 5, "")
+    to: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    states: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    events: jspb.Message.getFieldWithDefault(msg, 7, "")
   };
 
   if (includeInstance) {
@@ -539,6 +541,14 @@ proto.darcher.TxMsg.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setTo(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setStates(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEvents(value);
       break;
     default:
       reader.skipField();
@@ -601,6 +611,20 @@ proto.darcher.TxMsg.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = message.getStates();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+  f = message.getEvents();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
       f
     );
   }
@@ -694,6 +718,42 @@ proto.darcher.TxMsg.prototype.getTo = function() {
  */
 proto.darcher.TxMsg.prototype.setTo = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional string states = 6;
+ * @return {string}
+ */
+proto.darcher.TxMsg.prototype.getStates = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.darcher.TxMsg} returns this
+ */
+proto.darcher.TxMsg.prototype.setStates = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional string events = 7;
+ * @return {string}
+ */
+proto.darcher.TxMsg.prototype.getEvents = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.darcher.TxMsg} returns this
+ */
+proto.darcher.TxMsg.prototype.setEvents = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 
