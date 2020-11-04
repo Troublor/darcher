@@ -1,6 +1,6 @@
 [submodule "packages/darcher-go-ethereum"]
 	path = packages/darcher-go-ethereum
-	url = https://github.com/Troublor/darcher-go-ethereum.git
+	url = git@github.com:Troublor/darcher-go-ethereum.git
 [submodule "packages/darcher-examples/giveth/feathers-giveth"]
 	path = packages/darcher-examples/giveth/feathers-giveth
 	url = https://github.com/Troublor/feathers-giveth.git
@@ -12,10 +12,10 @@
 	url = https://github.com/Troublor/augur.git
 [submodule "packages/darcher-crawljax"]
 	path = packages/darcher-crawljax
-	url = https://github.com/KristenLawrence/darcher-crawljax.git
+	url = git@github.com:KristenLawrence/darcher-crawljax.git
 [submodule "packages/darcher-paper"]
 	path = packages/darcher-paper
-	url = https://github.com/Troublor/darcher-paper.git
+	url = git@github.com:Troublor/darcher-paper.git
 [submodule "packages/darcher-examples/DemocracyEarch/sovereign"]
 	path = packages/darcher-examples/DemocracyEarch/sovereign
 	url = https://github.com/Troublor/sovereign.git
