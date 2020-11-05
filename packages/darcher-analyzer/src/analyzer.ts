@@ -66,7 +66,7 @@ export class Analyzer {
 
     private readonly config: Config;
     private readonly logger: Logger;
-    private txHash: string;
+    public readonly txHash: string;
     private txState: LogicalTxState;
 
     /**
@@ -286,6 +286,10 @@ export class Analyzer {
             reports.push(...oracle.getBugReports());
         }
         return reports;
+    }
+
+    get finished(): boolean {
+        return this.txState === LogicalTxState.CONFIRMED;
     }
 }
 
