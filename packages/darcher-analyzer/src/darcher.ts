@@ -221,7 +221,7 @@ export class Darcher {
                     tx: prettifyHash(msg1.getHash()),
                 }
             );
-            await analyzer.waitForTxProcess;
+            await analyzer.waitForTxProcess(msg1);
             this.logger.debug(
                 `Transaction process complete, resume DApp`,
                 {

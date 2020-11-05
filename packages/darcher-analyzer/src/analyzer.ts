@@ -217,11 +217,11 @@ export class Analyzer {
      * @param msg
      */
     public async waitForTxProcess(msg: TxMsg): Promise<void> {
-        return new Promise(resolve => {
+        return new Promise<void>(resolve => {
             // only resolve the promise when stateEmitter has emitted LogicalTxState.CONFIRMED
             // at this time tx lifecycle traverse should finished
-            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), resolve);
-            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.DROPPED), resolve);
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), () => resolve());
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.DROPPED), () => resolve());
         });
     }
 
@@ -246,6 +246,12 @@ export class Analyzer {
                 await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
             } catch (e) {
                 this.logger.error(e);
+            }
+            let waitTime;
+            if (this.txState === LogicalTxState.CREATED) {
+                waitTime = 500;
+            } else {
+                waitTime = this.dappStateUpdateTimeLimit;
             }
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
@@ -273,7 +279,7 @@ export class Analyzer {
                 this.consoleErrors = [];
 
                 resolve();
-            }, this.dappStateUpdateTimeLimit);
+            }, waitTime);
         })
     }
 
