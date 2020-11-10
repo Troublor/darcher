@@ -61,7 +61,7 @@ var TraceStore = /** @class */ (function () {
                         var msg = JSON.parse(message);
                         var stack = [];
                         if (msg.trace) {
-                            stack = msg.trace.split(/\s/);
+                            stack = msg.trace.split(/\n/).map(function (item) { return item.trim(); });
                         }
                         fs.writeFileSync(path.join(_this.save_dir, msg.hash + ".json"), JSON.stringify({
                             hash: msg.hash,

@@ -1,11 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.traceSendAsync = void 0;
-function traceSendAsync(payload, callback) {
-    if (!payload || typeof payload !== "object") {
-        return [payload, callback];
-    }
-    if (payload.hasOwnProperty('method') && (payload['method'] === 'eth_sendTransaction' || payload['method'] === 'eth_sendRawTransaction')) {
+exports.traceSend = exports.traceSendAsync = void 0;
+function traceSendAsync(method, callback) {
+    if ((method === 'eth_sendTransaction' || method === 'eth_sendRawTransaction')) {
         var traceObj_1 = { stack: undefined };
         Error.captureStackTrace(traceObj_1, traceSendAsync);
         callback = new Proxy(callback, {
@@ -29,7 +26,29 @@ function traceSendAsync(payload, callback) {
             },
         });
     }
-    return [payload, callback];
+    return callback;
 }
 exports.traceSendAsync = traceSendAsync;
+function traceSend(method, result) {
+    if ((method === 'eth_sendTransaction' || method === 'eth_sendRawTransaction')) {
+        var traceObj = { stack: undefined };
+        Error.captureStackTrace(traceObj, traceSendAsync);
+        var trace_1 = {
+            hash: result,
+            trace: traceObj.stack,
+        };
+        console.log(trace_1);
+        var ws_1 = new WebSocket("ws://localhost:1236");
+        ws_1.onopen = function () {
+            ws_1.send(JSON.stringify(trace_1));
+        };
+        ws_1.onerror = function (ev) {
+            console.error("Send transaction trace error", ev);
+        };
+        ws_1.onmessage = function () {
+            ws_1.close();
+        };
+    }
+}
+exports.traceSend = traceSend;
 //# sourceMappingURL=instrument.js.map
