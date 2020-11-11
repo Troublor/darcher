@@ -23,6 +23,7 @@
     "build:ethmonitor": "yarn workspace @darcher/go-ethereum build:ethmonitor",
     "build:geth": "yarn workspace @darcher/go-ethereum build:geth",
     "build:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser build",
+    "build:trace": "yarn workspace @darcher/trace build",
     "build": "npm-run-all build:*",
     "watch:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser watch",
     "start:darcher": "yarn workspace @darcher/analyzer start:darcher",

@@ -3,9 +3,13 @@
     "module": "commonjs",
     "target": "es5",
     "sourceMap": true,
-    "strict": false
+    "strict": false,
+    "outDir": "dist",
+    "declaration": true
   },
-
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules"
   ]

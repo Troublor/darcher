@@ -4,7 +4,7 @@ import {SendTransactionTrace} from "./instrument";
 import * as fs from "fs";
 import * as path from "path";
 
-export default class TraceStore {
+export class TraceStore {
     private wss: WebSocket.Server | undefined;
 
 
