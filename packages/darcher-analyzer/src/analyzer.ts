@@ -269,7 +269,12 @@ export class Analyzer {
                     for (let oracle of this.oracles) {
                         oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
                     }
-                    this.log.states[txState] = dbContent.toObject();
+                    this.log.states[txState] = {
+                        dbContent: dbContent.toObject(),
+                        txErrors: this.txErrors.map(item => item.toObject()),
+                        consoleErrors: this.consoleErrors.map(item => item.toObject()),
+                        contractVulReports: this.contractVulReports.map(item => item.toObject()),
+                    };
                 } catch (e) {
                     this.logger.error(e);
                 }
@@ -305,12 +310,24 @@ export class Analyzer {
 export interface TransactionLog {
     hash: string,
     states: {
-        [LogicalTxState.CREATED]: object | null,
-        [LogicalTxState.PENDING]: object | null,
-        [LogicalTxState.EXECUTED]: object | null,
-        [LogicalTxState.REMOVED]: object | null,
-        [LogicalTxState.REEXECUTED]: object | null,
-        [LogicalTxState.CONFIRMED]: object | null,
-        [LogicalTxState.DROPPED]: object | null,
+        [LogicalTxState.CREATED]: TransactionStateLog | null,
+        [LogicalTxState.PENDING]: TransactionStateLog | null,
+        [LogicalTxState.EXECUTED]: TransactionStateLog | null,
+        [LogicalTxState.REMOVED]: TransactionStateLog | null,
+        [LogicalTxState.REEXECUTED]: TransactionStateLog | null,
+        [LogicalTxState.CONFIRMED]: TransactionStateLog | null,
+        [LogicalTxState.DROPPED]: TransactionStateLog | null,
     }
+}
+
+export interface TransactionStateLog {
+    dbContent: {
+        tablesMap: [
+            string,
+            { keypathList: string[], entriesList: string[] }
+        ][]
+    },
+    txErrors: object[],
+    consoleErrors: object[],
+    contractVulReports: object[],
 }
