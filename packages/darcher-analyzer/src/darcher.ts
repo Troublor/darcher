@@ -76,6 +76,7 @@ export class Darcher {
      * Start the Darcher and returns a promise which resolves when the darcher is started and rejects when error
      */
     public async start(): Promise<void> {
+        await this.traceStore.start()
         this.server.ethmonitorControllerService.handler = this.ethmonitorController;
         this.server.dappTestDriverService.handler = this.dappTestDriverHandler;
         await this.server.start();
@@ -86,6 +87,7 @@ export class Darcher {
     }
 
     public async shutdown(): Promise<void> {
+        await this.traceStore.shutdown();
         await this.server.shutdown();
         this.logger.info("Darcher shutdown")
     }
