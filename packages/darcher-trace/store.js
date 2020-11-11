@@ -54,7 +54,7 @@ var TraceStore = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
-                if (!fs.existsSync(this.save_dir)) {
+                if (this.save_dir && !fs.existsSync(this.save_dir)) {
                     fs.mkdirSync(this.save_dir, { recursive: true });
                 }
                 this.logger.info("Transaction trace will be saved in " + this.save_dir);

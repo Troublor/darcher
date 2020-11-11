@@ -19,7 +19,7 @@ export default class TraceStore {
     }
 
     public async start() {
-        if (!fs.existsSync(this.save_dir)) {
+        if (this.save_dir && !fs.existsSync(this.save_dir)) {
             fs.mkdirSync(this.save_dir, {recursive: true});
         }
         this.logger.info(`Transaction trace will be saved in ${this.save_dir}`);
