@@ -4,14 +4,18 @@ import {SendTransactionTrace} from "./instrument";
 import * as fs from "fs";
 import * as path from "path";
 
-class TraceStore {
-    private readonly logger: Logger;
+export default class TraceStore {
     private wss: WebSocket.Server | undefined;
 
+
     constructor(
-        private readonly save_dir: string,
-        private readonly port: number) {
-        this.logger = new Logger("TraceStore", 'info');
+        private readonly port: number,
+        private readonly logger?: Logger,
+        private readonly save_dir?: string | undefined,
+        private readonly callback?: undefined | ((trace: SendTransactionTrace) => void)) {
+        if (!this.logger) {
+            this.logger = new Logger("TraceStore", 'info');
+        }
     }
 
     public async start() {
@@ -25,14 +29,12 @@ class TraceStore {
             this.logger.debug("Websocket connection with trace store opened");
             ws.on("message", (message: string) => {
                 const msg: SendTransactionTrace = JSON.parse(message);
-                let stack: string[] = [];
-                if (msg.trace) {
-                    stack = msg.trace.split(/\n/).map(item => item.trim());
+                if (this.save_dir) {
+                    fs.writeFileSync(path.join(this.save_dir, `${msg.hash}.json`), JSON.stringify(msg, null, 2));
                 }
-                fs.writeFileSync(path.join(this.save_dir, `${msg.hash}.json`), JSON.stringify({
-                    hash: msg.hash,
-                    stack: stack,
-                }, null, 2));
+                if (this.callback) {
+                    this.callback(msg);
+                }
                 this.logger.info("Save transaction trace", {tx: prettifyHash(msg.hash)});
                 // notify client the transaction has been received
                 ws.send("");
@@ -68,7 +70,7 @@ class TraceStore {
 
 if (require.main === module) {
     (async () => {
-        const store = new TraceStore(path.join(__dirname, "data"), 1236);
+        const store = new TraceStore(1236, undefined, path.join(__dirname, "data"));
         await store.start();
         process.on('SIGINT', async () => {
             await store.shutdown();

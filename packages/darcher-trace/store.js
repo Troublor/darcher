@@ -41,10 +41,14 @@ var WebSocket = require("ws");
 var fs = require("fs");
 var path = require("path");
 var TraceStore = /** @class */ (function () {
-    function TraceStore(save_dir, port) {
-        this.save_dir = save_dir;
+    function TraceStore(port, logger, save_dir, callback) {
         this.port = port;
-        this.logger = new helpers_1.Logger("TraceStore", 'info');
+        this.logger = logger;
+        this.save_dir = save_dir;
+        this.callback = callback;
+        if (!this.logger) {
+            this.logger = new helpers_1.Logger("TraceStore", 'info');
+        }
     }
     TraceStore.prototype.start = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -59,14 +63,12 @@ var TraceStore = /** @class */ (function () {
                     _this.logger.debug("Websocket connection with trace store opened");
                     ws.on("message", function (message) {
                         var msg = JSON.parse(message);
-                        var stack = [];
-                        if (msg.trace) {
-                            stack = msg.trace.split(/\n/).map(function (item) { return item.trim(); });
+                        if (_this.save_dir) {
+                            fs.writeFileSync(path.join(_this.save_dir, msg.hash + ".json"), JSON.stringify(msg, null, 2));
                         }
-                        fs.writeFileSync(path.join(_this.save_dir, msg.hash + ".json"), JSON.stringify({
-                            hash: msg.hash,
-                            stack: stack,
-                        }, null, 2));
+                        if (_this.callback) {
+                            _this.callback(msg);
+                        }
                         _this.logger.info("Save transaction trace", { tx: helpers_1.prettifyHash(msg.hash) });
                         // notify client the transaction has been received
                         ws.send("");
@@ -108,13 +110,14 @@ var TraceStore = /** @class */ (function () {
     };
     return TraceStore;
 }());
+exports.default = TraceStore;
 if (require.main === module) {
     (function () { return __awaiter(void 0, void 0, void 0, function () {
         var store;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    store = new TraceStore(path.join(__dirname, "data"), 1236);
+                    store = new TraceStore(1236, undefined, path.join(__dirname, "data"));
                     return [4 /*yield*/, store.start()];
                 case 1:
                     _a.sent();

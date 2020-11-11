@@ -45,6 +45,7 @@ export interface Config {
     analyzer: AnalyzerConfig
     clusters: ClusterConfig[]
     dbMonitor: DBMonitorConfig
+    logDir?: string,
 }
 
 const config = {

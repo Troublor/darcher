@@ -20,6 +20,8 @@ import * as path from "path";
 import * as fs from "fs";
 import {existsSync, mkdirSync} from "fs";
 import {$enum} from "ts-enum-util";
+import TraceStore from "@darcher/trace/store";
+import {SendTransactionTrace} from "@darcher/trace/instrument";
 
 export class Darcher {
     private readonly config: Config;
@@ -27,6 +29,7 @@ export class Darcher {
     private readonly logDir: string;
 
     private readonly server: DarcherServer;
+    private readonly traceStore: TraceStore;
 
     private readonly analyzers: { [txHash: string]: Analyzer } = {};
     private currentAnalyzer: Analyzer | null;
@@ -39,6 +42,7 @@ export class Darcher {
     constructor(logger: Logger, config: Config) {
         this.config = config;
         this.logger = logger;
+        this.traceStore = new TraceStore(1236, this.logger, undefined, this.onTxTrace.bind(this));
         this.server = new DarcherServer(this.logger, config.analyzer.grpcPort, config.analyzer.wsPort);
         this.analyzers = {};
         this.currentAnalyzer = null;
@@ -54,13 +58,17 @@ export class Darcher {
         }
         this.dappTestDriverHandler = <DappTestDriverServiceHandler>{};
         const now = new Date();
-        this.logDir = path.join(
-            __dirname, "..", "data",
-            `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
-        );
+        if (config.logDir) {
+            this.logDir = config.logDir;
+        } else {
+            this.logDir = path.join(
+                __dirname, "..", "data",
+                `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
+            );
+        }
         this.logger.info(`Transaction states log will be stored in ${this.logDir}`);
         if (!existsSync(this.logDir)) {
-            mkdirSync(this.logDir)
+            mkdirSync(this.logDir, {recursive: true})
         }
     }
 
@@ -80,6 +88,12 @@ export class Darcher {
     public async shutdown(): Promise<void> {
         await this.server.shutdown();
         this.logger.info("Darcher shutdown")
+    }
+
+    private async onTxTrace(trace: SendTransactionTrace) {
+        if (this.analyzers[trace.hash]) {
+            this.analyzers[trace.hash].log.stack = trace.stack;
+        }
     }
 
     /* darcher controller handlers start */

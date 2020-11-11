@@ -9,7 +9,7 @@ function traceSendAsync(method, callback) {
             apply: function (target, thisArg, argArray) {
                 var trace = {
                     hash: argArray[1],
-                    trace: traceObj_1.stack,
+                    stack: traceObj_1.stack.split(/\n/).map(function (item) { return item.trim(); }).filter(function (item) { return item.length > 0 && item !== "Error"; }),
                 };
                 console.log(trace);
                 var ws = new WebSocket("ws://localhost:1236");
@@ -35,7 +35,7 @@ function traceSend(method, result) {
         Error.captureStackTrace(traceObj, traceSendAsync);
         var trace_1 = {
             hash: result,
-            trace: traceObj.stack,
+            stack: traceObj.stack.split(/\n/).map(function (item) { return item.trim(); }).filter(function (item) { return item.length > 0 && item !== "Error"; }),
         };
         console.log(trace_1);
         var ws_1 = new WebSocket("ws://localhost:1236");

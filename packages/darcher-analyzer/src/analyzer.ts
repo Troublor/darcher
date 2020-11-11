@@ -317,7 +317,8 @@ export interface TransactionLog {
         [LogicalTxState.REEXECUTED]: TransactionStateLog | null,
         [LogicalTxState.CONFIRMED]: TransactionStateLog | null,
         [LogicalTxState.DROPPED]: TransactionStateLog | null,
-    }
+    },
+    stack?: string[],
 }
 
 export interface TransactionStateLog {

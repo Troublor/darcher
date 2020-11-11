@@ -1,6 +1,6 @@
 export interface SendTransactionTrace {
     hash: string,
-    trace: string,
+    stack: string[],
 }
 
 export function traceSendAsync(method: string, callback: Function): Function {
@@ -11,8 +11,8 @@ export function traceSendAsync(method: string, callback: Function): Function {
             apply(target, thisArg, argArray) {
                 const trace = {
                     hash: argArray[1],
-                    trace: traceObj.stack,
-                }
+                    stack: traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error"),
+                } as SendTransactionTrace;
                 console.log(trace)
                 const ws = new WebSocket(`ws://localhost:1236`);
                 ws.onopen = () => {
@@ -37,8 +37,8 @@ export function traceSend(method: string, result: string) {
         Error.captureStackTrace(traceObj, traceSendAsync);
         const trace = {
             hash: result,
-            trace: traceObj.stack,
-        }
+            stack: traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error"),
+        } as SendTransactionTrace;
         console.log(trace)
         const ws = new WebSocket(`ws://localhost:1236`);
         ws.onopen = () => {
