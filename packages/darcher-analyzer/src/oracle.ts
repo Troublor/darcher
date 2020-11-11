@@ -55,17 +55,7 @@ export interface Report {
 }
 
 export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Report[] {
-    interface DBContentObject {
-        tablesMap: [
-            string,
-            {
-                keypathList: string[],
-                entriesList: string[]
-            }
-        ][]
-    }
-
-    function loadDBContent(obj: DBContentObject): DBContent {
+    function loadDBContent(obj: DBContent.AsObject): DBContent {
         let content = new DBContent();
         let tablesMap = obj['tablesMap'];
         for (let table of tablesMap) {
@@ -77,12 +67,41 @@ export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Repo
         return content;
     }
 
-    oracle.onTxState(LogicalTxState.CREATED, loadDBContent(log.states[LogicalTxState.CREATED] as DBContentObject), [], [], []);
-    oracle.onTxState(LogicalTxState.PENDING, loadDBContent(log.states[LogicalTxState.PENDING] as DBContentObject), [], [], []);
-    oracle.onTxState(LogicalTxState.EXECUTED, loadDBContent(log.states[LogicalTxState.EXECUTED] as DBContentObject), [], [], []);
-    oracle.onTxState(LogicalTxState.REMOVED, loadDBContent(log.states[LogicalTxState.REMOVED] as DBContentObject), [], [], []);
-    oracle.onTxState(LogicalTxState.REEXECUTED, loadDBContent(log.states[LogicalTxState.REEXECUTED] as DBContentObject), [], [], []);
-    oracle.onTxState(LogicalTxState.CONFIRMED, loadDBContent(log.states[LogicalTxState.CONFIRMED] as DBContentObject), [], [], []);
+    function loadTxErrorMsg(obj: TxErrorMsg.AsObject): TxErrorMsg {
+        return new TxErrorMsg()
+            .setHash(obj.hash)
+            .setType(obj.type)
+            .setDescription(obj.description);
+    }
+
+    function loadConsoleErrorMsg(obj: ConsoleErrorMsg.AsObject): ConsoleErrorMsg {
+        return new ConsoleErrorMsg()
+            .setDappName(obj.dappName)
+            .setErrorString(obj.errorString)
+            .setInstanceId(obj.instanceId);
+    }
+
+    function loadContractVulReport(obj: ContractVulReport.AsObject): ContractVulReport {
+        return new ContractVulReport()
+            .setAddress(obj.address)
+            .setDescription(obj.description)
+            .setFuncSig(obj.funcSig)
+            .setOpcode(obj.opcode)
+            .setPc(obj.pc)
+            .setTxHash(obj.txHash)
+            .setType(obj.type);
+    }
+
+    for (const s of [LogicalTxState.CREATED, LogicalTxState.PENDING, LogicalTxState.EXECUTED, LogicalTxState.REMOVED, LogicalTxState.REEXECUTED, LogicalTxState.CONFIRMED]) {
+        const state = log.states[s];
+        oracle.onTxState(
+            s,
+            loadDBContent(state.dbContent),
+            state.txErrors.map(item => loadTxErrorMsg(item)),
+            state.contractVulReports.map(item => loadContractVulReport(item)),
+            state.consoleErrors.map(item => loadConsoleErrorMsg(item))
+        );
+    }
     return oracle.getBugReports();
 }
 

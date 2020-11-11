@@ -6,7 +6,9 @@
   },
   "author": "Troublor",
   "license": "ISC",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "start:MockDarcherServer": "ts-node scripts/startMockDarcherServer.ts",
     "test": "mocha --require ts-node/register test/**/*.test.ts",
     "coverage": "nyc yarn test"

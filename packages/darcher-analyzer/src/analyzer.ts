@@ -1,6 +1,6 @@
 import {
     ConsoleErrorMsg,
-    ContractVulReport,
+    ContractVulReport, DBContent,
     TestEndMsg,
     TestStartMsg,
     TxErrorMsg,
@@ -322,13 +322,8 @@ export interface TransactionLog {
 }
 
 export interface TransactionStateLog {
-    dbContent: {
-        tablesMap: [
-            string,
-            { keypathList: string[], entriesList: string[] }
-        ][]
-    },
-    txErrors: object[],
-    consoleErrors: object[],
-    contractVulReports: object[],
+    dbContent: DBContent.AsObject,
+    txErrors: TxErrorMsg.AsObject[],
+    consoleErrors: ConsoleErrorMsg.AsObject[],
+    contractVulReports: ContractVulReport.AsObject[],
 }

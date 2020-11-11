@@ -22,7 +22,7 @@ interface IEthmonitorControllerServiceService extends grpc.ServiceDefinition<grp
 }
 
 interface IEthmonitorControllerServiceService_InotifyTxReceived extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxReceivedMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.EthmonitorControllerService/notifyTxReceived"
+    path: "/darcher.EthmonitorControllerService/notifyTxReceived";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxReceivedMsg>;
@@ -31,7 +31,7 @@ interface IEthmonitorControllerServiceService_InotifyTxReceived extends grpc.Met
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IEthmonitorControllerServiceService_InotifyTxFinished extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxFinishedMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.EthmonitorControllerService/notifyTxFinished"
+    path: "/darcher.EthmonitorControllerService/notifyTxFinished";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxFinishedMsg>;
@@ -40,7 +40,7 @@ interface IEthmonitorControllerServiceService_InotifyTxFinished extends grpc.Met
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IEthmonitorControllerServiceService_InotifyTxTraverseStart extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxTraverseStartMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.EthmonitorControllerService/notifyTxTraverseStart"
+    path: "/darcher.EthmonitorControllerService/notifyTxTraverseStart";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxTraverseStartMsg>;
@@ -49,7 +49,7 @@ interface IEthmonitorControllerServiceService_InotifyTxTraverseStart extends grp
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IEthmonitorControllerServiceService_InotifyTxStateChangeMsg extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxStateChangeMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.EthmonitorControllerService/notifyTxStateChangeMsg"
+    path: "/darcher.EthmonitorControllerService/notifyTxStateChangeMsg";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxStateChangeMsg>;
@@ -58,7 +58,7 @@ interface IEthmonitorControllerServiceService_InotifyTxStateChangeMsg extends gr
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IEthmonitorControllerServiceService_IaskForNextState extends grpc.MethodDefinition<ethmonitor_controller_service_pb.TxStateControlMsg, ethmonitor_controller_service_pb.TxStateControlMsg> {
-    path: string; // "/darcher.EthmonitorControllerService/askForNextState"
+    path: "/darcher.EthmonitorControllerService/askForNextState";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.TxStateControlMsg>;
@@ -67,7 +67,7 @@ interface IEthmonitorControllerServiceService_IaskForNextState extends grpc.Meth
     responseDeserialize: grpc.deserialize<ethmonitor_controller_service_pb.TxStateControlMsg>;
 }
 interface IEthmonitorControllerServiceService_IselectTx extends grpc.MethodDefinition<ethmonitor_controller_service_pb.SelectTxControlMsg, ethmonitor_controller_service_pb.SelectTxControlMsg> {
-    path: string; // "/darcher.EthmonitorControllerService/selectTx"
+    path: "/darcher.EthmonitorControllerService/selectTx";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<ethmonitor_controller_service_pb.SelectTxControlMsg>;
@@ -76,7 +76,7 @@ interface IEthmonitorControllerServiceService_IselectTx extends grpc.MethodDefin
     responseDeserialize: grpc.deserialize<ethmonitor_controller_service_pb.SelectTxControlMsg>;
 }
 interface IEthmonitorControllerServiceService_InotifyTxError extends grpc.MethodDefinition<common_pb.TxErrorMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.EthmonitorControllerService/notifyTxError"
+    path: "/darcher.EthmonitorControllerService/notifyTxError";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<common_pb.TxErrorMsg>;
@@ -85,7 +85,7 @@ interface IEthmonitorControllerServiceService_InotifyTxError extends grpc.Method
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IEthmonitorControllerServiceService_InotifyContractVulnerability extends grpc.MethodDefinition<contract_oracle_service_pb.ContractVulReport, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.EthmonitorControllerService/notifyContractVulnerability"
+    path: "/darcher.EthmonitorControllerService/notifyContractVulnerability";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<contract_oracle_service_pb.ContractVulReport>;

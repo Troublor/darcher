@@ -13,7 +13,7 @@ interface IDBMonitorServiceService extends grpc.ServiceDefinition<grpc.UntypedSe
 }
 
 interface IDBMonitorServiceService_IgetAllDataControl extends grpc.MethodDefinition<dbmonitor_service_pb.GetAllDataControlMsg, dbmonitor_service_pb.GetAllDataControlMsg> {
-    path: string; // "/darcher.DBMonitorService/getAllDataControl"
+    path: "/darcher.DBMonitorService/getAllDataControl";
     requestStream: true;
     responseStream: true;
     requestSerialize: grpc.serialize<dbmonitor_service_pb.GetAllDataControlMsg>;

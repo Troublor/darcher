@@ -18,7 +18,7 @@ interface IDAppTestDriverServiceService extends grpc.ServiceDefinition<grpc.Unty
 }
 
 interface IDAppTestDriverServiceService_InotifyTestStart extends grpc.MethodDefinition<dapp_test_service_pb.TestStartMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.DAppTestDriverService/notifyTestStart"
+    path: "/darcher.DAppTestDriverService/notifyTestStart";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<dapp_test_service_pb.TestStartMsg>;
@@ -27,7 +27,7 @@ interface IDAppTestDriverServiceService_InotifyTestStart extends grpc.MethodDefi
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IDAppTestDriverServiceService_InotifyTestEnd extends grpc.MethodDefinition<dapp_test_service_pb.TestEndMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.DAppTestDriverService/notifyTestEnd"
+    path: "/darcher.DAppTestDriverService/notifyTestEnd";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<dapp_test_service_pb.TestEndMsg>;
@@ -36,7 +36,7 @@ interface IDAppTestDriverServiceService_InotifyTestEnd extends grpc.MethodDefini
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IDAppTestDriverServiceService_IwaitForTxProcess extends grpc.MethodDefinition<dapp_test_service_pb.TxMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.DAppTestDriverService/waitForTxProcess"
+    path: "/darcher.DAppTestDriverService/waitForTxProcess";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<dapp_test_service_pb.TxMsg>;
@@ -45,7 +45,7 @@ interface IDAppTestDriverServiceService_IwaitForTxProcess extends grpc.MethodDef
     responseDeserialize: grpc.deserialize<google_protobuf_empty_pb.Empty>;
 }
 interface IDAppTestDriverServiceService_IdappDriverControl extends grpc.MethodDefinition<dapp_test_service_pb.DAppDriverControlMsg, dapp_test_service_pb.DAppDriverControlMsg> {
-    path: string; // "/darcher.DAppTestDriverService/dappDriverControl"
+    path: "/darcher.DAppTestDriverService/dappDriverControl";
     requestStream: true;
     responseStream: true;
     requestSerialize: grpc.serialize<dapp_test_service_pb.DAppDriverControlMsg>;
@@ -54,7 +54,7 @@ interface IDAppTestDriverServiceService_IdappDriverControl extends grpc.MethodDe
     responseDeserialize: grpc.deserialize<dapp_test_service_pb.DAppDriverControlMsg>;
 }
 interface IDAppTestDriverServiceService_InotifyConsoleError extends grpc.MethodDefinition<dapp_test_service_pb.ConsoleErrorMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.DAppTestDriverService/notifyConsoleError"
+    path: "/darcher.DAppTestDriverService/notifyConsoleError";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<dapp_test_service_pb.ConsoleErrorMsg>;
