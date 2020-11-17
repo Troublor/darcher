@@ -8,11 +8,11 @@ import {
 } from "@darcher/helpers";
 
 describe("mongodb", () => {
-    before(async () => {
+    beforeAll(async () => {
         chai.use(chaiAsPromised);
     });
 
-    after(async () => {
+    afterAll(async () => {
 
     })
 

@@ -26,11 +26,11 @@ describe("dbmonitor", () => {
     let darcherServer: DarcherServer;
     let dbmonitor: DBMonitor;
 
-    before(async () => {
+    beforeAll(async () => {
         chai.use(chaiAsPromised);
     });
 
-    after(async () => {
+    afterAll(async () => {
 
     })
 
