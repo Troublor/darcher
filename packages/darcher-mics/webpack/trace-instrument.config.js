@@ -1,12 +1,11 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
-  entry: './src/metamask-notifier.ts',
+  entry: './src/trace-instrument.ts',
   output: {
-    filename: 'metamask-notifier.bundle.js',
-    path: path.resolve(__dirname, '..', 'dist'),
+    filename: 'trace-instrument.js',
+    path: path.resolve(__dirname, '..', 'bundle'),
     libraryTarget: 'commonjs2',
   },
   resolve: {

@@ -1,6 +1,6 @@
 "use strict"
 
-import {BrowserLogger} from "@darcher/helpers-browser";
+import {Logger} from "@darcher/helpers-browser";
 
 export interface Data {
     type: string
@@ -18,12 +18,12 @@ export interface NewTransaction extends Data {
 
 export default class MetaMaskNotifier {
     private ws: WebSocket;
-    private logger: BrowserLogger;
+    private logger: Logger;
 
     constructor(
         private readonly address: string,
     ) {
-        this.logger = new BrowserLogger(BrowserLogger.Level.DEBUG, 'MetaMask-Notifier');
+        this.logger = new Logger('MetaMask-Notifier', Logger.Level.DEBUG);
     }
 
     public start() {
@@ -31,7 +31,7 @@ export default class MetaMaskNotifier {
         this.ws.onmessage = msg => this.onMessage(msg.data);
         this.ws.onerror = e => this.onError(e);
         this.ws.onclose = () => this.onClose();
-        this.ws.onopen = () => this.logger.info("connected");
+        this.ws.onopen = () => this.logger.info("WebSocket connection opened");
     }
 
     public onMessage(payload: string) {
@@ -44,9 +44,12 @@ export default class MetaMaskNotifier {
 
     public onClose() {
         this.ws = undefined;
+        this.logger.info("WebSocket connection closed");
         // try to reconnect
-        this.logger.warn("reconnecting...");
-        this.start();
+        setTimeout(() => {
+            this.logger.warn("reconnecting...");
+            this.start();
+        }, 1000);
     }
 
     public notifyUnapprovedTx(data: NewTransaction) {
@@ -55,7 +58,11 @@ export default class MetaMaskNotifier {
             return;
         }
         this.logger.debug("Notify new transaction", {from: data.from, to: data.to});
-        this.ws.send(JSON.stringify(data));
+        try {
+            this.ws.send(JSON.stringify(data));
+        }catch (e){
+            this.logger.error("Notify new transaction error", {err: e});
+        }
     }
 
     public notifyUnlockRequest(data: Data) {

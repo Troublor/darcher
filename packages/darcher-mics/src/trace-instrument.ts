@@ -1,7 +1,11 @@
+import {Logger, prettifyHash} from "@darcher/helpers-browser";
+
 export interface SendTransactionTrace {
     hash: string,
     stack: string[],
 }
+
+const logger = new Logger("Trace", Logger.Level.INFO);
 
 export function traceSendAsync(method: string, callback: Function): Function {
     if ((method === 'eth_sendTransaction' || method === 'eth_sendRawTransaction')) {
@@ -13,13 +17,13 @@ export function traceSendAsync(method: string, callback: Function): Function {
                     hash: argArray[1],
                     stack: traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error"),
                 } as SendTransactionTrace;
-                console.log(trace)
+                logger.info("Transaction trace", {hash: prettifyHash(trace.hash), stack: trace.stack})
                 const ws = new WebSocket(`ws://localhost:1236`);
                 ws.onopen = () => {
                     ws.send(JSON.stringify(trace));
                 };
                 ws.onerror = (ev: ErrorEvent) => {
-                    console.error("Send transaction trace error", ev);
+                    logger.error("Send transaction trace error", {err: ev});
                 }
                 ws.onmessage = () => {
                     ws.close();
@@ -39,13 +43,13 @@ export function traceSend(method: string, result: string) {
             hash: result,
             stack: traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error"),
         } as SendTransactionTrace;
-        console.log(trace)
+        logger.info("Transaction trace", {hash: prettifyHash(trace.hash), stack: trace.stack});
         const ws = new WebSocket(`ws://localhost:1236`);
         ws.onopen = () => {
             ws.send(JSON.stringify(trace));
         };
         ws.onerror = (ev: ErrorEvent) => {
-            console.error("Send transaction trace error", ev);
+            logger.error("Send transaction trace error", {err: ev});
         }
         ws.onmessage = () => {
             ws.close();

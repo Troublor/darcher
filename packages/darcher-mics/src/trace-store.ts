@@ -1,6 +1,6 @@
 import {Logger, prettifyHash, WebsocketError} from "@darcher/helpers";
 import * as WebSocket from "ws";
-import {SendTransactionTrace} from "./instrument";
+import {SendTransactionTrace} from "./trace-instrument";
 import * as fs from "fs";
 import * as path from "path";
 

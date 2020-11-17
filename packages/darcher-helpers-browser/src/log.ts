@@ -1,12 +1,12 @@
-export type BrowserLoggerLevel = number;
+export type LoggerLevel = number;
 
-export class BrowserLogger {
+export class Logger {
     public static Level = {
         DEBUG: 1,
         INFO: 2,
         WARN: 3,
         ERROR: 4,
-        levelString: (lvl: BrowserLoggerLevel) => {
+        levelString: (lvl: LoggerLevel) => {
             switch (lvl) {
                 case 1:
                     return 'DEBUG';
@@ -22,11 +22,13 @@ export class BrowserLogger {
         }
     }
 
-    constructor(private readonly level: BrowserLoggerLevel,
-                private readonly module: string) {
+    constructor(
+        private readonly module: string,
+        private readonly level: LoggerLevel,
+    ) {
     }
 
-    private parseLog(level: BrowserLoggerLevel, message: string, context?: { [key: string]: any }): string {
+    private parseLog(level: LoggerLevel, message: string, context?: { [key: string]: any }): string {
         const now = new Date();
         const month = now.getMonth().toString().padStart(2, "0");
         const day = now.getDay().toString().padStart(2, "0");
@@ -36,7 +38,7 @@ export class BrowserLogger {
         const millisecond = now.getMilliseconds().toString().padEnd(3, "0").slice(0, 3);
         const logTime = `${month}-${day}|${hour}:${minute}:${second}.${millisecond}`;
 
-        const colored = (level: BrowserLoggerLevel, payload: string): string => {
+        const colored = (level: LoggerLevel, payload: string): string => {
             // TODO coloring in Browser Console
             return payload;
         };
@@ -46,27 +48,27 @@ export class BrowserLogger {
             for (let key in context) {
                 if (context.hasOwnProperty(key)) {
                     // @ts-ignore
-                    contextLiteral += `${colored(logEvent.level, key)}=${context[key].toString()} `;
+                    contextLiteral += `${colored(level, key)}=${context[key]?.toString()} `;
                 }
             }
         }
 
-        return `${colored(level, BrowserLogger.Level.levelString(level).padEnd(5, " "))}[${logTime}][${this.module}] ${message.padEnd(48, " ")} ${contextLiteral}`;
+        return `${colored(level, Logger.Level.levelString(level).padEnd(5, " "))}[${logTime}][${this.module}] ${message.padEnd(48, " ")} ${contextLiteral}`;
     }
 
-    log(level: BrowserLoggerLevel, message: string, context?: { [key: string]: any }) {
+    log(level: LoggerLevel, message: string, context?: { [key: string]: any }) {
         if (this.level <= level) {
             switch (this.level) {
-                case BrowserLogger.Level.ERROR:
+                case Logger.Level.ERROR:
                     console.error(this.parseLog(level, message, context));
                     break;
-                case BrowserLogger.Level.WARN:
+                case Logger.Level.WARN:
                     console.warn(this.parseLog(level, message, context));
                     break;
-                case BrowserLogger.Level.INFO:
+                case Logger.Level.INFO:
                     console.info(this.parseLog(level, message, context));
                     break;
-                case BrowserLogger.Level.DEBUG:
+                case Logger.Level.DEBUG:
                     console.debug(this.parseLog(level, message, context));
                     break;
                 default:
@@ -76,18 +78,18 @@ export class BrowserLogger {
     }
 
     info(message: string, context?: { [key: string]: any }) {
-        this.log(BrowserLogger.Level.INFO, message, context);
+        this.log(Logger.Level.INFO, message, context);
     }
 
     warn(message: string, context?: { [key: string]: any }) {
-        this.log(BrowserLogger.Level.WARN, message, context);
+        this.log(Logger.Level.WARN, message, context);
     }
 
     debug(message: string, context?: { [key: string]: any }) {
-        this.log(BrowserLogger.Level.DEBUG, message, context);
+        this.log(Logger.Level.DEBUG, message, context);
     }
 
     error(message: string, context?: { [key: string]: any }) {
-        this.log(BrowserLogger.Level.ERROR, message, context);
+        this.log(Logger.Level.ERROR, message, context);
     }
 }

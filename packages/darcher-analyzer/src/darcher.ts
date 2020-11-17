@@ -20,7 +20,7 @@ import * as path from "path";
 import * as fs from "fs";
 import {existsSync, mkdirSync} from "fs";
 import {$enum} from "ts-enum-util";
-import {SendTransactionTrace, TraceStore} from "@darcher/trace";
+import {SendTransactionTrace, TraceStore} from "@darcher/misc";
 
 export class Darcher {
     private readonly config: Config;
