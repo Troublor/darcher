@@ -34,8 +34,14 @@ export interface Oracle {
      * @param txErrors The tx execution error during this tx state
      * @param contractVulReports The contract vulnerability reports during this transaction state
      * @param consoleErrors The dapp console errors during this transaction state
+     * @param dappStack
      */
-    onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void;
+    onTxState(txState: LogicalTxState,
+              dbContent: DBContent,
+              txErrors: TxErrorMsg[],
+              contractVulReports: ContractVulReport[],
+              consoleErrors: ConsoleErrorMsg[],
+              dappStack?: string[]): void;
 }
 
 export enum Severity {
@@ -99,7 +105,8 @@ export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Repo
             loadDBContent(state.dbContent),
             state.txErrors.map(item => loadTxErrorMsg(item)),
             state.contractVulReports.map(item => loadContractVulReport(item)),
-            state.consoleErrors.map(item => loadConsoleErrorMsg(item))
+            state.consoleErrors.map(item => loadConsoleErrorMsg(item)),
+            log.stack,
         );
     }
     return oracle.getBugReports();
@@ -137,7 +144,7 @@ export class DBChangeOracle implements Oracle {
         let confirmed: DBContent = this.contentMap[LogicalTxState.CONFIRMED];
         let createdConfirmedDiff: DBContentDiff = new DBContentDiff(base, confirmed, this.filter);
         let pendingConfirmedDiff: DBContentDiff = new DBContentDiff(pending, confirmed, this.filter);
-        if (!createdConfirmedDiff.zero() && pendingConfirmedDiff.zero()) {
+        if (!createdConfirmedDiff.zero() && !pendingConfirmedDiff.zero()) {
             // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
             reports.push(new UnreliableTxHashReport(
                 this.txHash,
@@ -162,7 +169,12 @@ export class DBChangeOracle implements Oracle {
         return this.getBugReports().length > 0;
     }
 
-    onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void {
+    onTxState(txState: LogicalTxState,
+              dbContent: DBContent,
+              txErrors: TxErrorMsg[],
+              contractVulReports: ContractVulReport[],
+              consoleErrors: ConsoleErrorMsg[],
+              dappStack: string[]): void {
         this.contentMap[txState] = dbContent;
     }
 }
@@ -564,7 +576,12 @@ export class TxErrorOracle implements Oracle {
         return false;
     }
 
-    onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void {
+    onTxState(txState: LogicalTxState,
+              dbContent: DBContent,
+              txErrors: TxErrorMsg[],
+              contractVulReports: ContractVulReport[],
+              consoleErrors: ConsoleErrorMsg[],
+              dappStack: string[]): void {
         this.txErrorMap[txState].push(...txErrors);
     }
 
@@ -641,7 +658,12 @@ export class ContractVulnerabilityOracle implements Oracle {
         return false;
     }
 
-    onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void {
+    onTxState(txState: LogicalTxState,
+              dbContent: DBContent,
+              txErrors: TxErrorMsg[],
+              contractVulReports: ContractVulReport[],
+              consoleErrors: ConsoleErrorMsg[],
+              dappStack: string[]): void {
         this.contractVulMap[txState].push(...contractVulReports);
     }
 
@@ -719,7 +741,12 @@ export class ConsoleErrorOracle implements Oracle {
         return false;
     }
 
-    onTxState(txState: LogicalTxState, dbContent: DBContent, txErrors: TxErrorMsg[], contractVulReports: ContractVulReport[], consoleErrors: ConsoleErrorMsg[]): void {
+    onTxState(txState: LogicalTxState,
+              dbContent: DBContent,
+              txErrors: TxErrorMsg[],
+              contractVulReports: ContractVulReport[],
+              consoleErrors: ConsoleErrorMsg[],
+              dappStack: string[]): void {
         this.consoleErrorMap[txState].push(...consoleErrors);
     }
 

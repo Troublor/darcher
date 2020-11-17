@@ -25,11 +25,11 @@ describe("dbmonitor service", async () => {
     let logger = new Logger("dbmonitor_test");
     logger.level = "off";
 
-    before(async () => {
+    beforeAll(async () => {
         chai.use(chaiAsPromised);
     });
 
-    after(async () => {
+    afterAll(async () => {
 
     })
     it('should successfully getAllData', async () => {
