@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import * as chaiAsPromised from "chai-as-promised";
 import {MockWsClient} from "./utils/mock_client";
 
-describe("dbmonitor service", async () => {
+describe("dbmonitor service", () => {
 
     let config: Config = {
         analyzer: {

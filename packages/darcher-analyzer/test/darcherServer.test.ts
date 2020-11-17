@@ -99,7 +99,7 @@ describe("darcherServer", () => {
 
         await client.shutdown();
         await mock.shutdown();
-    });
+    }, 20000);
 
     it('should dappTestDriverService handle repeat reverse rpc connection', async function () {
         let warnSpy = sinon.spy();
@@ -135,5 +135,5 @@ describe("darcherServer", () => {
         await client0.shutdown();
         await client1.shutdown();
         await mock.shutdown();
-    });
+    }, 20000);
 });
