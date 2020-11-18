@@ -6,8 +6,20 @@ export interface Data {
     type: string
 }
 
-export interface NewTransaction extends Data {
-    type: "NewTransaction",
+export interface UnlockRequest extends Data {
+    type: 'UnlockRequest',
+}
+
+export interface PermissionRequest extends Data {
+    type: 'PermissionRequest',
+}
+
+export interface UnconfirmedMessage extends Data {
+    type: 'UnconfirmedMessage',
+}
+
+export interface UnapprovedTx extends Data {
+    type: "UnapprovedTx",
     from: string,
     to: string,
     gas: string,
@@ -52,21 +64,36 @@ export default class MetaMaskNotifier {
         }, 1000);
     }
 
-    public notifyUnapprovedTx(data: NewTransaction) {
+    private notify(data: Data) {
         if (!this.ws) {
             this.logger.error("WebSocket not connected, fail to notify new transaction:", data);
             return;
         }
-        this.logger.debug("Notify new transaction", {from: data.from, to: data.to});
         try {
             this.ws.send(JSON.stringify(data));
-        }catch (e){
-            this.logger.error("Notify new transaction error", {err: e});
+        } catch (e) {
+            this.logger.error("Notify error", {err: e});
         }
     }
 
-    public notifyUnlockRequest(data: Data) {
+    public notifyUnapprovedTx(data: UnapprovedTx) {
+        this.logger.debug("Notify unapproved transaction", {from: data.from, to: data.to});
+        this.notify(data);
+    }
 
+    public notifyUnlockRequest(data: UnlockRequest) {
+        this.logger.debug("Notify unlock request");
+        this.notify(data);
+    }
+
+    public notifyPermissionRequest(data: PermissionRequest) {
+        this.logger.debug("Notify permission request");
+        this.notify(data);
+    }
+
+    public notifyUnconfirmedMessage(data: UnconfirmedMessage) {
+        this.logger.debug("Notify unconfirmed message");
+        this.notify(data);
     }
 }
 

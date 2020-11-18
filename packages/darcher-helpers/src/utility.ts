@@ -31,6 +31,9 @@ export const sleep: (ms: number) => Promise<void> = async (ms: number): Promise<
 }
 
 export function prettifyHash(hash: string): string {
+    if (!hash) {
+        return hash;
+    }
     let startIndex = 0;
     if (hash.startsWith("0x")) {
         startIndex = 2;
