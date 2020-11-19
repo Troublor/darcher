@@ -53,7 +53,7 @@ export class Logger {
             }
         }
 
-        return `${colored(level, Logger.Level.levelString(level).padEnd(5, " "))}[${logTime}][${this.module}] ${message.padEnd(48, " ")} ${contextLiteral}`;
+        return `${colored(level, Logger.Level.levelString(level).padEnd(5, " "))}[${logTime}][${this.module}] ${message.toString().padEnd(48, " ")} ${contextLiteral}`;
     }
 
     log(level: LoggerLevel, message: string, context?: { [key: string]: any }) {
