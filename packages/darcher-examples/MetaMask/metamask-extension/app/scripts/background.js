@@ -39,7 +39,7 @@ import {
   ENVIRONMENT_TYPE_NOTIFICATION,
   ENVIRONMENT_TYPE_FULLSCREEN,
 } from './lib/enums'
-import {StorageMonitor} from "./storage-monitor";
+import MetaMaskNotifier from './metamask-notifier'
 /* eslint-enable import/first */
 
 // METAMASK_TEST_CONFIG is used in e2e tests to set the default network to localhost
@@ -230,10 +230,39 @@ function setupController (initState, initLangCode) {
   const controller = new MetamaskController({
     infuraProjectId: process.env.INFURA_PROJECT_ID,
     // User confirmation callbacks:
-    showUnconfirmedMessage: triggerUi,
-    showUnapprovedTx: triggerUi,
-    showPermissionRequest: triggerUi,
-    showUnlockRequest: triggerUi,
+    showUnconfirmedMessage: async () => {
+      // eslint-disable-next-line no-use-before-define
+      notifier.notifyUnconfirmedMessage({
+        type: 'UnconfirmedMessage',
+      })
+      await triggerUi()
+    },
+    showUnapprovedTx: async (txMeta) => {
+      // eslint-disable-next-line no-use-before-define
+      notifier.notifyUnapprovedTx({
+        type: 'UnapprovedTx',
+        from: txMeta.txParams.from,
+        to: txMeta.txParams.to,
+        gas: txMeta.txParams.gas,
+        gasPrice: txMeta.txParams.gasPrice,
+        value: txMeta.txParams.value,
+      })
+      await triggerUi()
+    },
+    showPermissionRequest: async () => {
+      // eslint-disable-next-line no-use-before-define
+      notifier.notifyPermissionRequest({
+        type: 'PermissionRequest',
+      })
+      await triggerUi()
+    },
+    showUnlockRequest: async () => {
+      // eslint-disable-next-line no-use-before-define
+      notifier.notifyUnlockRequest({
+        type: 'UnlockRequest',
+      })
+      await triggerUi()
+    },
     openPopup,
     // initial state
     initState,
@@ -469,5 +498,9 @@ extension.runtime.onInstalled.addListener(({ reason }) => {
 })
 
 // start DArcher dbmonitor
-const monitor = new StorageMonitor('ws://localhost:1235')
-monitor.start()
+// const monitor = new StorageMonitor('ws://localhost:1235')
+// monitor.start()
+
+// start MetaMask Notifier
+const notifier = new MetaMaskNotifier('ws://localhost:1237')
+notifier.start()

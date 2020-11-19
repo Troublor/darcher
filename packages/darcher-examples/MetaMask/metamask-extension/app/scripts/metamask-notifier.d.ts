@@ -1,8 +1,17 @@
 export interface Data {
     type: string;
 }
-export interface NewTransaction extends Data {
-    type: "NewTransaction";
+export interface UnlockRequest extends Data {
+    type: 'UnlockRequest';
+}
+export interface PermissionRequest extends Data {
+    type: 'PermissionRequest';
+}
+export interface UnconfirmedMessage extends Data {
+    type: 'UnconfirmedMessage';
+}
+export interface UnapprovedTx extends Data {
+    type: "UnapprovedTx";
     from: string;
     to: string;
     gas: string;
@@ -19,22 +28,9 @@ export default class MetaMaskNotifier {
     onMessage(payload: string): void;
     onError(err: any): void;
     onClose(): void;
-    notifyUnapprovedTx(data: NewTransaction): void;
-    notifyUnlockRequest(data: Data): void;
-}
-export declare class Logger {
-    private readonly level;
-    private readonly module?;
-    static LevelVerbose: number;
-    static LevelDebug: number;
-    static LevelInfo: number;
-    static LevelWarn: number;
-    static LevelError: number;
-    constructor(level: number, module?: string);
-    log(level: any, ...messages: any[]): void;
-    info(...messages: any[]): void;
-    warn(...messages: any[]): void;
-    debug(...messages: any[]): void;
-    error(...messages: any[]): void;
-    verbose(...messages: any[]): void;
+    private notify;
+    notifyUnapprovedTx(data: UnapprovedTx): void;
+    notifyUnlockRequest(data: UnlockRequest): void;
+    notifyPermissionRequest(data: PermissionRequest): void;
+    notifyUnconfirmedMessage(data: UnconfirmedMessage): void;
 }

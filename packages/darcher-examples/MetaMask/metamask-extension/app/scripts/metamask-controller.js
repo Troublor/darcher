@@ -232,7 +232,7 @@ export default class MetamaskController extends EventEmitter {
       provider: this.provider,
       blockTracker: this.blockTracker,
     })
-    this.txController.on('newUnapprovedTx', () => opts.showUnapprovedTx())
+    this.txController.on('newUnapprovedTx', (txMeta) => opts.showUnapprovedTx(txMeta))
 
     this.txController.on(`tx:status-update`, async (txId, status) => {
       if (status === 'confirmed' || status === 'failed') {
