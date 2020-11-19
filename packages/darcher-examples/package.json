@@ -8,7 +8,8 @@
   "license": "ISC",
   "scripts": {
     "giveth:deploy": "ts-node ./giveth/scripts/deploy.ts",
-    "giveth:start": "ts-node ./giveth/scripts/start.ts",
+    "giveth:start-dapp": "ts-node ./giveth/scripts/start.ts",
+    "giveth:start-darcher": "ts-node ./giveth/scripts/start_darcher.ts",
     "giveth:docker:build": "ts-node ./giveth/scripts/build_docker.ts",
     "giveth:docker:start": "ts-node ./giveth/scripts/start_using_docker.ts",
     "giveth:docker:stop": "docker-compose -f giveth/scripts/docker/docker-compose.yml down",

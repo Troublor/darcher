@@ -19,7 +19,7 @@ export const homeClusterConfig = <ClusterConfig>{
 
 export const foreignClusterConfig = <ClusterConfig>{
     ethmonitorPort: 8990,
-    controller: ControllerOptions.deploy,
+    controller: ControllerOptions.darcher,
     genesisFile: path.join(blockchainDir, "foreign_network", "genesis.json"),
     dir: path.join(blockchainDir, "foreign_network"),
     keyStoreDir: path.join(blockchainDir, "foreign_network", "keystore"),
@@ -32,14 +32,14 @@ export const foreignClusterConfig = <ClusterConfig>{
 };
 
 export const dbMonitorConfig = <DBMonitorConfig>{
-    db: DBOptions.indexedDB,
-    dbName: "friend_database",
-    dbAddress: "localhost:63342",
+    db: DBOptions.mongoDB,
+    dbName: "giveth",
+    dbAddress: "mongodb://localhost:27017",
 };
 
 export const darcherConfig = <AnalyzerConfig>{
-    grpcPort: 1236,
-    wsPort: 1237,
+    grpcPort: 1234,
+    wsPort: 1235,
 };
 
 export default <Config>{
@@ -48,5 +48,9 @@ export default <Config>{
     clusters: [
         foreignClusterConfig,
         homeClusterConfig,
-    ]
+    ],
+    logDir: path.join(__dirname, "..", "..", "data", `${(() => {
+        const now = new Date();
+        return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}=${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+    })()}`)
 }
