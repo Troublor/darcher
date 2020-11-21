@@ -25,7 +25,7 @@
     "build:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser build",
     "build:misc": "yarn workspace @darcher/misc build",
     "build:helpers": "yarn workspace @darcher/helpers build",
-    "build:helpers-broser": "yarn workspace @darcher/helpers-browser build",
+    "build:helpers-browser": "yarn workspace @darcher/helpers-browser build",
     "build:analyzer": "yarn workspace @darcher/analyzer build",
     "build": "npm-run-all build:*",
     "test:analyzer": "yarn workspace @darcher/analyzer test",
