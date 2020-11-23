@@ -5,10 +5,10 @@ module.exports = {
   devtool: "source-map",
   entry: './src/trace-instrument.ts',
   output: {
-    filename: 'trace-instrument.js',
+    filename: 'trace-instrument.web.js',
     path: path.resolve(__dirname, '..', 'bundle'),
     libraryTarget: 'commonjs2',
-    sourceMapFilename: 'trace-instrument.js.map',
+    sourceMapFilename: 'trace-instrument.web.js.map',
   },
   resolve: {
     modules: [

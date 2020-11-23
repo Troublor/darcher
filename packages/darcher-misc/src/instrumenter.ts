@@ -24,7 +24,7 @@ import prompts = require("prompts");
  * @param file
  * @return already instrumented, instrumented
  */
-function _instrumentWeb3CoreMethod(file: string): [boolean, boolean] {
+function _instrumentWeb3CoreMethod(file: string, instrumentedPack: string): [boolean, boolean] {
     let instrumented = false;
     const code = fs.readFileSync(file).toString("utf-8");
     const ast = parser.parse(code);
@@ -82,14 +82,17 @@ function _instrumentWeb3CoreMethod(file: string): [boolean, boolean] {
         // save previous one as a copy
         fs.writeFileSync(file + ".pre-instrument", code);
         // copy instrumented module
-        fs.copyFileSync(path.join(__dirname, "..", "bundle", "trace-instrument.js"), path.join(path.dirname(file), "trace-instrument.js"));
+        fs.copyFileSync(instrumentedPack, path.join(path.dirname(file), "trace-instrument.js"));
         // saved instrumented code
         fs.writeFileSync(file, result.code);
+    }else if (already) {
+        // copy instrumented module
+        fs.copyFileSync(instrumentedPack, path.join(path.dirname(file), "trace-instrument.js"));
     }
     return [already, instrumented];
 }
 
-export function instrumentWeb3CoreMethod(dir: string) {
+export function instrumentWeb3CoreMethod(dir: string, type: "web" | "node") {
     const scanDirForDir = function (root: string, target: string, callback: (folder: string) => void) {
         for (const directory of fs.readdirSync(root)) {
             if (directory === "coverage") {
@@ -109,7 +112,13 @@ export function instrumentWeb3CoreMethod(dir: string) {
     scanDirForDir(dir, "web3-core-method", folder => {
         const indexFile = path.join(folder, "src", "index.js");
         if (fs.existsSync(indexFile)) {
-            const [already, instrumented] = _instrumentWeb3CoreMethod(indexFile);
+            let instrumentedPack;
+            if (type === 'web') {
+                instrumentedPack = path.join(__dirname, "..", "bundle", "trace-instrument.web.js");
+            }else if (type === 'node') {
+                instrumentedPack = path.join(__dirname, "..", "bundle", "trace-instrument.node.js");
+            }
+            const [already, instrumented] = _instrumentWeb3CoreMethod(indexFile, instrumentedPack);
             if (already) {
                 logger.warn("already instrumented " + indexFile);
             } else if (instrumented) {
@@ -125,6 +134,15 @@ export function instrumentWeb3CoreMethod(dir: string) {
 
 if (require.main === module) {
     (async () => {
+        const response1 = await prompts({
+            type:"select",
+            name:"type",
+            message:"Web or Node.js?",
+            choices:[
+                {title: "Web", value: 'web'},
+                {title: "Node.js", value: "node"},
+            ]
+        });
         const response0 = await prompts({
             type: "text",
             name: "dir",
@@ -132,7 +150,7 @@ if (require.main === module) {
             validate: prev => fs.existsSync(prev) && fs.statSync(prev).isDirectory(),
         });
         if (response0.dir) {
-            instrumentWeb3CoreMethod(response0.dir);
+            instrumentWeb3CoreMethod(response0.dir, response1.type);
         }
     })()
 }

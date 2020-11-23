@@ -50,8 +50,21 @@ declare global {
         traceHistories: TraceHistory[];
     }
 }
-if (typeof window !== 'undefined' && !window.traceHistories) {
-    window.traceHistories = [] as TraceHistory[];
+
+let isBrowser;
+let GLOBAL;
+if (typeof window !== 'undefined') {
+    GLOBAL = window;
+    isBrowser = true;
+} else if (typeof global !== "undefined") {
+    GLOBAL = global;
+    isBrowser = false;
+} else {
+    throw new Error("Failed to load trace-instrument");
+}
+
+if (typeof GLOBAL !== 'undefined' && !GLOBAL.traceHistories) {
+    GLOBAL.traceHistories = [] as TraceHistory[];
 }
 
 
@@ -71,11 +84,11 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                     traceCache.params[0].gas = argArray[1];
                     // save to history, in case there is a transaction use this call later
                     traceCache.stack = traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error");
-                    window.traceHistories.push(traceCache);
+                    GLOBAL.traceHistories.push(traceCache);
                 } else if (['eth_sendTransaction', 'eth_sendRawTransaction'].includes(method)) {
                     // search trace history for a possible estimateGas cache (which is more precise)
-                    for (let i = window.traceHistories.length - 1; i >= 0; i--) {
-                        const history = window.traceHistories[i];
+                    for (let i = GLOBAL.traceHistories.length - 1; i >= 0; i--) {
+                        const history = GLOBAL.traceHistories[i];
                         if (history.method === 'eth_estimateGas' &&
                             history.params[0] && params[0] &&
                             history.params[0].from === params[0].from &&
@@ -83,7 +96,7 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                             history.params[0].data === params[0].data
                         ) {
                             // delete this from history
-                            window.traceHistories = window.traceHistories.filter(value => value !== history);
+                            GLOBAL.traceHistories = GLOBAL.traceHistories.filter(value => value !== history);
                             // use the stack trace of this cache
                             traceCache.stack = history.stack;
                             break;
@@ -99,16 +112,31 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                         stack: traceCache.stack,
                     } as SendTransactionTrace;
                     logger.info("Transaction trace", {hash: prettifyHash(trace.hash), stack: trace.stack})
-                    const ws = new WebSocket(`ws://localhost:1236`);
-                    ws.onopen = () => {
-                        ws.send(JSON.stringify(trace));
-                    };
-                    ws.onerror = (ev: ErrorEvent) => {
-                        logger.error("Send transaction trace error", {err: ev});
+                    if (isBrowser) {
+                        const ws = new WebSocket(`ws://localhost:1236`);
+                        ws.onopen = () => {
+                            ws.send(JSON.stringify(trace));
+                        };
+                        ws.onerror = (ev: ErrorEvent) => {
+                            logger.error("Send transaction trace error", {err: ev});
+                        }
+                        ws.onmessage = () => {
+                            ws.close();
+                        }
+                    } else {
+                        const WebSocket = require("ws");
+                        const ws = new WebSocket("ws://localhost:1236");
+                        ws.on('open', () => {
+                            ws.send(JSON.stringify(trace));
+                        });
+                        ws.on("error", e => {
+                            logger.error("Send transaction trace error", {err: e});
+                        });
+                        ws.on("message", () => {
+                            ws.close();
+                        });
                     }
-                    ws.onmessage = () => {
-                        ws.close();
-                    }
+
                 }
                 target.apply(thisArg, argArray);
             },
