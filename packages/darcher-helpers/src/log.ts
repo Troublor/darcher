@@ -38,7 +38,7 @@ log4js.addLayout('darcherConsole', config => {
         for (let key in context) {
             if (context.hasOwnProperty(key)) {
                 // @ts-ignore
-                contextLiteral += `${colored(logEvent.level, key)}=${context[key].toString()} `;
+                contextLiteral += `${colored(logEvent.level, key)}=${context[key] ? context[key].toString() : context[key]} `;
             }
         }
         return `${colored(logEvent.level, logEvent.level.levelStr.padEnd(5, " "))}[${logTime}][${logEvent.categoryName}] ${msg.padEnd(48, " ")} ${contextLiteral}`;

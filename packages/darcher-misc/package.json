@@ -7,8 +7,8 @@
     "build": "npm-run-all build:*",
     "build:ts": "tsc",
     "build:metamask-notifier": "webpack --config webpack/metamask-notifier.config.js",
-    "build:trace-instrument:node": "webpack --config webpack/trace-instrument.node.config.js",
-    "build:trace-instrument:web": "webpack --config webpack/trace-instrument.web.config.js",
+    "build:trace-instrument.node": "webpack --config webpack/trace-instrument.node.config.js",
+    "build:trace-instrument.web": "webpack --config webpack/trace-instrument.web.config.js",
     "start:trace-store": "ts-node src/trace-store.ts",
     "start:metamask-notifier-mock-server": "ts-node src/metamask-notifier-mock-server.ts",
     "instrument:web3-core-method": "ts-node src/instrumenter.ts"
