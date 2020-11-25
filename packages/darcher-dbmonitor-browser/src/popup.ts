@@ -1,6 +1,6 @@
 import * as $ from "jquery";
 import * as JSONEditor from "jsoneditor";
-import {Config, HtmlModeConfig, MsgType, TestMsg} from "./types";
+import {Config, HtmlModeConfig, IndexedDBModeConfig, MsgType, TestMsg} from "./types";
 
 class JsonEditor {
     private readonly element;
@@ -83,6 +83,25 @@ $(function () {
 
                 notifier.show("Fetching...");
                 chrome.runtime.sendMessage(testMsg, (response) => {
+                    notifier.show("Fetched.");
+                    for (const table of response.tablesMap) {
+                        if (table[1] && table[1].entriesList) {
+                            table[1].entriesList = table[1].entriesList.map(entry => JSON.parse(entry));
+                        }
+                    }
+                    jsonViewer.setContent(response);
+                });
+                break;
+            case "indexedDB":
+                const msg: TestMsg = {
+                    type: MsgType.TEST,
+                    testType: "fetch-indexedDB",
+                    address: config.address,
+                    dbname: (config as IndexedDBModeConfig).dbname,
+                }
+
+                notifier.show("Fetching...");
+                chrome.runtime.sendMessage(msg, (response) => {
                     notifier.show("Fetched.");
                     for (const table of response.tablesMap) {
                         if (table[1] && table[1].entriesList) {

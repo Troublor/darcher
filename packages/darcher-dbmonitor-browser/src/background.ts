@@ -111,6 +111,15 @@ class Master {
                 };
                 const resp = await this.getDAppState(msg.address, requestMsg);
                 return DBContent.deserializeBinary(resp);
+            case "fetch-indexedDB":
+                // simulate a RequestMsg
+                const reqMsg = <RequestMsg>{
+                    type: MsgType.REQUEST,
+                    requestType: "indexedDB",
+                    dbName: msg.dbname,
+                };
+                const response = await this.getDAppState(msg.address, reqMsg);
+                return DBContent.deserializeBinary(response);
             case "refresh":
                 await this.refreshPage(msg.address);
                 return;

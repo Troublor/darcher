@@ -1,0 +1,4 @@
+{
+  "mode": "indexeddb",
+  "address": "localhost:8080"
+}

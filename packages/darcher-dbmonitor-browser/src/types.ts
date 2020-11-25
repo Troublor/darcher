@@ -20,11 +20,13 @@ export interface RequestMsg {
 // sent from popup to background for test purposes
 export interface TestMsg {
     type: MsgType.TEST
-    testType: "fetch-html" | "refresh" | "tabs"
+    testType: "fetch-html" | "refresh" | "tabs" | "fetch-indexedDB"
 
     address?: string
     // "fetch-html" type fields
     elements?: { name: string, xpath: string }[]
+    // "fetch-indexeddb type fields
+    dbname?: string
 }
 
 
@@ -118,4 +120,9 @@ export interface Config {
 export interface HtmlModeConfig extends Config {
     mode: "html",
     elements: { name: string, xpath: string }[]
+}
+
+export interface IndexedDBModeConfig extends Config {
+    mode: "indexedDB",
+    dbname: string
 }
