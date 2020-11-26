@@ -1,6 +1,6 @@
 import {
     ConsoleErrorMsg,
-    ContractVulReport,
+    ContractVulReport, DBContent,
     TestEndMsg,
     TestStartMsg,
     TxErrorMsg,
@@ -66,7 +66,7 @@ export class Analyzer {
 
     private readonly config: Config;
     private readonly logger: Logger;
-    private txHash: string;
+    public readonly txHash: string;
     private txState: LogicalTxState;
 
     /**
@@ -217,11 +217,11 @@ export class Analyzer {
      * @param msg
      */
     public async waitForTxProcess(msg: TxMsg): Promise<void> {
-        return new Promise(resolve => {
+        return new Promise<void>(resolve => {
             // only resolve the promise when stateEmitter has emitted LogicalTxState.CONFIRMED
             // at this time tx lifecycle traverse should finished
-            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), resolve);
-            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.DROPPED), resolve);
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), () => resolve());
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.DROPPED), () => resolve());
         });
     }
 
@@ -247,6 +247,12 @@ export class Analyzer {
             } catch (e) {
                 this.logger.error(e);
             }
+            let waitTime;
+            if (this.txState === LogicalTxState.CREATED) {
+                waitTime = 500;
+            } else {
+                waitTime = this.dappStateUpdateTimeLimit;
+            }
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
                 try {
@@ -263,7 +269,12 @@ export class Analyzer {
                     for (let oracle of this.oracles) {
                         oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
                     }
-                    this.log.states[txState] = dbContent.toObject();
+                    this.log.states[txState] = {
+                        dbContent: dbContent.toObject(),
+                        txErrors: this.txErrors.map(item => item.toObject()),
+                        consoleErrors: this.consoleErrors.map(item => item.toObject()),
+                        contractVulReports: this.contractVulReports.map(item => item.toObject()),
+                    };
                 } catch (e) {
                     this.logger.error(e);
                 }
@@ -273,7 +284,7 @@ export class Analyzer {
                 this.consoleErrors = [];
 
                 resolve();
-            }, this.dappStateUpdateTimeLimit);
+            }, waitTime);
         })
     }
 
@@ -287,6 +298,10 @@ export class Analyzer {
         }
         return reports;
     }
+
+    get finished(): boolean {
+        return this.txState === LogicalTxState.CONFIRMED;
+    }
 }
 
 /**
@@ -295,12 +310,20 @@ export class Analyzer {
 export interface TransactionLog {
     hash: string,
     states: {
-        [LogicalTxState.CREATED]: object | null,
-        [LogicalTxState.PENDING]: object | null,
-        [LogicalTxState.EXECUTED]: object | null,
-        [LogicalTxState.REMOVED]: object | null,
-        [LogicalTxState.REEXECUTED]: object | null,
-        [LogicalTxState.CONFIRMED]: object | null,
-        [LogicalTxState.DROPPED]: object | null,
-    }
+        [LogicalTxState.CREATED]: TransactionStateLog | null,
+        [LogicalTxState.PENDING]: TransactionStateLog | null,
+        [LogicalTxState.EXECUTED]: TransactionStateLog | null,
+        [LogicalTxState.REMOVED]: TransactionStateLog | null,
+        [LogicalTxState.REEXECUTED]: TransactionStateLog | null,
+        [LogicalTxState.CONFIRMED]: TransactionStateLog | null,
+        [LogicalTxState.DROPPED]: TransactionStateLog | null,
+    },
+    stack?: string[],
+}
+
+export interface TransactionStateLog {
+    dbContent: DBContent.AsObject,
+    txErrors: TxErrorMsg.AsObject[],
+    consoleErrors: ConsoleErrorMsg.AsObject[],
+    contractVulReports: ContractVulReport.AsObject[],
 }

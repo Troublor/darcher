@@ -16,7 +16,7 @@ interface IContractVulnerabilityServiceService extends grpc.ServiceDefinition<gr
 }
 
 interface IContractVulnerabilityServiceService_IgetReportsByContractControl extends grpc.MethodDefinition<contract_oracle_service_pb.GetReportsByContractControlMsg, contract_oracle_service_pb.GetReportsByContractControlMsg> {
-    path: string; // "/darcher.ContractVulnerabilityService/getReportsByContractControl"
+    path: "/darcher.ContractVulnerabilityService/getReportsByContractControl";
     requestStream: true;
     responseStream: true;
     requestSerialize: grpc.serialize<contract_oracle_service_pb.GetReportsByContractControlMsg>;
@@ -25,7 +25,7 @@ interface IContractVulnerabilityServiceService_IgetReportsByContractControl exte
     responseDeserialize: grpc.deserialize<contract_oracle_service_pb.GetReportsByContractControlMsg>;
 }
 interface IContractVulnerabilityServiceService_IgetReportsByTransactionControl extends grpc.MethodDefinition<contract_oracle_service_pb.GetReportsByTransactionControlMsg, contract_oracle_service_pb.GetReportsByTransactionControlMsg> {
-    path: string; // "/darcher.ContractVulnerabilityService/getReportsByTransactionControl"
+    path: "/darcher.ContractVulnerabilityService/getReportsByTransactionControl";
     requestStream: true;
     responseStream: true;
     requestSerialize: grpc.serialize<contract_oracle_service_pb.GetReportsByTransactionControlMsg>;
@@ -34,7 +34,7 @@ interface IContractVulnerabilityServiceService_IgetReportsByTransactionControl e
     responseDeserialize: grpc.deserialize<contract_oracle_service_pb.GetReportsByTransactionControlMsg>;
 }
 interface IContractVulnerabilityServiceService_InotifyTxError extends grpc.MethodDefinition<common_pb.TxErrorMsg, google_protobuf_empty_pb.Empty> {
-    path: string; // "/darcher.ContractVulnerabilityService/notifyTxError"
+    path: "/darcher.ContractVulnerabilityService/notifyTxError";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<common_pb.TxErrorMsg>;

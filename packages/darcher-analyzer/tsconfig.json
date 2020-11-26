@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["node", "mocha"]
+    "types": ["node", "jest"]
   },
+  "include": ["src"],
   "exclude": ["dist","src/analysis", "src/downstream", "test"]
 }

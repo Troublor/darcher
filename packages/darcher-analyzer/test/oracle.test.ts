@@ -298,7 +298,7 @@ describe("Oracle Tests", () => {
             let oracle = new ConsoleErrorOracle(txHash);
             oracle.onTxState(LogicalTxState.REMOVED, null, [], [], [
                 new ConsoleErrorMsg().setDappName("test_dapp").setInstanceId("1").setErrorString("console error"),
-            ]);
+            ], []);
             expect(oracle.isBuggy()).to.be.true;
             expect(oracle.getBugReports()).to.be.lengthOf(1);
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.ConsoleError);
@@ -312,7 +312,7 @@ describe("Oracle Tests", () => {
             let oracle = new TxErrorOracle(txHash);
             oracle.onTxState(LogicalTxState.REMOVED, null, [
                 new TxErrorMsg().setHash(txHash).setType(TxErrorType.REVERT).setDescription("Transaction error"),
-            ], [], []);
+            ], [], [], []);
             expect(oracle.isBuggy()).to.be.true;
             expect(oracle.getBugReports()).to.be.lengthOf(1);
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.TransactionError);
@@ -326,7 +326,7 @@ describe("Oracle Tests", () => {
             let oracle = new ContractVulnerabilityOracle(txHash);
             oracle.onTxState(LogicalTxState.REMOVED, null, [], [
                 new ContractVulReport().setTxHash(txHash).setType(ContractVulType.REENTRANCY),
-            ], []);
+            ], [], []);
             expect(oracle.isBuggy()).to.be.true;
             expect(oracle.getBugReports()).to.be.lengthOf(1);
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.ContractVulnerability);
@@ -364,9 +364,19 @@ describe("Oracle Tests", () => {
                         "created": true,
                     }),
                 ]));
-            oracle.onTxState(LogicalTxState.CREATED, createdContent, [], [], []);
-            oracle.onTxState(LogicalTxState.PENDING, pendingContent, [], [], []);
-            oracle.onTxState(LogicalTxState.REMOVED, removedContent, [], [], []);
+            let confirmedContent = new DBContent();
+            confirmedContent.getTablesMap()
+                .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
+                    JSON.stringify({
+                        "id": "1",
+                        "data": "aaa",
+                        "created": true,
+                    }),
+                ]));
+            oracle.onTxState(LogicalTxState.CREATED, createdContent, [], [], [], []);
+            oracle.onTxState(LogicalTxState.PENDING, pendingContent, [], [], [], []);
+            oracle.onTxState(LogicalTxState.REMOVED, removedContent, [], [], [], []);
+            oracle.onTxState(LogicalTxState.CONFIRMED, confirmedContent, [], [], [], []);
             expect(oracle.isBuggy()).to.be.true;
             expect(oracle.getBugReports()).to.be.lengthOf(2);
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.UnreliableTxHash);

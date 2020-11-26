@@ -8,7 +8,7 @@ import * as sinon from "sinon";
 import * as chaiAsPromised from "chai-as-promised";
 import {MockWsClient} from "./utils/mock_client";
 
-describe("dbmonitor service", async () => {
+describe("dbmonitor service", () => {
 
     let config: Config = {
         analyzer: {
@@ -25,11 +25,11 @@ describe("dbmonitor service", async () => {
     let logger = new Logger("dbmonitor_test");
     logger.level = "off";
 
-    before(async () => {
+    beforeAll(async () => {
         chai.use(chaiAsPromised);
     });
 
-    after(async () => {
+    afterAll(async () => {
 
     })
     it('should successfully getAllData', async () => {
