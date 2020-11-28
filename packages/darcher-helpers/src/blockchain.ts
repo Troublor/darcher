@@ -185,7 +185,7 @@ export class BlockchainCluster {
         }
 
         // wait for nodes to start
-        await sleep(2000);
+        await sleep(4000);
 
         // get doer's nodeInfo
         let resp = await axios.post(`http://localhost:${this.config.httpPort}`, {

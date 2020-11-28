@@ -7,6 +7,7 @@
   "author": "Troublor",
   "license": "ISC",
   "scripts": {
+    "gsn:relay": "oz-gsn run-relayer --workdir ./augurproject/relayer",
     "giveth:deploy": "ts-node ./giveth/scripts/deploy.ts",
     "giveth:start-dapp": "ts-node ./giveth/scripts/start.ts",
     "giveth:start-darcher": "ts-node ./giveth/scripts/start_darcher.ts",
@@ -17,18 +18,25 @@
     "augur:start": "ts-node ./augurproject/scripts/start.ts",
     "augur:docker:build": "ts-node ./augurproject/scripts/build_docker.ts",
     "augur:docker:start": "ts-node ./augurproject/scripts/start_using_docker.ts",
-    "augur:docker:stop": "docker-compose -f augurproject/scripts/docker/docker-compose.yml down",
+    "augur:docker:stop": "ts-node ./augurproject/scripts/stop_docker.ts",
+    "augur:start-darcher": "ts-node ./augurproject/scripts/start_darcher.ts",
+    "augur:start-experiment": "ts-node ./augurproject/scripts/start-experiment.ts",
     "democracyEarch:deploy": "ts-node ./DemocracyEarch/scripts/deploy.ts",
     "metamask:deploy": "ts-node ./MetaMask/scripts/deploy.ts",
     "metamask:start_blockchian": "ts-node MetaMask/scripts/start_blockchain.ts",
     "metamask:start_darcher": "ts-node MetaMask/scripts/start_darcher.ts"
   },
   "dependencies": {
+    "@openzeppelin/gsn-helpers": "^0.2.4",
+    "chrome-debugging-client": "^2.0.0",
+    "chrome-remote-interface": "^0.28.2",
+    "selenium-webdriver": "^4.0.0-alpha.7",
     "shelljs": "^0.8.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
   },
   "devDependencies": {
+    "@types/selenium-webdriver": "^4.0.10",
     "@types/shelljs": "^0.8.8"
   }
 }

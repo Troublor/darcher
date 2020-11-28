@@ -5,7 +5,7 @@ const blockchainDir = path.join(__dirname, "..", "blockchain");
 
 export const homeClusterConfig = <ClusterConfig>{
     ethmonitorPort: 8989,
-    controller: ControllerOptions.deploy,
+    controller: ControllerOptions.darcher,
     genesisFile: path.join(blockchainDir, "home_network", "genesis.json"),
     dir: path.join(blockchainDir, "home_network"),
     keyStoreDir: path.join(blockchainDir, "home_network", "keystore"),
