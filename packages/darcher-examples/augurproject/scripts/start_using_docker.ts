@@ -3,6 +3,7 @@ import {Command, Logger, sleep, Tab, TerminalWindow} from "@darcher/helpers";
 import * as path from "path";
 import * as child_process from "child_process";
 import * as fs from "fs";
+import {Config} from "@darcher/config";
 
 const logger: Logger = new Logger("start_augur");
 
@@ -26,7 +27,7 @@ export function formatAddress(address: string, formatting: AddressFormatting): s
     return address
 }
 
-export async function startDocker(logger: Logger) {
+export async function startDocker(logger: Logger, ethmonitorController: string = "deploy") {
     // load augur local network config
     const configFile = path.join(__dirname, "..", "augur", "packages", "augur-artifacts", "build", "environments", "local.json");
     const config: any = JSON.parse(fs.readFileSync(configFile, {encoding: "utf-8"}));
@@ -36,13 +37,16 @@ export async function startDocker(logger: Logger) {
         "docker-compose",
         ["-f", path.join(__dirname, "docker", "cluster-docker-compose.yml"), "up", "-d"], {
             // stdio: 'inherit',
+            env: Object.assign(process.env, {
+                ETHMONITOR_CONTROLLER: ethmonitorController,
+            })
         });
     child_process.spawn(
         "docker-compose",
         ["-f", path.join(__dirname, "docker", "0x-docker-compose.yml"), "up", "-d"], {
             env: {
                 ...process.env,
-                MESH_VERSION:"9.3.0",
+                MESH_VERSION: "9.3.0",
                 ETHEREUM_CHAIN_ID: config.networkId,
                 CUSTOM_CONTRACT_ADDRESSES: JSON.stringify(config.addresses),
                 ZEROX_CONTRACT_ADDRESS: formatAddress(config.addresses.ZeroXTrade, {lower: true, prefix: false}),
@@ -61,7 +65,7 @@ async function start_augur() {
 }
 
 if (require.main === module) {
-    startDocker(logger).then(async () => {
+    startDocker(logger, "darcher").then(async () => {
 
     });
 }

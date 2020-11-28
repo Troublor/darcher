@@ -9,7 +9,7 @@ export default <Config>{
     dbMonitor: {
         db: DBOptions.indexedDB,
         dbName: "augur-123456",
-        dbAddress: "http://localhost:8080",
+        dbAddress: "localhost:8080",
     },
     clusters: [
         <ClusterConfig>{

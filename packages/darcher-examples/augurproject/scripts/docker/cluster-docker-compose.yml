@@ -6,9 +6,9 @@ services:
     stop_signal: SIGINT
     environment:
       ETHMONITOR_PORT: 8989
-      ETHMONITOR_CONTROLLER: deploy
-      VERBOSITY: 4
-      ANALYZER_ADDR: host.docker.internal:1234
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-deploy}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
 
   doer:
     image: darcher/augur-base:latest

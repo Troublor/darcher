@@ -36,7 +36,7 @@ export class DarcherService implements Service {
 
 if (require.main === module) {
     (async () => {
-        const logger = new Logger("AugurExperiment");
+        const logger = new Logger("AugurExperiment", "debug");
         const config = await loadConfig(path.join(__dirname, "config", "augur.config.ts"));
         const service = new DarcherService(logger, config);
         try {
