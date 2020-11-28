@@ -14,7 +14,7 @@ import {
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
 import {Config, DBOptions} from "@darcher/config";
-import {Logger, prettifyHash} from "@darcher/helpers";
+import {Logger, prettifyHash, sleep} from "@darcher/helpers";
 import {DbMonitorService} from "./service/dbmonitorService";
 import {Oracle, Report} from "./oracle";
 
@@ -62,7 +62,7 @@ export function toTxState(ls: LogicalTxState): TxState {
  * Analyzer is for each tx, it controls the tx state via grpc with ethmonitor and collect dapp state change data, to generate analyze report
  */
 export class Analyzer {
-    public dappStateUpdateTimeLimit = 10000;
+    public dappStateUpdateTimeLimit = 15000;
 
     private readonly config: Config;
     private readonly logger: Logger;
@@ -88,7 +88,7 @@ export class Analyzer {
     // consoleError cache, will be cleaned when forwarded to oracles
     consoleErrors: ConsoleErrorMsg[] = [];
 
-    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DbMonitorService) {
+    constructor(logger: Logger, config: Config, txHash: string, dbmonitorService: DbMonitorService, parentHash: string = null) {
         this.config = config;
         this.logger = logger;
         this.txHash = txHash;
@@ -99,6 +99,7 @@ export class Analyzer {
             this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CREATED), resolve)
         });
         this.log = <TransactionLog>{
+            parent: parentHash,
             hash: txHash,
             states: {
                 [LogicalTxState.CREATED]: null,
@@ -136,6 +137,9 @@ export class Analyzer {
             this.txState = <LogicalTxState>(msg.getTo() as number);
         }
         // apply oracles, this may block for a while
+        if (this.txState === LogicalTxState.PENDING) {
+            await sleep(2000);
+        }
         await this.applyOracles(this.txState);
         this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
     }
@@ -242,16 +246,17 @@ export class Analyzer {
         });
         // the time limit (milliseconds) for dapp to handle tx state change
         return new Promise(async resolve => {
-            try {
-                await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
-            } catch (e) {
-                this.logger.error(e);
-            }
             let waitTime;
             if (this.txState === LogicalTxState.CREATED) {
                 waitTime = 500;
             } else {
                 waitTime = this.dappStateUpdateTimeLimit;
+                try {
+                    this.logger.debug("Refreshing page...");
+                    await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+                } catch (e) {
+                    this.logger.error(e);
+                }
             }
             setTimeout(async () => {
                 // call dbMonitor service to get dbContent
@@ -308,6 +313,7 @@ export class Analyzer {
  * This class records database changes in each state of transaction
  */
 export interface TransactionLog {
+    parent: string | null,
     hash: string,
     states: {
         [LogicalTxState.CREATED]: TransactionStateLog | null,

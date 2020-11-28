@@ -3,8 +3,10 @@
  */
 import {DarcherServer, EthmonitorController} from "./service";
 import {
+    ConsoleErrorMsg,
     ContractVulReport,
-    SelectTxControlMsg, TxErrorMsg,
+    SelectTxControlMsg,
+    TxErrorMsg,
     TxFinishedMsg,
     TxReceivedMsg,
     TxState,
@@ -26,12 +28,14 @@ export class Darcher {
     private readonly config: Config;
     private readonly logger: Logger;
     private readonly logDir: string;
+    private readonly consoleErrorLog: string;
 
     private readonly server: DarcherServer;
     private readonly traceStore: TraceStore;
 
     private readonly analyzers: { [txHash: string]: Analyzer } = {};
     private currentAnalyzer: Analyzer | null;
+    private currentChildAnalazers: Analyzer[] | null; // the analyzers created during current analyzer is being processed
 
     // ethmonitorControllerService handler
     private readonly ethmonitorController: EthmonitorController;
@@ -45,6 +49,7 @@ export class Darcher {
         this.server = new DarcherServer(this.logger, config.analyzer.grpcPort, config.analyzer.wsPort);
         this.analyzers = {};
         this.currentAnalyzer = null;
+        this.currentChildAnalazers = null;
         this.ethmonitorController = <EthmonitorController>{
             onTxReceived: this.onTxReceived.bind(this),
             selectTxToTraverse: this.selectTxToTraverse.bind(this),
@@ -55,7 +60,9 @@ export class Darcher {
             onContractVulnerability: this.onContractVulnerability.bind(this),
             onTxError: this.onTxError.bind(this),
         }
-        this.dappTestDriverHandler = <DappTestDriverServiceHandler>{};
+        this.dappTestDriverHandler = <DappTestDriverServiceHandler>{
+            onConsoleError: this.onConsoleError.bind(this),
+        };
         const now = new Date();
         if (config.logDir) {
             this.logDir = config.logDir;
@@ -65,9 +72,10 @@ export class Darcher {
                 `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`,
             );
         }
+        this.consoleErrorLog = path.join(this.logDir, "console-errors.log");
         this.logger.info(`Transaction states log will be stored in ${this.logDir}`);
         if (!existsSync(this.logDir)) {
-            mkdirSync(this.logDir, {recursive: true})
+            mkdirSync(this.logDir, {recursive: true});
         }
     }
 
@@ -99,9 +107,10 @@ export class Darcher {
 
     /* darcher controller handlers start */
     private async onTxReceived(msg: TxReceivedMsg): Promise<void> {
-        this.logger.debug("Transaction received", {"tx": msg.getHash()});
         // new tx, initialize analyzer for it
-        this.analyzers[msg.getHash()] = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService);
+        const parentHash = this.currentAnalyzer?.txHash;
+        this.logger.debug("Transaction received", {"tx": msg.getHash(), parent: parentHash});
+        this.analyzers[msg.getHash()] = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService, parentHash)
     }
 
     private async onTxStateChange(msg: TxStateChangeMsg) {
@@ -130,7 +139,13 @@ export class Darcher {
     private async onTxFinished(msg: TxFinishedMsg) {
         if (msg.getHash() in this.analyzers) {
             await this.analyzers[msg.getHash()].onTxFinished(msg);
-            this.currentAnalyzer = null;
+            // we set current Analyzer 1 sec later, in case some transactions comes as a child of current transaction
+            setTimeout(() => {
+                if (msg.getHash() === this.currentAnalyzer.txHash) {
+                    this.currentAnalyzer = null;
+                }
+            }, 1000);
+
             // save transaction state log
             fs.writeFileSync(
                 path.join(this.logDir, `${msg.getHash()}.json`),
@@ -144,7 +159,7 @@ export class Darcher {
     }
 
     private async selectTxToTraverse(msg: SelectTxControlMsg): Promise<string> {
-        if (this.currentAnalyzer) {
+        if (this.currentAnalyzer && !this.currentAnalyzer.finished) {
             if (msg.getCandidateHashesList().includes(this.currentAnalyzer.txHash)) {
                 this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(this.currentAnalyzer.txHash)});
                 return this.currentAnalyzer.txHash;
@@ -159,9 +174,11 @@ export class Darcher {
         } else {
             // no current analyzer, select from pending analyzers
             for (const tx in this.analyzers) {
-                if (!this.analyzers[tx].finished && msg.getCandidateHashesList().includes(tx)) {
+                const analyzer = this.analyzers[tx];
+                if (!analyzer.finished && msg.getCandidateHashesList().includes(tx)) {
                     this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(tx)});
-                    this.loadAnalyzer(this.analyzers[tx]);
+                    this.loadAnalyzer(analyzer);
+                    this.currentAnalyzer = analyzer;
                     return tx;
                 }
             }
@@ -224,11 +241,20 @@ export class Darcher {
         }
     }
 
+    private async onConsoleError(msg: ConsoleErrorMsg) {
+        this.logger.debug("Get console error", {err: msg.getErrorString()});
+        // save to console error log
+        fs.appendFileSync(this.consoleErrorLog, msg.getErrorString() + "\n");
+
+        if (this.currentAnalyzer && !this.currentAnalyzer.finished) {
+            await this.currentAnalyzer.onConsoleError(msg);
+        }
+    }
+
     private loadAnalyzer(analyzer: Analyzer) {
         // register dapp test driver handlers
         this.dappTestDriverHandler.onTestStart = analyzer.onTestStart.bind(analyzer);
         this.dappTestDriverHandler.onTestEnd = analyzer.onTestEnd.bind(analyzer);
-        this.dappTestDriverHandler.onConsoleError = analyzer.onConsoleError.bind(analyzer);
         this.dappTestDriverHandler.waitForTxProcess = async msg1 => {
             this.logger.debug(
                 `DApp waiting for Transaction process`,
