@@ -12,10 +12,15 @@ export default async function clearIndexedDB(logger: Logger, driver: WebDriver, 
         await driver.executeScript(`indexedDB.deleteDatabase("${dbname}")`);
         logger.info("Clearing IndexedDB...", {dbname: dbname});
     }
-    await driver.wait(async () => {
-        const dbs: { name: string }[] = await driver.executeScript("return await indexedDB.databases()");
-        return !dbs.some(value => dbNames.includes(value.name));
-    });
+    try {
+        await driver.wait(async () => {
+            const dbs: { name: string }[] = await driver.executeScript("return await indexedDB.databases()");
+            return !dbs.some(value => dbNames.includes(value.name));
+        }, 1000);
+    }catch (e){
+        logger.warn("Clearing indexedDB seems failed")
+    }
+
     await driver.close();
     await driver.switchTo().window(current);
 };
