@@ -129,10 +129,12 @@ export class TerminalWindow {
             }
         } else if (osType === "Linux") {
             // Linux // TODO currently only support ubuntu
+            let first = true;
             const gnomeCmd = new Command("gnome-terminal");
             for (const tab of this.tabs) {
-                if (tab.w) {
+                if (first || tab.w) {
                     gnomeCmd.append("--window");
+                    first = false;
                 } else {
                     gnomeCmd.append("--tab");
                 }
