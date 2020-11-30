@@ -108,10 +108,10 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                     }
                     // send trace to server
                     const trace = {
-                        hash: argArray[1],
+                        hash: typeof argArray[1] === "string" ? argArray[1] : argArray[1].result,
                         stack: traceCache.stack,
                     } as SendTransactionTrace;
-                    logger.info("Transaction trace", {hash: prettifyHash(trace.hash), stack: trace.stack})
+                    logger.info("Transaction trace", {hash: trace.hash, stack: trace.stack})
                     if (isBrowser) {
                         const ws = new WebSocket(`ws://localhost:1236`);
                         ws.onopen = () => {
