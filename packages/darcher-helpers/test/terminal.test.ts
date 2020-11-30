@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {Command, executeInNewTab, Tab, TerminalWindow} from "../src";
+import {Command, Tab, TerminalWindow} from "../src";
 
 describe("terminal Commands", () => {
     it('should append success', function () {

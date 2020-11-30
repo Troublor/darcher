@@ -1,8 +1,8 @@
 /*
 This module defines helpers for uses of terminal, including execute commands in new terminal tab and so on.
  */
-import {spawn} from "child_process";
 import * as shell from "shelljs";
+import * as os from "os";
 
 export class Command {
     // multiple cmds will be joined with &&
@@ -105,7 +105,7 @@ export class Tab {
 }
 
 export class TerminalWindow {
-    private tabs: Tab[];
+    private readonly tabs: Tab[];
 
     constructor(...tabs: Tab[]) {
         this.tabs = [...tabs];
@@ -117,12 +117,36 @@ export class TerminalWindow {
 
     // open the terminal window
     public open() {
-        let first = true;
-        // only open the first tab in new window
-        for (let tab of this.tabs) {
-            tab.w = first;
-            tab.open();
-            first = false;
+        const osType = os.type();
+        if (osType === "Darwin") {
+            // MacOS
+            let first = true;
+            // only open the first tab in new window
+            for (let tab of this.tabs) {
+                tab.w = first;
+                tab.open();
+                first = false;
+            }
+        } else if (osType === "Linux") {
+            // Linux // TODO currently only support ubuntu
+            const gnomeCmd = new Command("gnome-terminal");
+            for (const tab of this.tabs) {
+                if (tab.w) {
+                    gnomeCmd.append("--window");
+                } else {
+                    gnomeCmd.append("--tab");
+                }
+                if (tab.title) {
+                    gnomeCmd.append(`--title="${tab.title}"`);
+                }
+                if (tab.pwd) {
+                    gnomeCmd.append(`--working-directory="${tab.pwd}"`);
+                }
+                gnomeCmd.append(`--command="${tab.cmd.toString()}"`);
+            }
+            shell.exec(gnomeCmd.toString());
+        } else {
+            console.error(`Cannot open terminal in system: ${osType}`);
         }
     }
 }
@@ -134,18 +158,37 @@ export class TerminalWindow {
  * @param w whether to open tab in a new window
  * @param d working direction of the command
  */
-export function executeInNewTab(cmd: Command, w: boolean = false, d: string = undefined, tabTitle: string = undefined) {
-    // TODO implement if ttab is not available, e.g. Linux platform
-    let c = new Command("ttab");
-    c.append("-a iTerm2");
-    if (w) {
-        c.append("-w");
+function executeInNewTab(cmd: Command, w: boolean = false, d: string = undefined, tabTitle: string = undefined) {
+    const osType = os.type();
+    if (osType === "Darwin") {
+        let c = new Command("ttab");
+        c.append("-a iTerm2");
+        if (w) {
+            c.append("-w");
+        }
+        if (d !== undefined) {
+            c.append(`-d '${d}'`);
+        }
+        if (tabTitle !== undefined) {
+            c.append(`-t ${tabTitle}`);
+        }
+        shell.exec(`${c.toString()} ${cmd.toString()}`);
+    } else if (osType === "Linux") {
+        const gnomeCmd = new Command("gnome-terminal");
+        if (w) {
+            gnomeCmd.append("--window");
+        } else {
+            gnomeCmd.append("--tab");
+        }
+        if (tabTitle) {
+            gnomeCmd.append(`--title="${tabTitle}"`);
+        }
+        if (d) {
+            gnomeCmd.append(`--working-directory="${d}"`);
+        }
+        gnomeCmd.append(`--command="${cmd.toString()}"`);
+        shell.exec(gnomeCmd.toString());
+    } else {
+        console.error(`Cannot open terminal in system: ${osType}`);
     }
-    if (d !== undefined) {
-        c.append(`-d '${d}'`);
-    }
-    if (tabTitle !== undefined) {
-        c.append(`-t ${tabTitle}`);
-    }
-    shell.exec(`${c.toString()} ${cmd.toString()}`);
 }
