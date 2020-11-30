@@ -43,7 +43,7 @@
     "typescript": "^3.9.6"
   },
   "optionalDependencies": {
-    "ttab": "^0.6.1"
+    "ttab": "^0.7.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",

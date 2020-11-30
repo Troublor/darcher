@@ -37,3 +37,17 @@ Address: `0x1AADAa0620e0306156d8aF95E56b92e48eF1e6b8`
 ## Others
 
 MetaMask Home must be in `Activity` tab, so that Crawljax can continue the crawl after a transaction is sent, since after a transaction is sent, the Home page will be set in `Activity` tab.
+
+## Inpage web3
+
+Metamaks provides in page web3 which uses web3 `v0.20`. 
+
+It should be instrumented at `node_modules/@metamask/inpage-provider/src/MetamaskInpageProvider.js`,
+`_rpcRequest` method:
+```javascript
+const {
+traceSendAsync
+} = require("./trace-instrument");
+
+cb = traceSendAsync(payload.method, payload.params, cb);
+```

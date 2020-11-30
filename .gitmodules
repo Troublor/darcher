@@ -28,3 +28,6 @@
 [submodule "packages/darcher-examples/MetaMask/metamask-extension"]
 	path = packages/darcher-examples/MetaMask/metamask-extension
 	url = git@github.com:Troublor/metamask-extension.git
+[submodule "packages/darcher-examples/lordsofthesnails/lordsofthesnails"]
+	path = packages/darcher-examples/lordsofthesnails/lordsofthesnails
+	url = git@github.com:Troublor/lordsofthesnails.git
