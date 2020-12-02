@@ -24,6 +24,7 @@ export interface ClusterConfig {
 export interface AnalyzerConfig {
     grpcPort: number,
     wsPort: number,
+    txStateChangeProcessTime?: number // in milliseconds
 }
 
 export enum DBOptions {
