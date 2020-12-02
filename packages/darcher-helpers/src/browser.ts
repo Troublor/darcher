@@ -4,8 +4,14 @@ import {Builder, By, until, WebDriver} from "selenium-webdriver";
 import {Logger} from "./log";
 import * as path from "path";
 import {sleep} from "./utility";
-
-const pathToWebDriver = path.join(__dirname, "..", "webdriver");
+import * as os from "os";
+const osType = os.type();
+let pathToWebDriver = "";
+if (osType === "Linux") {
+    pathToWebDriver = path.join(__dirname, "..", "webdriver", "linux");
+}else if (osType === "Darwin") {
+    pathToWebDriver = path.join(__dirname, "..", "webdriver", "macos");
+}
 if (!process.env.PATH.includes(pathToWebDriver)) {
     process.env.PATH += `:${pathToWebDriver}`;
 }
