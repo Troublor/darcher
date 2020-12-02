@@ -2,7 +2,7 @@ import {Config} from "@darcher/config";
 import {loadConfig} from "@darcher/helpers";
 import * as path from "path";
 import * as child_process from "child_process";
-import {startCluster} from "./local";
+import {startCluster} from "./start-blockchain";
 import {mainAccountAddress} from "./config/lordsofthesnails.config";
 import * as fs from "fs";
 import * as parser from "@babel/parser";

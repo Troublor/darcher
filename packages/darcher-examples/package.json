@@ -28,7 +28,8 @@
     "lordsofthesnails:docker:build": "ts-node ./lordsofthesnails/scripts/build_docker.ts",
     "lordsofthesnails:docker:start": "ts-node ./lordsofthesnails/scripts/start-docker.ts",
     "lordsofthesnails:docker:stop": "ts-node ./lordsofthesnails/scripts/stop-docker.ts",
-    "lordsofthesnails:start-dapp": "ts-node ./lordsofthesnails/scripts/start-dapp.ts"
+    "lordsofthesnails:start-dapp": "ts-node ./lordsofthesnails/scripts/start-dapp.ts",
+    "lordsofthesnails:start-experiment": "ts-node ./lordsofthesnails/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",

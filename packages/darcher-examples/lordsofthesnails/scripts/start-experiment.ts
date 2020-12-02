@@ -11,14 +11,14 @@ import {stopDocker} from "./stop-docker";
 if (require.main === module) {
     (async () => {
         const logger = new Logger("LordsofthesnailsExperiment", "debug");
-        const config = await loadConfig(path.join(__dirname, "config", "Lordsofthesnails.config.ts"));
+        const config = await loadConfig(path.join(__dirname, "config", "lordsofthesnails.config.ts"));
         const mainClass: string = "LordsofthesnailsExperiment";
-        const timeBudget: number = 30  // in second
-        const numRounds: number = 5;
-        const metamaskHomeUrl = "chrome-extension://jbppcachblnkaogkgacckpgohjbpcekf/home.html";
+        const timeBudget: number = 3600  // in second
+        const numRounds: number = 3;
+        const metamaskHomeUrl = "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html";
         const metamaskPassword = "12345678";
         const chromeDebugPort = 9222;
-        const userDir = "/Users/troublor/workspace/darcher_mics/browsers/Chrome/UserData";
+        const userDir = "/home/troublor/workspace/darcher_misc/browsers/Chrome/UserData";
 
         const browser = new Browser(logger, chromeDebugPort, userDir);
         await browser.start();
@@ -42,7 +42,7 @@ if (require.main === module) {
             logger.info("Clearing MetaMask data...");
             await new MetaMask(logger, browser.driver, metamaskHomeUrl, metamaskPassword)
                 .changeNetwork("Localhost 8545")
-                .changeAccount("Lordsofthenails")
+                .changeAccount("Lordsofthesnails")
                 .resetAccount()
                 .do();
 
