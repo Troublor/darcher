@@ -108,6 +108,7 @@ class Master {
                     type: MsgType.REQUEST,
                     requestType: "html",
                     elements: msg.elements,
+                    js: msg.js,
                 };
                 const resp = await this.getDAppState(msg.address, requestMsg);
                 return DBContent.deserializeBinary(resp);
@@ -196,19 +197,35 @@ class Master {
                     if (controlMsg.getDbName().toLowerCase() === "html") {
                         // we use "html" as a special indication of use html mode to fetch DApp state
                         // the config for html mode is delivered in ControlMsg.Data
-                        let elements;
+                        let payload: string;
                         if (typeof controlMsg.getData() === "string") {
-                            elements = JSON.parse(controlMsg.getData() as string);
+                            payload = controlMsg.getData() as string;
                         } else {
                             // bytes array (Uint8Array)
-                            const payload = new TextDecoder("utf-8").decode(controlMsg.getData() as Uint8Array);
-                            elements = JSON.parse(payload);
+                            payload = new TextDecoder("utf-8").decode(controlMsg.getData() as Uint8Array);
                         }
-                        requestMsg = {
-                            type: MsgType.REQUEST,
-                            requestType: "html",
-                            elements: elements,
-                        };
+                        try {
+                            if (payload.trim().startsWith("[")) {
+                                const elements = JSON.parse(payload);
+                                requestMsg = {
+                                    type: MsgType.REQUEST,
+                                    requestType: "html",
+                                    elements: elements,
+                                };
+                            } else {
+                                requestMsg = {
+                                    type: MsgType.REQUEST,
+                                    requestType: "html",
+                                    js: payload,
+                                };
+                            }
+                        } catch (e) {
+                            requestMsg = {
+                                type: MsgType.REQUEST,
+                                requestType: "html",
+                                js: payload,
+                            };
+                        }
                     } else {
                         // indexedDB mode
                         requestMsg = {

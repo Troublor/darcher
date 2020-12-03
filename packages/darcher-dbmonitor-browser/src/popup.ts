@@ -79,6 +79,7 @@ $(function () {
                     testType: "fetch-html",
                     address: config.address,
                     elements: (config as HtmlModeConfig).elements,
+                    js: (config as HtmlModeConfig).js,
                 }
 
                 notifier.show("Fetching...");
