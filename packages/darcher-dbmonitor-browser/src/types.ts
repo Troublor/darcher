@@ -15,6 +15,7 @@ export interface RequestMsg {
 
     // html type fields
     elements?: { name: string, xpath: string }[]
+    js?: string
 }
 
 // sent from popup to background for test purposes
@@ -24,7 +25,8 @@ export interface TestMsg {
 
     address?: string
     // "fetch-html" type fields
-    elements?: { name: string, xpath: string }[]
+    elements?: { name: string, xpath?: string }[]
+    js?: string;
 }
 
 
@@ -117,5 +119,6 @@ export interface Config {
 
 export interface HtmlModeConfig extends Config {
     mode: "html",
-    elements: { name: string, xpath: string }[]
+    elements?: { name: string, xpath: string }[]
+    js?: string;
 }

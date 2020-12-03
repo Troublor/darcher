@@ -40,6 +40,7 @@ export interface DBMonitorConfig {
     dbAddress: string
     // only used in html mode DApp state
     elements?: { name: string, xpath: string }[]
+    js: string,
 }
 
 export interface Config {

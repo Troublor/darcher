@@ -49,19 +49,30 @@ class DAppStateFetcher {
                 return response;
             case "html":
                 const elements = msg.elements;
-                if (elements === undefined) {
-                    return undefined;
+                const js = msg.js;
+                if (elements === undefined && js === undefined) {
+                    return new DBContent().serializeBinary();
                 }
-                const result = {};
-                elements.forEach(value => {
-                    result[value.name] = DAppStateFetcher.getHtmlElementValue(value.xpath);
-                });
-                const tableContent = new TableContent();
-                tableContent.setKeypathList([])
-                    .addEntries(JSON.stringify(result));
                 dbContent = new DBContent();
-                dbContent.getTablesMap()
-                    .set("html", tableContent);
+                if (elements) {
+                    const result = {};
+                    elements.forEach(value => {
+                        result[value.name] = DAppStateFetcher.getHtmlElementValue(value.xpath);
+                    });
+                    const tableContent = new TableContent();
+                    tableContent.setKeypathList([])
+                        .addEntries(JSON.stringify(result));
+                    dbContent.getTablesMap()
+                        .set("elements", tableContent);
+                }
+                if (js) {
+                    const result = JSON.parse(eval(js));
+                    const tableContent = new TableContent();
+                    tableContent.setKeypathList([])
+                        .addEntries(JSON.stringify(result));
+                    dbContent.getTablesMap()
+                        .set("js", tableContent);
+                }
                 return dbContent.serializeBinary();
             default:
                 return undefined;

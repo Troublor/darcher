@@ -288,7 +288,11 @@ export class Analyzer {
                 try {
                     let data = undefined;
                     if (this.config.dbMonitor.db === DBOptions.html) {
-                        data = JSON.stringify(this.config.dbMonitor.elements);
+                        if (this.config.dbMonitor.js) {
+                            data = this.config.dbMonitor.js;
+                        } else if (this.config.dbMonitor.elements) {
+                            data = JSON.stringify(this.config.dbMonitor.elements);
+                        }
                     }
                     let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName, data);
                     this.logger.debug("GetAllData", {
