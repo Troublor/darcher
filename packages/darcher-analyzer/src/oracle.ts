@@ -100,6 +100,9 @@ export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Repo
 
     for (const s of [LogicalTxState.CREATED, LogicalTxState.PENDING, LogicalTxState.EXECUTED, LogicalTxState.REMOVED, LogicalTxState.REEXECUTED, LogicalTxState.CONFIRMED]) {
         const state = log.states[s];
+        if (!state) {
+            continue;
+        }
         oracle.onTxState(
             s,
             loadDBContent(state.dbContent),
@@ -139,27 +142,41 @@ export class DBChangeOracle implements Oracle {
     getBugReports(): Report[] {
         let reports: Report[] = [];
         // we will consider DBContent at CREATED state to be the base-line
-        let base: DBContent = this.contentMap[LogicalTxState.CREATED];
+        let created: DBContent = this.contentMap[LogicalTxState.CREATED];
         let pending: DBContent = this.contentMap[LogicalTxState.PENDING];
         let confirmed: DBContent = this.contentMap[LogicalTxState.CONFIRMED];
-        let createdConfirmedDiff: DBContentDiff = new DBContentDiff(base, confirmed, this.filter);
-        let pendingConfirmedDiff: DBContentDiff = new DBContentDiff(pending, confirmed, this.filter);
-        if (!createdConfirmedDiff.zero() && !pendingConfirmedDiff.zero()) {
-            // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
-            reports.push(new UnreliableTxHashReport(
-                this.txHash,
-                LogicalTxState.PENDING,
-                pendingConfirmedDiff,
-            ))
-        }
         let removed: DBContent = this.contentMap[LogicalTxState.REMOVED];
-        let removedDiff = new DBContentDiff(pending, removed, this.filter);
-        if (!removedDiff.zero()) {
+        let createdConfirmedDiff: DBContentDiff = new DBContentDiff(created, confirmed, this.filter);
+        let removedConfirmedDiff: DBContentDiff = new DBContentDiff(removed, confirmed, this.filter)
+        let pendingRemovedDiff = new DBContentDiff(pending, removed, this.filter);
+        let pendingConfirmedDiff: DBContentDiff = new DBContentDiff(pending, confirmed, this.filter);
+        if (!createdConfirmedDiff.zero()) {
+            if (pendingConfirmedDiff.zero()) {
+                // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
+                reports.push(new UnreliableTxHashReport(
+                    this.txHash,
+                    LogicalTxState.PENDING,
+                    pendingConfirmedDiff,
+                ));
+            }
+
+            // this may induce FP when removed tx is not handled
+            // if (removedConfirmedDiff.zero()) {
+            //     // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
+            //     reports.push(new UnreliableTxHashReport(
+            //         this.txHash,
+            //         LogicalTxState.REMOVED,
+            //         removedConfirmedDiff,
+            //     ));
+            // }
+        }
+
+        if (!pendingRemovedDiff.zero()) {
             // DBContent in tx pending state should be equal to that in tx removed state (High).
             reports.push(new DataInconsistencyReport(
                 this.txHash,
                 LogicalTxState.REMOVED,
-                removedDiff,
+                pendingRemovedDiff,
             ))
         }
         return reports;
@@ -247,7 +264,7 @@ class DataInconsistencyReport implements Report {
 
 }
 
-export type FieldPathSet = (string | RegExp)[][] | string[];
+export type FieldPathSet = ((string | RegExp)[] | string)[];
 
 export interface TableContentDiffFilter {
     // specify the fields needed to compare in DBContents, if not specified, compare all
@@ -258,6 +275,8 @@ export interface TableContentDiffFilter {
 }
 
 export interface DBContentDiffFilter {
+    "*"?: TableContentDiffFilter,
+
     [tableName: string]: TableContentDiffFilter;
 }
 
@@ -275,7 +294,7 @@ export class DBContentDiff {
     constructor(from: DBContent, to: DBContent, filter: DBContentDiffFilter = {}) {
         this.from = from;
         this.to = to;
-        this.filter = filter;
+        this.filter = _.cloneDeep(filter);
         this.calDiff();
     }
 
@@ -290,7 +309,32 @@ export class DBContentDiff {
                 return;
             }
             let toTable = this.to.getTablesMap().get(tableName);
-            this._tableDiffs[tableName] = new TableContentDiff(tableName, fromTable, toTable, this.filter[tableName]);
+
+            // handle wildcard rules
+            let tableFilter: TableContentDiffFilter | undefined = this.filter[tableName];
+            if (this.filter["*"]) {
+                const filterForAll = this.filter["*"];
+                if (tableFilter) {
+                    if (filterForAll.excludes) {
+                        if (tableFilter.excludes) {
+                            tableFilter.excludes.push(...filterForAll.excludes);
+                        } else {
+                            tableFilter.excludes = filterForAll.excludes;
+                        }
+                    }
+                    if (filterForAll.includes) {
+                        if (tableFilter.includes) {
+                            tableFilter.includes.push(...filterForAll.includes);
+                        } else {
+                            tableFilter.includes = filterForAll.includes;
+                        }
+                    }
+                } else {
+                    tableFilter = filterForAll;
+                }
+            }
+
+            this._tableDiffs[tableName] = new TableContentDiff(tableName, fromTable, toTable, tableFilter);
         });
     }
 

@@ -31,6 +31,16 @@ export enum LogicalTxState {
     REEXECUTED,
 }
 
+export const allLogicalTxStates = [
+    LogicalTxState.CREATED,
+    LogicalTxState.PENDING,
+    LogicalTxState.EXECUTED,
+    LogicalTxState.DROPPED,
+    LogicalTxState.CONFIRMED,
+    LogicalTxState.REMOVED,
+    LogicalTxState.REEXECUTED,
+]
+
 export function isEqualState(s: TxState, ls: LogicalTxState): boolean {
     if (<number>s === <number>ls) {
         return true;
