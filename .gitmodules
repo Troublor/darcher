@@ -31,3 +31,6 @@
 [submodule "packages/darcher-examples/lordsofthesnails/lordsofthesnails"]
 	path = packages/darcher-examples/lordsofthesnails/lordsofthesnails
 	url = git@github.com:Troublor/lordsofthesnails.git
+[submodule "packages/darcher-examples/truffle-voting-dapp/truffle-voting-dapp"]
+	path = packages/darcher-examples/truffle-voting-dapp/truffle-voting-dapp
+	url = git@github.com:Troublor/truffle-voting-dapp.git

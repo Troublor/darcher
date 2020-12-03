@@ -29,7 +29,17 @@
     "lordsofthesnails:docker:start": "ts-node ./lordsofthesnails/scripts/start-docker.ts",
     "lordsofthesnails:docker:stop": "ts-node ./lordsofthesnails/scripts/stop-docker.ts",
     "lordsofthesnails:start-dapp": "ts-node ./lordsofthesnails/scripts/start-dapp.ts",
-    "lordsofthesnails:start-experiment": "ts-node ./lordsofthesnails/scripts/start-experiment.ts"
+    "lordsofthesnails:start-experiment": "ts-node ./lordsofthesnails/scripts/start-experiment.ts",
+    "eth-hot-wallet:docker:build": "ts-node ./eth-hot-wallet/scripts/build_docker.ts",
+    "eth-hot-wallet:docker:start": "ts-node ./eth-hot-wallet/scripts/start-docker.ts",
+    "eth-hot-wallet:docker:stop": "ts-node ./eth-hot-wallet/scripts/stop-docker.ts",
+    "eth-hot-wallet:start-dapp": "ts-node ./eth-hot-wallet/scripts/start-dapp.ts",
+    "eth-hot-wallet:start-experiment": "ts-node ./eth-hot-wallet/scripts/start-experiment.ts",
+    "truffle-voting-dapp:docker:build": "ts-node ./truffle-voting-dapp/scripts/build_docker.ts",
+    "truffle-voting-dapp:docker:start": "ts-node ./truffle-voting-dapp/scripts/start-docker.ts",
+    "truffle-voting-dapp:docker:stop": "ts-node ./truffle-voting-dapp/scripts/stop-docker.ts",
+    "truffle-voting-dapp:start-dapp": "ts-node ./truffle-voting-dapp/scripts/start-dapp.ts",
+    "truffle-voting-dapp:start-experiment": "ts-node ./truffle-voting-dapp/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
@@ -37,6 +47,7 @@
     "@babel/parser": "^7.12.7",
     "@babel/traverse": "^7.12.9",
     "@babel/types": "^7.12.7",
+    "@openzeppelin/cli": "^2.8.2",
     "@openzeppelin/gsn-helpers": "^0.2.4",
     "chrome-debugging-client": "^2.0.0",
     "chrome-remote-interface": "^0.28.2",
