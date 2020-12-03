@@ -120,7 +120,7 @@ export class BlockchainCluster {
         cmdDoer.append(`--nodiscover`);
         cmdDoer.append(`--ipcdisable`);
         if (this.config.httpPort) {
-            cmdDoer.append(`--http -http.api admin,miner,eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
+            cmdDoer.append(`--http -http.api web3,admin,miner,eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
         }
         if (this.config.wsPort) {
             cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
@@ -276,7 +276,7 @@ export class BlockchainCluster {
         cmdDoer.append(`--nodiscover`);
         cmdDoer.append(`--ipcdisable`);
         if (this.config.httpPort) {
-            cmdDoer.append(`--http -http.api eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
+            cmdDoer.append(`--http -http.api web3,eth,txpool,net --http.port ${this.config.httpPort} --http.corsdomain='*'`);
         }
         if (this.config.wsPort) {
             cmdDoer.append(`--ws --wsport ${this.config.wsPort} --wsorigins "*"`);
