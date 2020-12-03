@@ -263,6 +263,27 @@ export class Darcher {
                 }
             );
             await analyzer.waitForTxProcess(msg1);
+
+            const waitForChildTxProcess = async (parentHash: string) => {
+                for (const childHash in this.analyzers) {
+                    const analyzer = this.analyzers[childHash];
+                    if (analyzer.parentHash === parentHash) {
+                        this.logger.debug("Waiting for child transaction process", {
+                            child: prettifyHash(childHash),
+                            parent: prettifyHash(parentHash)
+                        });
+                        // the argument of analyzer.waitForTxProcess is not used, so it is safe to pass null
+                        await analyzer.waitForTxProcess(null);
+                        await waitForChildTxProcess(childHash);
+                        this.logger.debug("Child transaction process complete", {
+                            child: prettifyHash(childHash),
+                            parent: prettifyHash(parentHash)
+                        });
+                    }
+                }
+            }
+            await waitForChildTxProcess(msg1.getHash());
+
             this.logger.debug(
                 `Transaction process complete, resume DApp`,
                 {

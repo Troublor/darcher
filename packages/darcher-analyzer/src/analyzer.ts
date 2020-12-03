@@ -68,6 +68,9 @@ export class Analyzer {
     private readonly logger: Logger;
     public readonly txHash: string;
     private txState: LogicalTxState;
+    public readonly parentHash: string;
+
+    private _finished: boolean;
 
     /**
      * A log used for offline analysis
@@ -92,6 +95,8 @@ export class Analyzer {
         this.config = config;
         this.logger = logger;
         this.txHash = txHash;
+        this._finished = false;
+        this.parentHash = parentHash;
         this.dappStateUpdateTimeLimit = config.analyzer.txStateChangeProcessTime ? config.analyzer.txStateChangeProcessTime : 15000;
         this.dbMonitorService = dbmonitorService;
         this.txState = LogicalTxState.CREATED;
@@ -143,6 +148,9 @@ export class Analyzer {
         }
         await this.applyOracles(this.txState);
         this.stateEmitter.emit($enum(LogicalTxState).getKeyOrThrow(this.txState), this.txState);
+        if (this.txState === LogicalTxState.CONFIRMED || this.txState === LogicalTxState.DROPPED) {
+            this._finished = true;
+        }
     }
 
     public async onTxTraverseStart(msg: TxTraverseStartMsg): Promise<void> {
@@ -223,6 +231,9 @@ export class Analyzer {
      */
     public async waitForTxProcess(msg: TxMsg): Promise<void> {
         return new Promise<void>(resolve => {
+            if (this.finished) {
+                resolve();
+            }
             // only resolve the promise when stateEmitter has emitted LogicalTxState.CONFIRMED
             // at this time tx lifecycle traverse should finished
             this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), () => resolve());
@@ -309,7 +320,7 @@ export class Analyzer {
     }
 
     get finished(): boolean {
-        return this.txState === LogicalTxState.CONFIRMED;
+        return this._finished;
     }
 }
 
