@@ -39,7 +39,12 @@
     "truffle-voting-dapp:docker:start": "ts-node ./truffle-voting-dapp/scripts/start-docker.ts",
     "truffle-voting-dapp:docker:stop": "ts-node ./truffle-voting-dapp/scripts/stop-docker.ts",
     "truffle-voting-dapp:start-dapp": "ts-node ./truffle-voting-dapp/scripts/start-dapp.ts",
-    "truffle-voting-dapp:start-experiment": "ts-node ./truffle-voting-dapp/scripts/start-experiment.ts"
+    "truffle-voting-dapp:start-experiment": "ts-node ./truffle-voting-dapp/scripts/start-experiment.ts",
+    "etheroll:docker:build": "ts-node ./etheroll/scripts/build_docker.ts",
+    "etheroll:docker:start": "ts-node ./etheroll/scripts/start-docker.ts",
+    "etheroll:docker:stop": "ts-node ./etheroll/scripts/stop-docker.ts",
+    "etheroll:start-dapp": "ts-node ./etheroll/scripts/start-dapp.ts",
+    "etheroll:start-experiment": "ts-node ./etheroll/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
@@ -49,12 +54,15 @@
     "@babel/types": "^7.12.7",
     "@openzeppelin/cli": "^2.8.2",
     "@openzeppelin/gsn-helpers": "^0.2.4",
+    "bn.js": "^5.1.3",
     "chrome-debugging-client": "^2.0.0",
     "chrome-remote-interface": "^0.28.2",
+    "ethereum-bridge": "^0.6.2",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "shelljs": "^0.8.4",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.6",
+    "web3": "^1.3.0"
   },
   "devDependencies": {
     "@types/selenium-webdriver": "^4.0.10",
