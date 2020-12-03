@@ -14,7 +14,7 @@ if (require.main === module) {
         const logger = new Logger("AugurExperiment", "debug");
         const config = await loadConfig(path.join(__dirname, "config", "augur.config.ts"));
         const mainClass: string = "AugurExperiment";
-        const timeBudget: number = 30  // in second
+        const timeBudget: number =3600  // in second
         const numRounds: number = 5;
         const metamaskHomeUrl = "chrome-extension://jbppcachblnkaogkgacckpgohjbpcekf/home.html";
         const metamaskPassword = "12345678";
