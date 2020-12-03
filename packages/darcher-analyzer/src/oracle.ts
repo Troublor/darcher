@@ -100,6 +100,9 @@ export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Repo
 
     for (const s of [LogicalTxState.CREATED, LogicalTxState.PENDING, LogicalTxState.EXECUTED, LogicalTxState.REMOVED, LogicalTxState.REEXECUTED, LogicalTxState.CONFIRMED]) {
         const state = log.states[s];
+        if (!state) {
+            continue;
+        }
         oracle.onTxState(
             s,
             loadDBContent(state.dbContent),
@@ -156,14 +159,16 @@ export class DBChangeOracle implements Oracle {
                     pendingConfirmedDiff,
                 ));
             }
-            if (removedConfirmedDiff.zero()) {
-                // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
-                reports.push(new UnreliableTxHashReport(
-                    this.txHash,
-                    LogicalTxState.REMOVED,
-                    removedConfirmedDiff,
-                ));
-            }
+
+            // this may induce FP when removed tx is not handled
+            // if (removedConfirmedDiff.zero()) {
+            //     // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
+            //     reports.push(new UnreliableTxHashReport(
+            //         this.txHash,
+            //         LogicalTxState.REMOVED,
+            //         removedConfirmedDiff,
+            //     ));
+            // }
         }
 
         if (!pendingRemovedDiff.zero()) {
