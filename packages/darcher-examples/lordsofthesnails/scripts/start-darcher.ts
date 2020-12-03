@@ -37,7 +37,7 @@ export class DarcherService implements Service {
 if (require.main === module) {
     (async () => {
         const logger = new Logger("LordsofthesnailsExperiment", "debug");
-        const config = await loadConfig(path.join(__dirname, "config", "Lordsofthesnails.config.ts"));
+        const config = await loadConfig(path.join(__dirname, "config", "lordsofthesnails.config.ts"));
         const service = new DarcherService(logger, config);
         try {
             await service.start();

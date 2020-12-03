@@ -39,7 +39,7 @@ export class DarcherServer extends Server implements Service {
         this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
         this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
         this.addService<IDAppTestDriverServiceServer>(DAppTestDriverServiceService, this._dappTestDriverService);
-        let addr = `localhost:${this.grpcPort}`;
+        let addr = `0.0.0.0:${this.grpcPort}`;
         this.bind(addr, ServerCredentials.createInsecure());
     }
 

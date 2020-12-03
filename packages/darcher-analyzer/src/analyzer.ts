@@ -92,6 +92,7 @@ export class Analyzer {
         this.config = config;
         this.logger = logger;
         this.txHash = txHash;
+        this.dappStateUpdateTimeLimit = config.analyzer.txStateChangeProcessTime ? config.analyzer.txStateChangeProcessTime : 15000;
         this.dbMonitorService = dbmonitorService;
         this.txState = LogicalTxState.CREATED;
         this.stateEmitter = new EventEmitter();
@@ -251,11 +252,14 @@ export class Analyzer {
                 waitTime = 500;
             } else {
                 waitTime = this.dappStateUpdateTimeLimit;
-                try {
-                    this.logger.debug("Refreshing page...");
-                    await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
-                } catch (e) {
-                    this.logger.error(e);
+                if (this.config.dbMonitor.dbName !== "html") {
+                    // only refresh page when db is not html
+                    try {
+                        this.logger.debug("Refreshing page...");
+                        await this.dbMonitorService.refreshPage(this.config.dbMonitor.dbAddress);
+                    } catch (e) {
+                        this.logger.error(e);
+                    }
                 }
             }
             setTimeout(async () => {

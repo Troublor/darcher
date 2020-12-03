@@ -7,11 +7,46 @@ export default <Config>{
     analyzer: {
         grpcPort: 1234,
         wsPort: 1235,
+        txStateChangeProcessTime: 5000,
     },
     dbMonitor: {
         db: DBOptions.html,
         dbName: "html",
         dbAddress: "localhost:8888",
+        elements: [
+            {
+                "name": "leaderegg",
+                "xpath": "//*[@id='leaderegg']"
+            },
+            {
+                "name": "gameactive",
+                "xpath": "//*[@id='gameactive']"
+            },
+            {
+                "name": "playerbalance",
+                "xpath": "//*[@id='playerbalance']"
+            },
+            {
+                "name": "playeregg",
+                "xpath": "//*[@id='playeregg']"
+            },
+            {
+                "name": "snailpot",
+                "xpath": "//*[@id='snailpot']"
+            },
+            {
+                "name": "thronepot",
+                "xpath": "//*[@id='thronepot']"
+            },
+            {
+                "name": "contractbalance",
+                "xpath": "//*[@id='contractbalance']"
+            },
+            {
+                "name": "roundpot",
+                "xpath": "//*[@id='roundpot']"
+            },
+        ]
     },
     clusters: [
         <ClusterConfig>{
