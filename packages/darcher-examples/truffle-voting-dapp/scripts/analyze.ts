@@ -18,7 +18,7 @@ interface TransactionAnalysis {
 
 const dbFilter: DBContentDiffFilter = {}
 
-const dataDir = path.join(__dirname, "..", "data", "truffle-voting-dapp0", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "truffle-voting-dapp4", "transactions");
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
     if (file.includes("console-errors") ||

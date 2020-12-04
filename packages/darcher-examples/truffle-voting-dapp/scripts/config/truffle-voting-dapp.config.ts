@@ -12,12 +12,25 @@ export default <Config>{
         db: DBOptions.html,
         dbName: "html",
         dbAddress: "localhost:3000",
-        elements:[
-            {
-                name: "proposals",
-                xpath: "//*[@id=\"wrapperProposals\"]",
-            }
-        ]
+        js: `
+let rows = document.evaluate("//*[@id='wrapperProposals']/div[@class='row']", document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+let row = rows.iterateNext();
+let data = [];
+while(row){
+    let title = row.getElementsByTagName("h3")[0].textContent;
+    let proposalData = "";
+    let contents = row.getElementsByTagName("p");
+    for (const content of contents){
+        proposalData += content.textContent + " ";
+    }
+    data.push({
+        "title": title,
+        "content": proposalData
+    })
+    row = rows.iterateNext()
+}
+JSON.stringify(data);
+`,
     },
     clusters: [
         <ClusterConfig>{

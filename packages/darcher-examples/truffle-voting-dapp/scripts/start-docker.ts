@@ -42,7 +42,7 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
 }
 
 if (require.main === module) {
-    startDocker(logger, "darcher").then(async () => {
+    startDocker(logger, "console").then(async () => {
 
     });
 }
