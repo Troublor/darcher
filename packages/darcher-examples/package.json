@@ -44,7 +44,12 @@
     "etheroll:docker:start": "ts-node ./etheroll/scripts/start-docker.ts",
     "etheroll:docker:stop": "ts-node ./etheroll/scripts/stop-docker.ts",
     "etheroll:start-dapp": "ts-node ./etheroll/scripts/start-dapp.ts",
-    "etheroll:start-experiment": "ts-node ./etheroll/scripts/start-experiment.ts"
+    "etheroll:start-experiment": "ts-node ./etheroll/scripts/start-experiment.ts",
+    "multisender:docker:build": "ts-node ./multisender/scripts/build_docker.ts",
+    "multisender:docker:start": "ts-node ./multisender/scripts/start-docker.ts",
+    "multisender:docker:stop": "ts-node ./multisender/scripts/stop-docker.ts",
+    "multisender:start-dapp": "ts-node ./multisender/scripts/start-dapp.ts",
+    "multisender:start-experiment": "ts-node ./multisender/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
