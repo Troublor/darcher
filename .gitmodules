@@ -37,3 +37,6 @@
 [submodule "packages/darcher-examples/etheroll/etheroll"]
 	path = packages/darcher-examples/etheroll/etheroll
 	url = git@github.com:Troublor/etheroll.git
+[submodule "packages/darcher-examples/heiswap/heiswap"]
+	path = packages/darcher-examples/heiswap/heiswap
+	url = git@github.com:Troublor/heiswap-dapp.git
