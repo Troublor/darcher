@@ -8,7 +8,7 @@ export default <Config>{
     analyzer: {
         grpcPort: 1234,
         wsPort: 1235,
-        txStateChangeProcessTime: 10000,
+        txStateChangeProcessTime: 15000,
     },
     dbMonitor: {
         db: DBOptions.html,

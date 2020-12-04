@@ -7,7 +7,7 @@ import {ConsoleErrorOracle, ContractVulnerabilityOracle, Oracle, TxErrorOracle} 
 
 const dbFilter: DBContentDiffFilter = {}
 
-const dataDir = path.join(__dirname, "..", "data", "Etheroll4", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "Etheroll7", "transactions");
 
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
@@ -26,8 +26,8 @@ logs.forEach(log => {
     const oracles: object[] = [
         new DBChangeOracle(log.hash, dbFilter),
         // new ConsoleErrorOracle(log.hash),
-        // new TxErrorOracle(log.hash),
-        // new ContractVulnerabilityOracle(log.hash),
+        new TxErrorOracle(log.hash),
+        new ContractVulnerabilityOracle(log.hash),
     ];
     oracles.forEach(oracle => reports.push(...analyzeTransactionLog(oracle as Oracle, log)));
     analysisSet.push({
