@@ -1,49 +1,79 @@
 import {analyzeTransactionLog, DBChangeOracle, DBContentDiffFilter, Report} from "@darcher/analyzer/src/oracle";
-import {TransactionLog} from "@darcher/analyzer/src";
+import {LogicalTxState, TransactionLog} from "@darcher/analyzer/src";
 import * as fs from "fs";
 import * as path from "path";
 import * as _ from "lodash";
-import {ConsoleErrorOracle, ContractVulnerabilityOracle, Oracle, TxErrorOracle} from "@darcher/analyzer";
+import {
+    allLogicalTxStates,
+    ConsoleErrorOracle,
+    ContractVulnerabilityOracle,
+    Oracle,
+    TxErrorOracle
+} from "@darcher/analyzer";
 
-const dbFilter: DBContentDiffFilter = {
-    "storage": {
-        includes: [
-            "data.NetworkController",
-            "data.CachedBalancesController",
-            "data.IncomingTransactionsController",
-            "data.TransactionController",
-        ],
-        excludes: [
-            ["data", "IncomingTransactionsController", "incomingTransactions", /.*/, "blockNumber"],
-            ["data", "IncomingTransactionsController", "incomingTransactions", /.*/, "time"],
-            ["data", "IncomingTransactionsController", "incomingTxLastFetchedBlocksByNetwork"],
-            ["data", "TransactionController", "transactions", /.*/, "time"],
-            ["data", "TransactionController", "transactions", /.*/, "history"],
-            ["data", "TransactionController", "transactions", /.*/, "submittedTime"],
-            ["data", "TransactionController", "transactions", /.*/, "txReceipt", "blockHash"],
-            ["data", "TransactionController", "transactions", /.*/, "txReceipt", "blockNumber"],
-        ]
-    }
+interface TransactionAnalysis {
+    log: TransactionLog,
+    reports: Report[],
 }
 
-const dataDir = "/Users/troublor/workspace/darcher/packages/darcher-examples/MetaMask/data/2020-11-11=19:9:50";
+const dbFilter: DBContentDiffFilter = {}
+
+const dataDir = path.join(__dirname, "..", "data", "heiswap4", "transactions");
 let logs: TransactionLog[] = [];
-const uniqueReports: Report[] = [];
 for (const file of fs.readdirSync(dataDir)) {
+    if (file.includes("console-errors") ||
+        file.includes("DS_Store")) {
+        continue;
+    }
     console.log("Analyze", file);
     const logContent = fs.readFileSync(path.join(dataDir, file));
     const log = JSON.parse(logContent.toString()) as TransactionLog;
     logs.push(log);
 }
 
-logs = logs.filter((value, index) => index === 0 || !logs.filter(v => v !== value).some(v => v.stack.toString() === value.stack.toString()));
+
+const analysisSet: TransactionAnalysis[] = [];
 logs.forEach(log => {
+    // filter out irrelevant runtime errors
+    for (const state of allLogicalTxStates) {
+        const stateData = log.states[state]
+        if (!stateData) {
+            continue;
+        }
+        stateData.consoleErrors = stateData.consoleErrors
+            .filter(value => !value.errorString.includes("chrome-extension"))
+            .filter(value => !value.errorString.includes("https://sentry.io"))
+            .filter(valle => !valle.errorString.includes("chromeextension"));
+    }
+
+    const reports: Report[] = [];
     const oracles: object[] = [
-        new DBChangeOracle(log.hash, dbFilter),
-        new ConsoleErrorOracle(log.hash),
-        new TxErrorOracle(log.hash),
+        // new DBChangeOracle(log.hash, dbFilter),
+        // new ConsoleErrorOracle(log.hash),
+        // new TxErrorOracle(log.hash),
         new ContractVulnerabilityOracle(log.hash),
     ];
-    oracles.forEach(oracle => uniqueReports.push(...analyzeTransactionLog(oracle as Oracle, log)))
+    console.info("Processing", log.hash)
+    if (log.hash.startsWith("0x893")) {
+        return;
+    }
+    oracles.forEach(oracle => reports.push(...analyzeTransactionLog(oracle as Oracle, log)));
+    analysisSet.push({
+        log: log,
+        reports: reports,
+    })
 });
-console.log(uniqueReports)
+
+// filter duplicate
+const transactionGroups = _.groupBy(analysisSet, analysis => analysis.log.stack.join("\n"));
+console.log(transactionGroups);
+
+// check total runtime error
+const data: string = fs.readFileSync(path.join(dataDir, "console-errors.log"), {encoding: "utf-8"});
+const totalRuntimeErrors = data.split("\n")
+    .filter(value => !value.includes("chrome-extension"))
+    .filter(value => !value.includes("https://sentry.io"))
+    .filter(value => !value.includes("favicon.ico"))
+    .filter(value => value.length > 0)
+    .filter(value => !value.includes("chromeextension"));
+console.log(totalRuntimeErrors);
