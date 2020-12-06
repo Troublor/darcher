@@ -44,7 +44,12 @@
     "etheroll:docker:start": "ts-node ./etheroll/scripts/start-docker.ts",
     "etheroll:docker:stop": "ts-node ./etheroll/scripts/stop-docker.ts",
     "etheroll:start-dapp": "ts-node ./etheroll/scripts/start-dapp.ts",
-    "etheroll:start-experiment": "ts-node ./etheroll/scripts/start-experiment.ts"
+    "etheroll:start-experiment": "ts-node ./etheroll/scripts/start-experiment.ts",
+    "heiswap:docker:build": "ts-node ./heiswap/scripts/build_docker.ts",
+    "heiswap:docker:start": "ts-node ./heiswap/scripts/start-docker.ts",
+    "heiswap:docker:stop": "ts-node ./heiswap/scripts/stop-docker.ts",
+    "heiswap:start-dapp": "ts-node ./heiswap/scripts/start-dapp.ts",
+    "heiswap:start-experiment": "ts-node ./heiswap/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
