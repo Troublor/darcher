@@ -1,6 +1,9 @@
 import * as path from "path";
 import {AnalyzerConfig, ClusterConfig, Config, ControllerOptions, DBMonitorConfig, DBOptions} from "@darcher/config";
 
+export const mainAccountAddress = "0xb294b3B36F720303Fff5A7ABB93043aBFBb6a79D";
+export const WETHAddress = "0x6EBA8B9Af20154077B862bAa4649e69F00654F0B";
+
 const blockchainDir = path.join(__dirname, "..", "..", "blockchain");
 
 export const clusterConfig: ClusterConfig = {

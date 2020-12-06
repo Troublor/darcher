@@ -1,16 +1,27 @@
-import {BlockchainCluster, loadConfig, Logger, sleep} from "@darcher/helpers";
+import {Config} from "@darcher/config";
+import {loadConfig} from "@darcher/helpers";
 import * as path from "path";
+import * as child_process from "child_process";
+import {startCluster} from "./start-blockchain";
+import {mainAccountAddress} from "./config/metamask.config";
 
-loadConfig(path.join(__dirname, "config", "metamask.config.ts")).then(async config => {
-    let cluster = new BlockchainCluster(config.clusters[0]);
-    cluster.reset();
-    try {
-        await cluster.deploy(false);
-        await sleep(2000);
-        console.info("[Success] Blockchain configured");
-    } catch (e) {
-        console.log(e);
-    } finally {
-        await cluster.stop();
-    }
-});
+async function deploy(config: Config) {
+    const cluster = await startCluster(config, true);
+
+    // deploy contracts
+    child_process.spawnSync(
+        path.join(__dirname, "..", "..", "node_modules", ".bin", "truffle"),
+        ["migrate", "--reset", "--network", "development"], {
+            cwd: path.join(__dirname, "..", "contracts"),
+            stdio: "inherit"
+        });
+
+    await cluster.stop();
+}
+
+if (require.main === module) {
+    loadConfig(path.join(__dirname, "config", "metamask.config.ts")).then(async config => {
+        await deploy(config);
+    });
+}
+
