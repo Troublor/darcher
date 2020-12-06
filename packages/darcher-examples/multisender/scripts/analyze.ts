@@ -18,7 +18,7 @@ interface TransactionAnalysis {
 
 const dbFilter: DBContentDiffFilter = {}
 
-const dataDir = path.join(__dirname, "..", "data", "truffle-voting-dapp4", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "multisender2", "transactions");
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
     if (file.includes("console-errors") ||
@@ -42,7 +42,8 @@ logs.forEach(log => {
         }
         stateData.consoleErrors = stateData.consoleErrors
             .filter(value => !value.errorString.includes("chrome-extension"))
-            .filter(value => !value.errorString.includes("https://sentry.io"));
+            .filter(value => !value.errorString.includes("https://sentry.io"))
+            .filter(value => !value.errorString.includes("chromeextension"));
     }
 
     const reports: Report[] = [];
@@ -72,6 +73,8 @@ const data: string = fs.readFileSync(path.join(dataDir, "console-errors.log"), {
 const totalRuntimeErrors = data.split("\n")
     .filter(value => !value.includes("chrome-extension"))
     .filter(value => !value.includes("https://sentry.io"))
-    .filter(value => !value.includes("favicon.ico"))
-    .filter(value => value.length > 0);
+    .filter(value => !value.includes("favicon"))
+    .filter(value => value.length > 0)
+    .filter(value => !value.includes("chromeextension"))
+    .filter(value => value.includes("localhost:3000"));
 console.log(totalRuntimeErrors);
