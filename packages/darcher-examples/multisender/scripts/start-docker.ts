@@ -5,7 +5,7 @@ import * as child_process from "child_process";
 import * as fs from "fs";
 import {Config} from "@darcher/config";
 
-const logger: Logger = new Logger("start_augur");
+const logger: Logger = new Logger("multisender");
 
 export interface AddressFormatting {
     lower?: boolean;
