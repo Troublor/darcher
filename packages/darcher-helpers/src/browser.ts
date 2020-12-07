@@ -5,11 +5,12 @@ import {Logger} from "./log";
 import * as path from "path";
 import {sleep} from "./utility";
 import * as os from "os";
+
 const osType = os.type();
 let pathToWebDriver = "";
 if (osType === "Linux") {
     pathToWebDriver = path.join(__dirname, "..", "webdriver", "linux");
-}else if (osType === "Darwin") {
+} else if (osType === "Darwin") {
     pathToWebDriver = path.join(__dirname, "..", "webdriver", "macos");
 }
 if (!process.env.PATH.includes(pathToWebDriver)) {
@@ -187,9 +188,26 @@ export class MetaMask {
             const passwordInput = await this.driver.findElement(By.id("password"));
             await passwordInput.sendKeys(this.password);
             await unlockButton.click();
-            await this.driver.wait(until.elementLocated(By.className("main-container")));
         } catch (e) {
         }
+
+        await this.driver.wait(async () => {
+            try {
+                const main = await this.driver.findElement(By.className("main-container"));
+                if (main) {
+                    return true;
+                }
+            } catch (e) {
+            }
+            try {
+                const reject = await this.driver.findElement(By.xpath("//BUTTON[@data-testid='page-container-footer-cancel']"));
+                if (reject) {
+                    await reject.click();
+                }
+            } catch (e) {
+            }
+            return false;
+        });
 
         for (const task of this.taskQueue) {
             await task();
@@ -203,13 +221,13 @@ export class MetaMask {
 if (require.main === module) {
     (async () => {
         const logger = new Logger("Browser", "debug");
-        const browser = new Browser(logger, 9222, "/Users/troublor/workspace/darcher_mics/browsers/Chrome/UserData");
-        await browser.start();
-        // const driver = await getWebDriver("127.0.0.1:9222");
-        // const metamask = new MetaMask(logger, driver, "chrome-extension://jbppcachblnkaogkgacckpgohjbpcekf/home.html", "12345678")
-        // await metamask.changeAccount("Account 1")
-        //     .changeNetwork("Rinkeby")
-        //     .resetAccount()
-        //     .do();
+        // const browser = new Browser(logger, 9222, "/Users/troublor/workspace/darcher_mics/browsers/Chrome/UserData");
+        // await browser.start();
+        const driver = await getWebDriver("127.0.0.1:9222");
+        const metamask = new MetaMask(logger, driver, "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html", "12345678")
+        await metamask.changeAccount("Account 1")
+            .changeNetwork("Rinkeby")
+            .resetAccount()
+            .do();
     })()
 }
