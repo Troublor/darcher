@@ -46,3 +46,6 @@
 [submodule "packages/darcher-examples/LotteryDApp/Lottery-DApp"]
 	path = packages/darcher-examples/LotteryDApp/Lottery-DApp
 	url = git@github.com:Troublor/Lottery-DApp.git
+[submodule "packages/darcher-examples/Auction/Auction"]
+	path = packages/darcher-examples/Auction/Auction
+	url = git@github.com:Troublor/Auction.git
