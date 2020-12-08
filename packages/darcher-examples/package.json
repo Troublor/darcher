@@ -61,7 +61,12 @@
     "lottery-dapp:docker:start": "ts-node ./LotteryDApp/scripts/start-docker.ts",
     "lottery-dapp:docker:stop": "ts-node ./LotteryDApp/scripts/stop-docker.ts",
     "lottery-dapp:start-dapp": "ts-node ./LotteryDApp/scripts/start-dapp.ts",
-    "lottery-dapp:start-experiment": "ts-node ./LotteryDApp/scripts/start-experiment.ts"
+    "lottery-dapp:start-experiment": "ts-node ./LotteryDApp/scripts/start-experiment.ts",
+    "auction:docker:build": "ts-node ./Auction/scripts/build_docker.ts",
+    "auction:docker:start": "ts-node ./Auction/scripts/start-docker.ts",
+    "auction:docker:stop": "ts-node ./Auction/scripts/stop-docker.ts",
+    "auction:start-dapp": "ts-node ./Auction/scripts/start-dapp.ts",
+    "auction:start-experiment": "ts-node ./Auction/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
@@ -81,8 +86,7 @@
     "truffle": "^5.1.56",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
-    "web3": "^1.3.0",
-    "truffle": "^5.1.56"
+    "web3": "^1.3.0"
   },
   "devDependencies": {
     "@types/selenium-webdriver": "^4.0.10",
