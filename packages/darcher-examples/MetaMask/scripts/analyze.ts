@@ -18,7 +18,7 @@ interface TransactionAnalysis {
 
 const dbFilter: DBContentDiffFilter = {}
 
-const dataDir = path.join(__dirname, "..", "data", "heiswap4", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "metamask4", "transactions");
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
     if (file.includes("console-errors") ||
@@ -48,9 +48,9 @@ logs.forEach(log => {
 
     const reports: Report[] = [];
     const oracles: object[] = [
-        // new DBChangeOracle(log.hash, dbFilter),
-        // new ConsoleErrorOracle(log.hash),
-        // new TxErrorOracle(log.hash),
+        new DBChangeOracle(log.hash, dbFilter),
+        new ConsoleErrorOracle(log.hash),
+        new TxErrorOracle(log.hash),
         new ContractVulnerabilityOracle(log.hash),
     ];
     console.info("Processing", log.hash)
@@ -65,7 +65,7 @@ logs.forEach(log => {
 });
 
 // filter duplicate
-const transactionGroups = _.groupBy(analysisSet, analysis => analysis.log.stack.join("\n"));
+const transactionGroups = _.groupBy(analysisSet, analysis => analysis.log.stack?.join("\n"));
 console.log(transactionGroups);
 
 // check total runtime error

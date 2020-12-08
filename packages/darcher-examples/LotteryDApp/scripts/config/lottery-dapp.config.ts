@@ -11,7 +11,25 @@ export default <Config>{
     dbMonitor: {
         db: DBOptions.html,
         dbName: "html",
-        dbAddress: "localhost:3000",
+        dbAddress: "localhost:8080",
+        elements: [
+            {
+                name: "user-balance",
+                xpath: "//*[@id=\"user-balance\"]",
+            },
+            {
+                name: "user-guesses",
+                xpath: "//*[@id=\"user-guesses\"]",
+            },
+            {
+                name: "user-tokens",
+                xpath: "//*[@id=\"user-tokens\"]",
+            },
+            {
+                name: "contract-balance",
+                xpath: "//*[@id=\"contract-balance\"]",
+            },
+        ]
     },
     clusters: [
         <ClusterConfig>{
