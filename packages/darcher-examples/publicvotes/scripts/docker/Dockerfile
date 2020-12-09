@@ -9,7 +9,7 @@ COPY ./scripts/docker /
 COPY ./blockchain /blockchain
 COPY ./publicvotes /publicvotes
 
-RUN chmod +x start_blockchain.sh start_doer.sh start_talker.sh start_ethmonitor.sh start_dapp.sh
+RUN chmod +x start_blockchain.sh start_doer.sh start_talker.sh start_ethmonitor.sh
 
 EXPOSE 8545 8546 8547 30303 30303/udp 8989
 

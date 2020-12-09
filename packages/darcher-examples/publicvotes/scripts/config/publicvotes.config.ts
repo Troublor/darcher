@@ -10,15 +10,9 @@ export default <Config>{
         txStateChangeProcessTime: 15000,
     },
     dbMonitor: {
-        db: DBOptions.html,
-        dbName: "html",
-        dbAddress: "localhost:3000",
-        elements: [
-            {
-                name: "status",
-                xpath: "//*[@id=\"root\"]/div/div/div[1]/div[2]/div/div[3]/div/div/div/div/div[1]"
-            },
-        ]
+        db: DBOptions.mongoDB,
+        dbName: "meteor",
+        dbAddress: "mongodb://localhost:3001",
     },
     clusters: [
         <ClusterConfig>{

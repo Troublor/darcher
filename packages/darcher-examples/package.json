@@ -66,7 +66,12 @@
     "auction:docker:start": "ts-node ./Auction/scripts/start-docker.ts",
     "auction:docker:stop": "ts-node ./Auction/scripts/stop-docker.ts",
     "auction:start-dapp": "ts-node ./Auction/scripts/start-dapp.ts",
-    "auction:start-experiment": "ts-node ./Auction/scripts/start-experiment.ts"
+    "auction:start-experiment": "ts-node ./Auction/scripts/start-experiment.ts",
+    "publicvotes:docker:build": "ts-node ./publicvotes/scripts/build_docker.ts",
+    "publicvotes:docker:start": "ts-node ./publicvotes/scripts/start-docker.ts",
+    "publicvotes:docker:stop": "ts-node ./publicvotes/scripts/stop-docker.ts",
+    "publicvotes:start-dapp": "ts-node ./publicvotes/scripts/start-dapp.ts",
+    "publicvotes:start-experiment": "ts-node ./publicvotes/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",

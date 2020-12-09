@@ -16,9 +16,13 @@ interface TransactionAnalysis {
     reports: Report[],
 }
 
-const dbFilter: DBContentDiffFilter = {}
+const dbFilter: DBContentDiffFilter = {
+    "system.indexes": {
+        includes: []
+    },
+}
 
-const dataDir = path.join(__dirname, "..", "data", "heiswap4", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "publicvotes0", "transactions");
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
     if (file.includes("console-errors") ||
@@ -50,12 +54,12 @@ logs.forEach(log => {
     const oracles: object[] = [
         // new DBChangeOracle(log.hash, dbFilter),
         // new ConsoleErrorOracle(log.hash),
-        // new TxErrorOracle(log.hash),
+        new TxErrorOracle(log.hash),
         new ContractVulnerabilityOracle(log.hash),
     ];
     console.info("Processing", log.hash)
-    if (log.hash.startsWith("0x893")) {
-        return;
+    if (log.hash.startsWith("0x1e8")) {
+        console.log();
     }
     oracles.forEach(oracle => reports.push(...analyzeTransactionLog(oracle as Oracle, log)));
     analysisSet.push({

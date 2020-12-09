@@ -483,12 +483,12 @@ export class TableRecord {
             return false;
         }
         for (let key of this.keyPath) {
-            if (this.data[key] === undefined || another.data[key] === undefined) {
-                // this branch should not happen, because key must be set
-                return false;
-            }
+            // if (this.data[key] === undefined || another.filteredData[key] === undefined) {
+            //     // this branch should not happen, because key must be set
+            //     return false;
+            // }
             // all key must be the same
-            if (!_.isEqual(this.data[key], another.data[key])) {
+            if (!_.isEqual(this.data[key], another.filteredData[key])) {
                 return false;
             }
         }
