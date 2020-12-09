@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  ethmonitor:
+    image: darcher/ethereum-voting-base:latest
+    entrypoint: ["/bin/sh", "start_ethmonitor.sh"]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-deploy}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  doer:
+    image: darcher/ethereum-voting-base:latest
+    entrypoint: ["/bin/sh", "start_doer.sh"]
+    stop_signal: SIGINT
+    environment:
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "8547:8547"
+      - "30303:30303"
+      - "30303:30303/udp"
+
+  talker:
+    image: darcher/ethereum-voting-base:latest
+    entrypoint: ["/bin/sh", "start_talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:doer
+    environment:
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3

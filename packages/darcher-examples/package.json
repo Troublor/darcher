@@ -71,7 +71,17 @@
     "publicvotes:docker:start": "ts-node ./publicvotes/scripts/start-docker.ts",
     "publicvotes:docker:stop": "ts-node ./publicvotes/scripts/stop-docker.ts",
     "publicvotes:start-dapp": "ts-node ./publicvotes/scripts/start-dapp.ts",
-    "publicvotes:start-experiment": "ts-node ./publicvotes/scripts/start-experiment.ts"
+    "publicvotes:start-experiment": "ts-node ./publicvotes/scripts/start-experiment.ts",
+    "ethereum-voting:docker:build": "ts-node ./ethereum-voting/scripts/build_docker.ts",
+    "ethereum-voting:docker:start": "ts-node ./ethereum-voting/scripts/start-docker.ts",
+    "ethereum-voting:docker:stop": "ts-node ./ethereum-voting/scripts/stop-docker.ts",
+    "ethereum-voting:start-dapp": "ts-node ./ethereum-voting/scripts/start-dapp.ts",
+    "ethereum-voting:start-experiment": "ts-node ./ethereum-voting/scripts/start-experiment.ts",
+    "metacoin:docker:build": "ts-node ./react-ethereum-metacoin/scripts/build_docker.ts",
+    "metacoin:docker:start": "ts-node ./react-ethereum-metacoin/scripts/start-docker.ts",
+    "metacoin:docker:stop": "ts-node ./react-ethereum-metacoin/scripts/stop-docker.ts",
+    "metacoin:start-dapp": "ts-node ./react-ethereum-metacoin/scripts/start-dapp.ts",
+    "metacoin:start-experiment": "ts-node ./react-ethereum-metacoin/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
