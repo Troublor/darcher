@@ -52,6 +52,9 @@
 [submodule "packages/darcher-examples/Auction/Auction"]
 	path = packages/darcher-examples/Auction/Auction
 	url = git@github.com:Troublor/Auction.git
+[submodule "packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp"]
+	path = packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp
+	url = git@github.com:Troublor/ethereum_voting_dapp.git
 [submodule "packages/darcher-examples/ethereum-voting/ethereum-voting"]
 	path = packages/darcher-examples/ethereum-voting/ethereum-voting
 	url = git@github.com:Troublor/ethereum-voting.git
