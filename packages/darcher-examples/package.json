@@ -81,7 +81,12 @@
     "metacoin:docker:start": "ts-node ./react-ethereum-metacoin/scripts/start-docker.ts",
     "metacoin:docker:stop": "ts-node ./react-ethereum-metacoin/scripts/stop-docker.ts",
     "metacoin:start-dapp": "ts-node ./react-ethereum-metacoin/scripts/start-dapp.ts",
-    "metacoin:start-experiment": "ts-node ./react-ethereum-metacoin/scripts/start-experiment.ts"
+    "metacoin:start-experiment": "ts-node ./react-ethereum-metacoin/scripts/start-experiment.ts",
+    "note_dapp:docker:build": "ts-node ./note_dapp/scripts/build_docker.ts",
+    "note_dapp:docker:start": "ts-node ./note_dapp/scripts/start-docker.ts",
+    "note_dapp:docker:stop": "ts-node ./note_dapp/scripts/stop-docker.ts",
+    "note_dapp:start-dapp": "ts-node ./note_dapp/scripts/start-dapp.ts",
+    "note_dapp:start-experiment": "ts-node ./note_dapp/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
