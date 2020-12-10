@@ -67,3 +67,6 @@
 [submodule "packages/darcher-examples/eth-hot-wallet/eth-hot-wallet"]
 	path = packages/darcher-examples/eth-hot-wallet/eth-hot-wallet
 	url = git@github.com:Troublor/eth-hot-wallet.git
+[submodule "packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp"]
+	path = packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp
+	url = git@github.com:Troublor/ethereum_voting_dapp.git
