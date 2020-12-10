@@ -66,7 +66,12 @@
     "auction:docker:start": "ts-node ./Auction/scripts/start-docker.ts",
     "auction:docker:stop": "ts-node ./Auction/scripts/stop-docker.ts",
     "auction:start-dapp": "ts-node ./Auction/scripts/start-dapp.ts",
-    "auction:start-experiment": "ts-node ./Auction/scripts/start-experiment.ts"
+    "auction:start-experiment": "ts-node ./Auction/scripts/start-experiment.ts",
+    "ethereum-voting-dapp:docker:build": "ts-node ./ethereum_voting_dapp/scripts/build_docker.ts",
+    "ethereum-voting-dapp:docker:start": "ts-node ./ethereum_voting_dapp/scripts/start-docker.ts",
+    "ethereum-voting-dapp:docker:stop": "ts-node ./ethereum_voting_dapp/scripts/stop-docker.ts",
+    "ethereum-voting-dapp:start-dapp": "ts-node ./ethereum_voting_dapp/scripts/start-dapp.ts",
+    "ethereum-voting-dapp:start-experiment": "ts-node ./ethereum_voting_dapp/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
