@@ -6,7 +6,6 @@ import DBMonitor from "@darcher/dbmonitor";
 
 export class DarcherService implements Service {
     private darcher: Darcher;
-    private dbMonitor: DBMonitor
 
     constructor(
         private readonly logger: Logger,
@@ -17,7 +16,6 @@ export class DarcherService implements Service {
 
     async shutdown(): Promise<void> {
         await this.darcher.shutdown();
-        await this.dbMonitor.shutdown();
     }
 
     async start(): Promise<void> {
@@ -27,10 +25,8 @@ export class DarcherService implements Service {
         }
 
         this.darcher = new Darcher(this.logger, this.config);
-        this.dbMonitor = new DBMonitor(this.logger, this.config);
         // start darcher
         await this.darcher.start();
-        await this.dbMonitor.start();
     }
 
     async waitForEstablishment(): Promise<void> {
@@ -42,7 +38,7 @@ export class DarcherService implements Service {
 if (require.main === module) {
     (async () => {
         const logger = new Logger("Experiment", "debug");
-        const config = await loadConfig(path.join(__dirname, "config", "publicvotes.config.ts"));
+        const config = await loadConfig(path.join(__dirname, "config", "react-ethereum-metacoin.config.ts"));
         const service = new DarcherService(logger, config);
         try {
             await service.start();

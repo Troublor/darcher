@@ -1,13 +1,12 @@
 FROM darcher/ethash:latest
 
-# context path should be publicvote
+# context path should be react-ethereum-metacoin
 
 COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/ethmonitor /usr/local/bin/
 COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/geth /usr/local/bin/
 
 COPY ./scripts/docker /
 COPY ./blockchain /blockchain
-COPY ./publicvotes /publicvotes
 
 RUN chmod +x start_blockchain.sh start_doer.sh start_talker.sh start_ethmonitor.sh
 
