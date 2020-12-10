@@ -72,7 +72,6 @@
     "ethereum-voting-dapp:docker:stop": "ts-node ./ethereum_voting_dapp/scripts/stop-docker.ts",
     "ethereum-voting-dapp:start-dapp": "ts-node ./ethereum_voting_dapp/scripts/start-dapp.ts",
     "ethereum-voting-dapp:start-experiment": "ts-node ./ethereum_voting_dapp/scripts/start-experiment.ts",
-    "auction:start-experiment": "ts-node ./Auction/scripts/start-experiment.ts",
     "publicvotes:docker:build": "ts-node ./publicvotes/scripts/build_docker.ts",
     "publicvotes:docker:start": "ts-node ./publicvotes/scripts/start-docker.ts",
     "publicvotes:docker:stop": "ts-node ./publicvotes/scripts/stop-docker.ts",
