@@ -22,7 +22,7 @@ const dbFilter: DBContentDiffFilter = {
     },
 }
 
-const dataDir = path.join(__dirname, "..", "data", "metacoin0", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "note_dapp4", "transactions");
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
     if (file.includes("console-errors") ||
@@ -52,14 +52,14 @@ logs.forEach(log => {
 
     const reports: Report[] = [];
     const oracles: object[] = [
-        new DBChangeOracle(log.hash, dbFilter),
-        // new ConsoleErrorOracle(log.hash),
-        // new TxErrorOracle(log.hash),
-        // new ContractVulnerabilityOracle(log.hash),
+        // new DBChangeOracle(log.hash, dbFilter),
+        new ConsoleErrorOracle(log.hash),
+        new TxErrorOracle(log.hash),
+        new ContractVulnerabilityOracle(log.hash),
     ];
     console.info("Processing", log.hash)
-    if (log.hash.startsWith("0x1e8")) {
-        console.log();
+    if (log.hash.startsWith("0x6157")) {
+        return
     }
     oracles.forEach(oracle => reports.push(...analyzeTransactionLog(oracle as Oracle, log)));
     analysisSet.push({
