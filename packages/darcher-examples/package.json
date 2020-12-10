@@ -86,7 +86,12 @@
     "note_dapp:docker:start": "ts-node ./note_dapp/scripts/start-docker.ts",
     "note_dapp:docker:stop": "ts-node ./note_dapp/scripts/stop-docker.ts",
     "note_dapp:start-dapp": "ts-node ./note_dapp/scripts/start-dapp.ts",
-    "note_dapp:start-experiment": "ts-node ./note_dapp/scripts/start-experiment.ts"
+    "note_dapp:start-experiment": "ts-node ./note_dapp/scripts/start-experiment.ts",
+    "mastering-ethereum-auction-dapp:docker:build": "ts-node ./mastering-ethereum-auction-dapp/scripts/build_docker.ts",
+    "mastering-ethereum-auction-dapp:docker:start": "ts-node ./mastering-ethereum-auction-dapp/scripts/start-docker.ts",
+    "mastering-ethereum-auction-dapp:docker:stop": "ts-node ./mastering-ethereum-auction-dapp/scripts/stop-docker.ts",
+    "mastering-ethereum-auction-dapp:start-dapp": "ts-node ./mastering-ethereum-auction-dapp/scripts/start-dapp.ts",
+    "mastering-ethereum-auction-dapp:start-experiment": "ts-node ./mastering-ethereum-auction-dapp/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",

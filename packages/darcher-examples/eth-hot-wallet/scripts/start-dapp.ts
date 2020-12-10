@@ -7,13 +7,13 @@ async function start_dapp(): Promise<child_process.ChildProcess> {
         "yarn",
         ["start"],{
             stdio:"inherit",
-            cwd: path.join(__dirname, "..", "lordsofthesnails"),
+            cwd: path.join(__dirname, "..", "eth-hot-wallet"),
         }
     )
 }
 
 if (require.main === module) {
-    loadConfig(path.join(__dirname, "config", "lordsofthesnails.config.ts")).then(async config => {
+    loadConfig(path.join(__dirname, "config", "eth-hot-wallet.config.ts")).then(async config => {
         await start_dapp();
     });
 }

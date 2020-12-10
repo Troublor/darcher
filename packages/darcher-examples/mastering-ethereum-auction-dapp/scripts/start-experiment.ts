@@ -6,13 +6,14 @@ import {startDocker} from "./start-docker";
 import * as child_process from "child_process";
 import * as fs from "fs";
 import {stopDocker} from "./stop-docker";
+import {start} from "./dapp";
 
 
 if (require.main === module) {
     (async () => {
-        const logger = new Logger("EthHotWalletExperiment", "debug");
-        const config = await loadConfig(path.join(__dirname, "config", "eth-hot-wallet.config.ts"));
-        const mainClass: string = "EthHotWalletExperiment";
+        const logger = new Logger("NoteDAppExperiment", "debug");
+        const config = await loadConfig(path.join(__dirname, "config", "note_dapp.config.ts"));
+        const mainClass: string = "NoteDAppExperiment";
         const timeBudget: number = 3600  // in second
         const numRounds: number = 5;
         const metamaskHomeUrl = "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html";

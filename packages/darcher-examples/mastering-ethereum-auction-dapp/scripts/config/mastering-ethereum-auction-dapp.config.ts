@@ -7,21 +7,23 @@ export default <Config>{
     analyzer: {
         grpcPort: 1234,
         wsPort: 1235,
+        txStateChangeProcessTime: 15000,
     },
     dbMonitor: {
         db: DBOptions.html,
         dbName: "html",
-        dbAddress: "localhost:3001",
-        elements: [
-            {
-                name: "balance",
-                xpath: "//*[@id=\"app\"]/div/div/div[1]/div[2]/div/div/div[1]/div/div/div/div/div/div/table/tbody/tr/td[4]"
-            },
-            {
-                name: "txStatus",
-                xpath: "//div[@class='ant-modal-body']/div[5]"
-            }
-        ]
+        dbAddress: "localhost:3000",
+        js: `
+let rows = document.evaluate("//*[@id='notes']//TEXTAREA", document, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+let row = rows.iterateNext();
+let data = [];
+while(row){
+    let note = row.textContent.trim();
+    data.push(note);
+    row = rows.iterateNext()
+}
+JSON.stringify(data);
+`
     },
     clusters: [
         <ClusterConfig>{

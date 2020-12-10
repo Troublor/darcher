@@ -35,8 +35,19 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
     // load augur local network config
 
     logger.info("Start blockchain cluster in docker");
-    child_process.spawn(
+    child_process.spawnSync(
         "docker-compose",
+        ["-f", path.join(__dirname, "docker", "cluster-docker-compose.yml"), "up", "-d"], {
+            stdio: 'inherit',
+            env: Object.assign(process.env, {
+                ETHMONITOR_CONTROLLER: ethmonitorController,
+                ANALYZER_ADDR: analyzerAddr,
+            })
+        });
+
+    logger.info("Start dapp in docker");
+    child_process.spawnSync(
+        "meteor",
         ["-f", path.join(__dirname, "docker", "cluster-docker-compose.yml"), "up", "-d"], {
             stdio: 'inherit',
             env: Object.assign(process.env, {
