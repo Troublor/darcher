@@ -16,9 +16,13 @@ interface TransactionAnalysis {
     reports: Report[],
 }
 
-const dbFilter: DBContentDiffFilter = {}
+const dbFilter: DBContentDiffFilter = {
+    "system.indexes": {
+        includes: []
+    },
+}
 
-const dataDir = path.join(__dirname, "..", "data", "ethereum_voting_dapp4", "transactions");
+const dataDir = path.join(__dirname, "..", "data", "eth-hot-wallet4", "transactions");
 let logs: TransactionLog[] = [];
 for (const file of fs.readdirSync(dataDir)) {
     if (file.includes("console-errors") ||
@@ -49,15 +53,11 @@ logs.forEach(log => {
     const reports: Report[] = [];
     const oracles: object[] = [
         new DBChangeOracle(log.hash, dbFilter),
-        new ConsoleErrorOracle(log.hash),
-        new TxErrorOracle(log.hash),
-        new ContractVulnerabilityOracle(log.hash),
+        // new ConsoleErrorOracle(log.hash),
+        // new TxErrorOracle(log.hash),
+        // new ContractVulnerabilityOracle(log.hash),
     ];
     console.info("Processing", log.hash)
-    if (log.hash.startsWith("0xfff1") ||
-        log.hash.startsWith("0x10c4")) {
-        return;
-    }
     oracles.forEach(oracle => reports.push(...analyzeTransactionLog(oracle as Oracle, log)));
     analysisSet.push({
         log: log,
@@ -66,7 +66,11 @@ logs.forEach(log => {
 });
 
 // filter duplicate
-const transactionGroups = _.groupBy(analysisSet, analysis => analysis.log.stack.join("\n"));
+const transactionGroups = _.groupBy(analysisSet, analysis => {
+    if (typeof analysis.log.stack === "string") return analysis.log.stack;
+    else if (Array.isArray(analysis.log.stack)) return analysis.log.stack.join("\n");
+    else return undefined;
+});
 console.log(transactionGroups);
 
 // check total runtime error
@@ -75,6 +79,8 @@ const totalRuntimeErrors = data.split("\n")
     .filter(value => !value.includes("chrome-extension"))
     .filter(value => !value.includes("https://sentry.io"))
     .filter(value => !value.includes("favicon.ico"))
+    .filter(value => !value.includes("ropsten.infura.io"))
+    .filter(value => !value.includes("api.coinmarketcap.com"))
     .filter(value => value.length > 0)
     .filter(value => !value.includes("chromeextension"));
 console.log(totalRuntimeErrors);
