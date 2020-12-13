@@ -11,7 +11,7 @@ exec $GETH --datadir $FOREIGN_BLOCKCHAIN_DIR/doer \
       --http --http.api miner,admin,eth,txpool,net --http.addr 0.0.0.0 --http.port 8545 --http.corsdomain="*" --http.vhosts '*' \
       --ws --ws.addr 0.0.0.0 --wsport 8546 --wsorigins "*" \
       --syncmode full \
-      --graphql --graphql.port 8547 \
+      --graphql \
       --keystore $FOREIGN_BLOCKCHAIN_DIR/keystore \
       --allow-insecure-unlock \
       --ethmonitor.address "${ETHMONITOR_ADDR}" \

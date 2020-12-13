@@ -11,7 +11,7 @@ function buildDocker(config: Config) {
         .append("--no-cache")
         .append(`-t ${IMAGE_NAME}`)
         .append(`-f ${path.join(__dirname, "docker", "Dockerfile")}`)
-        .append(path.join(__dirname));
+        .append(path.join(__dirname, ".."));
     child_process.execSync(cmd.toString(), {
         stdio: "inherit",
     });

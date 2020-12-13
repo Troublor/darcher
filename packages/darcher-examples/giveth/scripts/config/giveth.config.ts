@@ -1,7 +1,7 @@
 import {ClusterConfig, ControllerOptions, AnalyzerConfig, DBMonitorConfig, DBOptions, Config} from "@darcher/config";
 import * as path from "path";
 
-const blockchainDir = path.join(__dirname, "..", "blockchain");
+const blockchainDir = path.join(__dirname, "..", "..", "blockchain");
 
 export const homeClusterConfig = <ClusterConfig>{
     ethmonitorPort: 8989,

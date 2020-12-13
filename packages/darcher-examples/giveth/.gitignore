@@ -1,2 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 data/
+blockchain/foreign_network/doer
+blockchain/foreign_network/talker
+blockchain/home_network/doer
+blockchain/home_network/talker

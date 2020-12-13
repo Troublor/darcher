@@ -5,7 +5,7 @@ COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bi
 
 # context should be giveth/scripts folder
 
-COPY ./docker /
+COPY ./scripts/docker /
 COPY ./blockchain /blockchain
 
 RUN chmod +x start_foreign_doer.sh start_foreign_talker.sh start_foreign_ethmonitor.sh start_home_doer.sh start_home_talker.sh start_home_ethmonitor.sh

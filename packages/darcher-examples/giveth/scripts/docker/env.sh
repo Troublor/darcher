@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# make sure current directory is darcher-examples/augurproject/scripts
+# make sure current directory is darcher-examples/giveth
 export GETH=/usr/local/bin/geth
 export ETHMONITOR=/usr/local/bin/ethmonitor
 export HOME_BLOCKCHAIN_DIR=/blockchain/home_network/

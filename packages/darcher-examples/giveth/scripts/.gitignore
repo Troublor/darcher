@@ -1,4 +1,4 @@
-blockchain/foreign_network/doer/*
-blockchain/foreign_network/talker/*
-blockchain/home_network/doer/*
-blockchain/home_network/talker/*
+../blockchain/foreign_network/doer/*
+../blockchain/foreign_network/talker/*
+../blockchain/home_network/doer/*
+../blockchain/home_network/talker/*
