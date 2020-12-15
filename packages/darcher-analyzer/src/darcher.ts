@@ -34,13 +34,13 @@ export class Darcher {
     private readonly traceStore: TraceStore;
 
     private readonly analyzers: { [txHash: string]: Analyzer } = {};
-    private currentAnalyzer: Analyzer | null;
+    public currentAnalyzer: Analyzer | null;
     private currentChildAnalazers: Analyzer[] | null; // the analyzers created during current analyzer is being processed
 
     // ethmonitorControllerService handler
     private readonly ethmonitorController: EthmonitorController;
     // dappTestDriverService handler
-    private readonly dappTestDriverHandler: DappTestDriverServiceHandler;
+    public readonly dappTestDriverHandler: DappTestDriverServiceHandler;
 
     constructor(logger: Logger, config: Config) {
         this.config = config;
@@ -259,7 +259,7 @@ export class Darcher {
             this.logger.debug(
                 `DApp waiting for Transaction process`,
                 {
-                    tx: prettifyHash(msg1.getHash()),
+                    tx: prettifyHash(analyzer.txHash),
                 }
             );
             await analyzer.waitForTxProcess(msg1);
@@ -282,12 +282,12 @@ export class Darcher {
                     }
                 }
             }
-            await waitForChildTxProcess(msg1.getHash());
+            await waitForChildTxProcess(analyzer.txHash);
 
             this.logger.debug(
                 `Transaction process complete, resume DApp`,
                 {
-                    tx: prettifyHash(msg1.getHash()),
+                    tx: prettifyHash(analyzer.txHash),
                 }
             );
         };
