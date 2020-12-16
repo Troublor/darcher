@@ -24,7 +24,7 @@ const dbFilter: DBContentDiffFilter = {
 
 }
 
-const dataDir = "/Users/troublor/workspace/darcher/packages/darcher-examples/giveth/data/GivethForeign0";
+const dataDir = "/Users/troublor/workspace/darcher/packages/darcher-examples/giveth/data/Giveth4";
 let logs: TransactionLog[] = [];
 const uniqueReports: Report[] = [];
 for (const file of fs.readdirSync(dataDir)) {
@@ -42,6 +42,10 @@ for (const file of fs.readdirSync(dataDir)) {
 const analysisSet: TransactionAnalysis[] = [];
 // logs = logs.filter((value, index) => index === 0 || !logs.filter(v => v !== value).some(v => v.stack.toString() === value.stack.toString()));
 logs.forEach(log => {
+    console.log("process", log.hash);
+    if (log.hash.startsWith("0x0d36")) {
+        console.log()
+    }
     const reports: Report[] = [];
     const oracles: object[] = [
         new DBChangeOracle(log.hash, dbFilter),
@@ -53,7 +57,7 @@ logs.forEach(log => {
     analysisSet.push({
         log: log,
         reports: reports,
-    })
+    });
 });
 
 // filter duplicate
