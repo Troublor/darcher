@@ -456,21 +456,21 @@ export class TableRecordChange {
  */
 export class TableRecord {
     public readonly keyPath: string[];
-    public readonly data: { [key: string]: any };
+    public readonly filteredData: { [key: string]: any };
     private readonly filter: TableContentDiffFilter;
 
     constructor(keyPath: string[], data: object | string, filter: TableContentDiffFilter = {}) {
         this.keyPath = keyPath;
+        this.filter = filter ? filter : {};
         switch (typeof data) {
             case "string":
                 // unmarshal json if data is a string
-                this.data = JSON.parse(data);
+                this.filteredData = this.filterData(JSON.parse(data));
                 break;
             default:
-                this.data = data;
+                this.filteredData = this.filterData(data);
                 break;
         }
-        this.filter = filter ? filter : {};
     }
 
     /**
@@ -488,15 +488,15 @@ export class TableRecord {
             //     return false;
             // }
             // all key must be the same
-            if (!_.isEqual(this.data[key], another.filteredData[key])) {
+            if (!_.isEqual(this.filteredData[key], another.filteredData[key])) {
                 return false;
             }
         }
         return true;
     }
 
-    get filteredData(): { [key: string]: any } {
-        let thisData = _.cloneDeep(this.data);
+    private filterData(data: { [key: string]: any }): { [key: string]: any } {
+        let thisData = _.cloneDeep(data);
         // delete the fields specified in exclusion
         const deleteField = (data: { [key: string]: any }, excludePath: (string | RegExp)[]) => {
             for (let key of Object.keys(data)) {
