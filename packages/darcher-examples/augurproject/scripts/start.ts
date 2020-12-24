@@ -37,8 +37,8 @@ async function start_augur() {
 
 if (require.main === module) {
     loadConfig(path.join(__dirname, "config", "augur.config.ts")).then(async config => {
-        await start_blockchain(config);
-        await sleep(3000);
+        // await start_blockchain(config);
+        // await sleep(3000);
         await start_augur();
     });
 }

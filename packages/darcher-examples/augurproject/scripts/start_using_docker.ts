@@ -39,7 +39,8 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
             // stdio: 'inherit',
             env: Object.assign(process.env, {
                 ETHMONITOR_CONTROLLER: ethmonitorController,
-            })
+            }),
+            stdio: "inherit",
         });
     child_process.spawn(
         "docker-compose",
@@ -51,6 +52,7 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
                 CUSTOM_CONTRACT_ADDRESSES: JSON.stringify(config.addresses),
                 ZEROX_CONTRACT_ADDRESS: formatAddress(config.addresses.ZeroXTrade, {lower: true, prefix: false}),
             },
+            stdio: "inherit",
         }
     )
 }
@@ -65,7 +67,7 @@ async function start_augur() {
 }
 
 if (require.main === module) {
-    startDocker(logger, "darcher").then(async () => {
+    startDocker(logger, "console").then(async () => {
 
     });
 }

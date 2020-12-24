@@ -141,7 +141,7 @@ export class Darcher {
             await this.analyzers[msg.getHash()].onTxFinished(msg);
             // we set current Analyzer 1 sec later, in case some transactions comes as a child of current transaction
             setTimeout(() => {
-                if (msg.getHash() === this.currentAnalyzer.txHash) {
+                if (this.currentAnalyzer && msg.getHash() === this.currentAnalyzer.txHash) {
                     this.currentAnalyzer = null;
                 }
             }, 1000);
@@ -164,9 +164,13 @@ export class Darcher {
                 this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(this.currentAnalyzer.txHash)});
                 return this.currentAnalyzer.txHash;
             } else {
-                this.logger.warn("Transaction lost", {
-                    tx: this.currentAnalyzer.txHash,
-                });
+                if (this.currentAnalyzer) {
+                    await this.currentAnalyzer.waitForTxProcess(null);
+                }else {
+                    this.logger.warn("Transaction lost", {
+                        tx: this.currentAnalyzer.txHash,
+                    });
+                }
                 let selected = msg.getCandidateHashesList()[0];
                 this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(selected)});
                 return selected;

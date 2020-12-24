@@ -4,6 +4,8 @@ services:
     image: darcher/augur-base:latest
     entrypoint: ["/bin/sh", "start_ethmonitor.sh"]
     stop_signal: SIGINT
+    stdin_open: true
+    tty: true
     environment:
       ETHMONITOR_PORT: 8989
       ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-deploy}
