@@ -277,6 +277,11 @@ export interface TableContentDiffFilter {
 export interface DBContentDiffFilter {
     "*"?: TableContentDiffFilter,
 
+    // @ts-ignore
+    includes?: string[],
+    // @ts-ignore
+    excludes?: string[],
+
     [tableName: string]: TableContentDiffFilter;
 }
 
@@ -332,6 +337,16 @@ export class DBContentDiff {
                 } else {
                     tableFilter = filterForAll;
                 }
+            }
+
+            if (this.filter.excludes && this.filter.excludes.includes(tableName)) {
+                // table is excluded
+                return;
+            }
+
+            if (this.filter.includes && !this.filter.includes.includes(tableName)) {
+                // table includes is specified but tableName is not among them
+                return;
             }
 
             this._tableDiffs[tableName] = new TableContentDiff(tableName, fromTable, toTable, tableFilter);
@@ -457,6 +472,7 @@ export class TableRecordChange {
 export class TableRecord {
     public readonly keyPath: string[];
     public readonly filteredData: { [key: string]: any };
+    public readonly data: { [key: string]: any };
     private readonly filter: TableContentDiffFilter;
 
     constructor(keyPath: string[], data: object | string, filter: TableContentDiffFilter = {}) {
@@ -465,10 +481,12 @@ export class TableRecord {
         switch (typeof data) {
             case "string":
                 // unmarshal json if data is a string
-                this.filteredData = this.filterData(JSON.parse(data));
+                this.data = JSON.parse(data);
+                this.filteredData = this.filterData(this.data);
                 break;
             default:
-                this.filteredData = this.filterData(data);
+                this.data = data;
+                this.filteredData = this.filterData(this.data);
                 break;
         }
     }
@@ -488,7 +506,7 @@ export class TableRecord {
             //     return false;
             // }
             // all key must be the same
-            if (!_.isEqual(this.filteredData[key], another.filteredData[key])) {
+            if (!_.isEqual(this.data[key], another.data[key])) {
                 return false;
             }
         }

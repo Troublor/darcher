@@ -1,9 +1,5 @@
 version: '3'
 services:
-  db:
-    image: darcher/giveth-db:latest
-    ports:
-      - "27017:27017"
   foreign_ethmonitor:
     image: darcher/giveth-base:latest
     entrypoint: ["/bin/sh", "start_foreign_ethmonitor.sh"]
