@@ -48,12 +48,8 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
     logger.info("Start dapp in docker");
     child_process.spawnSync(
         "meteor",
-        ["-f", path.join(__dirname, "docker", "cluster-docker-compose.yml"), "up", "-d"], {
+        [], {
             stdio: 'inherit',
-            env: Object.assign(process.env, {
-                ETHMONITOR_CONTROLLER: ethmonitorController,
-                ANALYZER_ADDR: analyzerAddr,
-            })
         });
 }
 

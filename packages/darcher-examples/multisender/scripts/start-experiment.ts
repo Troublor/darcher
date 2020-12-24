@@ -15,10 +15,10 @@ if (require.main === module) {
         const mainClass: string = "MultisenderExperiment";
         const timeBudget: number = 3600  // in second
         const numRounds: number = 5;
-        const metamaskHomeUrl = "chrome-extension://jbppcachblnkaogkgacckpgohjbpcekf/home.html";
+        const metamaskHomeUrl = "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html";
         const metamaskPassword = "12345678";
         const chromeDebugPort = 9222;
-        const userDir = "/Users/troublor/workspace/darcher_mics/browsers/Chrome/UserData";
+        const userDir = "/home/troublor/workspace/darcher_misc/browsers/Chrome/UserData";
 
         const browser = new Browser(logger, chromeDebugPort, userDir);
         await browser.start();

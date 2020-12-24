@@ -4,6 +4,7 @@ import * as path from "path";
 import * as child_process from "child_process";
 import * as fs from "fs";
 import {Config} from "@darcher/config";
+import * as os from "os";
 
 const logger: Logger = new Logger("multisender");
 
@@ -27,6 +28,9 @@ export function formatAddress(address: string, formatting: AddressFormatting): s
     return address
 }
 
+const osType = os.type();
+const analyzerAddr = osType === "Linux" ? "172.17.0.1:1234" : "host.docker.internal:1234";
+
 export async function startDocker(logger: Logger, ethmonitorController: string = "deploy") {
     // load augur local network config
 
@@ -37,6 +41,7 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
             stdio: 'inherit',
             env: Object.assign(process.env, {
                 ETHMONITOR_CONTROLLER: ethmonitorController,
+                ANALYZER_ADDR: analyzerAddr,
             })
         });
 }

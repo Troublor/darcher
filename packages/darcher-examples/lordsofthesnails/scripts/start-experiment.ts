@@ -14,7 +14,7 @@ if (require.main === module) {
         const config = await loadConfig(path.join(__dirname, "config", "lordsofthesnails.config.ts"));
         const mainClass: string = "LordsofthesnailsExperiment";
         const timeBudget: number = 3600  // in second
-        const numRounds: number = 3;
+        const numRounds: number = 5;
         const metamaskHomeUrl = "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html";
         const metamaskPassword = "12345678";
         const chromeDebugPort = 9222;

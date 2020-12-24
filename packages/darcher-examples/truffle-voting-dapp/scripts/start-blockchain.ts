@@ -5,7 +5,7 @@ export async function startCluster(config: Config, deployMode: boolean= false): 
     const cluster = new BlockchainCluster(config.clusters[0]);
     if (deployMode) {
         await cluster.reset();
-        await cluster.deploy(true);
+        await cluster.deploy(false);
     }else {
         await cluster.start(true)
     }
