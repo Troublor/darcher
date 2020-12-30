@@ -4993,7 +4993,7 @@ blakejs@^1.1.0:
   resolved "https://registry.yarnpkg.com/blakejs/-/blakejs-1.1.0.tgz#69df92ef953aa88ca51a32df6ab1c54a155fc7a5"
   integrity sha1-ad+S75U6qIylGjLfarHFShVfx6U=
 
-bluebird@^3.4.1, bluebird@^3.4.6, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5:
+bluebird@^3.4.1, bluebird@^3.4.6, bluebird@^3.4.7, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
@@ -12013,6 +12013,13 @@ multimatch@^3.0.0:
     array-union "^1.0.2"
     arrify "^1.0.1"
     minimatch "^3.0.4"
+
+multiprocessing@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/multiprocessing/-/multiprocessing-1.2.0.tgz#1bb2e0cd6b4e407e57aa594b9ea57ec9382628f1"
+  integrity sha512-qQzr+dKWw4o0NP4+990QDUvI+8Gr2fXWLT5AkJ9X9Ng2sgnxiY8Tqtu3V8gwD9z9g3IkHLH9EKtCns89aH7EJg==
+  dependencies:
+    bluebird "^3.4.7"
 
 mustache@*:
   version "4.0.1"
