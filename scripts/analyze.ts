@@ -101,7 +101,15 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
     });
 
 // filter duplicate
-    const transactionGroups = _.groupBy(analysisSet, analysis => analysis.log.stack?.join("\n"));
+    const transactionGroups = _.groupBy(analysisSet, analysis => {
+        if (typeof analysis.log.stack === "string") {
+            return analysis.log.stack;
+        } else if (Array.isArray(analysis.log.stack)) {
+            return analysis.log.stack?.join("\n");
+        } else {
+            return analysis.log.stack;
+        }
+    });
 
     const report: AnalysisReport = {
         totalRuntimeError: runtimeErrors.length,

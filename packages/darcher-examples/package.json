@@ -102,7 +102,12 @@
     "DemocracyEarth:docker:start": "ts-node ./DemocracyEarch/scripts/start-docker.ts",
     "DemocracyEarth:docker:stop": "ts-node ./DemocracyEarch/scripts/stop-docker.ts",
     "DemocracyEarth:start-dapp": "ts-node ./DemocracyEarch/scripts/start-dapp.ts",
-    "DemocracyEarth:start-experiment": "ts-node ./DemocracyEarch/scripts/start-experiment.ts"
+    "DemocracyEarth:start-experiment": "ts-node ./DemocracyEarch/scripts/start-experiment.ts",
+    "burner-wallet:docker:build": "ts-node ./burner-wallet/scripts/build_docker.ts",
+    "burner-wallet:docker:start": "ts-node ./burner-wallet/scripts/start-docker.ts",
+    "burner-wallet:docker:stop": "ts-node ./burner-wallet/scripts/stop-docker.ts",
+    "burner-wallet:start-dapp": "ts-node ./burner-wallet/scripts/start-dapp.ts",
+    "burner-wallet:start-experiment": "ts-node ./burner-wallet/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
@@ -117,6 +122,7 @@
     "chrome-debugging-client": "^2.0.0",
     "chrome-remote-interface": "^0.28.2",
     "ethereum-bridge": "^0.6.2",
+    "multiprocessing": "^1.2.0",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "shelljs": "^0.8.4",
     "truffle": "^5.1.56",
