@@ -107,7 +107,17 @@
     "burner-wallet:docker:start": "ts-node ./burner-wallet/scripts/start-docker.ts",
     "burner-wallet:docker:stop": "ts-node ./burner-wallet/scripts/stop-docker.ts",
     "burner-wallet:start-dapp": "ts-node ./burner-wallet/scripts/start-dapp.ts",
-    "burner-wallet:start-experiment": "ts-node ./burner-wallet/scripts/start-experiment.ts"
+    "burner-wallet:start-experiment": "ts-node ./burner-wallet/scripts/start-experiment.ts",
+    "AgroChain:docker:build": "ts-node ./AgroChain/scripts/build_docker.ts",
+    "AgroChain:docker:start": "ts-node ./AgroChain/scripts/start-docker.ts",
+    "AgroChain:docker:stop": "ts-node ./AgroChain/scripts/stop-docker.ts",
+    "AgroChain:start-dapp": "ts-node ./AgroChain/scripts/start-dapp.ts",
+    "AgroChain:start-experiment": "ts-node ./AgroChain/scripts/start-experiment.ts",
+    "ethereum-todolist:docker:build": "ts-node ./ethereum-todolist/scripts/build_docker.ts",
+    "ethereum-todolist:docker:start": "ts-node ./ethereum-todolist/scripts/start-docker.ts",
+    "ethereum-todolist:docker:stop": "ts-node ./ethereum-todolist/scripts/stop-docker.ts",
+    "ethereum-todolist:start-dapp": "ts-node ./ethereum-todolist/scripts/start-dapp.ts",
+    "ethereum-todolist:start-experiment": "ts-node ./ethereum-todolist/scripts/start-experiment.ts"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",
