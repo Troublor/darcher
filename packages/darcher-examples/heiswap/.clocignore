@@ -1,0 +1,7 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+heiswap/node_modules
+heiswap/.idea
