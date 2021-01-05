@@ -1,0 +1,8 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+burner-wallet/node_modules
+burner-wallet/.github
+burner-wallet/.idea

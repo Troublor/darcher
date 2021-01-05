@@ -1,0 +1,8 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+AgroChain/node_modules
+AgroChain/build
+AgroChain/.idea

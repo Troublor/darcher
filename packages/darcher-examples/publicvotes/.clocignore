@@ -1,0 +1,7 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+publicvotes/app/.meteor
+publicvotes/.idea
