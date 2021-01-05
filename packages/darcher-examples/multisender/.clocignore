@@ -1,0 +1,7 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+multisender/node_modules
+multisender/.idea
