@@ -1,0 +1,11 @@
+.clocignore
+.gitignore
+scripts
+relayer
+data
+blockchain
+augur/node_modules
+augur/.azure-templates
+augur/.github
+augur/.idea
+augur/node_modules

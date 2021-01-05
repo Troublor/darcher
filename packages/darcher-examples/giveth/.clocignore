@@ -1,0 +1,13 @@
+.clocignore
+.gitignore
+scripts
+misc
+data
+blockchain
+feathers-giveth/node_modules
+feathers-giveth/.idea
+feathers-giveth/.git
+feathers-giveth/.circleci
+feathers-giveth/data
+giveth-dapp/node_modules
+giveth-dapp/keystores
