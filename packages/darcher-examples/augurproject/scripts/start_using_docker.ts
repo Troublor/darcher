@@ -4,6 +4,7 @@ import * as path from "path";
 import * as child_process from "child_process";
 import * as fs from "fs";
 import {Config} from "@darcher/config";
+import * as os from "os";
 
 const logger: Logger = new Logger("start_augur");
 
@@ -32,6 +33,10 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
     const configFile = path.join(__dirname, "..", "augur", "packages", "augur-artifacts", "build", "environments", "local.json");
     const config: any = JSON.parse(fs.readFileSync(configFile, {encoding: "utf-8"}));
 
+    const osType = os.type();
+    const analyzerAddr = osType === "Linux" ? "172.17.0.1:1234" : "host.docker.internal:1234";
+    const ethAddr = osType === "Linux" ? "http://172.17.0.1:8545" : "http://host.docker.internal:8545";
+
     logger.info("Start blockchain cluster in docker");
     child_process.spawn(
         "docker-compose",
@@ -39,6 +44,7 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
             // stdio: 'inherit',
             env: Object.assign(process.env, {
                 ETHMONITOR_CONTROLLER: ethmonitorController,
+                ANALYZER_ADDR: analyzerAddr,
             }),
             stdio: "inherit",
         });
@@ -48,6 +54,7 @@ export async function startDocker(logger: Logger, ethmonitorController: string =
             env: {
                 ...process.env,
                 MESH_VERSION: "9.3.0",
+                ETHEREUM_RPC_URL: ethAddr,
                 ETHEREUM_CHAIN_ID: config.networkId,
                 CUSTOM_CONTRACT_ADDRESSES: JSON.stringify(config.addresses),
                 ZEROX_CONTRACT_ADDRESS: formatAddress(config.addresses.ZeroXTrade, {lower: true, prefix: false}),

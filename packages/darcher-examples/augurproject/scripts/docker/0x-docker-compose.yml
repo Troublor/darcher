@@ -33,7 +33,7 @@ services:
       - CUSTOM_CONTRACT_ADDRESSES=${CUSTOM_CONTRACT_ADDRESSES}
       - VERBOSITY=${MESH_VERBOSITY:-4} # 5=debug 6=trace
       - CUSTOM_ORDER_FILTER={"properties":{"makerAssetData":{"pattern":".*${ZEROX_CONTRACT_ADDRESS}.*"}}}
-      - ETHEREUM_RPC_URL=http://host.docker.internal:8545
+      - ETHEREUM_RPC_URL=${ETHEREUM_RPC_URL}
       - USE_BOOTSTRAP_LIST=true
       - BOOTSTRAP_LIST=/dns4/0x-mesh-bootstrap/tcp/60558/ipfs/16Uiu2HAmRMgvPQV2UYKXuuCnNaFLpc36PhLp2UKVcL1ePseVcz4y,/dns4/0x-mesh-bootstrap/tcp/60559/ws/ipfs/16Uiu2HAmRMgvPQV2UYKXuuCnNaFLpc36PhLp2UKVcL1ePseVcz4y
       - BLOCK_POLLING_INTERVAL=1s

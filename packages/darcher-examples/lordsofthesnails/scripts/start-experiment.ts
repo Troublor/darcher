@@ -42,7 +42,7 @@ if (require.main === module) {
             logger.info("Clearing MetaMask data...");
             await new MetaMask(logger, browser.driver, metamaskHomeUrl, metamaskPassword)
                 .changeNetwork("Localhost 8545")
-                .changeAccount("Lordsofthesnails")
+                .changeAccount("Augur0")
                 .resetAccount()
                 .do();
 
