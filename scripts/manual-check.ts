@@ -14,7 +14,7 @@ export function manualCheck(sampleFile: string, dbFilter: DBContentDiffFilter) {
             const hash = tx.split(":")[1];
             const log = JSON.parse(fs.readFileSync(path.join(dir, `${hash}.json`), {encoding: "utf-8"}));
             const reports = analyzeTransactionLog(new DBChangeOracle(hash, dbFilter), log);
-            console.log(reports);
+            reports.forEach(value => console.log(value.message()));
             count++;
         }
     }
@@ -30,7 +30,7 @@ export function manualCheck(sampleFile: string, dbFilter: DBContentDiffFilter) {
             const hash = tx.split(":")[1];
             const log = JSON.parse(fs.readFileSync(path.join(dir, `${hash}.json`), {encoding: "utf-8"}));
             const reports = analyzeTransactionLog(new DBChangeOracle(hash, dbFilter), log);
-            console.log(reports);
+            reports.forEach(value => console.log(value.message()));
             count++;
         }
     }

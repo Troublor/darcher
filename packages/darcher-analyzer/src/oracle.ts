@@ -156,7 +156,7 @@ export class DBChangeOracle implements Oracle {
                 reports.push(new UnreliableTxHashReport(
                     this.txHash,
                     LogicalTxState.PENDING,
-                    pendingConfirmedDiff,
+                    createdConfirmedDiff,
                 ));
             }
 
@@ -224,7 +224,9 @@ class UnreliableTxHashReport implements Report {
 
     message(): string {
         // TODO print more information
-        return `[${VulnerabilityType.UnreliableTxHash}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}}`;
+        return `[${VulnerabilityType.UnreliableTxHash}] Tx ${prettifyHash(this.txHash())} at ${$enum(LogicalTxState).getKeyOrDefault(this.txState, "unknown")}
+        DB Difference: 
+        ${this.dbContentDiff.report}`;
     }
 
 }
@@ -368,10 +370,13 @@ export class DBContentDiff {
         let report = '';
         for (let table in this.tableDiffs) {
             if (this.tableDiffs.hasOwnProperty(table)) {
+                if (this.tableDiffs[table].zero()) {
+                    continue;
+                }
                 report += `$table: ${table}
                 added: ${"\n\t" + this.tableDiffs[table].addedRecords.map(record => record.report).join("\n\t") + "\n"}
                 deleted: ${"\n\t" + this.tableDiffs[table].deletedRecords.map(record => record.report).join("\n\t") + "\n"}
-                changed: ${"\n\t" + this.tableDiffs[table].changedRecords.map(record => record.report).join("\n\t") + "\n"}`
+                changed: ${"\n\t" + this.tableDiffs[table].changedRecords.map(record => record.report).join("\n\t") + "\n"}`;
             }
         }
         return report;
