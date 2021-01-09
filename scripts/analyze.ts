@@ -53,6 +53,7 @@ export function analyzeRound(roundDir: string, dbFilter: DBContentDiffFilter, ru
             console.log("Collecting transaction", file);
             const logContent = fs.readFileSync(path.join(roundDir, file));
             const log = JSON.parse(logContent.toString()) as TransactionLog;
+            log.hash = `${roundDir}:${log.hash}`;
             transactionLogs.push(log);
         }
     }
@@ -202,6 +203,7 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
                 console.log("Collecting transaction", file);
                 const logContent = fs.readFileSync(path.join(roundDir, file));
                 const log = JSON.parse(logContent.toString()) as TransactionLog;
+                log.hash = `${roundDir}:${log.hash}`;
                 transactionLogs.push(log);
             }
         }
