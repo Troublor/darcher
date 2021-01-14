@@ -38,16 +38,16 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
         return new Promise<void>((resolve, reject) => {
             this.stream.on("error", (e: grpc.ServiceError) => {
                 switch (e.code) {
-                    case status.CANCELLED:
-                        reject(new ServiceCancelledError(this.name));
-                        break;
-                    case status.UNAVAILABLE:
-                        console.log("unavailable");
-                        reject(new ServiceNotAvailableError(this.name));
-                        break;
-                    default:
-                        reject(new GRPCRawError(this.name, e));
-                        break;
+                case status.CANCELLED:
+                    reject(new ServiceCancelledError(this.name));
+                    break;
+                case status.UNAVAILABLE:
+                    console.log("unavailable");
+                    reject(new ServiceNotAvailableError(this.name));
+                    break;
+                default:
+                    reject(new GRPCRawError(this.name, e));
+                    break;
                 }
             });
             this.stream.on("close", resolve);
@@ -59,10 +59,10 @@ export class ReverseRPCServer<ReqT extends Identifiable, RespT extends Identifia
             this.emitter.on("close", resolve);
             this.stream.on("data", async data => {
                 // pass request to handler
-                let resp = await handler(data);
+                const resp = await handler(data);
                 this.stream.write(resp);
             });
-        })
+        });
     }
 
     /**
@@ -131,21 +131,21 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
                 this.emitter.removeListener("establish", resolve);
                 resolve();
             }
-        })
+        });
     }
 
     private onError = (e: grpc.ServiceError) => {
         let err: DarcherError;
         switch (e.code) {
-            case status.CANCELLED:
-                err = new ServiceCancelledError(this.name);
-                break;
-            default:
-                err = new GRPCRawError(this.name, e);
-                break;
+        case status.CANCELLED:
+            err = new ServiceCancelledError(this.name);
+            break;
+        default:
+            err = new GRPCRawError(this.name, e);
+            break;
         }
-        for (let id in this.pendingCalls) {
-            let {reject} = this.pendingCalls[id];
+        for (const id in this.pendingCalls) {
+            const {reject} = this.pendingCalls[id];
             reject(err);
             this.pendingCalls[id] = undefined;
             this._established = false;
@@ -181,6 +181,6 @@ export class ReverseRPCClient<ReqT extends Identifiable, RespT extends Identifia
                 resolve();
             }
             resolve();
-        })
+        });
     }
 }

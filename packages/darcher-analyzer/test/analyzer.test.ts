@@ -6,6 +6,7 @@ import {expect} from "chai";
 import {DBContent, TxState, TxStateChangeMsg, TxStateControlMsg, TxTraverseStartMsg} from "@darcher/rpc";
 
 describe("Analyzer", () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const mockDBMonitorService = <DbMonitorService>{
         refreshPage: () => {
@@ -14,19 +15,22 @@ describe("Analyzer", () => {
         getAllData: () => {
             return new DBContent();
         },
-    }
+    };
 
     const logger = new Logger("Analyzer Test");
 
     const config: Config = {
-        analyzer: null,
+        analyzer: {
+            wsPort: 1235,
+            grpcPort: 1234,
+        },
         clusters: [],
         dbMonitor: {
             db: DBOptions.extensionStorage,
             dbAddress: "localhost",
-            dbName: "storage"
-        }
-    }
+            dbName: "storage",
+        },
+    };
 
     let analyzer: Analyzer;
 
@@ -35,9 +39,10 @@ describe("Analyzer", () => {
     beforeEach(() => {
         analyzer = new Analyzer(logger, config, txHash, mockDBMonitorService);
         analyzer.dappStateUpdateTimeLimit = 1;
-    })
+    });
 
-    it('should only resolve waitForTxProcess promise at CONFIRMED state', async function () {
+    it("should only resolve waitForTxProcess promise at CONFIRMED state", async function () {
+        // eslint-disable-next-line no-async-promise-executor
         return new Promise<void>(async resolve => {
             let txState = TxState.CREATED;
             analyzer.waitForTxProcess(null).then(() => {
@@ -45,7 +50,7 @@ describe("Analyzer", () => {
                 resolve();
             });
 
-            await analyzer.onTxTraverseStart(new TxTraverseStartMsg().setHash(txHash))
+            await analyzer.onTxTraverseStart(new TxTraverseStartMsg().setHash(txHash));
             while (txState !== TxState.CONFIRMED) {
                 const nextState: TxState = await analyzer.askForNextState(new TxStateControlMsg().setCurrentState(txState).setHash(txHash));
                 const changeMsg = new TxStateChangeMsg()
@@ -55,6 +60,6 @@ describe("Analyzer", () => {
                 txState = nextState;
                 await analyzer.onTxStateChange(changeMsg);
             }
-        })
+        });
     });
-})
+});

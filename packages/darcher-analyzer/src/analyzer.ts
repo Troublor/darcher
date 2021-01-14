@@ -9,7 +9,7 @@ import {
     TxState,
     TxStateChangeMsg,
     TxStateControlMsg,
-    TxTraverseStartMsg
+    TxTraverseStartMsg,
 } from "@darcher/rpc";
 import {EventEmitter} from "events";
 import {$enum} from "ts-enum-util";
@@ -39,7 +39,7 @@ export const allLogicalTxStates = [
     LogicalTxState.CONFIRMED,
     LogicalTxState.REMOVED,
     LogicalTxState.REEXECUTED,
-]
+];
 
 export function isEqualState(s: TxState, ls: LogicalTxState): boolean {
     if (<number>s === <number>ls) {
@@ -51,20 +51,20 @@ export function isEqualState(s: TxState, ls: LogicalTxState): boolean {
 
 export function toTxState(ls: LogicalTxState): TxState {
     switch (ls) {
-        case LogicalTxState.CONFIRMED:
-            return TxState.CONFIRMED;
-        case LogicalTxState.CREATED:
-            return TxState.CREATED;
-        case LogicalTxState.DROPPED:
-            return TxState.DROPPED;
-        case LogicalTxState.EXECUTED:
-            return TxState.EXECUTED;
-        case LogicalTxState.PENDING:
-            return TxState.PENDING;
-        case LogicalTxState.REEXECUTED:
-            return TxState.EXECUTED;
-        case LogicalTxState.REMOVED:
-            return TxState.PENDING;
+    case LogicalTxState.CONFIRMED:
+        return TxState.CONFIRMED;
+    case LogicalTxState.CREATED:
+        return TxState.CREATED;
+    case LogicalTxState.DROPPED:
+        return TxState.DROPPED;
+    case LogicalTxState.EXECUTED:
+        return TxState.EXECUTED;
+    case LogicalTxState.PENDING:
+        return TxState.PENDING;
+    case LogicalTxState.REEXECUTED:
+        return TxState.EXECUTED;
+    case LogicalTxState.REMOVED:
+        return TxState.PENDING;
     }
 }
 
@@ -112,7 +112,7 @@ export class Analyzer {
         this.txState = LogicalTxState.CREATED;
         this.stateEmitter = new EventEmitter();
         this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CREATED), resolve)
+            this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CREATED), resolve);
         });
         this.log = <TransactionLog>{
             parent: parentHash,
@@ -125,8 +125,8 @@ export class Analyzer {
                 [LogicalTxState.REEXECUTED]: null,
                 [LogicalTxState.CONFIRMED]: null,
                 [LogicalTxState.DROPPED]: null,
-            }
-        }
+            },
+        };
     }
 
     /* darcher controller handlers start */
@@ -145,8 +145,8 @@ export class Analyzer {
             this.logger.warn("Tx state inconsistent,",
                 {
                     "expect": $enum(LogicalTxState).getKeyOrThrow(this.txState),
-                    "got": $enum(TxState).getKeyOrThrow(msg.getFrom())
-                }
+                    "got": $enum(TxState).getKeyOrThrow(msg.getFrom()),
+                },
             );
             this.txState = <LogicalTxState>(msg.getTo() as number);
         } else {
@@ -178,29 +178,29 @@ export class Analyzer {
         await this.stateChangeWaiting;
         if (this.txState === LogicalTxState.CREATED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.PENDING), resolve)
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.PENDING), resolve);
             });
             return TxState.PENDING;
         } else if (this.txState === LogicalTxState.PENDING) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.EXECUTED), resolve)
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.EXECUTED), resolve);
             });
             return TxState.EXECUTED;
         } else if (this.txState === LogicalTxState.EXECUTED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REMOVED), resolve)
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REMOVED), resolve);
             });
             return TxState.PENDING;
         } else if (this.txState === LogicalTxState.REMOVED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REEXECUTED), resolve)
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.REEXECUTED), resolve);
             });
             return TxState.EXECUTED;
         } else if (this.txState === LogicalTxState.REEXECUTED) {
             this.stateChangeWaiting = new Promise<LogicalTxState>(resolve => {
-                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), resolve)
+                this.stateEmitter.once($enum(LogicalTxState).getKeyOrThrow(LogicalTxState.CONFIRMED), resolve);
             });
-            return TxState.CONFIRMED
+            return TxState.CONFIRMED;
         } else if (this.txState === LogicalTxState.CONFIRMED) {
             this.stateChangeWaiting = Promise.resolve(LogicalTxState.CONFIRMED);
             return TxState.CONFIRMED;
@@ -221,10 +221,12 @@ export class Analyzer {
     /* darcher controller handlers end */
 
     /* dappTestDriverService handlers start */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public async onTestStart(msg: TestStartMsg): Promise<void> {
 
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public async onTestEnd(msg: TestEndMsg): Promise<void> {
 
     }
@@ -264,9 +266,10 @@ export class Analyzer {
     private async applyOracles(txState: LogicalTxState): Promise<void> {
         this.logger.debug("Apply oracle on transaction", {
             tx: prettifyHash(this.txHash),
-            "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined)
+            "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined),
         });
         // the time limit (milliseconds) for dapp to handle tx state change
+        // eslint-disable-next-line no-async-promise-executor
         return new Promise(async resolve => {
             let waitTime;
             if (this.txState === LogicalTxState.CREATED) {
@@ -294,13 +297,13 @@ export class Analyzer {
                             data = JSON.stringify(this.config.dbMonitor.elements);
                         }
                     }
-                    let dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName, data);
+                    const dbContent = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName, data);
                     this.logger.debug("GetAllData", {
                         "state": $enum(LogicalTxState).getKeyOrDefault(txState, undefined),
-                        "data": dbContent.toObject()
+                        "data": dbContent.toObject(),
                     });
                     // forward to each oracle
-                    for (let oracle of this.oracles) {
+                    for (const oracle of this.oracles) {
                         oracle.onTxState(txState, dbContent, this.txErrors, this.contractVulReports, this.consoleErrors);
                     }
                     this.log.states[txState] = {
@@ -319,15 +322,15 @@ export class Analyzer {
 
                 resolve();
             }, waitTime);
-        })
+        });
     }
 
     /**
      * Get bug reports of all oracles, if there is no bug, an empty array will be returned
      */
     public getBugReports(): Report[] {
-        let reports: Report[] = [];
-        for (let oracle of this.oracles) {
+        const reports: Report[] = [];
+        for (const oracle of this.oracles) {
             reports.push(...oracle.getBugReports());
         }
         return reports;

@@ -30,8 +30,8 @@ export class Client {
         const req = new GetAllDataControlMsg();
         req.setRole(Role.DBMONITOR);
         req.setId(getUUID());
-        let stream = this.conn.getAllDataControl();
-        stream.write(req)
+        const stream = this.conn.getAllDataControl();
+        stream.write(req);
         // initial reverse rpc
         this.getAllDataReverseRPC = new ReverseRPCServer<GetAllDataControlMsg, GetAllDataControlMsg>("getAllData", stream);
         this.getAllDataReverseRPC.serve(handler).catch((e: DarcherError) => {

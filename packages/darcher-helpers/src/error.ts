@@ -28,7 +28,7 @@ export class DarcherError extends Error {
 export class ServiceNotAvailableError extends DarcherError {
     public readonly serviceName: string;
 
-    constructor(serviceName: string = '') {
+    constructor(serviceName = "") {
         super(DarcherErrorCode.ServiceNotAvailable, `${serviceName} service not available`);
         this.serviceName = serviceName;
     }
@@ -37,7 +37,7 @@ export class ServiceNotAvailableError extends DarcherError {
 export class ServiceCancelledError extends DarcherError {
     public readonly serviceName: string;
 
-    constructor(serviceName: string = '') {
+    constructor(serviceName = "") {
         super(DarcherErrorCode.ServiceCancelled, `${serviceName} service has been canceled`);
         this.serviceName = serviceName;
     }
@@ -47,7 +47,7 @@ export class GRPCRawError extends DarcherError {
     public readonly grpcError: grpc.ServiceError;
     public readonly serviceName: string;
 
-    constructor(serviceName: string = '', grpcErr: grpc.ServiceError) {
+    constructor(serviceName = "", grpcErr: grpc.ServiceError) {
         super(DarcherErrorCode.GRPCRawError, `${serviceName} grpc error: ${grpcErr.message}`);
         this.grpcError = grpcErr;
         this.serviceName = serviceName;
@@ -56,13 +56,13 @@ export class GRPCRawError extends DarcherError {
 
 export class TimeoutError extends DarcherError {
     constructor() {
-        super(DarcherErrorCode.Timout, `timeout`);
+        super(DarcherErrorCode.Timout, "timeout");
     }
 }
 
 export class DBAdapterNotLoadedError extends DarcherError {
     constructor() {
-        super(DarcherErrorCode.DBAdapterNotLoaded, `dbmonitor adapter not loaded`);
+        super(DarcherErrorCode.DBAdapterNotLoaded, "dbmonitor adapter not loaded");
     }
 }
 
@@ -79,7 +79,7 @@ export class WebsocketError extends DarcherError {
     public readonly wsError: Error;
 
     constructor(e: Error) {
-        super(DarcherErrorCode.WebSocketError, e.message)
+        super(DarcherErrorCode.WebSocketError, e.message);
         this.wsError = e;
     }
 }

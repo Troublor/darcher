@@ -9,7 +9,7 @@ import {
     Service,
     ServiceNotAvailableError,
     TimeoutError,
-    WebsocketError
+    WebsocketError,
 } from "@darcher/helpers";
 import {
     ControlMsg,
@@ -18,8 +18,8 @@ import {
     GetAllDataControlMsg,
     IDBMonitorServiceServer,
     RequestType,
-    Role
-} from "@darcher/rpc"
+    Role,
+} from "@darcher/rpc";
 import {ServerDuplexStream} from "grpc";
 import {EventEmitter} from "events";
 
@@ -60,9 +60,9 @@ export class DbMonitorService implements Service {
         } catch (e) {
             if (e.code === DarcherErrorCode.ServiceNotAvailable) {
                 // ws transport is not available, try grpc transport, throw any error this time
-                let request = new GetAllDataControlMsg();
+                const request = new GetAllDataControlMsg();
                 request.setRole(Role.DBMONITOR).setId(getUUID()).setDbAddress(dbAddress).setDbName(dbName);
-                let resp = await this.grpcTransport.getAllData(request);
+                const resp = await this.grpcTransport.getAllData(request);
                 return resp.getContent();
             } else {
                 throw e;
@@ -113,7 +113,7 @@ class DBMonitorServiceViaWebsocket implements Service {
                     resolve();
                 }
             });
-        })
+        });
     }
 
     waitForEstablishment(): Promise<void> {
@@ -123,21 +123,21 @@ class DBMonitorServiceViaWebsocket implements Service {
                 this.emitter.removeListener("establish", resolve);
                 resolve();
             }
-        })
+        });
     }
 
     /* websocket handlers start */
     private onConnection = (ws: WebSocket, request: http.IncomingMessage) => {
         if (this.conn) {
             this.logger.warn("Websocket connection with dbmonitor already established, ignore new connection");
-            return
+            return;
         }
         this.logger.info("Websocket connection with dbmonitor opened");
         this.conn = ws;
         this.emitter.emit("establish");
         ws.on("message", this.onMessage);
         ws.on("close", () => {
-            this.logger.info("Websocket connection with dbmonitor closed")
+            this.logger.info("Websocket connection with dbmonitor closed");
             this.conn = undefined;
         });
     }
@@ -147,38 +147,38 @@ class DBMonitorServiceViaWebsocket implements Service {
      * @param message reply from dbmonitor
      */
     private onMessage = (message: any) => {
-        let resp = ControlMsg.deserializeBinary(message);
+        const resp = ControlMsg.deserializeBinary(message);
         if (!resp.getId()) {
-            return
+            return;
         }
-        let {resolve: resolveFunc, reject: rejectFunc} = this.pendingCalls[resp.getId()];
+        const {resolve: resolveFunc, reject: rejectFunc} = this.pendingCalls[resp.getId()];
         let data = null;
         switch (resp.getType()) {
-            case RequestType.GET_ALL_DATA:
-                if (resp.getErr() !== rpcError.NILERR) {
-                    switch (resp.getErr()) {
-                        case rpcError.SERVICENOTAVAILABLEERR:
-                            rejectFunc ? rejectFunc(new ServiceNotAvailableError("dbMonitor")) : "dbMonitor service not available";
-                            break;
-                        case rpcError.TIMEOUTERR:
-                            rejectFunc ? rejectFunc(new TimeoutError()) : "dbMonitor service timeout";
-                            break;
-                        case rpcError.INTERNALERR:
-                            rejectFunc ? rejectFunc(new Error("dbMonitor internal error")) : "dbMonitor service timeout";
-                            break;
-                    }
-                } else {
-                    data = DBContent.deserializeBinary(resp.getData() as Uint8Array);
-                    resolveFunc ? resolveFunc(data) : undefined;
+        case RequestType.GET_ALL_DATA:
+            if (resp.getErr() !== rpcError.NILERR) {
+                switch (resp.getErr()) {
+                case rpcError.SERVICENOTAVAILABLEERR:
+                    rejectFunc ? rejectFunc(new ServiceNotAvailableError("dbMonitor")) : "dbMonitor service not available";
+                    break;
+                case rpcError.TIMEOUTERR:
+                    rejectFunc ? rejectFunc(new TimeoutError()) : "dbMonitor service timeout";
+                    break;
+                case rpcError.INTERNALERR:
+                    rejectFunc ? rejectFunc(new Error("dbMonitor internal error")) : "dbMonitor service timeout";
+                    break;
                 }
-                break;
-            case RequestType.REFRESH_PAGE:
-                if (resp.getErr() !== rpcError.NILERR) {
-                    rejectFunc ? rejectFunc(resp.getErr()) : undefined;
-                } else {
-                    resolveFunc ? resolveFunc() : undefined;
-                }
-                break;
+            } else {
+                data = DBContent.deserializeBinary(resp.getData() as Uint8Array);
+                resolveFunc ? resolveFunc(data) : undefined;
+            }
+            break;
+        case RequestType.REFRESH_PAGE:
+            if (resp.getErr() !== rpcError.NILERR) {
+                rejectFunc ? rejectFunc(resp.getErr()) : undefined;
+            } else {
+                resolveFunc ? resolveFunc() : undefined;
+            }
+            break;
         }
     }
 
@@ -193,17 +193,17 @@ class DBMonitorServiceViaWebsocket implements Service {
      * @constructor
      */
     public async getAllData(address: string, dbName: string, data?: string): Promise<DBContent> {
-        let id = getUUID();
+        const id = getUUID();
         if (!this.conn) {
             throw new ServiceNotAvailableError("getAllData");
         }
-        let req = new ControlMsg();
+        const req = new ControlMsg();
         req.setId(id);
         req.setType(RequestType.GET_ALL_DATA);
         req.setDbAddress(address);
         req.setDbName(dbName);
         if (data) {
-            req.setData(Buffer.from(data, 'utf-8'));
+            req.setData(Buffer.from(data, "utf-8"));
         }
         this.conn.send(req.serializeBinary());
         return new Promise<DBContent>((resolve, reject) => {
@@ -212,11 +212,11 @@ class DBMonitorServiceViaWebsocket implements Service {
     }
 
     public async refreshPage(address: string): Promise<void> {
-        let id = getUUID();
+        const id = getUUID();
         if (!this.conn) {
             throw new ServiceNotAvailableError("refreshPage");
         }
-        let req = new ControlMsg();
+        const req = new ControlMsg();
         req.setId(id);
         req.setType(RequestType.REFRESH_PAGE);
         req.setDbAddress(address);
@@ -256,7 +256,7 @@ class DBMonitorServiceViaGRPC implements IDBMonitorServiceServer, Service {
     getAllDataControl(call: ServerDuplexStream<GetAllDataControlMsg, GetAllDataControlMsg>): void {
         if (this.getAllDataControlReverseRPC.established) {
             this.logger.warn("getAllDataControlReverseRPC already established, ignore new request");
-            return
+            return;
         }
         // serve the initial call
         this.logger.info("getAllDataControl reverse RPC connected");

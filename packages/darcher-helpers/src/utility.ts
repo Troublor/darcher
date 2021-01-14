@@ -16,7 +16,7 @@ import IfStatementHook from "@darcher/jinfres6/src/instrumentation/hooks/IfState
 let id = 0;
 
 export function getUUID(): string {
-    let ret = id.toString();
+    const ret = id.toString();
     id++;
     return ret;
 }
@@ -28,7 +28,7 @@ export type PromiseKit<T> = {
 
 export const sleep: (ms: number) => Promise<void> = async (ms: number): Promise<void> => {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
+};
 
 export function prettifyHash(hash: string): string {
     if (!hash) {
@@ -43,24 +43,24 @@ export function prettifyHash(hash: string): string {
 
 export async function loadConfig(configPath: string): Promise<Config> {
     async function loadScript(path: string): Promise<Config> {
-        let module = await import(path);
+        const module = await import(path);
         return module.default as Config;
     }
 
     async function loadJson(path: string): Promise<Config> {
-        let content = fs.readFileSync(path);
-        return JSON.parse(content.toString()) as Config
+        const content = fs.readFileSync(path);
+        return JSON.parse(content.toString()) as Config;
     }
 
-    let ext = path.extname(configPath);
+    const ext = path.extname(configPath);
     switch (ext) {
-        case ".ts":
-        case ".tsx":
-        case ".js":
-        case ".jsx":
-            return loadScript(configPath);
-        default:
-            return loadJson(configPath);
+    case ".ts":
+    case ".tsx":
+    case ".js":
+    case ".jsx":
+        return loadScript(configPath);
+    default:
+        return loadJson(configPath);
     }
 
 }
@@ -73,10 +73,11 @@ export async function loadConfig(configPath: string): Promise<Config> {
  * @param updateFunc a function which takes an undefined (if the json file does not exist) or object (parsed from json file),
  *        returns an object which will be stringified and saved in the json file.
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function updateJsonFile(jsonFilePath: string, updateFunc: (obj: undefined | object) => object) {
     let obj = undefined;
     if (fs.existsSync(jsonFilePath)) {
-        obj = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'));
+        obj = JSON.parse(fs.readFileSync(jsonFilePath, "utf8"));
     }
     obj = updateFunc(obj);
 
@@ -90,12 +91,14 @@ export function updateJsonFile(jsonFilePath: string, updateFunc: (obj: undefined
  * @param instrumentHooks
  */
 export function updateJsFile(jsFilePath: string, ...instrumentHooks: InstrumentHook[]) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const esprima = require("esprima");
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const escodegen = require("escodegen");
     if (!fs.existsSync(jsFilePath)) {
         throw new Error(`${jsFilePath} does not exist`);
     }
-    let code = fs.readFileSync(jsFilePath, 'utf8');
+    let code = fs.readFileSync(jsFilePath, "utf8");
     const config = {
         jsx: true,
         range: false,
@@ -105,8 +108,8 @@ export function updateJsFile(jsFilePath: string, ...instrumentHooks: InstrumentH
         comment: false,
     };
     let ast = esprima.parseModule(code, config);
-    let traverser = new AstTraverser(ast);
-    for (let hook of instrumentHooks) {
+    const traverser = new AstTraverser(ast);
+    for (const hook of instrumentHooks) {
         traverser.addHook(hook);
     }
     ast = traverser.traverse();

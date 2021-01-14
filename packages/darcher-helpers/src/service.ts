@@ -20,7 +20,7 @@ export class ServiceCollector implements Service {
 
     async start(): Promise<void> {
         // start services as their added order
-        for (let s of this.services) {
+        for (const s of this.services) {
             await s.start();
         }
     }

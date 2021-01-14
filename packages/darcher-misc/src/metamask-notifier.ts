@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 import {Logger} from "@darcher/helpers-browser";
 
@@ -7,15 +7,15 @@ export interface Data {
 }
 
 export interface UnlockRequest extends Data {
-    type: 'UnlockRequest',
+    type: "UnlockRequest",
 }
 
 export interface PermissionRequest extends Data {
-    type: 'PermissionRequest',
+    type: "PermissionRequest",
 }
 
 export interface UnconfirmedMessage extends Data {
-    type: 'UnconfirmedMessage',
+    type: "UnconfirmedMessage",
 }
 
 export interface UnapprovedTx extends Data {
@@ -35,7 +35,7 @@ export default class MetaMaskNotifier {
     constructor(
         private readonly address: string,
     ) {
-        this.logger = new Logger('MetaMask-Notifier', Logger.Level.DEBUG);
+        this.logger = new Logger("MetaMask-Notifier", Logger.Level.DEBUG);
     }
 
     public start() {

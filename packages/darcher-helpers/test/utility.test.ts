@@ -3,7 +3,7 @@ import {loadConfig} from "../src";
 import * as path from "path";
 
 describe("utilities", () => {
-    it('should loadConfig work well', async function () {
+    it("should loadConfig work well", async function () {
         function testConfig(obj: object) {
             expect(typeof obj).to.be.equal("object");
             expect(obj).not.to.be.null;

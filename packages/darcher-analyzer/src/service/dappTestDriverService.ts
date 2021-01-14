@@ -5,7 +5,7 @@ import {
     IDAppTestDriverServiceServer,
     Role, TestEndMsg,
     TestStartMsg,
-    TxMsg
+    TxMsg,
 } from "@darcher/rpc";
 import {getUUID, Logger, ReverseRPCClient, Service} from "@darcher/helpers";
 import {sendUnaryData, ServerDuplexStream, ServerUnaryCall} from "grpc";
@@ -66,7 +66,7 @@ export class DappTestDriverService implements IDAppTestDriverServiceServer, Serv
             this.dappName = msg.getDappName();
             this.dappInstanceId = msg.getInstanceId();
             this.dappDriverControlReverseRPC.establish(call);
-        })
+        });
     }
 
     notifyConsoleError(call: ServerUnaryCall<ConsoleErrorMsg>, callback: sendUnaryData<Empty>): void {
@@ -113,7 +113,7 @@ export class DappTestDriverService implements IDAppTestDriverServiceServer, Serv
      * Tell dapp driver to refresh page via dappDriverControl reverse rpc
      */
     public async refreshPage(): Promise<void> {
-        let req = new DAppDriverControlMsg();
+        const req = new DAppDriverControlMsg();
         req.setRole(Role.DAPP)
             .setId(getUUID())
             .setDappName(this.dappName)

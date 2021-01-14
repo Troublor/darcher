@@ -2,7 +2,7 @@
 This file defines test oracles for on-chain-off-chain synchronization bugs
  */
 import {LogicalTxState, TransactionLog} from "./analyzer";
-import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg,} from "@darcher/rpc";
+import {ConsoleErrorMsg, ContractVulReport, DBContent, TableContent, TxErrorMsg} from "@darcher/rpc";
 import * as _ from "lodash";
 import {prettifyHash} from "@darcher/helpers";
 import {$enum} from "ts-enum-util";
@@ -37,11 +37,11 @@ export interface Oracle {
      * @param dappStack
      */
     onTxState(txState: LogicalTxState,
-              dbContent: DBContent,
-              txErrors: TxErrorMsg[],
-              contractVulReports: ContractVulReport[],
-              consoleErrors: ConsoleErrorMsg[],
-              dappStack?: string[]): void;
+        dbContent: DBContent,
+        txErrors: TxErrorMsg[],
+        contractVulReports: ContractVulReport[],
+        consoleErrors: ConsoleErrorMsg[],
+        dappStack?: string[]): void;
 }
 
 export enum Severity {
@@ -62,10 +62,10 @@ export interface Report {
 
 export function analyzeTransactionLog(oracle: Oracle, log: TransactionLog): Report[] {
     function loadDBContent(obj: DBContent.AsObject): DBContent {
-        let content = new DBContent();
-        let tablesMap = obj['tablesMap'];
-        for (let table of tablesMap) {
-            let tableContent = new TableContent();
+        const content = new DBContent();
+        const tablesMap = obj["tablesMap"];
+        for (const table of tablesMap) {
+            const tableContent = new TableContent();
             tableContent.setKeypathList(table[1].keypathList);
             tableContent.setEntriesList(table[1].entriesList);
             content.getTablesMap().set(table[0], tableContent);
@@ -140,16 +140,16 @@ export class DBChangeOracle implements Oracle {
     }
 
     getBugReports(): Report[] {
-        let reports: Report[] = [];
+        const reports: Report[] = [];
         // we will consider DBContent at CREATED state to be the base-line
-        let created: DBContent = this.contentMap[LogicalTxState.CREATED];
-        let pending: DBContent = this.contentMap[LogicalTxState.PENDING];
-        let confirmed: DBContent = this.contentMap[LogicalTxState.CONFIRMED];
-        let removed: DBContent = this.contentMap[LogicalTxState.REMOVED];
-        let createdConfirmedDiff: DBContentDiff = new DBContentDiff(created, confirmed, this.filter);
-        let removedConfirmedDiff: DBContentDiff = new DBContentDiff(removed, confirmed, this.filter)
-        let pendingRemovedDiff = new DBContentDiff(pending, removed, this.filter);
-        let pendingConfirmedDiff: DBContentDiff = new DBContentDiff(pending, confirmed, this.filter);
+        const created: DBContent = this.contentMap[LogicalTxState.CREATED];
+        const pending: DBContent = this.contentMap[LogicalTxState.PENDING];
+        const confirmed: DBContent = this.contentMap[LogicalTxState.CONFIRMED];
+        const removed: DBContent = this.contentMap[LogicalTxState.REMOVED];
+        const createdConfirmedDiff: DBContentDiff = new DBContentDiff(created, confirmed, this.filter);
+        const removedConfirmedDiff: DBContentDiff = new DBContentDiff(removed, confirmed, this.filter);
+        const pendingRemovedDiff = new DBContentDiff(pending, removed, this.filter);
+        const pendingConfirmedDiff: DBContentDiff = new DBContentDiff(pending, confirmed, this.filter);
         if (!createdConfirmedDiff.zero()) {
             if (pendingConfirmedDiff.zero()) {
                 // DBContent at pending state should not be equal with confirmed state if created state and confirmed state is different.
@@ -177,7 +177,7 @@ export class DBChangeOracle implements Oracle {
                 this.txHash,
                 LogicalTxState.REMOVED,
                 pendingRemovedDiff,
-            ))
+            ));
         }
         return reports;
     }
@@ -187,11 +187,11 @@ export class DBChangeOracle implements Oracle {
     }
 
     onTxState(txState: LogicalTxState,
-              dbContent: DBContent,
-              txErrors: TxErrorMsg[],
-              contractVulReports: ContractVulReport[],
-              consoleErrors: ConsoleErrorMsg[],
-              dappStack: string[]): void {
+        dbContent: DBContent,
+        txErrors: TxErrorMsg[],
+        contractVulReports: ContractVulReport[],
+        consoleErrors: ConsoleErrorMsg[],
+        dappStack: string[]): void {
         this.contentMap[txState] = dbContent;
     }
 }
@@ -279,8 +279,10 @@ export interface TableContentDiffFilter {
 export interface DBContentDiffFilter {
     "*"?: TableContentDiffFilter,
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     includes?: string[],
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     excludes?: string[],
 
@@ -315,7 +317,7 @@ export class DBContentDiff {
                 // for now, we suppose no table will be created or deleted during execution
                 return;
             }
-            let toTable = this.to.getTablesMap().get(tableName);
+            const toTable = this.to.getTablesMap().get(tableName);
 
             // handle wildcard rules
             let tableFilter: TableContentDiffFilter | undefined = this.filter[tableName];
@@ -367,8 +369,9 @@ export class DBContentDiff {
     }
 
     get report(): string {
-        let report = '';
-        for (let table in this.tableDiffs) {
+        let report = "";
+        for (const table in this.tableDiffs) {
+            // eslint-disable-next-line no-prototype-builtins
             if (this.tableDiffs.hasOwnProperty(table)) {
                 if (this.tableDiffs[table].zero()) {
                     continue;
@@ -408,13 +411,13 @@ export class TableContentDiff {
      * Calculate the difference between two TableContent instance.
      */
     private calDiff() {
-        let fromRecords: TableRecord[] = [];
-        let toRecords: TableRecord[] = [];
+        const fromRecords: TableRecord[] = [];
+        const toRecords: TableRecord[] = [];
         // convert to list of TableRecord
-        for (let f_r of this.from.getEntriesList()) {
+        for (const f_r of this.from.getEntriesList()) {
             fromRecords.push(new TableRecord(this.from.getKeypathList(), f_r, this.filter));
         }
-        for (let t_r of this.to.getEntriesList()) {
+        for (const t_r of this.to.getEntriesList()) {
             toRecords.push(new TableRecord(this.to.getKeypathList(), t_r, this.filter));
         }
 
@@ -422,8 +425,8 @@ export class TableContentDiff {
         this._deletedRecords = _.differenceWith(fromRecords, toRecords, (f, t) => f.sameKeyAs(t));
         this._addedRecords = _.differenceWith(toRecords, fromRecords, (f, t) => f.sameKeyAs(t));
         this._changedRecords = [];
-        for (let f of fromRecords) {
-            for (let t of toRecords) {
+        for (const f of fromRecords) {
+            for (const t of toRecords) {
                 if (f.sameKeyAs(t) && !f.equalTo(t)) {
                     // changed records are those with same key but not equal
                     this._changedRecords.push(new TableRecordChange(f, t));
@@ -465,8 +468,9 @@ export class TableRecordChange {
     }
 
     get report(): string {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const jsondiffpatch = require("jsondiffpatch");
-        let delta = jsondiffpatch.diff(this.from.filteredData, this.to.filteredData)
+        const delta = jsondiffpatch.diff(this.from.filteredData, this.to.filteredData);
         return jsondiffpatch.formatters.console.format(delta);
     }
 }
@@ -480,19 +484,20 @@ export class TableRecord {
     public readonly data: { [key: string]: any };
     private readonly filter: TableContentDiffFilter;
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(keyPath: string[], data: object | string, filter: TableContentDiffFilter = {}) {
         this.keyPath = keyPath;
         this.filter = filter ? filter : {};
         switch (typeof data) {
-            case "string":
-                // unmarshal json if data is a string
-                this.data = JSON.parse(data);
-                this.filteredData = this.filterData(this.data);
-                break;
-            default:
-                this.data = data;
-                this.filteredData = this.filterData(this.data);
-                break;
+        case "string":
+            // unmarshal json if data is a string
+            this.data = JSON.parse(data);
+            this.filteredData = this.filterData(this.data);
+            break;
+        default:
+            this.data = data;
+            this.filteredData = this.filterData(this.data);
+            break;
         }
     }
 
@@ -505,7 +510,7 @@ export class TableRecord {
             // short circuit if they have different key path
             return false;
         }
-        for (let key of this.keyPath) {
+        for (const key of this.keyPath) {
             // if (this.data[key] === undefined || another.filteredData[key] === undefined) {
             //     // this branch should not happen, because key must be set
             //     return false;
@@ -522,11 +527,12 @@ export class TableRecord {
         let thisData = _.cloneDeep(data);
         // delete the fields specified in exclusion
         const deleteField = (data: { [key: string]: any }, excludePath: (string | RegExp)[]) => {
-            for (let key of Object.keys(data)) {
-                let reg = new RegExp(excludePath[0]);
+            for (const key of Object.keys(data)) {
+                const reg = new RegExp(excludePath[0]);
                 if (!reg.test(key)) {
                     continue;
                 }
+                // eslint-disable-next-line no-prototype-builtins
                 if (data.hasOwnProperty(key)) {
                     if (excludePath.length == 1) {
                         // end of exclude path, delete the field
@@ -538,8 +544,8 @@ export class TableRecord {
             }
         };
         const addField = (data: { [key: string]: any }, selectPath: (string | RegExp)[], reference: { [key: string]: any }) => {
-            for (let key of Object.keys(reference)) {
-                let reg = new RegExp(selectPath[0]);
+            for (const key of Object.keys(reference)) {
+                const reg = new RegExp(selectPath[0]);
                 if (!reg.test(key)) {
                     continue;
                 }
@@ -562,7 +568,7 @@ export class TableRecord {
                 // if includes are not specified, include all
                 return _.cloneDeep(data);
             }
-            let newData = {};
+            const newData = {};
 
             for (let include of includes) {
                 if (typeof include === "string") {
@@ -572,7 +578,7 @@ export class TableRecord {
             }
 
             return newData;
-        }
+        };
 
         if (this.filter.includes) {
             // includes are specified, we construct thisData and anotherData using included fields
@@ -595,7 +601,7 @@ export class TableRecord {
     }
 
     get report(): string {
-        return JSON.stringify(this.filteredData)
+        return JSON.stringify(this.filteredData);
     }
 }
 
@@ -605,7 +611,7 @@ export class TableRecord {
  */
 export class TxErrorOracle implements Oracle {
     private readonly txHash: string;
-    private readonly txErrorMap: { [txState in LogicalTxState]: TxErrorMsg[] }
+    private readonly txErrorMap: { [txState in LogicalTxState]: TxErrorMsg[] };
 
     constructor(txHash: string) {
         this.txHash = txHash;
@@ -621,13 +627,13 @@ export class TxErrorOracle implements Oracle {
     }
 
     getBugReports(): Report[] {
-        let reports: Report[] = [];
-        for (let state of $enum(LogicalTxState).getValues()) {
-            for (let txErrorMsg of this.txErrorMap[state]) {
+        const reports: Report[] = [];
+        for (const state of $enum(LogicalTxState).getValues()) {
+            for (const txErrorMsg of this.txErrorMap[state]) {
                 reports.push(new TxErrorReport(
                     this.txHash,
                     state,
-                    txErrorMsg
+                    txErrorMsg,
                 ));
             }
         }
@@ -635,7 +641,7 @@ export class TxErrorOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        for (let state of $enum(LogicalTxState).getValues()) {
+        for (const state of $enum(LogicalTxState).getValues()) {
             if (this.txErrorMap[state].length > 0) {
                 return true;
             }
@@ -644,11 +650,11 @@ export class TxErrorOracle implements Oracle {
     }
 
     onTxState(txState: LogicalTxState,
-              dbContent: DBContent,
-              txErrors: TxErrorMsg[],
-              contractVulReports: ContractVulReport[],
-              consoleErrors: ConsoleErrorMsg[],
-              dappStack: string[]): void {
+        dbContent: DBContent,
+        txErrors: TxErrorMsg[],
+        contractVulReports: ContractVulReport[],
+        consoleErrors: ConsoleErrorMsg[],
+        dappStack: string[]): void {
         this.txErrorMap[txState].push(...txErrors);
     }
 
@@ -687,7 +693,7 @@ class TxErrorReport implements Report {
 
 export class ContractVulnerabilityOracle implements Oracle {
     private readonly txHash: string;
-    private readonly contractVulMap: { [txState in LogicalTxState]: ContractVulReport[] }
+    private readonly contractVulMap: { [txState in LogicalTxState]: ContractVulReport[] };
 
     constructor(txHash: string) {
         this.txHash = txHash;
@@ -699,13 +705,13 @@ export class ContractVulnerabilityOracle implements Oracle {
             [LogicalTxState.REEXECUTED]: [],
             [LogicalTxState.CONFIRMED]: [],
             [LogicalTxState.DROPPED]: [],
-        }
+        };
     }
 
     getBugReports(): Report[] {
-        let reports: Report[] = [];
-        for (let state of $enum(LogicalTxState).getValues()) {
-            for (let contractVulMsg of this.contractVulMap[state]) {
+        const reports: Report[] = [];
+        for (const state of $enum(LogicalTxState).getValues()) {
+            for (const contractVulMsg of this.contractVulMap[state]) {
                 reports.push(new ContractVulnerabilityReport(
                     this.txHash,
                     state,
@@ -717,7 +723,7 @@ export class ContractVulnerabilityOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        for (let state of $enum(LogicalTxState).getValues()) {
+        for (const state of $enum(LogicalTxState).getValues()) {
             if (this.contractVulMap[state].length > 0) {
                 return true;
             }
@@ -726,11 +732,11 @@ export class ContractVulnerabilityOracle implements Oracle {
     }
 
     onTxState(txState: LogicalTxState,
-              dbContent: DBContent,
-              txErrors: TxErrorMsg[],
-              contractVulReports: ContractVulReport[],
-              consoleErrors: ConsoleErrorMsg[],
-              dappStack: string[]): void {
+        dbContent: DBContent,
+        txErrors: TxErrorMsg[],
+        contractVulReports: ContractVulReport[],
+        consoleErrors: ConsoleErrorMsg[],
+        dappStack: string[]): void {
         this.contractVulMap[txState].push(...contractVulReports);
     }
 
@@ -770,7 +776,7 @@ class ContractVulnerabilityReport implements Report {
 
 export class ConsoleErrorOracle implements Oracle {
     private readonly txHash: string;
-    private readonly consoleErrorMap: { [txState in LogicalTxState]: ConsoleErrorMsg[] }
+    private readonly consoleErrorMap: { [txState in LogicalTxState]: ConsoleErrorMsg[] };
 
     constructor(txHash: string) {
         this.txHash = txHash;
@@ -782,13 +788,13 @@ export class ConsoleErrorOracle implements Oracle {
             [LogicalTxState.REEXECUTED]: [],
             [LogicalTxState.CONFIRMED]: [],
             [LogicalTxState.DROPPED]: [],
-        }
+        };
     }
 
     getBugReports(): Report[] {
-        let reports: Report[] = [];
-        for (let state of $enum(LogicalTxState).getValues()) {
-            for (let consoleErrorMsg of this.consoleErrorMap[state]) {
+        const reports: Report[] = [];
+        for (const state of $enum(LogicalTxState).getValues()) {
+            for (const consoleErrorMsg of this.consoleErrorMap[state]) {
                 reports.push(new ConsoleErrorReport(
                     this.txHash,
                     state,
@@ -800,7 +806,7 @@ export class ConsoleErrorOracle implements Oracle {
     }
 
     isBuggy(): boolean {
-        for (let state of $enum(LogicalTxState).getValues()) {
+        for (const state of $enum(LogicalTxState).getValues()) {
             if (this.consoleErrorMap[state].length > 0) {
                 return true;
             }
@@ -809,11 +815,11 @@ export class ConsoleErrorOracle implements Oracle {
     }
 
     onTxState(txState: LogicalTxState,
-              dbContent: DBContent,
-              txErrors: TxErrorMsg[],
-              contractVulReports: ContractVulReport[],
-              consoleErrors: ConsoleErrorMsg[],
-              dappStack: string[]): void {
+        dbContent: DBContent,
+        txErrors: TxErrorMsg[],
+        contractVulReports: ContractVulReport[],
+        consoleErrors: ConsoleErrorMsg[],
+        dappStack: string[]): void {
         this.consoleErrorMap[txState].push(...consoleErrors);
     }
 

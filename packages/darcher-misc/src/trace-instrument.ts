@@ -7,7 +7,7 @@ export interface SendTransactionTrace {
 }
 
 export interface StackTraceMessage extends Data {
-    type: 'FetchStackTrace',
+    type: "FetchStackTrace",
     stack: string[],
 }
 
@@ -22,12 +22,12 @@ async function oneTimeWebSocketRequest<T extends Data>(url: string, data: T): Pr
         };
         ws.onerror = (ev: ErrorEvent) => {
             reject(ev);
-        }
+        };
         ws.onmessage = (ev) => {
             const msg = JSON.parse(ev.data) as T;
             resolve(msg);
             ws.close();
-        }
+        };
     });
 }
 
@@ -53,7 +53,7 @@ declare global {
 
 let isBrowser;
 let GLOBAL;
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
     GLOBAL = window;
     isBrowser = true;
 } else if (typeof global !== "undefined") {
@@ -63,33 +63,34 @@ if (typeof window !== 'undefined') {
     throw new Error("Failed to load trace-instrument");
 }
 
-if (typeof GLOBAL !== 'undefined' && !GLOBAL.traceHistories) {
+if (typeof GLOBAL !== "undefined" && !GLOBAL.traceHistories) {
     GLOBAL.traceHistories = [] as TraceHistory[];
 }
 
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function traceSendAsync(method: string, params: any[], callback: Function): Function {
     const traceCache: TraceHistory = {
         method: method,
         params: params,
         stack: null,
     };
-    if (['eth_sendTransaction', 'eth_sendRawTransaction', 'eth_estimateGas'].includes(method)) {
+    if (["eth_sendTransaction", "eth_sendRawTransaction", "eth_estimateGas"].includes(method)) {
         const traceObj = {stack: undefined};
         Error.captureStackTrace(traceObj, traceSendAsync);
         callback = new Proxy(callback, {
             apply(target, thisArg, argArray) {
-                if (method === 'eth_estimateGas') {
+                if (method === "eth_estimateGas") {
                     // save gas
                     traceCache.params[0].gas = argArray[1];
                     // save to history, in case there is a transaction use this call later
                     traceCache.stack = traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error");
                     GLOBAL.traceHistories.push(traceCache);
-                } else if (['eth_sendTransaction', 'eth_sendRawTransaction'].includes(method)) {
+                } else if (["eth_sendTransaction", "eth_sendRawTransaction"].includes(method)) {
                     // search trace history for a possible estimateGas cache (which is more precise)
                     for (let i = GLOBAL.traceHistories.length - 1; i >= 0; i--) {
                         const history = GLOBAL.traceHistories[i];
-                        if (history.method === 'eth_estimateGas' &&
+                        if (history.method === "eth_estimateGas" &&
                             history.params[0] && params[0] &&
                             history.params[0].from === params[0].from &&
                             history.params[0].to === params[0].to &&
@@ -111,22 +112,23 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                         hash: typeof argArray[1] === "string" ? argArray[1] : argArray[1].result,
                         stack: traceCache.stack,
                     } as SendTransactionTrace;
-                    logger.info("Transaction trace", {hash: trace.hash, stack: trace.stack})
+                    logger.info("Transaction trace", {hash: trace.hash, stack: trace.stack});
                     if (isBrowser) {
-                        const ws = new WebSocket(`ws://localhost:1236`);
+                        const ws = new WebSocket("ws://localhost:1236");
                         ws.onopen = () => {
                             ws.send(JSON.stringify(trace));
                         };
                         ws.onerror = (ev: ErrorEvent) => {
                             logger.error("Send transaction trace error", {err: ev});
-                        }
+                        };
                         ws.onmessage = () => {
                             ws.close();
-                        }
+                        };
                     } else {
+                        // eslint-disable-next-line @typescript-eslint/no-var-requires
                         const WebSocket = require("ws");
                         const ws = new WebSocket("ws://localhost:1236");
-                        ws.on('open', () => {
+                        ws.on("open", () => {
                             ws.send(JSON.stringify(trace));
                         });
                         ws.on("error", e => {
@@ -146,7 +148,7 @@ export function traceSendAsync(method: string, params: any[], callback: Function
 }
 
 export function traceSend(method: string, result: string) {
-    if ((method === 'eth_sendTransaction' || method === 'eth_sendRawTransaction')) {
+    if ((method === "eth_sendTransaction" || method === "eth_sendRawTransaction")) {
         const traceObj = {stack: undefined};
         Error.captureStackTrace(traceObj, traceSendAsync);
         const trace = {
@@ -154,15 +156,15 @@ export function traceSend(method: string, result: string) {
             stack: traceObj.stack.split(/\n/).map(item => item.trim()).filter(item => item.length > 0 && item !== "Error"),
         } as SendTransactionTrace;
         logger.info("Transaction trace", {hash: prettifyHash(trace.hash), stack: trace.stack});
-        const ws = new WebSocket(`ws://localhost:1236`);
+        const ws = new WebSocket("ws://localhost:1236");
         ws.onopen = () => {
             ws.send(JSON.stringify(trace));
         };
         ws.onerror = (ev: ErrorEvent) => {
             logger.error("Send transaction trace error", {err: ev});
-        }
+        };
         ws.onmessage = () => {
             ws.close();
-        }
+        };
     }
 }

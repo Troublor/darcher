@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 import {ControlMsg, DBContent, RequestType, TableContent} from "@darcher/rpc";
 import {Logger, Service, WebsocketError} from "@darcher/helpers";
-import * as WebSocket from "ws";
+import WebSocket from "ws";
 
 /**
  * This mock ws client is used to test DarcherServer ws service.
@@ -48,29 +48,31 @@ export class MockWsClient implements Service {
 
     private onWsOpen = () => {
         this.logger.info("Websocket connection with darcher opened");
-    }
+    };
 
     /**
      * handle reverse RPCs via websocket from darcher
      * @param message
      */
     private async onWsMessage(message: any) {
-        let request = ControlMsg.deserializeBinary(message.data);
+        const request = ControlMsg.deserializeBinary(message.data);
         switch (request.getType()) {
-            case RequestType.GET_ALL_DATA:
-                let content = new DBContent();
-                let table = new TableContent();
-                table.addKeypath("mock");
-                content.getTablesMap().set("mock", table);
-                request.setData(content.serializeBinary());
-                this.ws.send(request.serializeBinary());
-                break;
-            case RequestType.REFRESH_PAGE:
-                request.setData("mock");
-                this.ws.send(request.serializeBinary());
-                break;
-            default:
-                return;
+        case RequestType.GET_ALL_DATA:
+            // eslint-disable-next-line no-case-declarations
+            const content = new DBContent();
+            // eslint-disable-next-line no-case-declarations
+            const table = new TableContent();
+            table.addKeypath("mock");
+            content.getTablesMap().set("mock", table);
+            request.setData(content.serializeBinary());
+            this.ws.send(request.serializeBinary());
+            break;
+        case RequestType.REFRESH_PAGE:
+            request.setData("mock");
+            this.ws.send(request.serializeBinary());
+            break;
+        default:
+            return;
         }
     }
 
@@ -79,13 +81,13 @@ export class MockWsClient implements Service {
      */
     private onWsClose = () => {
         this.logger.info("Websocket connection with darcher closed");
-    }
+    };
 
     private onWsError = (ev: ErrorEvent) => {
         this.logger.error(new WebsocketError(ev.error));
-    }
+    };
 
-
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     public saveSnapshot() {
 
     }

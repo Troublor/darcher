@@ -7,7 +7,7 @@ import {
     Severity,
     TableContentDiff,
     TableRecord,
-    TxErrorOracle, DBContentDiffFilter
+    TxErrorOracle, DBContentDiffFilter,
 } from "../src/oracle";
 import {expect} from "chai";
 import {
@@ -17,7 +17,7 @@ import {
     DBContent,
     TableContent,
     TxErrorMsg,
-    TxErrorType
+    TxErrorType,
 } from "@darcher/rpc";
 import * as _ from "lodash";
 import {LogicalTxState} from "../src";
@@ -25,55 +25,55 @@ import {LogicalTxState} from "../src";
 
 describe("Oracle Tests", () => {
     describe("DBChangeOracle", () => {
-        it('should TableRecord sameKeyAs works right', function () {
-            let keyPath = ["id1", "id2"];
-            let base = {
+        it("should TableRecord sameKeyAs works right", function () {
+            const keyPath = ["id1", "id2"];
+            const base = {
                 "id1": "aaa",
                 "id2": "bbb",
                 "msg": "hello",
             };
-            let same = {
+            const same = {
                 "id1": "aaa",
                 "id2": "bbb",
                 "msg": "hello world",
             };
-            let diff = {
+            const diff = {
                 "id1": "aaa",
                 "id2": "ccc",
                 "msg": "hi",
-            }
-            let r_base = new TableRecord(keyPath, base);
+            };
+            const r_base = new TableRecord(keyPath, base);
             expect(r_base.sameKeyAs(new TableRecord(["id1"], {}))).to.be.false;
             expect(r_base.sameKeyAs(new TableRecord(["id1", "id2"], JSON.stringify(same)))).to.be.true;
             expect(r_base.sameKeyAs(new TableRecord(keyPath, diff))).to.be.false;
             expect(r_base.sameKeyAs(new TableRecord(keyPath, {}))).to.be.false;
         });
 
-        it('should TableRecord differentFrom works right', function () {
-            let keyPath = ["id1", "id2"];
-            let base = {
+        it("should TableRecord differentFrom works right", function () {
+            const keyPath = ["id1", "id2"];
+            const base = {
                 "id1": "aaa",
                 "id2": "bbb",
                 "msg": "hello",
             };
-            let same = {
+            const same = {
                 "id2": "bbb",
                 "msg": "hello",
                 "id1": "aaa",
             };
-            let diff = {
+            const diff = {
                 "id1": "aaa",
                 "id2": "bbb",
                 "msg": "hi",
             };
-            let r_base = new TableRecord(keyPath, base);
+            const r_base = new TableRecord(keyPath, base);
             expect(r_base.equalTo(new TableRecord(["id1", "id3"], {}))).to.be.false;
             expect(r_base.equalTo(new TableRecord(["id2", "id1"], same))).to.be.true;
             expect(r_base.equalTo(new TableRecord(["id1", "id2"], diff))).to.be.false;
         });
 
-        it('should TableContentDiff calDiff works right', function () {
-            let base: TableContent = new TableContent();
+        it("should TableContentDiff calDiff works right", function () {
+            const base: TableContent = new TableContent();
             base.setKeypathList(["id"]).setEntriesList([
                 JSON.stringify({
                     "id": "1",
@@ -92,7 +92,7 @@ describe("Oracle Tests", () => {
                 }),
             ]);
 
-            let same: TableContent = new TableContent();
+            const same: TableContent = new TableContent();
             same.setKeypathList(["id"]).setEntriesList([
                 JSON.stringify({
                     "id": "3",
@@ -112,22 +112,22 @@ describe("Oracle Tests", () => {
             ]);
 
             // define the different TableContent
-            let addedRecord = {
+            const addedRecord = {
                 "id": "4",
                 "msg": "ddd",
                 "data": "DDD",
             };
-            let changedRecord_from = {
+            const changedRecord_from = {
                 "id": "2",
                 "msg": "bbb",
                 "data": "BBB",
-            }
-            let changedRecord_to = {
+            };
+            const changedRecord_to = {
                 "id": "2",
                 "msg": "BBB",
                 "data": "bbb",
             };
-            let deletedRecords = [{
+            const deletedRecords = [{
                 "id": "1",
                 "msg": "aaa",
                 "data": "AAA",
@@ -136,14 +136,14 @@ describe("Oracle Tests", () => {
                 "msg": "ccc",
                 "data": "CCC",
             }];
-            let diff: TableContent = new TableContent();
+            const diff: TableContent = new TableContent();
             diff.setKeypathList(["id"]).setEntriesList([
                 JSON.stringify(addedRecord),
                 JSON.stringify(changedRecord_to),
             ]);
 
             expect(new TableContentDiff("", base, same).zero()).to.be.true;
-            let difference = new TableContentDiff("", base, diff);
+            const difference = new TableContentDiff("", base, diff);
             expect(difference.zero()).to.be.false;
             expect(difference.addedRecords).to.be.lengthOf(1);
             expect(_.isEqual(difference.addedRecords[0].data, addedRecord)).to.be.true;
@@ -151,13 +151,13 @@ describe("Oracle Tests", () => {
             expect(_.isEqual(difference.changedRecords[0].from.data, changedRecord_from)).to.be.true;
             expect(_.isEqual(difference.changedRecords[0].to.data, changedRecord_to)).to.be.true;
             expect(difference.deletedRecords).to.be.lengthOf(2);
-            for (let r of deletedRecords) {
+            for (const r of deletedRecords) {
                 expect(_.some(difference.deletedRecords, rr => _.isEqual(r, rr.data)));
             }
         });
 
-        it('should DBContentDiff calDiff works right', function () {
-            let base = new DBContent();
+        it("should DBContentDiff calDiff works right", function () {
+            const base = new DBContent();
             base.getTablesMap()
                 .set("table1", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
@@ -191,7 +191,7 @@ describe("Oracle Tests", () => {
                     }),
                 ]));
 
-            let same1 = new DBContent();
+            const same1 = new DBContent();
             same1.getTablesMap()
                 .set("table1", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
@@ -225,7 +225,7 @@ describe("Oracle Tests", () => {
                     }),
                 ]));
 
-            let same2 = new DBContent();
+            const same2 = new DBContent();
             same2.getTablesMap()
                 .set("table1", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
@@ -245,7 +245,7 @@ describe("Oracle Tests", () => {
                     }),
                 ]));
 
-            let diff = new DBContent();
+            const diff = new DBContent();
             diff.getTablesMap()
                 .set("table1", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
@@ -281,21 +281,21 @@ describe("Oracle Tests", () => {
 
             expect(new DBContentDiff(base, same1).zero()).to.be.true;
             expect(new DBContentDiff(base, same2).zero()).to.be.true;
-            let difference = new DBContentDiff(base, diff);
+            const difference = new DBContentDiff(base, diff);
             expect(difference.zero()).to.be.false;
-            let tableNames = _.keys(difference.tableDiffs);
+            const tableNames = _.keys(difference.tableDiffs);
             expect(tableNames).to.be.lengthOf(2);
             expect(_.isEqual(tableNames.sort(), ["table1", "table2"].sort())).to.be.true;
             expect(difference.tableDiffs["table1"].zero()).to.be.true;
             expect(difference.tableDiffs["table2"].zero()).to.be.false;
-            let tableDiff = difference.tableDiffs["table2"];
+            const tableDiff = difference.tableDiffs["table2"];
             expect(tableDiff.deletedRecords).to.be.lengthOf(1);
             expect(tableDiff.addedRecords).to.be.lengthOf(1);
         });
 
-        it('should ConsoleErrorOracle works well', function () {
-            let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
-            let oracle = new ConsoleErrorOracle(txHash);
+        it("should ConsoleErrorOracle works well", function () {
+            const txHash = "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const oracle = new ConsoleErrorOracle(txHash);
             oracle.onTxState(LogicalTxState.REMOVED, null, [], [], [
                 new ConsoleErrorMsg().setDappName("test_dapp").setInstanceId("1").setErrorString("console error"),
             ], []);
@@ -304,12 +304,12 @@ describe("Oracle Tests", () => {
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.ConsoleError);
             expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.Low);
             expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
-            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.ConsoleError)
+            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.ConsoleError);
         });
 
-        it('should TransactionErrorOracle works well', function () {
-            let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
-            let oracle = new TxErrorOracle(txHash);
+        it("should TransactionErrorOracle works well", function () {
+            const txHash = "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const oracle = new TxErrorOracle(txHash);
             oracle.onTxState(LogicalTxState.REMOVED, null, [
                 new TxErrorMsg().setHash(txHash).setType(TxErrorType.REVERT).setDescription("Transaction error"),
             ], [], [], []);
@@ -318,12 +318,12 @@ describe("Oracle Tests", () => {
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.TransactionError);
             expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.Medium);
             expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
-            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.TransactionError)
+            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.TransactionError);
         });
 
-        it('should ContractVulnerabilityOracle works well', function () {
-            let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
-            let oracle = new ContractVulnerabilityOracle(txHash);
+        it("should ContractVulnerabilityOracle works well", function () {
+            const txHash = "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const oracle = new ContractVulnerabilityOracle(txHash);
             oracle.onTxState(LogicalTxState.REMOVED, null, [], [
                 new ContractVulReport().setTxHash(txHash).setType(ContractVulType.REENTRANCY),
             ], [], []);
@@ -332,31 +332,22 @@ describe("Oracle Tests", () => {
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.ContractVulnerability);
             expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.High);
             expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
-            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.ContractVulnerability)
+            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.ContractVulnerability);
         });
 
-        it('should DBChangeOracle works well', function () {
-            let txHash = "0x0000000000000000000000000000000000000000000000000000000000000000"
-            let oracle = new DBChangeOracle(txHash);
-            let createdContent = new DBContent();
+        it("should DBChangeOracle works well", function () {
+            const txHash = "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const oracle = new DBChangeOracle(txHash);
+            const createdContent = new DBContent();
             createdContent.getTablesMap()
                 .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
                         "id": "1",
                         "data": "aaa",
-                    })
-                ]));
-            let pendingContent = new DBContent();
-            pendingContent.getTablesMap()
-                .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
-                    JSON.stringify({
-                        "id": "1",
-                        "data": "aaa",
-                        "created": false,
                     }),
                 ]));
-            let removedContent = new DBContent();
-            removedContent.getTablesMap()
+            const pendingContent = new DBContent();
+            pendingContent.getTablesMap()
                 .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
                         "id": "1",
@@ -364,7 +355,16 @@ describe("Oracle Tests", () => {
                         "created": true,
                     }),
                 ]));
-            let confirmedContent = new DBContent();
+            const removedContent = new DBContent();
+            removedContent.getTablesMap()
+                .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
+                    JSON.stringify({
+                        "id": "1",
+                        "data": "aaa",
+                        "created": false,
+                    }),
+                ]));
+            const confirmedContent = new DBContent();
             confirmedContent.getTablesMap()
                 .set("table", new TableContent().setKeypathList(["id"]).setEntriesList([
                     JSON.stringify({
@@ -382,22 +382,22 @@ describe("Oracle Tests", () => {
             expect(oracle.getBugReports()[0].type()).to.be.equal(VulnerabilityType.UnreliableTxHash);
             expect(oracle.getBugReports()[0].severity()).to.be.equal(Severity.Low);
             expect(oracle.getBugReports()[0].txHash()).to.be.equal(txHash);
-            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.UnreliableTxHash)
+            expect(oracle.getBugReports()[0].message()).to.include(VulnerabilityType.UnreliableTxHash);
             expect(oracle.getBugReports()[1].type()).to.be.equal(VulnerabilityType.DataInconsistency);
             expect(oracle.getBugReports()[1].severity()).to.be.equal(Severity.High);
             expect(oracle.getBugReports()[1].txHash()).to.be.equal(txHash);
-            expect(oracle.getBugReports()[1].message()).to.include(VulnerabilityType.DataInconsistency)
+            expect(oracle.getBugReports()[1].message()).to.include(VulnerabilityType.DataInconsistency);
         });
     });
 
     describe("DBContentDiff", () => {
-        it('should be able to exclude fields', function () {
+        it("should be able to exclude fields", function () {
             const filter: DBContentDiffFilter = {
                 "table": {
                     excludes: [
-                        ["transaction", "timestamp"]
-                    ]
-                }
+                        ["transaction", "timestamp"],
+                    ],
+                },
             };
             const from = new DBContent();
             from.getTablesMap()
@@ -409,7 +409,7 @@ describe("Oracle Tests", () => {
                             "transaction": {
                                 hash: "0x1234",
                                 timestamp: 0,
-                            }
+                            },
                         }),
                     ]),
                 );
@@ -423,7 +423,7 @@ describe("Oracle Tests", () => {
                             "transaction": {
                                 hash: "0x1234",
                                 timestamp: 1,
-                            }
+                            },
                         }),
                     ]),
                 );
@@ -431,20 +431,20 @@ describe("Oracle Tests", () => {
             expect(new DBContentDiff(from, to, filter).zero()).to.be.true;
         });
 
-        it('should be able to include fields with regex', function () {
+        it("should be able to include fields with regex", function () {
             const filterTimestamp: DBContentDiffFilter = {
                 "table": {
                     includes: [
-                        ["transaction", "timestamp"]
-                    ]
-                }
+                        ["transaction", "timestamp"],
+                    ],
+                },
             };
             const filterHash: DBContentDiffFilter = {
                 "table": {
                     includes: [
-                        ["transaction", "hash"]
-                    ]
-                }
+                        ["transaction", "hash"],
+                    ],
+                },
             };
             const from = new DBContent();
             from.getTablesMap()
@@ -456,7 +456,7 @@ describe("Oracle Tests", () => {
                             "transaction": {
                                 hash: "0x1234",
                                 timestamp: 0,
-                            }
+                            },
                         }),
                     ]),
                 );
@@ -470,7 +470,7 @@ describe("Oracle Tests", () => {
                             "transaction": {
                                 hash: "0x1234",
                                 timestamp: 1,
-                            }
+                            },
                         }),
                     ]),
                 );
@@ -479,13 +479,13 @@ describe("Oracle Tests", () => {
             expect(new DBContentDiff(from, to, filterHash).zero()).to.be.true;
         });
 
-        it('should be able to include fields', function () {
+        it("should be able to include fields", function () {
             const filterRegex: DBContentDiffFilter = {
                 "table": {
                     includes: [
-                        ["transaction", /.*/]
-                    ]
-                }
+                        ["transaction", /.*/],
+                    ],
+                },
             };
             const from = new DBContent();
             from.getTablesMap()
@@ -497,7 +497,7 @@ describe("Oracle Tests", () => {
                             "transaction": {
                                 hash: "0x1234",
                                 timestamp: 0,
-                            }
+                            },
                         }),
                     ]),
                 );
@@ -511,7 +511,7 @@ describe("Oracle Tests", () => {
                             "transaction": {
                                 hash: "0x1234",
                                 timestamp: 1,
-                            }
+                            },
                         }),
                     ]),
                 );

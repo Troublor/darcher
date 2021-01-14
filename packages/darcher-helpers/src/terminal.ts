@@ -3,88 +3,15 @@ This module defines helpers for uses of terminal, including execute commands in 
  */
 import * as shell from "shelljs";
 import * as os from "os";
+import {Command as Cmd} from "@troubkit/cmd";
 
-export class Command {
-    // multiple cmds will be joined with &&
-    private otherCmds: Command[];
-    // payload stores the content of current command
-    private readonly payload: string[];
-
-    /**
-     * Construct a new Command, with optional segments
-     * @param segments
-     */
-    constructor(...segments: string[]) {
-        this.payload = [];
-        for (let seg of segments) {
-            let ss = seg.split(" ");
-            for (let s of ss) {
-                s.length > 0 ? this.payload.push(s) : undefined;
-            }
-        }
-        this.otherCmds = [];
-    }
-
-    /**
-     * Append more segments to the end of command
-     * @param segments
-     */
-    public append(...segments: string[]): Command {
-        for (let seg of segments) {
-            let ss = seg.split(" ");
-            for (let s of ss) {
-                s.length > 0 ? this.payload.push(s) : undefined;
-            }
-        }
-        return this;
-    }
-
-    /**
-     * Concat other commands to this command. e.g. cd /var && ls -a
-     * @param cmds
-     */
-    public concat(...cmds: Command[]): Command {
-        this.otherCmds.push(...cmds);
-        return this;
-    }
-
-    /**
-     * Shallow copy this command, otherCmds will only copy reference
-     */
-    public copy(): Command {
-        let cmd = new Command(...this.payload);
-        cmd.otherCmds = [...this.otherCmds];
-        return cmd;
-    }
-
-    public toString(): string {
-        if (this.otherCmds.length <= 0) {
-            return `${this.payload.join(" ")}`;
-        } else {
-            return `${this.payload.join(" ")} && ${this.otherCmds.map(cmd => cmd.toString()).join(" && ")}`;
-        }
-    }
-
-    /**
-     * get the child_process.spawn-like command
-     */
-    get command(): string {
-        return this.payload.length > 0 ? this.payload[0] : undefined;
-    }
-
-    /**
-     * get the child_process.spawn-like args list
-     */
-    get args(): string[] {
-        return this.payload.length > 0 ? this.payload.slice(1) : undefined;
-    }
-}
+export const Command = Cmd;
 
 export class Tab {
     // whether to open a new window
-    public w: boolean
+    public w: boolean;
     // the command to be executed in this tab
-    public cmd: Command;
+    public cmd: Cmd;
     // working directory of this tab
     public pwd: string;
     // tab title
@@ -92,11 +19,11 @@ export class Tab {
 
     public pid: number;
 
-    constructor(cmd?: Command, w: boolean = false, pwd: string = undefined, title: string = undefined) {
+    constructor(cmd?: Cmd, w = false, pwd: string = undefined, title: string = undefined) {
         this.cmd = cmd;
         this.w = w;
         this.pwd = pwd;
-        this.title = title
+        this.title = title;
     }
 
     public open() {
@@ -122,7 +49,7 @@ export class TerminalWindow {
             // MacOS
             let first = true;
             // only open the first tab in new window
-            for (let tab of this.tabs) {
+            for (const tab of this.tabs) {
                 tab.w = first;
                 tab.open();
                 first = false;
@@ -160,10 +87,10 @@ export class TerminalWindow {
  * @param w whether to open tab in a new window
  * @param d working direction of the command
  */
-function executeInNewTab(cmd: Command, w: boolean = false, d: string = undefined, tabTitle: string = undefined) {
+function executeInNewTab(cmd: Cmd, w = false, d: string = undefined, tabTitle: string = undefined) {
     const osType = os.type();
     if (osType === "Darwin") {
-        let c = new Command("ttab");
+        const c = new Command("ttab");
         c.append("-a iTerm2");
         if (w) {
             c.append("-w");

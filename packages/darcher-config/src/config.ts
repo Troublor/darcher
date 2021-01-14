@@ -73,7 +73,7 @@ const config = {
             wsPort: 8546,
             graphql: true,
             extra: "",
-        }
-    ]
-}
+        },
+    ],
+};
 export default config;

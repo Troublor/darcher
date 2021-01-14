@@ -1,2 +1,3 @@
-export * from './log';
-export * from './utility';
+export * from "./log";
+export * from "./utility";
+

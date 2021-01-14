@@ -7,6 +7,7 @@
   "main": "src",
   "types": "src",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "coverage": "nyc yarn test"
   },

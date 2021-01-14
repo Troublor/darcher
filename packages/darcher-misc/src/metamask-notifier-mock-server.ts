@@ -10,7 +10,7 @@ export class MetaMaskNotifierMockServer {
         private readonly port: number,
         private readonly logger?: Logger) {
         if (!this.logger) {
-            this.logger = new Logger("MetaMaskNotifierMockServer", 'info');
+            this.logger = new Logger("MetaMaskNotifierMockServer", "info");
         }
     }
 
@@ -26,19 +26,19 @@ export class MetaMaskNotifierMockServer {
                 });
             });
             ws.on("close", () => {
-                this.logger.info("Websocket connection with MetaMask Notifier closed")
+                this.logger.info("Websocket connection with MetaMask Notifier closed");
             });
         });
         this.wss.on("error", (error) => {
             this.logger.error(new WebsocketError(error));
         });
-        this.logger.info(`MetaMask Notifier started via WebSocket at port ${this.port}`)
+        this.logger.info(`MetaMask Notifier started via WebSocket at port ${this.port}`);
     }
 
     public async shutdown() {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             if (!this.wss) {
-                this.logger.info("MetaMask Notifier already shutdown")
+                this.logger.info("MetaMask Notifier already shutdown");
                 resolve();
                 return;
             }
@@ -46,7 +46,7 @@ export class MetaMaskNotifierMockServer {
                 if (err) {
                     reject(err);
                 } else {
-                    this.logger.info("MetaMask Notifier shutdown")
+                    this.logger.info("MetaMask Notifier shutdown");
                     resolve();
                 }
             });
@@ -58,8 +58,8 @@ if (require.main === module) {
     (async () => {
         const store = new MetaMaskNotifierMockServer(1237);
         await store.start();
-        process.on('SIGINT', async () => {
+        process.on("SIGINT", async () => {
             await store.shutdown();
         });
-    })()
+    })();
 }

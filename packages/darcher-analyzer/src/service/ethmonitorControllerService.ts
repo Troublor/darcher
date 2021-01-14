@@ -7,7 +7,7 @@ import {
     TxReceivedMsg,
     TxStateChangeMsg,
     TxStateControlMsg,
-    TxTraverseStartMsg
+    TxTraverseStartMsg,
 } from "@darcher/rpc";
 import {TxState} from "@darcher/rpc";
 import {Empty} from "google-protobuf/google/protobuf/empty_pb";
@@ -55,12 +55,12 @@ export class EthmonitorControllerService implements IEthmonitorControllerService
 
     askForNextState(call: ServerUnaryCall<TxStateControlMsg>, callback: sendUnaryData<TxStateControlMsg>): void {
         if (this.handler === undefined || !this.handler.askForNextState) {
-            let reply = call.request;
-            reply.setNextState(TxState.CONFIRMED)
+            const reply = call.request;
+            reply.setNextState(TxState.CONFIRMED);
             callback(null, reply);
         } else {
             this.handler.askForNextState(call.request).then(nextState => {
-                let reply = call.request;
+                const reply = call.request;
                 reply.setNextState(nextState);
                 callback(null, reply);
             });
@@ -109,13 +109,13 @@ export class EthmonitorControllerService implements IEthmonitorControllerService
 
     selectTx(call: ServerUnaryCall<SelectTxControlMsg>, callback: sendUnaryData<SelectTxControlMsg>): void {
         if (this.handler === undefined || !this.handler.selectTxToTraverse) {
-            let reply = call.request;
-            reply.setSelection(reply.getCandidateHashesList()[0])
+            const reply = call.request;
+            reply.setSelection(reply.getCandidateHashesList()[0]);
             callback(null, reply);
         } else {
             this.handler.selectTxToTraverse(call.request).then(select => {
-                let reply = call.request;
-                reply.setSelection(select)
+                const reply = call.request;
+                reply.setSelection(select);
                 callback(null, reply);
             });
         }

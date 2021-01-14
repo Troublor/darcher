@@ -5,13 +5,13 @@ import {
     EthmonitorControllerServiceService,
     IDAppTestDriverServiceServer,
     IDBMonitorServiceServer,
-    IEthmonitorControllerServiceServer
+    IEthmonitorControllerServiceServer,
 } from "@darcher/rpc";
 import {EthmonitorControllerService} from "./ethmonitorControllerService";
 import {DbMonitorService} from "./dbmonitorService";
 import {Logger, prettifyHash, Service} from "@darcher/helpers";
 import {DappTestDriverService, DappTestDriverServiceHandler} from "./dappTestDriverService";
-import * as prompts from "prompts";
+import prompts from "prompts";
 import {Config} from "@darcher/config";
 import * as fs from "fs";
 import * as path from "path";
@@ -39,7 +39,7 @@ export class DarcherServer extends Server implements Service {
         this.addService<IEthmonitorControllerServiceServer>(EthmonitorControllerServiceService, this._ethmonitorControllerService);
         this.addService<IDBMonitorServiceServer>(DBMonitorServiceService, this._dbMonitorService.grpcTransport);
         this.addService<IDAppTestDriverServiceServer>(DAppTestDriverServiceService, this._dappTestDriverService);
-        let addr = `0.0.0.0:${this.grpcPort}`;
+        const addr = `0.0.0.0:${this.grpcPort}`;
         this.bind(addr, ServerCredentials.createInsecure());
     }
 
@@ -49,11 +49,11 @@ export class DarcherServer extends Server implements Service {
     public async start(): Promise<void> {
         // start websocket services
         await this._dbMonitorService.start();
-        this.logger.info(`Darcher websocket started`, {port: this.websocketPort});
+        this.logger.info("Darcher websocket started", {port: this.websocketPort});
         await this.dappTestDriverService.start();
 
         // start grpc services
-        this.logger.info(`Darcher grpc server started`, {port: this.grpcPort});
+        this.logger.info("Darcher grpc server started", {port: this.grpcPort});
         super.start();
     }
 
@@ -64,10 +64,11 @@ export class DarcherServer extends Server implements Service {
     }
 
     public async shutdown(): Promise<void> {
+        // eslint-disable-next-line no-async-promise-executor
         return new Promise(async resolve => {
             await this.dbMonitorService.shutdown();
             await this.dappTestDriverService.shutdown();
-            this.forceShutdown()
+            this.forceShutdown();
             resolve();
         });
     }
@@ -86,7 +87,7 @@ export class DarcherServer extends Server implements Service {
 }
 
 export class MockDarcherServer extends DarcherServer {
-    public txProcessTime: number = 10000;
+    public txProcessTime = 10000;
     private config: Config;
 
     constructor(logger: Logger, config: Config) {
@@ -107,9 +108,9 @@ export class MockDarcherServer extends DarcherServer {
     private async sleep(ms: number) {
         return new Promise((resolve) => {
             setTimeout(() => {
-                resolve('');
-            }, ms)
-            this.logger.info("Waiting ended.")
+                resolve("");
+            }, ms);
+            this.logger.info("Waiting ended.");
         });
     }
 
@@ -140,14 +141,15 @@ export class MockDarcherServer extends DarcherServer {
                         resolve();
                     }, this.txProcessTime);
                 });
-            }
-        }
+            },
+        };
     }
 
     private async dbMonitorServiceTestControl() {
         this.logger.info("DBMonitorService is connected.");
+        // eslint-disable-next-line no-constant-condition
         while (true) {
-            let response = await prompts({
+            const response = await prompts({
                 type: "text",
                 name: "value",
                 message: "Fetch DBContent? enter json file name",
@@ -156,7 +158,7 @@ export class MockDarcherServer extends DarcherServer {
                 break;
             }
             try {
-                let content = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
+                const content = await this.dbMonitorService.getAllData(this.config.dbMonitor.dbAddress, this.config.dbMonitor.dbName);
                 if (response.value !== "") {
                     // if file name is not empty, save to json file in data/*.json
                     fs.writeFileSync(path.join(__dirname, "..", "..", "data", `${response.value}.json`), JSON.stringify(content.toObject(), null, 2));

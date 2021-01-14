@@ -12,7 +12,7 @@ import {
     TxState,
     TxStateChangeMsg,
     TxStateControlMsg,
-    TxTraverseStartMsg
+    TxTraverseStartMsg,
 } from "@darcher/rpc";
 import {Analyzer} from "./analyzer";
 import {Config} from "@darcher/config";
@@ -59,7 +59,7 @@ export class Darcher {
             askForNextState: this.askForNextState.bind(this),
             onContractVulnerability: this.onContractVulnerability.bind(this),
             onTxError: this.onTxError.bind(this),
-        }
+        };
         this.dappTestDriverHandler = <DappTestDriverServiceHandler>{
             onConsoleError: this.onConsoleError.bind(this),
         };
@@ -83,7 +83,7 @@ export class Darcher {
      * Start the Darcher and returns a promise which resolves when the darcher is started and rejects when error
      */
     public async start(): Promise<void> {
-        await this.traceStore.start()
+        await this.traceStore.start();
         this.server.ethmonitorControllerService.handler = this.ethmonitorController;
         this.server.dappTestDriverService.handler = this.dappTestDriverHandler;
         await this.server.start();
@@ -96,7 +96,7 @@ export class Darcher {
     public async shutdown(): Promise<void> {
         await this.traceStore.shutdown();
         await this.server.shutdown();
-        this.logger.info("Darcher shutdown")
+        this.logger.info("Darcher shutdown");
     }
 
     private async onTxTrace(trace: SendTransactionTrace) {
@@ -110,31 +110,31 @@ export class Darcher {
         // new tx, initialize analyzer for it
         const parentHash = this.currentAnalyzer?.txHash;
         this.logger.debug("Transaction received", {"tx": msg.getHash(), parent: parentHash});
-        this.analyzers[msg.getHash()] = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService, parentHash)
+        this.analyzers[msg.getHash()] = new Analyzer(this.logger, this.config, msg.getHash(), this.server.dbMonitorService, parentHash);
     }
 
     private async onTxStateChange(msg: TxStateChangeMsg) {
         if (msg.getHash() in this.analyzers) {
             this.logger.debug(
-                `Transaction state changed`,
+                "Transaction state changed",
                 {
                     tx: prettifyHash(msg.getHash()),
                     from: $enum(TxState).getKeyOrDefault(msg.getFrom(), undefined),
                     to: $enum(TxState).getKeyOrDefault(msg.getTo(), undefined),
-                }
+                },
             );
             await this.analyzers[msg.getHash()].onTxStateChange(msg);
         } else {
             this.logger.warn(
-                `Unknown transaction state changed`,
+                "Unknown transaction state changed",
                 {
                     tx: prettifyHash(msg.getHash()),
                     from: $enum(TxState).getKeyOrDefault(msg.getFrom(), undefined),
                     to: $enum(TxState).getKeyOrDefault(msg.getTo(), undefined),
-                }
+                },
             );
         }
-    };
+    }
 
     private async onTxFinished(msg: TxFinishedMsg) {
         if (msg.getHash() in this.analyzers) {
@@ -151,7 +151,7 @@ export class Darcher {
                 path.join(this.logDir, `${msg.getHash()}.json`),
                 JSON.stringify(this.analyzers[msg.getHash()].log, null, 2),
             );
-            this.logger.info(`Transaction log stored in ${msg.getHash()}.json`)
+            this.logger.info(`Transaction log stored in ${msg.getHash()}.json`);
             this.logger.info("Transaction traverse finished", {"tx": prettifyHash(msg.getHash())});
         } else {
             this.logger.warn("Unknown transaction traverse finished", {"tx": prettifyHash(msg.getHash())});
@@ -161,7 +161,7 @@ export class Darcher {
     private async selectTxToTraverse(msg: SelectTxControlMsg): Promise<string> {
         if (this.currentAnalyzer && !this.currentAnalyzer.finished) {
             if (msg.getCandidateHashesList().includes(this.currentAnalyzer.txHash)) {
-                this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(this.currentAnalyzer.txHash)});
+                this.logger.debug("Transaction selected to traverse", {"tx": prettifyHash(this.currentAnalyzer.txHash)});
                 return this.currentAnalyzer.txHash;
             } else {
                 if (this.currentAnalyzer) {
@@ -171,8 +171,8 @@ export class Darcher {
                         tx: this.currentAnalyzer.txHash,
                     });
                 }
-                let selected = msg.getCandidateHashesList()[0];
-                this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(selected)});
+                const selected = msg.getCandidateHashesList()[0];
+                this.logger.debug("Transaction selected to traverse", {"tx": prettifyHash(selected)});
                 return selected;
             }
         } else {
@@ -180,15 +180,15 @@ export class Darcher {
             for (const tx in this.analyzers) {
                 const analyzer = this.analyzers[tx];
                 if (!analyzer.finished && msg.getCandidateHashesList().includes(tx)) {
-                    this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(tx)});
+                    this.logger.debug("Transaction selected to traverse", {"tx": prettifyHash(tx)});
                     this.loadAnalyzer(analyzer);
                     this.currentAnalyzer = analyzer;
                     return tx;
                 }
             }
-            let selected = msg.getCandidateHashesList()[0];
+            const selected = msg.getCandidateHashesList()[0];
             this.logger.warn("No active analyzers but need to select tx");
-            this.logger.debug(`Transaction selected to traverse`, {"tx": prettifyHash(selected)});
+            this.logger.debug("Transaction selected to traverse", {"tx": prettifyHash(selected)});
             return selected;
         }
     }
@@ -204,24 +204,24 @@ export class Darcher {
 
     private async askForNextState(msg: TxStateControlMsg): Promise<TxState> {
         if (msg.getHash() in this.analyzers) {
-            let nextState = await this.analyzers[msg.getHash()].askForNextState(msg);
+            const nextState = await this.analyzers[msg.getHash()].askForNextState(msg);
             this.logger.debug(
-                `Decide state transition`,
+                "Decide state transition",
                 {
                     tx: prettifyHash(msg.getHash()),
                     from: $enum(TxState).getKeyOrDefault(msg.getCurrentState(), undefined),
                     to: $enum(TxState).getKeyOrDefault(nextState, undefined),
-                }
+                },
             );
             return nextState;
         } else {
             this.logger.warn(
-                `Decide state transition for unknown transaction`,
+                "Decide state transition for unknown transaction",
                 {
                     tx: prettifyHash(msg.getHash()),
                     from: $enum(TxState).getKeyOrDefault(msg.getCurrentState(), undefined),
                     to: $enum(TxState).getKeyOrDefault(TxState.CONFIRMED, undefined),
-                }
+                },
             );
             return TxState.CONFIRMED;
         }
@@ -229,19 +229,19 @@ export class Darcher {
 
     private async onContractVulnerability(msg: ContractVulReport) {
         if (msg.getTxHash() in this.analyzers) {
-            this.logger.debug(`Get contract vulnerability report`, {"vulnerability": msg.getDescription()});
+            this.logger.debug("Get contract vulnerability report", {"vulnerability": msg.getDescription()});
             await this.analyzers[msg.getTxHash()].onContractVulnerability(msg);
         } else {
-            this.logger.warn(`Get contract vulnerability report for unknown transaction`, {"vulnerability": msg.getDescription()});
+            this.logger.warn("Get contract vulnerability report for unknown transaction", {"vulnerability": msg.getDescription()});
         }
     }
 
     private async onTxError(msg: TxErrorMsg) {
         if (msg.getHash() in this.analyzers) {
-            this.logger.debug(`Found transaction error`, {"err": msg.getDescription()});
+            this.logger.debug("Found transaction error", {"err": msg.getDescription()});
             await this.analyzers[msg.getHash()].onTxError(msg);
         } else {
-            this.logger.warn(`Found unknown transaction error`, {"err": msg.getDescription()});
+            this.logger.warn("Found unknown transaction error", {"err": msg.getDescription()});
         }
     }
 
@@ -261,10 +261,10 @@ export class Darcher {
         this.dappTestDriverHandler.onTestEnd = analyzer.onTestEnd.bind(analyzer);
         this.dappTestDriverHandler.waitForTxProcess = async msg1 => {
             this.logger.debug(
-                `DApp waiting for Transaction process`,
+                "DApp waiting for Transaction process",
                 {
                     tx: prettifyHash(analyzer.txHash),
-                }
+                },
             );
             await analyzer.waitForTxProcess(msg1);
 
@@ -274,25 +274,25 @@ export class Darcher {
                     if (analyzer.parentHash === parentHash) {
                         this.logger.debug("Waiting for child transaction process", {
                             child: prettifyHash(childHash),
-                            parent: prettifyHash(parentHash)
+                            parent: prettifyHash(parentHash),
                         });
                         // the argument of analyzer.waitForTxProcess is not used, so it is safe to pass null
                         await analyzer.waitForTxProcess(null);
                         await waitForChildTxProcess(childHash);
                         this.logger.debug("Child transaction process complete", {
                             child: prettifyHash(childHash),
-                            parent: prettifyHash(parentHash)
+                            parent: prettifyHash(parentHash),
                         });
                     }
                 }
-            }
+            };
             await waitForChildTxProcess(analyzer.txHash);
 
             this.logger.debug(
-                `Transaction process complete, resume DApp`,
+                "Transaction process complete, resume DApp",
                 {
                     tx: prettifyHash(analyzer.txHash),
-                }
+                },
             );
         };
     }

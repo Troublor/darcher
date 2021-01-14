@@ -4,14 +4,14 @@
 
 import * as fs from "fs";
 
-import * as parser from '@babel/parser';
+import * as parser from "@babel/parser";
 import traverse from "@babel/traverse";
 import generate from "@babel/generator";
 import {
     AssignmentExpression, CallExpression,
     FunctionExpression,
     Identifier,
-    MemberExpression, Statement, VariableDeclaration, VariableDeclarator
+    MemberExpression, Statement, VariableDeclaration, VariableDeclarator,
 } from "@babel/types";
 import {NodePath} from "@babel/core";
 import template from "@babel/template";
@@ -31,30 +31,30 @@ function _instrumentWeb3CoreMethod(file: string, instrumentedPack: string): [boo
     let already = false;
     traverse(ast, {
         AssignmentExpression(path: NodePath<AssignmentExpression>, state) {
-            if (path.node.left.type === 'MemberExpression') {
+            if (path.node.left.type === "MemberExpression") {
                 const left = path.node.left as MemberExpression;
-                if (left.property.type === 'Identifier') {
+                if (left.property.type === "Identifier") {
                     const property = left.property as Identifier;
                     if (property.name === "buildCall") {
                         const right = path.node.right as FunctionExpression;
                         for (const statement of right.body.body) {
-                            if (statement.type === 'VariableDeclaration') {
+                            if (statement.type === "VariableDeclaration") {
                                 const declaration = statement as VariableDeclaration;
                                 for (const declarator of declaration.declarations) {
-                                    if ((declarator as VariableDeclarator).id.type === 'Identifier' &&
-                                        (declarator.id as Identifier).name === 'send') {
+                                    if ((declarator as VariableDeclarator).id.type === "Identifier" &&
+                                        (declarator.id as Identifier).name === "send") {
                                         const func = declarator.init as FunctionExpression;
                                         let i = 0;
                                         let loc = undefined;
                                         for (const statement of func.body.body) {
-                                            if (loc === undefined && statement.type === 'IfStatement') {
+                                            if (loc === undefined && statement.type === "IfStatement") {
                                                 loc = i;
                                             }
-                                            if (statement.type === 'ExpressionStatement' &&
-                                            statement.expression.type === 'AssignmentExpression' &&
-                                            statement.expression.right.type === 'CallExpression' &&
-                                            statement.expression.right.callee.type === 'Identifier' &&
-                                            statement.expression.right.callee.name === 'traceSendAsync') {
+                                            if (statement.type === "ExpressionStatement" &&
+                                            statement.expression.type === "AssignmentExpression" &&
+                                            statement.expression.right.type === "CallExpression" &&
+                                            statement.expression.right.callee.type === "Identifier" &&
+                                            statement.expression.right.callee.name === "traceSendAsync") {
                                                 already = true;
                                             }
                                             i++;
@@ -75,7 +75,7 @@ function _instrumentWeb3CoreMethod(file: string, instrumentedPack: string): [boo
                     }
                 }
             }
-        }
+        },
     });
     if (instrumented) {
         const result = generate(ast, {}, code);
@@ -105,17 +105,17 @@ export function instrumentWeb3CoreMethod(dir: string, type: "web" | "node") {
                 scanDirForDir(path.join(root, directory), target, callback);
             }
         }
-    }
+    };
 
-    const logger = new Logger("web3-core-method.instrument", 'info')
+    const logger = new Logger("web3-core-method.instrument", "info");
 
     scanDirForDir(dir, "web3-core-method", folder => {
         const indexFile = path.join(folder, "src", "index.js");
         if (fs.existsSync(indexFile)) {
             let instrumentedPack;
-            if (type === 'web') {
+            if (type === "web") {
                 instrumentedPack = path.join(__dirname, "..", "bundle", "trace-instrument.web.js");
-            }else if (type === 'node') {
+            }else if (type === "node") {
                 instrumentedPack = path.join(__dirname, "..", "bundle", "trace-instrument.node.js");
             }
             const [already, instrumented] = _instrumentWeb3CoreMethod(indexFile, instrumentedPack);
@@ -129,7 +129,7 @@ export function instrumentWeb3CoreMethod(dir: string, type: "web" | "node") {
         } else {
             logger.warn(`find web3-core-method at ${folder}, but no src/index.js detected`);
         }
-    })
+    });
 }
 
 if (require.main === module) {
@@ -139,9 +139,9 @@ if (require.main === module) {
             name:"type",
             message:"Web or Node.js?",
             choices:[
-                {title: "Web", value: 'web'},
+                {title: "Web", value: "web"},
                 {title: "Node.js", value: "node"},
-            ]
+            ],
         });
         const response0 = await prompts({
             type: "text",
@@ -152,5 +152,5 @@ if (require.main === module) {
         if (response0.dir) {
             instrumentWeb3CoreMethod(response0.dir, response1.type);
         }
-    })()
+    })();
 }

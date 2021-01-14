@@ -5,7 +5,7 @@ import {$enum} from "ts-enum-util";
 import * as chalk from "chalk";
 import {Level} from "log4js";
 
-log4js.addLayout('darcherConsole', config => {
+log4js.addLayout("darcherConsole", config => {
     return logEvent => {
         const month = logEvent.startTime.getMonth().toString().padStart(2, "0");
         const day = logEvent.startTime.getDay().toString().padStart(2, "0");
@@ -15,28 +15,31 @@ log4js.addLayout('darcherConsole', config => {
         const millisecond = logEvent.startTime.getMilliseconds().toString().padEnd(3, "0").slice(0, 3);
         const logTime = `${month}-${day}|${hour}:${minute}:${second}.${millisecond}`;
         const msg = logEvent.data[0];
+        // eslint-disable-next-line @typescript-eslint/ban-types
         const context: object = logEvent.data[1];
         let contextLiteral = "";
         const colored = (level: Level, str: string): string => {
             switch (level) {
-                case log4js.levels.TRACE:
-                    return chalk.blue(str);
-                case log4js.levels.DEBUG:
-                    return chalk.cyan(str);
-                case log4js.levels.INFO:
-                    return chalk.green(str);
-                case log4js.levels.WARN:
-                    return chalk.yellow(str);
-                case log4js.levels.ERROR:
-                    return chalk.red(str);
-                case log4js.levels.FATAL:
-                    return chalk.magenta(str);
-                default:
-                    return str;
+            case log4js.levels.TRACE:
+                return chalk.blue(str);
+            case log4js.levels.DEBUG:
+                return chalk.cyan(str);
+            case log4js.levels.INFO:
+                return chalk.green(str);
+            case log4js.levels.WARN:
+                return chalk.yellow(str);
+            case log4js.levels.ERROR:
+                return chalk.red(str);
+            case log4js.levels.FATAL:
+                return chalk.magenta(str);
+            default:
+                return str;
             }
-        }
-        for (let key in context) {
+        };
+        for (const key in context) {
+            // eslint-disable-next-line no-prototype-builtins
             if (context.hasOwnProperty(key)) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 contextLiteral += `${colored(logEvent.level, key)}=${context[key] ? context[key].toString() : context[key]} `;
             }
@@ -47,20 +50,20 @@ log4js.addLayout('darcherConsole', config => {
 log4js.configure({
     appenders: {
         console: {
-            type: 'stdout',
+            type: "stdout",
             layout: {
                 type: "darcherConsole",
                 separator: "",
-            }
-        }
+            },
+        },
     },
     categories: {
         default: {
-            appenders: ['console'],
-            level: 'trace',
-        }
-    }
-})
+            appenders: ["console"],
+            level: "trace",
+        },
+    },
+});
 
 export class Logger extends EventEmitter {
 
@@ -70,11 +73,12 @@ export class Logger extends EventEmitter {
     constructor(_module?: string, level?: string | log4js.Level) {
         super();
         this.logger = log4js.getLogger(_module);
-        this.logger.level = 'info'; // set default level at "info"
+        this.logger.level = "info"; // set default level at "info"
         if (level) {
             this.logger.level = typeof level === "string" ? level : level.levelStr;
         }
         // add an empty error listener to prevent error being thrown, see https://nodejs.org/api/events.html#events_error_events
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         this.on("error", function () {
         });
     }

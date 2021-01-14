@@ -8,18 +8,18 @@ export class Logger {
         ERROR: 4,
         levelString: (lvl: LoggerLevel) => {
             switch (lvl) {
-                case 1:
-                    return 'DEBUG';
-                case 2:
-                    return 'INFO';
-                case 3:
-                    return 'WARN';
-                case 4:
-                    return 'ERROR';
-                default:
-                    return 'UNKNOWN'
+            case 1:
+                return "DEBUG";
+            case 2:
+                return "INFO";
+            case 3:
+                return "WARN";
+            case 4:
+                return "ERROR";
+            default:
+                return "UNKNOWN";
             }
-        }
+        },
     }
 
     constructor(
@@ -45,8 +45,10 @@ export class Logger {
 
         let contextLiteral = "";
         if (context) {
-            for (let key in context) {
+            for (const key in context) {
+                // eslint-disable-next-line no-prototype-builtins
                 if (context.hasOwnProperty(key)) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     contextLiteral += `${colored(level, key)}=${context[key]?.toString()} `;
                 }
@@ -59,20 +61,20 @@ export class Logger {
     log(level: LoggerLevel, message: string, context?: { [key: string]: any }) {
         if (this.level <= level) {
             switch (this.level) {
-                case Logger.Level.ERROR:
-                    console.error(this.parseLog(level, message, context));
-                    break;
-                case Logger.Level.WARN:
-                    console.warn(this.parseLog(level, message, context));
-                    break;
-                case Logger.Level.INFO:
-                    console.info(this.parseLog(level, message, context));
-                    break;
-                case Logger.Level.DEBUG:
-                    console.debug(this.parseLog(level, message, context));
-                    break;
-                default:
-                    console.log(this.parseLog(level, message, context));
+            case Logger.Level.ERROR:
+                console.error(this.parseLog(level, message, context));
+                break;
+            case Logger.Level.WARN:
+                console.warn(this.parseLog(level, message, context));
+                break;
+            case Logger.Level.INFO:
+                console.info(this.parseLog(level, message, context));
+                break;
+            case Logger.Level.DEBUG:
+                console.debug(this.parseLog(level, message, context));
+                break;
+            default:
+                console.log(this.parseLog(level, message, context));
             }
         }
     }

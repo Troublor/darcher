@@ -12,10 +12,13 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@troubkit/cmd": "^0.2.0-alpha.0",
+    "@troubkit/log": "^0.2.0-alpha.0",
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
     "escodegen": "^2.0.0",
     "esprima": "^4.0.1",
+    "get-port": "^5.1.1",
     "grpc": "^1.24.3",
     "log4js": "^6.3.0",
     "selenium-webdriver": "^4.0.0-alpha.7",

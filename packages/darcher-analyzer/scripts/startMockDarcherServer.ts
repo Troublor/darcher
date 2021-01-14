@@ -18,13 +18,13 @@ const config = <Config>{
         dbName: "augur-123456",
     },
     clusters: [],
-}
+};
 
 async function main() {
-    let mockServer = new MockDarcherServer(logger, config);
+    const mockServer = new MockDarcherServer(logger, config);
     mockServer.txProcessTime = txProcessTime;
     await mockServer.start();
-    process.on('SIGINT', async function () {
+    process.on("SIGINT", async function () {
         console.log(">>> Caught interrupt signal");
         await mockServer.shutdown();
     });
@@ -32,4 +32,4 @@ async function main() {
 
 main().then(() => {
     logger.info("MockDarcherServer started");
-})
+});

@@ -33,14 +33,14 @@ export class MongodbAdapter implements Adapter {
     }
 
     async getAllData(dbName: string): Promise<DBContent> {
-        let dbContent = new DBContent();
+        const dbContent = new DBContent();
         const collections = await this.mongoClient.db(dbName).collections();
-        for (let collection of collections) {
-            let tableContent = new TableContent();
+        for (const collection of collections) {
+            const tableContent = new TableContent();
             // _id is preserved primary key in mongodb
             tableContent.setKeypathList(["_id"]);
-            let arr = await collection.find({}).toArray();
-            for (let item of arr) {
+            const arr = await collection.find({}).toArray();
+            for (const item of arr) {
                 tableContent.addEntries(JSON.stringify(item));
             }
             dbContent.getTablesMap().set(collection.collectionName, tableContent);

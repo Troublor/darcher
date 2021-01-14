@@ -14,7 +14,7 @@ export class TraceStore {
         private readonly save_dir?: string | undefined,
         private readonly callback?: undefined | ((trace: SendTransactionTrace) => void)) {
         if (!this.logger) {
-            this.logger = new Logger("TraceStore", 'info');
+            this.logger = new Logger("TraceStore", "info");
         }
     }
 
@@ -40,19 +40,19 @@ export class TraceStore {
                 ws.send("");
             });
             ws.on("close", () => {
-                this.logger.debug("Websocket connection with trace store closed")
+                this.logger.debug("Websocket connection with trace store closed");
             });
         });
         this.wss.on("error", (error) => {
             this.logger.error(new WebsocketError(error));
         });
-        this.logger.info(`Trace store started via WebSocket at port ${this.port}`)
+        this.logger.info(`Trace store started via WebSocket at port ${this.port}`);
     }
 
     public async shutdown() {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             if (!this.wss) {
-                this.logger.info("Trace store already shutdown")
+                this.logger.info("Trace store already shutdown");
                 resolve();
                 return;
             }
@@ -60,7 +60,7 @@ export class TraceStore {
                 if (err) {
                     reject(err);
                 } else {
-                    this.logger.info("Trace store shutdown")
+                    this.logger.info("Trace store shutdown");
                     resolve();
                 }
             });
@@ -72,8 +72,8 @@ if (require.main === module) {
     (async () => {
         const store = new TraceStore(1236, undefined, path.join(__dirname, "data"));
         await store.start();
-        process.on('SIGINT', async () => {
+        process.on("SIGINT", async () => {
             await store.shutdown();
         });
-    })()
+    })();
 }

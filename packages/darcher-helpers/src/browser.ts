@@ -34,8 +34,8 @@ export class Browser implements Service {
                 `--user-data-dir=${this.userDir}`,
                 "--disable-web-security",
                 "--enable-experimental-web-platform-features",
-                `--remote-debugging-port=${this.port}`
-            )
+                `--remote-debugging-port=${this.port}`,
+            );
 
         this.logger.info("Starting chrome...", {port: this.port, userDir: this.userDir});
 
@@ -65,7 +65,8 @@ export class Browser implements Service {
 }
 
 export async function getWebDriver(debuggerAddress: string): Promise<WebDriver> {
-    const options = new Options()
+    const options = new Options();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     options.options_["debuggerAddress"] = debuggerAddress;
 
@@ -92,7 +93,7 @@ export class MetaMask {
                 const dropDown = await this.driver.wait(until.elementLocated(By.className("network-droppo")));
                 const networkItems = await dropDown.findElements(By.css("li"));
                 for (const network of networkItems) {
-                    const text = await network.getText()
+                    const text = await network.getText();
                     if (!text.includes(name)) {
                         continue;
                     }
@@ -104,7 +105,7 @@ export class MetaMask {
                     break;
                 }
             },
-        )
+        );
         return this;
     }
 
@@ -152,7 +153,7 @@ export class MetaMask {
                     for (const tab of tabs) {
                         const titleElement = await tab.findElement(By.className("tab-bar__tab__content__title"));
                         const title = await titleElement.getText();
-                        if (title === 'Advanced') {
+                        if (title === "Advanced") {
                             await tab.click();
                             await this.driver.wait(until.elementTextContains(
                                 await this.driver.findElement(By.className("settings-page__subheader")),
@@ -173,9 +174,9 @@ export class MetaMask {
     }
 
     async do(): Promise<void> {
-        this.logger.info("Opening MetaMask home page...", {url: this.homeUrl})
+        this.logger.info("Opening MetaMask home page...", {url: this.homeUrl});
         const current = await this.driver.getWindowHandle();
-        await this.driver.switchTo().newWindow('tab');
+        await this.driver.switchTo().newWindow("tab");
         await this.driver.get(this.homeUrl);
         await this.driver.wait(async () => {
             const state = await this.driver.executeScript("return document.readyState");
@@ -188,6 +189,7 @@ export class MetaMask {
             const passwordInput = await this.driver.findElement(By.id("password"));
             await passwordInput.sendKeys(this.password);
             await unlockButton.click();
+            // eslint-disable-next-line no-empty
         } catch (e) {
         }
 
@@ -197,6 +199,7 @@ export class MetaMask {
                 if (main) {
                     return true;
                 }
+                // eslint-disable-next-line no-empty
             } catch (e) {
             }
             try {
@@ -204,6 +207,7 @@ export class MetaMask {
                 if (reject) {
                     await reject.click();
                 }
+                // eslint-disable-next-line no-empty
             } catch (e) {
             }
             return false;
@@ -224,10 +228,10 @@ if (require.main === module) {
         // const browser = new Browser(logger, 9222, "/Users/troublor/workspace/darcher_mics/browsers/Chrome/UserData");
         // await browser.start();
         const driver = await getWebDriver("127.0.0.1:9222");
-        const metamask = new MetaMask(logger, driver, "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html", "12345678")
+        const metamask = new MetaMask(logger, driver, "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html", "12345678");
         await metamask.changeAccount("Account 1")
             .changeNetwork("Rinkeby")
             .resetAccount()
             .do();
-    })()
+    })();
 }

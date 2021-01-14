@@ -7,7 +7,9 @@
     "declaration": true,
     "sourceMap": true,
     "target": "ES6",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "incremental": true
   },
   "exclude": [
     "node_modules",

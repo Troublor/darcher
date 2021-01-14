@@ -21,10 +21,10 @@ export default class DBMonitor {
         let analyzerAddress;
         // connect db adapter
         switch (this.config.dbMonitor.db) {
-            case DBOptions.mongoDB:
-                this.adapter = new MongodbAdapter(this.config.dbMonitor.dbAddress);
-                await this.adapter.connect();
-                analyzerAddress = `localhost:${this.config.analyzer.grpcPort}`;
+        case DBOptions.mongoDB:
+            this.adapter = new MongodbAdapter(this.config.dbMonitor.dbAddress);
+            await this.adapter.connect();
+            analyzerAddress = `localhost:${this.config.analyzer.grpcPort}`;
         }
         // start client
         this.client = new Client(this.logger, analyzerAddress);
@@ -36,17 +36,16 @@ export default class DBMonitor {
         await this.adapter.close();
     }
 
-    getAllDataControlHandler: ReverseRPCHandler<GetAllDataControlMsg, GetAllDataControlMsg>
-        = async (req): Promise<GetAllDataControlMsg> => {
+    getAllDataControlHandler: ReverseRPCHandler<GetAllDataControlMsg, GetAllDataControlMsg> = async (req): Promise<GetAllDataControlMsg> => {
         return new Promise((resolve, reject) => {
             if (!this.adapter) {
                 reject("adapter is not loaded");
-                return
+                return;
             }
             this.adapter.getAllData(this.config.dbMonitor.dbName).then(value => {
                 req.setContent(value);
                 resolve(req);
             });
         });
-    }
+    };
 }
