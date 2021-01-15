@@ -167,12 +167,32 @@ export function samplePadding(reportFiles: string[], sampleFiles: string[], padd
 }
 
 samplePadding([
+    path.join(__dirname, "AgroChain.report.json"),
+    path.join(__dirname, "augur.report.json"),
+    path.join(__dirname, "burner-wallet.report.json"),
+    path.join(__dirname, "democracy-earth.report.json"),
+    path.join(__dirname, "eth-hot-wallet.report.json"),
+    path.join(__dirname, "ethereum_voting_dapp.report.json"),
+    path.join(__dirname, "ethereum-todolist.report.json"),
     path.join(__dirname, "giveth.report.json"),
+    path.join(__dirname, "heiswap.report.json"),
+    path.join(__dirname, "metamask.report.json"),
     path.join(__dirname, "multisender.report.json"),
+    path.join(__dirname, "publicvotes.report.json"),
 ], [
+    path.join(__dirname, "AgroChain.sample.json"),
+    path.join(__dirname, "augur.sample.json"),
+    path.join(__dirname, "burner-wallet.sample.json"),
+    path.join(__dirname, "democracy-earth.sample.json"),
+    path.join(__dirname, "eth-hot-wallet.sample.json"),
+    path.join(__dirname, "ethereum_voting_dapp.sample.json"),
+    path.join(__dirname, "ethereum-todolist.sample.json"),
     path.join(__dirname, "giveth.sample.json"),
+    path.join(__dirname, "heiswap.sample.json"),
+    path.join(__dirname, "metamask.sample.json"),
     path.join(__dirname, "multisender.sample.json"),
+    path.join(__dirname, "publicvotes.sample.json"),
 ], [
-    30,
-    100
+    192,
+    327,
 ], path.join(__dirname, "padding"));
