@@ -24,6 +24,7 @@ export interface ClusterConfig {
 export interface AnalyzerConfig {
     grpcPort: number,
     wsPort: number,
+    traceStorePort?: number
     txStateChangeProcessTime?: number // in milliseconds
 }
 

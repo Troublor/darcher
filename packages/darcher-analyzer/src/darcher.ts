@@ -35,7 +35,7 @@ export class Darcher {
 
     private readonly analyzers: { [txHash: string]: Analyzer } = {};
     public currentAnalyzer: Analyzer | null;
-    private currentChildAnalazers: Analyzer[] | null; // the analyzers created during current analyzer is being processed
+    private currentChildAnalyzers: Analyzer[] | null; // the analyzers created during current analyzer is being processed
 
     // ethmonitorControllerService handler
     private readonly ethmonitorController: EthmonitorController;
@@ -45,11 +45,11 @@ export class Darcher {
     constructor(logger: Logger, config: Config) {
         this.config = config;
         this.logger = logger;
-        this.traceStore = new TraceStore(1236, this.logger, undefined, this.onTxTrace.bind(this));
+        this.traceStore = new TraceStore(this.config.analyzer.traceStorePort ?? 1236, this.logger, undefined, this.onTxTrace.bind(this));
         this.server = new DarcherServer(this.logger, config.analyzer.grpcPort, config.analyzer.wsPort);
         this.analyzers = {};
         this.currentAnalyzer = null;
-        this.currentChildAnalazers = null;
+        this.currentChildAnalyzers = null;
         this.ethmonitorController = <EthmonitorController>{
             onTxReceived: this.onTxReceived.bind(this),
             selectTxToTraverse: this.selectTxToTraverse.bind(this),
@@ -166,7 +166,7 @@ export class Darcher {
             } else {
                 if (this.currentAnalyzer) {
                     await this.currentAnalyzer.waitForTxProcess(null);
-                }else {
+                } else {
                     this.logger.warn("Transaction lost", {
                         tx: this.currentAnalyzer.txHash,
                     });

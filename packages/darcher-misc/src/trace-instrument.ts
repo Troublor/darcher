@@ -51,8 +51,8 @@ declare global {
     }
 }
 
-let isBrowser;
-let GLOBAL;
+let isBrowser: boolean;
+let GLOBAL: any;
 if (typeof window !== "undefined") {
     GLOBAL = window;
     isBrowser = true;
@@ -76,7 +76,7 @@ export function traceSendAsync(method: string, params: any[], callback: Function
         stack: null,
     };
     if (["eth_sendTransaction", "eth_sendRawTransaction", "eth_estimateGas"].includes(method)) {
-        const traceObj = {stack: undefined};
+        const traceObj: { stack: undefined | string } = {stack: undefined};
         Error.captureStackTrace(traceObj, traceSendAsync);
         callback = new Proxy(callback, {
             apply(target, thisArg, argArray) {
@@ -97,7 +97,7 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                             history.params[0].data === params[0].data
                         ) {
                             // delete this from history
-                            GLOBAL.traceHistories = GLOBAL.traceHistories.filter(value => value !== history);
+                            GLOBAL.traceHistories = GLOBAL.traceHistories.filter((value: any) => value !== history);
                             // use the stack trace of this cache
                             traceCache.stack = history.stack;
                             break;
@@ -131,7 +131,7 @@ export function traceSendAsync(method: string, params: any[], callback: Function
                         ws.on("open", () => {
                             ws.send(JSON.stringify(trace));
                         });
-                        ws.on("error", e => {
+                        ws.on("error", (e: Error) => {
                             logger.error("Send transaction trace error", {err: e});
                         });
                         ws.on("message", () => {
@@ -149,7 +149,7 @@ export function traceSendAsync(method: string, params: any[], callback: Function
 
 export function traceSend(method: string, result: string) {
     if ((method === "eth_sendTransaction" || method === "eth_sendRawTransaction")) {
-        const traceObj = {stack: undefined};
+        const traceObj: { stack: undefined | string } = {stack: undefined};
         Error.captureStackTrace(traceObj, traceSendAsync);
         const trace = {
             hash: result,
