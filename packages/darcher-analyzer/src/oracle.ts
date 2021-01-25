@@ -419,8 +419,11 @@ export class TableContentDiff {
         }
 
         // calculate diff
-        this._deletedRecords = _.differenceWith(fromRecords, toRecords, (f, t) => f.sameKeyAs(t));
-        this._addedRecords = _.differenceWith(toRecords, fromRecords, (f, t) => f.sameKeyAs(t));
+        const _deletedRecords = _.differenceWith(fromRecords, toRecords, (f, t) => f.sameKeyAs(t));
+        const _addedRecords = _.differenceWith(toRecords, fromRecords, (f, t) => f.sameKeyAs(t));
+        this._deletedRecords = _.differenceWith(_deletedRecords, _addedRecords, (d, a) => _.isEqual(d.filteredData, a.filteredData));
+        this._addedRecords = _.differenceWith(_addedRecords, _deletedRecords, (d, a) => _.isEqual(d.filteredData, a.filteredData));
+
         this._changedRecords = [];
         for (let f of fromRecords) {
             for (let t of toRecords) {
