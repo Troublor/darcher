@@ -4,3 +4,4 @@ web3.js.test.client.ts
 *.analyze.ts
 stack-map.ts
 backup/
+test.ts

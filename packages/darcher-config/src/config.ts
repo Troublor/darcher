@@ -2,7 +2,6 @@ export enum ControllerOptions {
     console = "console",
     trivial = "trivial",
     darcher = "darcher",
-    deploy = "deploy",
     traverse = "traverse",
 }
 
@@ -24,6 +23,7 @@ export interface ClusterConfig {
 export interface AnalyzerConfig {
     grpcPort: number,
     wsPort: number,
+    traceStorePort?: number,
     txStateChangeProcessTime?: number // in milliseconds
 }
 

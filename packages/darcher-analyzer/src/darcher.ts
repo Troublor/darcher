@@ -45,7 +45,7 @@ export class Darcher {
     constructor(logger: Logger, config: Config) {
         this.config = config;
         this.logger = logger;
-        this.traceStore = new TraceStore(1236, this.logger, undefined, this.onTxTrace.bind(this));
+        this.traceStore = new TraceStore(config.analyzer.traceStorePort ?? 1236, this.logger, undefined, this.onTxTrace.bind(this));
         this.server = new DarcherServer(this.logger, config.analyzer.grpcPort, config.analyzer.wsPort);
         this.analyzers = {};
         this.currentAnalyzer = null;
@@ -73,6 +73,7 @@ export class Darcher {
             );
         }
         this.consoleErrorLog = path.join(this.logDir, "console-errors.log");
+        this.logDir = path.join(this.logDir, "transactions");
         this.logger.info(`Transaction states log will be stored in ${this.logDir}`);
         if (!existsSync(this.logDir)) {
             mkdirSync(this.logDir, {recursive: true});
@@ -166,7 +167,7 @@ export class Darcher {
             } else {
                 if (this.currentAnalyzer) {
                     await this.currentAnalyzer.waitForTxProcess(null);
-                }else {
+                } else {
                     this.logger.warn("Transaction lost", {
                         tx: this.currentAnalyzer.txHash,
                     });
