@@ -1,83 +1,64 @@
-import {Browser, loadConfig, Logger, MetaMask, sleep} from "@darcher/helpers";
-import {DarcherService} from "./start-darcher";
 import * as path from "path";
-import {startCrawljax} from "@darcher/crawljax/scripts";
-import {startDocker} from "./start-docker";
 import * as child_process from "child_process";
-import * as fs from "fs";
-import {stopDocker} from "./stop-docker";
-import {reset, start} from "./dapp";
+import {baseConfig, ExperimentConfig, startExperiment} from "../../scripts/experiment";
+import * as _ from "lodash";
+import {DBOptions} from "@darcher/config/dist";
 
 
 if (require.main === module) {
     (async () => {
-        const logger = new Logger("PublicVotesExperiment", "debug");
-        const config = await loadConfig(path.join(__dirname, "config", "publicvotes.config.ts"));
-        const mainClass: string = "PublicVotesExperiment";
-        const timeBudget: number = 3600  // in second
-        const numRounds: number = 5;
-        const metamaskHomeUrl = "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html";
-        const metamaskPassword = "12345678";
-        const chromeDebugPort = 9222;
-        const userDir = "/home/troublor/workspace/darcher_misc/browsers/Chrome/UserData";
+        const subjectDir = path.join(__dirname, "..");
+        let dappProcess: child_process.ChildProcess;
+        const publicvotesConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
+            dappName: "publicvotes",
+            crawljaxClassName: "PublicVotesExperiment",
+            resultDir: path.join(subjectDir, "results"),
+            composeFile: path.join(subjectDir, "docker-compose.yml"),
 
-        const browser = new Browser(logger, chromeDebugPort, userDir);
-        await browser.start();
+            analyzerConfig: {
+                grpcPort: 1234,
+                wsPort: 1235,
+                traceStorePort: 1236,
+                txStateChangeProcessTime: 3000,
+            },
+            dbMonitorConfig: {
+                db: DBOptions.mongoDB,
+                dbName: "meteor",
+                dbAddress: "mongodb://localhost:3001",
+            },
 
-        async function oneRound(budget: number) {
-            const dataDir: string | undefined = path.join(__dirname, "..", "data", `${(() => {
-                const now = new Date();
-                return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}=${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
-            })()}`);
-            if (!fs.existsSync(dataDir)) {
-                logger.info("Creating data dir", {dataDir: dataDir});
-                fs.mkdirSync(dataDir, {recursive: true});
+            metamaskNetwork: "Localhost 8545",
+            metamaskAccount: "Default0",
+
+            beforeStartRoundHook: async ()=>{
+                return new Promise<void>(resolve => {
+                    // start dapp
+                    dappProcess = child_process.spawn("/bin/sh", ["./start-dapp.sh"], {
+                        cwd: path.join(__dirname),
+                        stdio: "pipe",
+                    })
+                    dappProcess.stdout.setEncoding("utf-8");
+                    dappProcess.stdout.on("data", data => {
+                        data = data.trim();
+                        data && process.stdout.write(data);
+                        if (data.includes("App running")) {
+                            resolve();
+                        }
+                    });
+                    dappProcess.stderr.pipe(process.stderr);
+                });
+            },
+
+            afterRoundEndHook: () => {
+                // stop dapp
+                dappProcess.kill("SIGINT");
+                return new Promise<void>(resolve => {
+                    dappProcess.on("exit", () => {
+                        resolve();
+                    })
+                });
             }
-
-            // start docker
-            logger.info("Starting docker...");
-            await startDocker(logger, config.clusters[0].controller);
-            await sleep(1000); // wait for docker to start
-
-            // start dapp
-            reset();
-            const dapp = await start();
-
-            // clear MetaMask data
-            logger.info("Clearing MetaMask data...");
-            await new MetaMask(logger, browser.driver, metamaskHomeUrl, metamaskPassword)
-                .changeNetwork("Localhost 8545")
-                .changeAccount("Default0")
-                .resetAccount()
-                .do();
-
-
-            // start darcher
-            logger.info("Starting DArcher...");
-            const darcherService = new DarcherService(logger, config, path.join(dataDir, "transactions"));
-            await darcherService.start();
-
-            // start crawljax
-            logger.info("Starting crawljax...");
-            await startCrawljax(logger, `localhost:${chromeDebugPort}`, mainClass, budget, dataDir);
-
-            dapp.kill("SIGINT");
-
-            // stop docker
-            logger.info("Stopping docker...");
-            await stopDocker();
-
-            // stop darcher
-            logger.info("Stopping DArcher...");
-            await darcherService.shutdown();
-        }
-
-        for (let i = 0; i < numRounds; i++) {
-            logger.info("Starting experiment round", {round: i});
-            await oneRound(timeBudget);
-            logger.info("Experiment round finishes", {round: i});
-        }
-
-        await browser.shutdown();
+        });
+        await startExperiment(publicvotesConfig);
     })().catch(e => console.error(e));
 }

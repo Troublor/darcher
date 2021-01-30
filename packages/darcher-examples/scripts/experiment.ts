@@ -7,6 +7,7 @@ import * as os from "os";
 import {Darcher} from "@darcher/analyzer";
 import {AnalyzerConfig, ControllerOptions, DBMonitorConfig, DBOptions} from "@darcher/config/dist";
 import {WebDriver} from "selenium-webdriver";
+import DBMonitor from "@darcher/dbmonitor";
 
 export interface ExperimentConfig {
     dappName: string,
@@ -39,6 +40,7 @@ export interface ExperimentConfig {
     beforeStartRoundHook?: (logger: Logger) => Promise<void>,
     beforeStartDockerHook?: (logger: Logger, webDriver: WebDriver) => Promise<void>,
     beforeStartCrawljaxHook?: (logger: Logger, webDriver: WebDriver) => Promise<void>,
+    afterRoundFinishHook?: (logger: Logger) => Promise<void>,
 }
 
 function getOsEnv(): { dockerHostAddress: string, ethashDir: string } {
@@ -111,7 +113,7 @@ export async function startExperiment(config: ExperimentConfig) {
         config.beforeStartDockerHook && await config.beforeStartDockerHook(logger, browser.driver);
         logger.info("Starting docker...");
         await startDocker(config, dataDir);
-        cleanUpTasks.push(async ()=>{
+        cleanUpTasks.push(async () => {
             logger.info("Stopping docker...");
             await stopDocker(config);
         });
@@ -134,10 +136,35 @@ export async function startExperiment(config: ExperimentConfig) {
             logDir: dataDir,
         });
         await darcherService.start();
-        cleanUpTasks.push(async ()=>{
+        cleanUpTasks.push(async () => {
             logger.info("Stopping DArcher...");
             await darcherService.shutdown();
         });
+
+        // start dbmonitor if necessary
+        let dbMonitor: DBMonitor | undefined = undefined;
+        switch (config.dbMonitorConfig.db) {
+            case DBOptions.mongoDB:
+                logger.info("Starting dbmonitor for mongodb", {
+                    dbAddress: config.dbMonitorConfig.dbAddress,
+                    dbName: config.dbMonitorConfig.dbName
+                });
+                dbMonitor = new DBMonitor(logger, {
+                    analyzer: config.analyzerConfig,
+                    dbMonitor: config.dbMonitorConfig,
+                    clusters: [],
+                    logDir: dataDir,
+                });
+                cleanUpTasks.push(async () => {
+                    logger.info("Stopping dbmonitor...");
+                    await dbMonitor.shutdown();
+                });
+                break;
+            case DBOptions.indexedDB:
+            case DBOptions.html:
+                logger.info("Requires dbmonitor browser extension.");
+                break;
+        }
 
         // start crawljax
         config.beforeStartCrawljaxHook && await config.beforeStartCrawljaxHook(logger, browser.driver);
@@ -156,6 +183,7 @@ export async function startExperiment(config: ExperimentConfig) {
         logger.info("Starting experiment round", {round: i});
         config.beforeStartRoundHook && await config.beforeStartRoundHook(logger);
         await oneRound();
+        config.afterRoundFinishHook && await config.afterRoundFinishHook(logger);
         logger.info("Experiment round finishes", {round: i});
     }
 

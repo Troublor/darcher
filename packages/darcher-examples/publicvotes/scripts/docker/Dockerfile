@@ -1,16 +1,28 @@
-FROM darcher/ethash:latest
+FROM ubuntu
 
-# context path should be publicvote
+RUN apt-get update && \
+    apt-get install -qqy \
+    apt-transport-https \
+    build-essential \
+    python \
+    curl \
+    git
 
-COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/ethmonitor /usr/local/bin/
-COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/geth /usr/local/bin/
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
-COPY ./scripts/docker /
-COPY ./blockchain /blockchain
-COPY ./publicvotes /publicvotes
+RUN apt-get update && apt-get install -qqy nodejs
 
-RUN chmod +x start_blockchain.sh start_doer.sh start_talker.sh start_ethmonitor.sh
+RUN curl https://install.meteor.com/?release=1.8.3 | sh
 
-EXPOSE 8545 8546 8547 30303 30303/udp 8989
+# Fix permissions warning; https://github.com/meteor/meteor/issues/7959
+ENV METEOR_ALLOW_SUPERUSER true
 
-ENTRYPOINT ["/bin/sh", "./start_blockchain.sh"]
+COPY ./publicvotes/app /publicvotes
+COPY ./scripts/docker/start-dapp.sh /start-dapp.sh
+RUN chmod +x /start-dapp.sh
+WORKDIR /publicvotes
+
+RUN meteor reset
+
+# start meteor app
+ENTRYPOINT ["/bin/sh", "/start-dapp.sh"]

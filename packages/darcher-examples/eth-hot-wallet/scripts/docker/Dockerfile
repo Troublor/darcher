@@ -1,15 +1,15 @@
-FROM darcher/ethash:latest
+FROM node:10.23.1-alpine3.11
 
 # context path should be eth-hot-wallet
 
-COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/ethmonitor /usr/local/bin/
-COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/geth /usr/local/bin/
-
-COPY ./scripts/docker /
+COPY ./scripts/docker/start-dapp.sh /
 COPY ./blockchain /blockchain
+COPY ./eth-hot-wallet /eth-hot-wallet
 
-RUN chmod +x start_blockchain.sh start_doer.sh start_talker.sh start_ethmonitor.sh
+COPY --from=darcherframework/go-ethereum:latest /usr/local/bin/ethmonitor /usr/local/bin/geth /usr/local/bin/
+COPY --from=darcherframework/go-ethereum:latest /entry-*.sh /
 
-EXPOSE 8545 8546 8547 30303 30303/udp 8989
+RUN chmod +x /start-dapp.sh
+#RUN cd /eth-hot-wallet && yarn
 
-ENTRYPOINT ["/bin/sh", "./start_blockchain.sh"]
+EXPOSE 8545 8546 8547 30303 30303/udp 8989 3000

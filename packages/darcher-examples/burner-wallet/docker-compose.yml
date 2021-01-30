@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  ethmonitor:
+    image: darcherframework/burner-wallet:latest
+    entrypoint: ["/bin/sh", "/entry-cluster-ethmonitor.sh"]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-trivial}
+      CONFIRMATION_REQUIREMENT: ${CONFIRMATION_REQUIREMENT:-1}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  doer:
+    image: darcherframework/burner-wallet:latest
+    entrypoint: ["/bin/sh", "/entry-cluster-doer.sh"]
+    stop_signal: SIGINT
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      UNLOCK: "0x6463f93d65391a8b7c98f0fc8439efd5d38339d9"
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "8547:8547"
+      - "30303:30303"
+      - "30303:30303/udp"
+
+  talker:
+    image: darcherframework/burner-wallet:latest
+    entrypoint: ["/bin/sh", "/entry-cluster-talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:doer
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+
+#  dapp:
+#    image: darcherframework/burner-wallet:latest
+#    entrypoint: ["/bin/sh", "/start-dapp.sh"]
+#    stop_signal: SIGINT
+#    ports:
+#      - "3000:3000"
