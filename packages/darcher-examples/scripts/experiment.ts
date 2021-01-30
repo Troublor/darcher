@@ -6,7 +6,7 @@ import * as child_process from "child_process";
 import * as os from "os";
 import {Darcher} from "@darcher/analyzer";
 import {AnalyzerConfig, ControllerOptions, DBMonitorConfig, DBOptions} from "@darcher/config/dist";
-import * as _ from "lodash";
+import {WebDriver} from "selenium-webdriver";
 
 export interface ExperimentConfig {
     dappName: string,
@@ -35,8 +35,10 @@ export interface ExperimentConfig {
     dbMonitorConfig: DBMonitorConfig,
 
     // hooks
-    beforeStartDockerHook?: () => Promise<void>,
-    beforeStartCrawljaxHook?: () => Promise<void>,
+    beforeAllRoundsHook?: (logger: Logger) => Promise<void>,
+    beforeStartRoundHook?: (logger: Logger) => Promise<void>,
+    beforeStartDockerHook?: (logger: Logger, webDriver: WebDriver) => Promise<void>,
+    beforeStartCrawljaxHook?: (logger: Logger, webDriver: WebDriver) => Promise<void>,
 }
 
 function getOsEnv(): { dockerHostAddress: string, ethashDir: string } {
@@ -83,6 +85,18 @@ export async function startExperiment(config: ExperimentConfig) {
     await browser.start();
 
     async function oneRound() {
+        const cleanUpTasks: (() => Promise<void>)[] = [];
+        const doCleanUp = async () => {
+            logger.info("Cleaning up...");
+            while (cleanUpTasks.length > 0) {
+                const cleanUpTask = cleanUpTasks.shift();
+                await cleanUpTask();
+            }
+        }
+        process.on("beforeExit", async () => {
+            await doCleanUp();
+        });
+
         const dataDir: string | undefined = path.join(config.resultDir, "data", `${(() => {
             const now = new Date();
             return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}=${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
@@ -94,8 +108,13 @@ export async function startExperiment(config: ExperimentConfig) {
         }
 
         // start docker
+        config.beforeStartDockerHook && await config.beforeStartDockerHook(logger, browser.driver);
         logger.info("Starting docker...");
         await startDocker(config, dataDir);
+        cleanUpTasks.push(async ()=>{
+            logger.info("Stopping docker...");
+            await stopDocker(config);
+        });
 
         // clear MetaMask data
         logger.info("Clearing MetaMask data...");
@@ -115,26 +134,27 @@ export async function startExperiment(config: ExperimentConfig) {
             logDir: dataDir,
         });
         await darcherService.start();
+        cleanUpTasks.push(async ()=>{
+            logger.info("Stopping DArcher...");
+            await darcherService.shutdown();
+        });
 
         // start crawljax
+        config.beforeStartCrawljaxHook && await config.beforeStartCrawljaxHook(logger, browser.driver);
         logger.info("Starting crawljax...");
         await startCrawljax(logger, `localhost:${config.chromeDebugPort}`, config.crawljaxClassName, config.timeBudget, dataDir);
 
         const time = config.analyzerConfig.txStateChangeProcessTime ? config.analyzerConfig.txStateChangeProcessTime : 15000;
         await sleep(time * 6);
 
-        // stop docker
-        logger.info("Stopping docker...");
-        await stopDocker(config);
-
-        // stop darcher
-        logger.info("Stopping DArcher...");
-        await darcherService.shutdown();
+        await doCleanUp();
     }
 
 
+    config.beforeAllRoundsHook && await config.beforeAllRoundsHook(logger);
     for (let i = 0; i < config.numRounds; i++) {
         logger.info("Starting experiment round", {round: i});
+        config.beforeStartRoundHook && await config.beforeStartRoundHook(logger);
         await oneRound();
         logger.info("Experiment round finishes", {round: i});
     }

@@ -1,13 +1,17 @@
-FROM darcher/ethash:latest
+FROM node:10.23.1-alpine3.11
 
-COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/ethmonitor /usr/local/bin/
-COPY --from=darcher/go-ethereum/executables:latest /darcher-go-ethereum/build/bin/geth /usr/local/bin/
+RUN apk add git
 
-COPY ./docker /
+# context path should be augurproject
+
+COPY ./scripts/docker/start-dapp.sh /
 COPY ./blockchain /blockchain
+COPY ./augur /augur
 
-RUN chmod +x start_blockchain.sh start_doer.sh start_talker.sh start_ethmonitor.sh
+COPY --from=darcherframework/go-ethereum:latest /usr/local/bin/ethmonitor /usr/local/bin/geth /usr/local/bin/
+COPY --from=darcherframework/go-ethereum:latest /entry-*.sh /
 
-EXPOSE 8545 8546 8547 30303 30303/udp 8989
+RUN chmod +x /start-dapp.sh
+#RUN cd /augur && yarn && yarn build
 
-ENTRYPOINT ["/bin/sh", "./start_blockchain.sh"]
+EXPOSE 8545 8546 8547 30303 30303/udp 8989 3000

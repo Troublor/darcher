@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 
 MONOREPO_ROOT_DIR=../..
 PROTOBUF_DIR=${MONOREPO_ROOT_DIR}/packages/darcher-rpc/proto

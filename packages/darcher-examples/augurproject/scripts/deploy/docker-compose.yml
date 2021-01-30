@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  ethmonitor:
+    image: darcherframework/go-ethereum:latest
+    entrypoint: ["/bin/sh", "/entry-cluster-ethmonitor.sh"]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_MODE: ${ETHMONITOR_MODE:-deploy}
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-console}
+      CONFIRMATION_REQUIREMENT: ${CONFIRMATION_REQUIREMENT:-1}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  doer:
+    image: darcherframework/go-ethereum:latest
+    entrypoint: ["/bin/sh", "/entry-cluster-doer.sh"]
+    stop_signal: SIGINT
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+      - type: bind
+        source: ${BLOCKCHAIN_DIR}
+        target: /blockchain
+    environment:
+      UNLOCK: "0x913da4198e6be1d5f5e4a40d0667f70c0b5430eb,0x9d4c6d4b84cd046381923c9bc136d6ff1fe292d9,0xbd355a7e5a7adb23b51f54027e624bfe0e238df6"
+      NETWORK_ID: 123456
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "8547:8547"
+      - "30303:30303"
+      - "30303:30303/udp"
+
+  talker:
+    image: darcherframework/go-ethereum:latest
+    entrypoint: ["/bin/sh", "/entry-cluster-talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:doer
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+      - type: bind
+        source: ${BLOCKCHAIN_DIR}
+        target: /blockchain
+    environment:
+      NETWORK_ID: 123456
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
