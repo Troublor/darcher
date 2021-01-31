@@ -1,11 +1,11 @@
 import {Browser, Command, loadConfig, Logger, MetaMask, sleep} from "@darcher/helpers";
-import {DarcherService} from "./start-darcher";
 import * as path from "path";
-import {startCrawljax} from "@darcher/crawljax/scripts";
-import {startDocker} from "./start-docker";
 import * as fs from "fs";
-import {stopDocker} from "./stop-docker";
 import * as child_process from "child_process";
+import {baseConfig, ExperimentConfig, startExperiment} from "../../scripts/experiment";
+import * as _ from "lodash";
+import {DBOptions} from "@darcher/config/dist";
+import {WebDriver} from "selenium-webdriver";
 
 
 function runAndLog(cmd: Command, cwd: string, logFile: string): child_process.ChildProcess {
@@ -24,100 +24,69 @@ function runAndLog(cmd: Command, cwd: string, logFile: string): child_process.Ch
 
 if (require.main === module) {
     (async () => {
-        const logger = new Logger("GivethExperiment", "debug");
-        const config = await loadConfig(path.join(__dirname, "config", "giveth.config.ts"));
-        const mainClass: string = "GivethExperiment";
-        const timeBudget: number = 3600  // in second
-        const numRounds: number = 5;
-        const metamaskHomeUrl = "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html";
-        const metamaskPassword = "12345678";
-        const chromeDebugPort = 9222;
-        const userDir = "/home/troublor/workspace/darcher_misc/browsers/Chrome/UserData";
+        const subjectDir = path.join(__dirname, "..");
+        const givethConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
+            dappName: "giveth",
+            crawljaxClassName: "GivethExperiment",
+            resultDir: path.join(subjectDir, "results"),
+            composeFile: path.join(subjectDir, "docker-compose.yml"),
 
-        const browser = new Browser(logger, chromeDebugPort, userDir);
-        await browser.start();
+            analyzerConfig: {
+                grpcPort: 1234,
+                wsPort: 1235,
+                traceStorePort: 1236,
+                txStateChangeProcessTime: 3000,
+            },
+            dbMonitorConfig: {
+                db: DBOptions.mongoDB,
+                dbName: "giveth",
+                dbAddress: "mongodb://localhost:27017",
+            },
 
-        async function oneRound(budget: number) {
-            const dataDir: string | undefined = path.join(__dirname, "..", "data", `${(() => {
-                const now = new Date();
-                return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}=${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
-            })()}`);
-            if (!fs.existsSync(dataDir)) {
-                logger.info("Creating data dir", {dataDir: dataDir});
-                fs.mkdirSync(dataDir, {recursive: true});
+            metamaskNetwork: "Localhost 8545",
+            metamaskAccount: "Giveth0",
+
+            beforeStartCrawljaxHook: async (logger: Logger, driver: WebDriver)=>{
+                logger.info("Clearing MetaMask data...");
+                await new MetaMask(logger, driver, givethConfig.metamaskUrl, givethConfig.metamaskPassword)
+                    .changeNetwork("Localhost 8545")
+                    .changeAccount("Giveth0")
+                    .resetAccount()
+                    .changeNetwork("Localhost 8546")
+                    .resetAccount()
+                    .changeAccount("Giveth0")
+                    .resetAccount()
+                    .do();
+                // TODO start dapp
+                // return new Promise<void>(resolve => {
+                //     // start dapp
+                //     dappProcess = child_process.spawn("/bin/sh", ["./start-dapp.sh"], {
+                //         cwd: path.join(__dirname),
+                //         stdio: "pipe",
+                //     })
+                //     dappProcess.stdout.setEncoding("utf-8");
+                //     dappProcess.stdout.on("data", data => {
+                //         data = data.trim();
+                //         data && process.stdout.write(data);
+                //         if (data.includes("App running")) {
+                //             resolve();
+                //         }
+                //     });
+                //     dappProcess.stderr.pipe(process.stderr);
+                // });
+            },
+
+            afterRoundEndHook: () => {
+                // TODO stop dapp
+                // TODO clear indexedDB
+                // dappProcess.kill("SIGINT");
+                // return new Promise<void>(resolve => {
+                //     dappProcess.on("exit", () => {
+                //         resolve();
+                //     })
+                // });
             }
-
-            // start docker
-            logger.info("Starting docker...");
-            await startDocker(logger, config.clusters[0].controller);
-            await sleep(1000); // wait for docker to start
-
-            // start dapp
-            const p1 = runAndLog(
-                new Command("yarn", "start:networks"),
-                path.join(__dirname, "..", "feathers-giveth"),
-                path.join(dataDir, "networks.log")
-            );
-            const p2 = runAndLog(
-                new Command("yarn", "start"),
-                path.join(__dirname, "..", "feathers-giveth"),
-                path.join(dataDir, "feathers.log")
-            );
-            const p3 = runAndLog(
-                new Command("yarn", "start"),
-                path.join(__dirname, "..", "giveth-dapp"),
-                path.join(dataDir, "dapp.log")
-            );
-
-            logger.info("Waiting for dapp to start...");
-            await sleep(15000);
-
-            // clear MetaMask data
-            logger.info("Clearing MetaMask data...");
-            await new MetaMask(logger, browser.driver, metamaskHomeUrl, metamaskPassword)
-                .changeNetwork("Localhost 8545")
-                .changeAccount("Giveth0")
-                .resetAccount()
-                .changeAccount("Giveth1")
-                .resetAccount()
-                .changeNetwork("Localhost 8546")
-                .resetAccount()
-                .changeAccount("Giveth0")
-                .resetAccount()
-                .do();
-
-
-            // start darcher
-            logger.info("Starting DArcher...");
-            const darcherService = new DarcherService(logger, config, path.join(dataDir, "transactions"));
-            await darcherService.start();
-
-            // start crawljax
-            logger.info("Starting crawljax...");
-            await startCrawljax(logger, `localhost:${chromeDebugPort}`, mainClass, budget, dataDir);
-
-            // stop dapp
-            p1.kill("SIGINT");
-            p2.kill("SIGINT");
-            p3.kill("SIGINT");
-
-            // stop docker
-            logger.info("Stopping docker...");
-            await stopDocker();
-
-            // stop darcher
-            logger.info("Stopping DArcher...");
-            await darcherService.shutdown();
-
-            await sleep(5000);
-        }
-
-        for (let i = 0; i < numRounds; i++) {
-            logger.info("Starting experiment round", {round: i});
-            await oneRound(timeBudget);
-            logger.info("Experiment round finishes", {round: i});
-        }
-
-        await browser.shutdown();
+        });
+        await startExperiment(givethConfig);
     })().catch(e => console.error(e));
 }

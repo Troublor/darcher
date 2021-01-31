@@ -1,0 +1,120 @@
+version: '3.7'
+services:
+  foreign-ethmonitor:
+    image: darcherframework/giveth-foreign:latest
+    entrypoint: ["/bin/sh", "entry-cluster-ethmonitor.sh"]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-trivial}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  foreign-doer:
+    image: darcherframework/giveth-foreign:latest
+    entrypoint: ["/bin/sh", "entry-cluster-doer.sh"]
+    stop_signal: SIGINT
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      NETWORK_ID: 67
+      ETHMONITOR_ADDR: foreign-ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8546:8545"
+      - "9546:8546"
+
+  foreign-talker:
+    image: darcherframework/giveth-foreign:latest
+    entrypoint: ["/bin/sh", "entry-cluster-talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:foreign-doer
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      NETWORK_ID: 67
+      ETHMONITOR_ADDR: foreign-ethmonitor:8989
+      VERBOSITY: 3
+
+  home-ethmonitor:
+    image: darcherframework/giveth-home:latest
+    entrypoint: [ "/bin/sh", "entry-cluster-ethmonitor.sh" ]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-trivial}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  home-doer:
+    image: darcherframework/giveth-home:latest
+    entrypoint: [ "/bin/sh", "entry-cluster-doer.sh" ]
+    stop_signal: SIGINT
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      NETWORK_ID: 66
+      ETHMONITOR_ADDR: home-ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "9545:8546"
+
+  home-talker:
+    image: darcherframework/giveth-home:latest
+    entrypoint: [ "/bin/sh", "entry-cluster-talker.sh" ]
+    stop_signal: SIGINT
+    network_mode: service:home-doer
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      NETWORK_ID: 66
+      ETHMONITOR_ADDR: home-ethmonitor:8989
+      VERBOSITY: 3
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+#  bridge:
+#    image: darcherframework/giveth-dapp:latest
+#    entrypoint: ["/bin/sh", "start-feathers-giveth-networks.sh"]
+#    stop_signal: SIGINT
+#    network_mode: host
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /feathers-giveth/.nyc_output
+#
+#  feathers:
+#    image: darcherframework/giveth-dapp:latest
+#    entrypoint: [ "/bin/sh", "start-feathers-giveth.sh" ]
+#    stop_signal: SIGINT
+#    network_mode: host
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /feathers-giveth/.nyc_output
+#
+#  dapp:
+#    image: darcherframework/giveth-dapp:latest
+#    entrypoint: [ "/bin/sh", "start-giveth-dapp.sh" ]
+#    stop_signal: SIGINT
+#    network_mode: host
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /giveth-dapp/.nyc_output
