@@ -43,13 +43,13 @@ services:
       ETHMONITOR_ADDR: ethmonitor:8989
       VERBOSITY: 3
 
-#  dapp:
-#    image: darcherframework/ethereum-todolist:latest
-#    entrypoint: ["/bin/sh", "start-dapp.sh"]
-#    stop_signal: SIGINT
+  dapp:
+    image: darcherframework/eth-hot-wallet-dapp:latest
+    entrypoint: ["/bin/sh", "start-dapp.sh"]
+    stop_signal: SIGTERM
 #    volumes:
 #      - type: bind
 #        source: ${COVERAGE_DIR:-.nyc_output}
-#        target: /ethereum-todolist/.nyc_output
-#    ports:
-#      - "3000:3000"
+#        target: /eth-hot-wallet/.nyc_output
+    ports:
+      - "3001:3001"
