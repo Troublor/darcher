@@ -89,31 +89,31 @@ services:
     ports:
       - "27017:27017"
 
-#  bridge:
-#    image: darcherframework/giveth-dapp:latest
-#    entrypoint: ["/bin/sh", "start-feathers-giveth-networks.sh"]
-#    stop_signal: SIGINT
-#    network_mode: host
+  bridge:
+    image: darcherframework/giveth-dapp:latest
+    entrypoint: ["/bin/sh", "start-feathers-giveth-networks.sh"]
+    stop_signal: SIGTERM
+    network_mode: host
 #    volumes:
 #      - type: bind
 #        source: ${COVERAGE_DIR:-.nyc_output}
 #        target: /feathers-giveth/.nyc_output
-#
-#  feathers:
-#    image: darcherframework/giveth-dapp:latest
-#    entrypoint: [ "/bin/sh", "start-feathers-giveth.sh" ]
-#    stop_signal: SIGINT
-#    network_mode: host
+
+  feathers:
+    image: darcherframework/giveth-dapp:latest
+    entrypoint: [ "/bin/sh", "start-feathers-giveth.sh" ]
+    stop_signal: SIGTERM
+    network_mode: host
 #    volumes:
 #      - type: bind
 #        source: ${COVERAGE_DIR:-.nyc_output}
 #        target: /feathers-giveth/.nyc_output
-#
-#  dapp:
-#    image: darcherframework/giveth-dapp:latest
-#    entrypoint: [ "/bin/sh", "start-giveth-dapp.sh" ]
-#    stop_signal: SIGINT
-#    network_mode: host
+
+  dapp:
+    image: darcherframework/giveth-dapp:latest
+    entrypoint: [ "/bin/sh", "start-giveth-dapp.sh" ]
+    stop_signal: SIGTERM
+    network_mode: host
 #    volumes:
 #      - type: bind
 #        source: ${COVERAGE_DIR:-.nyc_output}

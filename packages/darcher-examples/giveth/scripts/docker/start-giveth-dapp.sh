@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /feathers-giveth || exit
+cd /giveth-dapp || exit
 exec npm start
