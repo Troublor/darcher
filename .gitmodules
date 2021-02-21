@@ -49,9 +49,6 @@
 [submodule "packages/darcher-examples/publicvotes/publicvotes"]
 	path = packages/darcher-examples/publicvotes/publicvotes
 	url = git@github.com:Troublor/publicvotes.git
-[submodule "packages/darcher-examples/Auction/Auction"]
-	path = packages/darcher-examples/Auction/Auction
-	url = git@github.com:Troublor/Auction.git
 [submodule "packages/darcher-examples/ethereum-voting/ethereum-voting"]
 	path = packages/darcher-examples/ethereum-voting/ethereum-voting
 	url = git@github.com:Troublor/ethereum-voting.git
