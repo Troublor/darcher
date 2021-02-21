@@ -1,0 +1,3 @@
+[submodule "packages/darcher-crawljax"]
+	path = packages/darcher-crawljax
+	url = https://github.com/darcher-framework/darcher-crawljax.git
