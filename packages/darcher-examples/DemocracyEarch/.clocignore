@@ -9,3 +9,5 @@ DemocracyDAO/.idea
 sovereign/node_modules
 sovereign/.idea
 sovereign/.meteor
+sovereign/client
+DemocracyDAO

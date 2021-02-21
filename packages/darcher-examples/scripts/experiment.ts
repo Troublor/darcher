@@ -99,7 +99,7 @@ export async function startExperiment(config: ExperimentConfig) {
             await doCleanUp();
         });
 
-        const dataDir: string | undefined = path.join(config.resultDir, "data", `${(() => {
+        const dataDir: string | undefined = path.join(config.resultDir, `${(() => {
             const now = new Date();
             return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}=${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
         })()}`);
@@ -194,8 +194,8 @@ export const baseConfig = {
     txController: ControllerOptions.darcher,
     dockerStartWaitingTime: 5000,
 
-    timeBudget: 60,
-    numRounds: 2,
+    timeBudget: 3600,
+    numRounds: 10,
 
     // metamask
     metamaskUrl: "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html",

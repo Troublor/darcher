@@ -4,3 +4,4 @@ blockchain.backup
 augur/.git
 augur/.idea
 augur/**/node_modules
+results

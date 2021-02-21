@@ -5,3 +5,5 @@ data
 blockchain
 publicvotes/app/.meteor
 publicvotes/.idea
+publicvotes/app/packages
+publicvotes/app/node_modules

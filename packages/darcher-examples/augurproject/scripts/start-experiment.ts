@@ -21,7 +21,7 @@ if (require.main === module) {
                 grpcPort: 1234,
                 wsPort: 1235,
                 traceStorePort: 1236,
-                txStateChangeProcessTime: 3000,
+                txStateChangeProcessTime: 15000,
             },
             dbMonitorConfig: {
                 db: DBOptions.indexedDB,
@@ -32,24 +32,24 @@ if (require.main === module) {
             metamaskNetwork: "Localhost 8545",
             metamaskAccount: "Augur0",
 
-            beforeAllRoundsHook: async ()=>{
-                return new Promise<void>(resolve => {
-                    // start dapp
-                    const child = child_process.spawn("/bin/sh", ["./start-dapp.sh"], {
-                        cwd: path.join(__dirname),
-                        stdio: "pipe",
-                    })
-                    child.stdout.setEncoding("utf-8");
-                    child.stdout.on("data", data => {
-                        data = data.trim();
-                        data && process.stdout.write(data);
-                        if (data.includes("Compiled")) {
-                            resolve();
-                        }
-                    });
-                    child.stderr.pipe(process.stderr);
-                });
-            },
+            // beforeAllRoundsHook: async ()=>{
+            //     return new Promise<void>(resolve => {
+            //         // start dapp
+            //         const child = child_process.spawn("/bin/sh", ["./start-dapp.sh"], {
+            //             cwd: path.join(__dirname),
+            //             stdio: "pipe",
+            //         })
+            //         child.stdout.setEncoding("utf-8");
+            //         child.stdout.on("data", data => {
+            //             data = data.trim();
+            //             data && process.stdout.write(data);
+            //             if (data.includes("Compiled")) {
+            //                 resolve();
+            //             }
+            //         });
+            //         child.stderr.pipe(process.stderr);
+            //     });
+            // },
 
             beforeStartCrawljaxHook: async (logger: Logger, webDriver: WebDriver) =>{
                 await clearIndexedDB(logger, webDriver, "http://" + augurConfig.dbMonitorConfig.dbAddress, [augurConfig.dbMonitorConfig.dbName, "0x-mesh/mesh_dexie_db"]);
