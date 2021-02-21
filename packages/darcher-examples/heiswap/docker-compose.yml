@@ -43,13 +43,14 @@ services:
       ETHMONITOR_ADDR: ethmonitor:8989
       VERBOSITY: 3
 
-#  dapp:
-#    image: darcherframework/heiswap:latest
-#    entrypoint: ["/bin/sh", "start-dapp.sh"]
-#    stop_signal: SIGINT
-#    network_mode: host
+  dapp:
+    image: darcherframework/heiswap-dapp:latest
+    entrypoint: ["/bin/sh", "start-dapp.sh"]
+    stop_signal: SIGTERM
 #    volumes:
 #      - type: bind
 #        source: ${COVERAGE_DIR:-.nyc_output}
 #        target: /ethereum_voting_dapp/.nyc_output
+    ports:
+      - "3000:3000"
 
