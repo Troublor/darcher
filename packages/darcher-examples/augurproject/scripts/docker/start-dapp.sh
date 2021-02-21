@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cd /augur || exit
-yarn
-yarn build
+#yarn
+#yarn build
 exec yarn ui dev

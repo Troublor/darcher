@@ -85,13 +85,13 @@ services:
       - P2P_TCP_PORT=59558
       - P2P_WEBSOCKETS_PORT=59559
 
-#  dapp:
-#    image: darcherframework/augur:latest
-#    entrypoint: ["/bin/sh", "start-dapp.sh"]
-#    stop_signal: SIGINT
-#    volumes:
-#      - type: bind
-#        source: ${COVERAGE_DIR:-.nyc_output}
-#        target: /augur/.nyc_output
-#    ports:
-#      - "8080:8080"
+  dapp:
+    image: darcherframework/augur-dapp:latest
+    entrypoint: ["/bin/sh", "start-dapp.sh"]
+    stop_signal: SIGTERM
+    volumes:
+      - type: bind
+        source: ${COVERAGE_DIR:-.nyc_output}
+        target: /augur/.nyc_output
+    ports:
+      - "8080:8080"
