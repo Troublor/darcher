@@ -19,6 +19,3 @@
 [submodule "packages/darcher-examples/react-ethereum-metacoin/react-ethereum-metacoin"]
 	path = packages/darcher-examples/react-ethereum-metacoin/react-ethereum-metacoin
 	url = git@github.com:Troublor/react-ethereum-metacoin.git
-[submodule "packages/darcher-examples/note_dapp/note_dapp"]
-	path = packages/darcher-examples/note_dapp/note_dapp
-	url = git@github.com:Troublor/note_dapp.git
