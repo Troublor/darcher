@@ -49,9 +49,9 @@ services:
     image: darcherframework/agrochain:latest
     entrypoint: ["/bin/sh", "start-dapp.sh"]
     stop_signal: SIGINT
-    volumes:
-      - type: bind
-        source: ${COVERAGE_DIR:-.nyc_output}
-        target: /AgroChain/.nyc_output
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /AgroChain/.nyc_output
     ports:
       - "3000:3000"

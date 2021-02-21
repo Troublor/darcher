@@ -47,9 +47,9 @@ services:
     image: darcherframework/multisender:latest
     entrypoint: ["/bin/sh", "start-dapp.sh"]
     stop_signal: SIGINT
-    volumes:
-      - type: bind
-        source: ${COVERAGE_DIR:-.nyc_output}
-        target: /ethereum-todolist/.nyc_output
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /ethereum-todolist/.nyc_output
     ports:
       - "3000:3000"

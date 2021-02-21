@@ -48,8 +48,8 @@ services:
     entrypoint: ["/bin/sh", "start-dapp.sh"]
     stop_signal: SIGINT
     network_mode: host
-    volumes:
-      - type: bind
-        source: ${COVERAGE_DIR:-.nyc_output}
-        target: /ethereum_voting_dapp/.nyc_output
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /ethereum_voting_dapp/.nyc_output
 

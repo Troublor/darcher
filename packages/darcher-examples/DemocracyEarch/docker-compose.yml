@@ -52,8 +52,8 @@ services:
     image: darcherframework/democracy-earth-dapp:latest
     stop_signal: SIGTERM
     network_mode: service:doer
-    volumes:
-      - type: bind
-        source: ${COVERAGE_DIR:-.nyc_output}
-        target: /sovereign/.nyc_output
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /sovereign/.nyc_output
 
