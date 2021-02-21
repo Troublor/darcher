@@ -19,9 +19,6 @@
 [submodule "packages/darcher-examples/DemocracyEarch/DemocracyDAO"]
 	path = packages/darcher-examples/DemocracyEarch/DemocracyDAO
 	url = https://github.com/Troublor/DemocracyDAO.git
-[submodule "packages/darcher-examples/DemocracyEarch/tokens"]
-	path = packages/darcher-examples/DemocracyEarch/tokens
-	url = https://github.com/Troublor/tokens.git
 [submodule "packages/darcher-examples/MetaMask/metamask-extension"]
 	path = packages/darcher-examples/MetaMask/metamask-extension
 	url = git@github.com:Troublor/metamask-extension.git
