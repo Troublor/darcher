@@ -31,6 +31,8 @@ services:
       - "8547:8547"
       - "30303:30303"
       - "30303:30303/udp"
+      - "3000:3000"
+      - "3001:3001"
 
   talker:
     image: darcherframework/democracy-earth:latest
@@ -46,12 +48,12 @@ services:
       ETHMONITOR_ADDR: ethmonitor:8989
       VERBOSITY: 3
 
-#  dapp:
-#    image: darcherframework/democracy-earth-dapp:latest
-#    stop_signal: SIGINT
-#    network_mode: service:doer
-#    volumes:
-#      - type: bind
-#        source: ${COVERAGE_DIR:-.nyc_output}
-#        target: /sovereign/.nyc_output
+  dapp:
+    image: darcherframework/democracy-earth-dapp:latest
+    stop_signal: SIGTERM
+    network_mode: service:doer
+    volumes:
+      - type: bind
+        source: ${COVERAGE_DIR:-.nyc_output}
+        target: /sovereign/.nyc_output
 
