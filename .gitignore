@@ -136,3 +136,4 @@ analysis_data/
 .DS_Store
 
 */**/nohup.out
+experiment-results

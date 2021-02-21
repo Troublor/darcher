@@ -200,9 +200,13 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
                     .filter(value => value.length > 0);
                 runtimeErrors.push(...totalRuntimeErrors);
             } else {
-                console.log("Collecting transaction", file);
                 const logContent = fs.readFileSync(path.join(roundDir, file));
                 const log = JSON.parse(logContent.toString()) as TransactionLog;
+                if (!log.stack || log.stack.length == 1) {
+                    // ignore those transaction without stack trace
+                    continue;
+                }
+                console.log("Collecting transaction", file);
                 log.hash = `${roundDir}:${log.hash}`;
                 transactionLogs.push(log);
             }
@@ -293,6 +297,7 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
         };
         report.functionalities.push(functionality);
     }
+    report.totalTransactions = report.functionalities.map(fn => fn.txHashes.length).reduce((x, y) => x + y);
     fs.writeFileSync(reportFile, JSON.stringify(report, null, 4));
     console.log("Report generated", reportFile);
 }
