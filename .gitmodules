@@ -43,6 +43,3 @@
 [submodule "packages/darcher-examples/mastering-ethereum-auction-dapp/mastering-ethereum-auction-dapp"]
 	path = packages/darcher-examples/mastering-ethereum-auction-dapp/mastering-ethereum-auction-dapp
 	url = git@github.com:Troublor/mastering-ethereum-auction-dapp.git
-[submodule "packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp"]
-	path = packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp
-	url = git@github.com:Troublor/ethereum_voting_dapp.git
