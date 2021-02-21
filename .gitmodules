@@ -7,9 +7,6 @@
 [submodule "packages/darcher-examples/giveth/giveth-dapp"]
 	path = packages/darcher-examples/giveth/giveth-dapp
 	url = https://github.com/Troublor/giveth-dapp.git
-[submodule "packages/darcher-examples/augurproject/augur"]
-	path = packages/darcher-examples/augurproject/augur
-	url = https://github.com/Troublor/augur.git
 [submodule "packages/darcher-crawljax"]
 	path = packages/darcher-crawljax
 	url = git@github.com:KristenLawrence/darcher-crawljax.git
