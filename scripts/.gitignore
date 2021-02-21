@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+web3.js.test.client.ts
+*.json
+*.analyze.ts
+stack-map.ts
+backup/
+test.ts

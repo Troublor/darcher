@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package darcher;
+
+import "common.proto";
+
+service DBMonitorService {
+  rpc getAllDataControl(stream GetAllDataControlMsg) returns (stream GetAllDataControlMsg);
+}
+
+enum RequestType {
+  GET_ALL_DATA = 0;
+  REFRESH_PAGE = 1;
+}
+
+message ControlMsg {
+  string id = 1;
+  RequestType type = 2;
+  string db_address = 3;
+  string db_name = 4;
+  bytes data = 5; // data is protobuf-serialized data in terms of specified type
+  Error err = 6;
+}
+
+message TableContent {
+  repeated string keyPath = 1;
+  repeated string entries = 2; // each entry is a JSON-serialized object
+}
+
+message DBContent {
+  map<string, TableContent> tables = 1;
+}
+
+message GetAllDataControlMsg {
+  Role role = 1;
+  string id = 2;
+  string db_address = 3;
+  string db_name = 4;
+  DBContent content = 5;
+}
+

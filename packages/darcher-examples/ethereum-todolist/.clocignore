@@ -1,0 +1,7 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+ethereum-todolist/node_modules
+ethereum-todolist/.idea

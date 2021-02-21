@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package darcher;
+
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+
+service BlockchainStatusService {
+  rpc notifyNewChainHead(stream ChainHead) returns (google.protobuf.Empty) {}
+  rpc notifyNewChainSide(stream ChainSide) returns (google.protobuf.Empty) {}
+  rpc notifyNewTx(stream Tx) returns (google.protobuf.Empty) {}
+  rpc getHeadControl(stream GetChainHeadControlMsg) returns (stream GetChainHeadControlMsg) {}
+}
+
+message ChainHead {
+  Role role = 1;
+  string hash = 2;
+  uint64 number = 3;
+  uint64 td = 4;
+  repeated string txs = 5;
+}
+
+message ChainSide {
+  Role role = 1;
+  string hash = 2;
+  uint64 number = 3;
+  uint64 td = 4;
+  repeated string txs = 5;
+}
+
+message Tx {
+  Role role = 1;
+  string hash = 2;
+  string sender = 3;
+  uint64 nonce = 4;
+}
+
+message GetChainHeadControlMsg{
+  Role role = 1;
+  string id = 2;
+  ChainHead head = 3;
+  Error err = 4;
+}

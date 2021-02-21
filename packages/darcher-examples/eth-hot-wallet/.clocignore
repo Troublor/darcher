@@ -1,0 +1,9 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+eth-hot-wallet/node_modules
+eth-hot-wallet/.idea
+eth-hot-wallet/.github
+eth-hot-wallet/.vscode

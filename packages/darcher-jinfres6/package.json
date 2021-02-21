@@ -1,0 +1,45 @@
+{
+  "name": "@darcher/jinfres6",
+  "version": "1.0.0",
+  "description": "JavaScript Instrument Framework supporting ES6",
+  "repository": {
+    "url": "https://github.com/Troublor/darcher/packages/darcher-jinfres6"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+  },
+  "author": "Troublor",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.3",
+    "@types/feathersjs__feathers": "^3.1.5",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "axios": "^0.19.2",
+    "babel-plugin-eslint-disable": "^0.1.2",
+    "chai": "^4.2.0",
+    "escodegen": "^1.12.1",
+    "esprima": "^4.0.1",
+    "jayson": "^3.2.0",
+    "nyc": "^15.0.0",
+    "request": "^2.88.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@types/chai": "^4.2.7",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^13.1.7",
+    "@types/shelljs": "^0.8.6",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "shelljs": "^0.8.3",
+    "ts-jest": "^26.4.4",
+    "web3": "^1.2.6"
+  }
+}

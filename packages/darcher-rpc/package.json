@@ -1,0 +1,19 @@
+{
+  "name": "@darcher/rpc",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/Troublor/darcher"
+  },
+  "author": "Troublor",
+  "license": "ISC",
+  "main": "src",
+  "types": "src",
+  "scripts": {
+    "build": "./compile_pb.sh"
+  },
+  "dependencies": {
+    "grpc": "^1.24.3",
+    "grpc-tools": "^1.9.1",
+    "grpc_tools_node_protoc_ts": "^4.1.0"
+  }
+}

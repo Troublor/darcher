@@ -1,0 +1,12 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+Notes.md
+metamask-extension/node_modules
+metamask-extension/.circleci
+metamask-extension/.github
+metamask-extension/dist
+metamask-extension/builds
+metamask-extension/.idea

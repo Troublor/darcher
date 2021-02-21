@@ -1,0 +1,39 @@
+{
+  "name": "@darcher/dbmonitor-browser",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/Troublor/darcher"
+  },
+  "scripts": {
+    "watch": "node_modules/.bin/webpack --config webpack/webpack.dynamic.js --watch",
+    "build": "node_modules/.bin/webpack --config webpack/webpack.dynamic.js",
+    "clean": "node_modules/.bin/rimraf dist",
+    "test": "npx jest"
+  },
+  "author": "Troublor",
+  "license": "ISC",
+  "dependencies": {
+    "dexie": "^3.0.1",
+    "google-protobuf": "^3.12.2",
+    "jquery": "^3.5.0",
+    "jsoneditor": "^9.1.1",
+    "lodash": "^4.17.15",
+    "moment": "~2.24.0",
+    "source-map-support": "^0.5.19",
+    "terser-webpack-plugin": "^3.0.6"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.118",
+    "@types/jest": "^25.1.4",
+    "@types/jquery": "^3.3.33",
+    "@types/lodash": "^4.14.157",
+    "copy-webpack-plugin": "^5.1.1",
+    "jest": "^25.1.0",
+    "rimraf": "^3.0.2 ",
+    "ts-jest": "^25.2.1 ",
+    "ts-loader": "^6.2.1",
+    "webpack": "~4.42.0",
+    "webpack-cli": "~3.3.11",
+    "webpack-merge": "~4.2.2"
+  }
+}

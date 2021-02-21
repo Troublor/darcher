@@ -1,0 +1,97 @@
+version: '3.7'
+services:
+  ethmonitor:
+    image: darcherframework/augur:latest
+    entrypoint: ["/bin/sh", "entry-cluster-ethmonitor.sh"]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-trivial}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  doer:
+    image: darcherframework/augur:latest
+    entrypoint: ["/bin/sh", "entry-cluster-doer.sh"]
+    stop_signal: SIGINT
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      UNLOCK: "0x913da4198e6be1d5f5e4a40d0667f70c0b5430eb,0x9d4c6d4b84cd046381923c9bc136d6ff1fe292d9,0xbd355a7e5a7adb23b51f54027e624bfe0e238df6"
+      NETWORK_ID: 123456
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "8547:8547"
+      - "30303:30303"
+      - "30303:30303/udp"
+
+  talker:
+    image: darcherframework/augur:latest
+    entrypoint: ["/bin/sh", "entry-cluster-talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:doer
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      NETWORK_ID: 123456
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+
+  0x-mesh-bootstrap:
+    image: 0xorg/mesh-bootstrap:9.3.0
+    restart: on-failure
+    ports:
+      - 60558:60558 # P2PTCPPort
+      - 60559:60559 # P2PWebSocketsPort
+    environment:
+      - ETHEREUM_CHAIN_ID=123456
+      - USE_BOOTSTRAP_LIST=false
+      - VERBOSITY=${MESH_VERBOSITY:-4} # 5=debug 6=trace
+      - P2P_BIND_ADDRS=/ip4/0.0.0.0/tcp/60558,/ip4/0.0.0.0/tcp/60559/ws
+      - P2P_ADVERTISE_ADDRS=/ip4/127.0.0.1/tcp/60558/ipfs/16Uiu2HAmRMgvPQV2UYKXuuCnNaFLpc36PhLp2UKVcL1ePseVcz4y,/ip4/127.0.0.1/tcp/60559/ws/ipfs/16Uiu2HAmRMgvPQV2UYKXuuCnNaFLpc36PhLp2UKVcL1ePseVcz4y
+    volumes:
+      - ./keys:/usr/mesh/0x_mesh/keys
+
+  0x-mesh-standalone:
+    image: 0xorg/mesh:9.3.0
+    restart: on-failure
+    hostname: 0x
+    depends_on:
+      - "0x-mesh-bootstrap"
+    ports:
+      - 60557:60557 # rpc_port_number
+      - 59558:59558 # P2PTCPPort
+      - 59559:59559 # P2PWebSocketsPort
+    environment:
+      - ETHEREUM_CHAIN_ID=123456
+      - CUSTOM_CONTRACT_ADDRESSES={"Augur":"0xFCaf25bF38E7C86612a25ff18CB8e09aB07c9885","Universe":"0x8062dA104239cf70C76B77c61eA988bf6382736a","LegacyReputationToken":"0xB4D7f6747CEFbDcA11bDDd92a16134dc95B0DD9B","Cash":"0x5f3341EA5989aD3129E325027b8d908b63709A00","CashFaucet":"0x5f3341EA5989aD3129E325027b8d908b63709A00","BuyParticipationTokens":"0x257b56115544E9519Fb2De5b7b99C3c2150528Fb","RedeemStake":"0xb03cf72bC5a9A344AAC43534D664917927367487","WarpSync":"0x6e968FE21894A35Ba59ee8EC6f60Ea0DDC3a59E5","ShareToken":"0xdd1C4919217e409abEB699e8171a5E92c2E506fa","HotLoading":"0x204cDD1689c8A4da426894C150a0fa672a2eab4C","Affiliates":"0x45A2897792Afa20b95F7dCaF5c0Fb45b84Daf439","AffiliateValidator":"0x2EBD326B3830297fd4CFb6B8B2c1d967a51dfDc6","OICash":"0x2AdAEAF11753515a37a3D50CEcB636CF72ae4854","AugurWalletRegistry":"0xF68374642F47a4C353C78afF17bfA216c930f116","AugurWalletRegistryV2":"0x1FD9274a2FE0E86f5A7b5Bde57b93C8C9b62e21d","UniswapV2Factory":"0xB15d4981B977706DcD7350075A12354f2F18f6BC","UniswapV2Router01":"0xDCA9bef5199984ECe425aBe150f50b46fE9cF397","RelayHubV2":"0x6Ec11F087a874d491e6C051ff829E0fB61bd950A","EthExchange":"0x3bD856BeB8a0a885Cd8177Af89Cab74f7B1dbeD2","AuditFunds":"0x8bDAd8Ee0b47E2e7294A5B8b8B74EA3968f4a177","ERC20Proxy":"0xf28fc4b34a7c4534dD3E40e0ad5Df6F2cb69Aec0","ERC721Proxy":"0x850212e53c1d8898740dd776E78C77B87D94F234","ERC1155Proxy":"0x15152AaDcA3C571B0Ba332e1020FCeA43F95A3F9","MultiAssetProxy":"0x2F8F57DBd52Ee20f9258C5232cfbbAb0f8D478F1","Exchange":"0x2e90e3C430C1470d62587c8983755D717f46F617","Coordinator":"0x3b02e6f3D9748F0db00afe3E570E8fC0201285Cd","CoordinatorRegistry":"0x31361B2733223010bB1867E36a3e6abe6cA7403C","ChaiBridge":"0x92B570781580AE220F8b3EA8A6802dc79e71C77b","DevUtils":"0xA00A7F098dde7e5FFB66C30305E287A6E86CA499","WETH9":"0x9dA930a2ca12C197e687DB22dB3fA318FD8AA60a","ZRXToken":"0x67a75EBbcd5B6Fd8217D3F856D10F4F6b517a272","AugurTrading":"0x25Ff5dc79A7c4e34254ff0f4a19d69E491201DD3","CancelOrder":"0x3C6721551C2Ba3973560aEF3e11D34cE05DB4047","CreateOrder":"0x07f175e786a57752B3D0D0f3250CEbB4242E02Ad","FillOrder":"0x6c38ab26F860380a8A2367c79dda3a54aFEf4b1E","Orders":"0xF265D8D30a1A2CdB9857e124010b02765c9a7c70","ProfitLoss":"0x4DdEBCEbE274751dfB129EfC96a588a5242530Ab","SimulateTrade":"0x905419e7A1f96A973AB8988Ba19C84135C6f7122","Trade":"0xce77d3c706e0fe6dA5d71b1249756b5ea0D77202","ZeroXTrade":"0x635C8EF61A07dfe49b683D1A34da3547b0d6705E","Time":"0xF5F22562eC76F33A9F114E0Ca9e3916C383DF041"}
+      - VERBOSITY=${MESH_VERBOSITY:-4} # 5=debug 6=trace
+      - CUSTOM_ORDER_FILTER={"properties":{"makerAssetData":{"pattern":".*635c8ef61a07dfe49b683d1a34da3547b0d6705e.*"}}}
+      - ETHEREUM_RPC_URL=http://doer:8545
+      - USE_BOOTSTRAP_LIST=true
+      - BOOTSTRAP_LIST=/dns4/0x-mesh-bootstrap/tcp/60558/ipfs/16Uiu2HAmRMgvPQV2UYKXuuCnNaFLpc36PhLp2UKVcL1ePseVcz4y,/dns4/0x-mesh-bootstrap/tcp/60559/ws/ipfs/16Uiu2HAmRMgvPQV2UYKXuuCnNaFLpc36PhLp2UKVcL1ePseVcz4y
+      - BLOCK_POLLING_INTERVAL=1s
+      - ETHEREUM_RPC_MAX_REQUESTS_PER_24_HR_UTC=169120 # needed when polling interval is 1s
+      - WS_RPC_ADDR=0.0.0.0:60557
+      - P2P_TCP_PORT=59558
+      - P2P_WEBSOCKETS_PORT=59559
+
+  dapp:
+    image: darcherframework/augur-dapp:latest
+    entrypoint: ["/bin/sh", "start-dapp.sh"]
+    stop_signal: SIGTERM
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /augur/.nyc_output
+    ports:
+      - "8080:8080"

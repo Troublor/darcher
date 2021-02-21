@@ -1,0 +1,59 @@
+version: '3.7'
+services:
+  ethmonitor:
+    image: darcherframework/democracy-earth:latest
+    entrypoint: ["/bin/sh", "entry-cluster-ethmonitor.sh"]
+    stop_signal: SIGINT
+    stdin_open: true
+    tty: true
+    environment:
+      ETHMONITOR_PORT: 8989
+      ETHMONITOR_CONTROLLER: ${ETHMONITOR_CONTROLLER:-trivial}
+      VERBOSITY: ${VERBOSITY:-4}
+      ANALYZER_ADDR: ${ANALYZER_ADDR:-host.docker.internal:1234}
+
+  doer:
+    image: darcherframework/democracy-earth:latest
+    entrypoint: ["/bin/sh", "entry-cluster-doer.sh"]
+    stop_signal: SIGINT
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      UNLOCK: "0x6463f93d65391a8b7c98f0fc8439efd5d38339d9"
+      NETWORK_ID: 2020
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "8547:8547"
+      - "30303:30303"
+      - "30303:30303/udp"
+      - "3000:3000"
+      - "3001:3001"
+
+  talker:
+    image: darcherframework/democracy-earth:latest
+    entrypoint: ["/bin/sh", "entry-cluster-talker.sh"]
+    stop_signal: SIGINT
+    network_mode: service:doer
+    volumes:
+      - type: bind
+        source: ${ETHASH:-~/.ethash}
+        target: /.ethash
+    environment:
+      NETWORK_ID: 2020
+      ETHMONITOR_ADDR: ethmonitor:8989
+      VERBOSITY: 3
+
+  dapp:
+    image: darcherframework/democracy-earth-dapp:latest
+    stop_signal: SIGTERM
+    network_mode: service:doer
+#    volumes:
+#      - type: bind
+#        source: ${COVERAGE_DIR:-.nyc_output}
+#        target: /sovereign/.nyc_output
+

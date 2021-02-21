@@ -1,0 +1,10 @@
+.clocignore
+.gitignore
+scripts
+data
+blockchain
+ethereum_voting_dapp/chapter1
+ethereum_voting_dapp/chapter2
+ethereum_voting_dapp/chapter3
+ethereum_voting_dapp/chapter4/node_modules
+ethereum_voting_dapp/chapter4/.idea

@@ -132,3 +132,8 @@ dist
 ### Example user template
 
 analysis_data/
+
+.DS_Store
+
+*/**/nohup.out
+experiment-results

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package darcher;
+
+option go_package = "github.com/Troublor/darcher-go-ethereum/ethmonitor/rpc";
+option java_package = "org.kristen.rpc.darcher";
+
+enum Role {
+  DOER = 0;
+  TALKER = 1;
+  DAPP = 2;
+  DBMONITOR = 3;
+}
+
+enum Error {
+  NilErr = 0;
+  InternalErr = 1;
+  TimeoutErr = 2;
+  ServiceNotAvailableErr = 3;
+}
+
+enum TxState {
+  CREATED = 0;
+  PENDING = 1;
+  EXECUTED = 2;
+  DROPPED = 3;
+  CONFIRMED = 4;
+
+  //  // logical state
+  //  REVERTED = 5;
+  //  REEXECUTED = 6;
+}
+
+/**
+TxError refers to errors that make transaction cannot be mined, or transaction is reverted due to internal errors in smart contract.
+ */
+enum TxErrorType {
+  NIL_TxErr = 0; // nil type, should not be used.
+  REVERT = 1; // internal error in smart contract occurs, transaction is reverted
+  REJECT = 2; // bad transaction which cannot be mined and rejected by evm
+}
+
+message TxErrorMsg {
+  string hash = 1;
+  TxErrorType type = 2;
+  string description = 3;
+}

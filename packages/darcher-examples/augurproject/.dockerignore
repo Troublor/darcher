@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+blockchain.backup
+.nyc_output
+augur/.git
+augur/.idea
+augur/**/node_modules
+results

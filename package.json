@@ -1,38 +1,55 @@
 {
-  "name": "dArcher",
+  "name": "darcher",
   "version": "1.0.0",
   "description": "dApp reorg checker",
   "repository": {
     "url": "https://github.com/Troublor/dArcher"
   },
-  "main": "src/index.js",
-  "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts",
-    "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
-  },
   "author": "Troublor",
   "license": "ISC",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "packages/darcher-examples/*"
+    ],
+    "nohoist": [
+      "packages/darcher-examples/*/*"
+    ]
+  },
+  "scripts": {
+    "build:config": "yarn workspace @darcher/config build",
+    "build:proto": "yarn workspace @darcher/rpc build",
+    "build:ethmonitor": "yarn workspace @darcher/go-ethereum build:ethmonitor",
+    "build:geth": "yarn workspace @darcher/go-ethereum build:geth",
+    "build:dbmonitor-browser": "yarn workspace @darcher/dbmonitor-browser build",
+    "build:misc": "yarn workspace @darcher/misc build",
+    "build:helpers": "yarn workspace @darcher/helpers build",
+    "build:helpers-browser": "yarn workspace @darcher/helpers-browser build",
+    "build:analyzer": "yarn workspace @darcher/analyzer build",
+    "build": "npm-run-all build:*",
+    "test:analyzer": "yarn workspace @darcher/analyzer test",
+    "test:dbmonitor": "yarn workspace @darcher/dbmonitor test",
+    "test:helpers": "yarn workspace @darcher/helpers test",
+    "test": "npm-run-all test:*"
+  },
   "dependencies": {
-    "@babel/polyfill": "^7.8.3",
-    "@typescript-eslint/eslint-plugin": "^2.30.0",
-    "chai": "^4.2.0",
-    "es6-promise": "^4.2.8",
-    "jayson": "^3.2.0",
-    "lodash": "^4.17.15",
-    "log4js": "^6.2.1",
-    "mocha": "^7.0.0",
-    "request": "^2.88.2",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.7.4"
+    "get-port": "^5.1.1",
+    "keythereum": "^1.0.4",
+    "lerna": "^3.22.1",
+    "lodash": "^4.17.20",
+    "npm-run-all": "^4.1.5",
+    "shelljs": "^0.8.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "optionalDependencies": {
+    "ttab": "^0.7.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.7",
-    "@types/es6-promise": "^3.3.0",
-    "@types/lodash": "^4.14.155",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^13.13.11",
-    "@types/shelljs": "^0.8.6",
-    "express": "^4.17.1",
-    "shelljs": "^0.8.3"
+    "@types/chai": "^4.2.11",
+    "@types/lodash": "^4.14.167",
+    "@types/shelljs": "^0.8.8",
+    "chai": "^4.2.0"
   }
 }

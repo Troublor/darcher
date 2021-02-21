@@ -1,0 +1,13 @@
+.clocignore
+.gitignore
+scripts
+data
+tokens
+blockchain
+DemocracyDAO/node_modules
+DemocracyDAO/.idea
+sovereign/node_modules
+sovereign/.idea
+sovereign/.meteor
+sovereign/client
+DemocracyDAO

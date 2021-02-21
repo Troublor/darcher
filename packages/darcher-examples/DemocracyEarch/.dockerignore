@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+DemocracyDAO
+tokens
+blockchain.backup
+sovereign/node_modules
+sovereign/.meteor/local
+sovereign/.git

@@ -1,0 +1,81 @@
+[submodule "packages/darcher-go-ethereum"]
+	path = packages/darcher-go-ethereum
+	url = git@github.com:Troublor/darcher-go-ethereum.git
+[submodule "packages/darcher-examples/giveth/feathers-giveth"]
+	path = packages/darcher-examples/giveth/feathers-giveth
+	url = https://github.com/Troublor/feathers-giveth.git
+[submodule "packages/darcher-examples/giveth/giveth-dapp"]
+	path = packages/darcher-examples/giveth/giveth-dapp
+	url = https://github.com/Troublor/giveth-dapp.git
+[submodule "packages/darcher-examples/augurproject/augur"]
+	path = packages/darcher-examples/augurproject/augur
+	url = https://github.com/Troublor/augur.git
+[submodule "packages/darcher-crawljax"]
+	path = packages/darcher-crawljax
+	url = git@github.com:KristenLawrence/darcher-crawljax.git
+[submodule "packages/darcher-paper"]
+	path = packages/darcher-paper
+	url = git@github.com:Troublor/darcher-paper.git
+[submodule "packages/darcher-examples/DemocracyEarch/sovereign"]
+	path = packages/darcher-examples/DemocracyEarch/sovereign
+	url = https://github.com/Troublor/sovereign.git
+[submodule "packages/darcher-examples/DemocracyEarch/DemocracyDAO"]
+	path = packages/darcher-examples/DemocracyEarch/DemocracyDAO
+	url = https://github.com/Troublor/DemocracyDAO.git
+[submodule "packages/darcher-examples/DemocracyEarch/tokens"]
+	path = packages/darcher-examples/DemocracyEarch/tokens
+	url = https://github.com/Troublor/tokens.git
+[submodule "packages/darcher-examples/MetaMask/metamask-extension"]
+	path = packages/darcher-examples/MetaMask/metamask-extension
+	url = git@github.com:Troublor/metamask-extension.git
+[submodule "packages/darcher-examples/lordsofthesnails/lordsofthesnails"]
+	path = packages/darcher-examples/lordsofthesnails/lordsofthesnails
+	url = git@github.com:Troublor/lordsofthesnails.git
+[submodule "packages/darcher-examples/truffle-voting-dapp/truffle-voting-dapp"]
+	path = packages/darcher-examples/truffle-voting-dapp/truffle-voting-dapp
+	url = git@github.com:Troublor/truffle-voting-dapp.git
+[submodule "packages/darcher-examples/etheroll/etheroll"]
+	path = packages/darcher-examples/etheroll/etheroll
+	url = git@github.com:Troublor/etheroll.git
+[submodule "packages/darcher-examples/heiswap/heiswap"]
+	path = packages/darcher-examples/heiswap/heiswap
+	url = git@github.com:Troublor/heiswap-dapp.git
+[submodule "packages/darcher-examples/multisender/multisender"]
+	path = packages/darcher-examples/multisender/multisender
+	url = git@github.com:Troublor/multisender.git
+[submodule "packages/darcher-examples/LotteryDApp/Lottery-DApp"]
+	path = packages/darcher-examples/LotteryDApp/Lottery-DApp
+	url = git@github.com:Troublor/Lottery-DApp.git
+[submodule "packages/darcher-examples/publicvotes/publicvotes"]
+	path = packages/darcher-examples/publicvotes/publicvotes
+	url = git@github.com:Troublor/publicvotes.git
+[submodule "packages/darcher-examples/Auction/Auction"]
+	path = packages/darcher-examples/Auction/Auction
+	url = git@github.com:Troublor/Auction.git
+[submodule "packages/darcher-examples/ethereum-voting/ethereum-voting"]
+	path = packages/darcher-examples/ethereum-voting/ethereum-voting
+	url = git@github.com:Troublor/ethereum-voting.git
+[submodule "packages/darcher-examples/react-ethereum-metacoin/react-ethereum-metacoin"]
+	path = packages/darcher-examples/react-ethereum-metacoin/react-ethereum-metacoin
+	url = git@github.com:Troublor/react-ethereum-metacoin.git
+[submodule "packages/darcher-examples/note_dapp/note_dapp"]
+	path = packages/darcher-examples/note_dapp/note_dapp
+	url = git@github.com:Troublor/note_dapp.git
+[submodule "packages/darcher-examples/mastering-ethereum-auction-dapp/mastering-ethereum-auction-dapp"]
+	path = packages/darcher-examples/mastering-ethereum-auction-dapp/mastering-ethereum-auction-dapp
+	url = git@github.com:Troublor/mastering-ethereum-auction-dapp.git
+[submodule "packages/darcher-examples/eth-hot-wallet/eth-hot-wallet"]
+	path = packages/darcher-examples/eth-hot-wallet/eth-hot-wallet
+	url = git@github.com:Troublor/eth-hot-wallet.git
+[submodule "packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp"]
+	path = packages/darcher-examples/ethereum_voting_dapp/ethereum_voting_dapp
+	url = git@github.com:Troublor/ethereum_voting_dapp.git
+[submodule "packages/darcher-examples/burner-wallet/burner-wallet"]
+	path = packages/darcher-examples/burner-wallet/burner-wallet
+	url = https://github.com/Troublor/burner-wallet.git
+[submodule "packages/darcher-examples/AgroChain/AgroChain"]
+	path = packages/darcher-examples/AgroChain/AgroChain
+	url = git@github.com:Troublor/AgroChain.git
+[submodule "packages/darcher-examples/ethereum-todolist/ethereum-todolist"]
+	path = packages/darcher-examples/ethereum-todolist/ethereum-todolist
+	url = git@github.com:Troublor/ethereum-todolist.git
