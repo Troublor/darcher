@@ -1,9 +1,6 @@
 [submodule "packages/darcher-crawljax"]
 	path = packages/darcher-crawljax
 	url = git@github.com:KristenLawrence/darcher-crawljax.git
-[submodule "packages/darcher-paper"]
-	path = packages/darcher-paper
-	url = git@github.com:Troublor/darcher-paper.git
 [submodule "packages/darcher-examples/DemocracyEarch/DemocracyDAO"]
 	path = packages/darcher-examples/DemocracyEarch/DemocracyDAO
 	url = https://github.com/Troublor/DemocracyDAO.git
