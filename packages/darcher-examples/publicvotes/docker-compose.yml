@@ -30,6 +30,8 @@ services:
       - "8547:8547"
       - "30303:30303"
       - "30303:30303/udp"
+      - "3000:3000"
+      - "3001:3001"
 
   talker:
     image: darcherframework/go-ethereum:latest
@@ -43,3 +45,9 @@ services:
     environment:
       ETHMONITOR_ADDR: ethmonitor:8989
       VERBOSITY: 3
+
+  dapp:
+    image: darcherframework/publicvotes-dapp:latest
+    entrypoint: ["/bin/sh", "/start-dapp.sh"]
+    stop_signal: SIGKILL
+    network_mode: service:doer
