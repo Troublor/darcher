@@ -21,14 +21,14 @@ export interface Functionality {
     stack: string[] | undefined,
     txHashes: string[],
     runtimeErrorTxHashes: string[],
-    txErrorTxHashes: string[],
+    // txErrorTxHashes: string[],
     vulnerabilityTxHashes: string[],
     BugTypeOneTxHashes: string[],
     BugTypeTwoTxHashes: string[],
 }
 
 export interface AnalysisReport {
-    totalRuntimeError: number,
+    // totalRuntimeError: number,
     totalFunctionalities: number,
     totalTransactions: number,
     functionalities: Functionality[]
@@ -110,7 +110,7 @@ export function analyzeRound(roundDir: string, dbFilter: DBContentDiffFilter, ru
     });
 
     const report: AnalysisReport = {
-        totalRuntimeError: runtimeErrors.length,
+        // totalRuntimeError: runtimeErrors.length,
         totalTransactions: transactionLogs.length,
         totalFunctionalities: Object.keys(transactionGroups).length,
         functionalities: [],
@@ -130,9 +130,9 @@ export function analyzeRound(roundDir: string, dbFilter: DBContentDiffFilter, ru
             vulnerabilityTxHashes: group
                 .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.ContractVulnerability))
                 .map(analysis => analysis.log.hash),
-            txErrorTxHashes: group
-                .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.TransactionError))
-                .map(analysis => analysis.log.hash),
+            // txErrorTxHashes: group
+            //     .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.TransactionError))
+            //     .map(analysis => analysis.log.hash),
             BugTypeOneTxHashes: group
                 .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.UnreliableTxHash))
                 .map(analysis => analysis.log.hash),
@@ -154,7 +154,7 @@ export function analyzeAllAverage(roundDirs: string[], dbFilter: DBContentDiffFi
     }
 
     const averageReport = {
-        avgRuntimeErrors: reports.reduce((previousValue, currentValue) => previousValue + currentValue.totalRuntimeError, 0) / roundDirs.length,
+        // avgRuntimeErrors: reports.reduce((previousValue, currentValue) => previousValue + currentValue.totalRuntimeError, 0) / roundDirs.length,
         avgTransactions: reports.reduce((previousValue, currentValue) => previousValue + currentValue.totalTransactions, 0) / roundDirs.length,
         avgFunctionalities: reports.reduce((previousValue, currentValue) => previousValue + currentValue.totalFunctionalities, 0) / roundDirs.length,
         avgBugTypeOneTransactions: reports.map(
@@ -169,12 +169,12 @@ export function analyzeAllAverage(roundDirs: string[], dbFilter: DBContentDiffFi
         avgBugTypeTwoFunctionalities: reports.map(
             value => value.functionalities.reduce((previousValue, currentValue) => previousValue + (currentValue.BugTypeTwoTxHashes.length > 0 ? 1 : 0), 0)
         ).reduce((previousValue, currentValue) => previousValue + currentValue, 0) / roundDirs.length,
-        avgFailedTransactions: reports.map(
-            value => value.functionalities.reduce((previousValue, currentValue) => previousValue + currentValue.txErrorTxHashes.length, 0)
-        ).reduce((previousValue, currentValue) => previousValue + currentValue, 0) / roundDirs.length,
-        avgFailedFunctionalities: reports.map(
-            value => value.functionalities.reduce((previousValue, currentValue) => previousValue + (currentValue.txErrorTxHashes.length > 0 ? 1 : 0), 0)
-        ).reduce((previousValue, currentValue) => previousValue + currentValue, 0) / roundDirs.length,
+        // avgFailedTransactions: reports.map(
+        //     value => value.functionalities.reduce((previousValue, currentValue) => previousValue + currentValue.txErrorTxHashes.length, 0)
+        // ).reduce((previousValue, currentValue) => previousValue + currentValue, 0) / roundDirs.length,
+        // avgFailedFunctionalities: reports.map(
+        //     value => value.functionalities.reduce((previousValue, currentValue) => previousValue + (currentValue.txErrorTxHashes.length > 0 ? 1 : 0), 0)
+        // ).reduce((previousValue, currentValue) => previousValue + currentValue, 0) / roundDirs.length,
         rounds: reports,
     }
 
@@ -265,7 +265,7 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
     });
 
     const report: AnalysisReport = {
-        totalRuntimeError: runtimeErrors.length,
+        // totalRuntimeError: runtimeErrors.length,
         totalTransactions: transactionLogs.length,
         totalFunctionalities: Object.keys(transactionGroups).length,
         functionalities: [],
@@ -285,9 +285,9 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
             vulnerabilityTxHashes: group
                 .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.ContractVulnerability))
                 .map(analysis => analysis.log.hash),
-            txErrorTxHashes: group
-                .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.TransactionError))
-                .map(analysis => analysis.log.hash),
+            // txErrorTxHashes: group
+            //     .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.TransactionError))
+            //     .map(analysis => analysis.log.hash),
             BugTypeOneTxHashes: group
                 .filter(analysis => analysis.reports.some(r => r.type() === VulnerabilityType.UnreliableTxHash))
                 .map(analysis => analysis.log.hash),
