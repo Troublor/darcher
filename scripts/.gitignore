@@ -5,3 +5,14 @@ web3.js.test.client.ts
 stack-map.ts
 backup/
 test.ts
+!AgroChain.analyze.ts
+!augur.analyze.ts
+!democracy-earth.analyze.ts
+!eth-hot-wallet.analyze.ts
+!ethereum_voting_dapp.analyze.ts
+!giveth.analyze.ts
+!heiswap.analyze.ts
+!metamask.analyze.ts
+!multisender.analyze.ts
+!publicvotes.analyze.ts
+!todolist-dapp.analyze.ts
