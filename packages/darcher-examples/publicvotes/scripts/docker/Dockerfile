@@ -18,11 +18,11 @@ RUN curl https://install.meteor.com/?release=1.8.3 | sh
 ENV METEOR_ALLOW_SUPERUSER true
 
 COPY ./publicvotes/app /publicvotes
-COPY ./scripts/docker/start-dapp.sh /start-dapp.sh
-RUN chmod +x /start-dapp.sh
 WORKDIR /publicvotes
 
 RUN meteor reset
 
+COPY ./scripts/docker/start-dapp.sh /start-dapp.sh
+RUN chmod +x /start-dapp.sh
 # start meteor app
 ENTRYPOINT ["/bin/sh", "/start-dapp.sh"]

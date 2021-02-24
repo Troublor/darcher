@@ -2,4 +2,4 @@
 
 cd /sovereign || exit
 meteor npm install
-exec meteor npm run start:dev
+METEOR_MONGO_BIND_IP=0.0.0.0 exec meteor --settings=config/development/settings.json

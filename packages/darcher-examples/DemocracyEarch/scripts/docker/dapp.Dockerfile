@@ -23,6 +23,7 @@ WORKDIR /sovereign
 RUN npm install
 RUN meteor npm install && meteor reset
 
+ENV METEOR_MONGO_BIND_IP=0.0.0.0
 # start sovereign as dev
 CMD [ "meteor", "--settings=config/development/settings.json" ]
 
