@@ -41,6 +41,7 @@ See [INSTALL](./INSTALL.md)
 - [Multisender](https://github.com/rstormsf/multisender)
 - [PublicVotes](https://github.com/domschiener/publicvotes)
 - [TodoList-Dapp](https://github.com/mbeaudru/ethereum-todolist)
+- [MetaMask](https://github.com/MetaMask/metamask-extension)
 
 ### Transactions during Testing
 
@@ -74,6 +75,15 @@ Run the following command to start experiment of each subject:
 yarn workspace @darcher/examples experiment:<subject>
 ```
 `<subject>` should be substituted with one of the subject names as given above.
+
+**Note**: Since *ĐArcher* depends on MetaMask, when using MetaMask as experiment subject, we need to do some special treatment.
+The `ChromeProfile` provided contains three MetaMask extensions: `*ĐArcher* - MetaMask (the dependency of *ĐArcher*)`, `MetaMask (the subject DApp)`, and `dbMonitor (DApp off-chain state fetcher)`.
+These two MetaMask extensions conflict with each other. 
+- When testing other DApp, we need to enable `*ĐArcher* - MetaMask` and `dbMonitor`, disabling `MetaMask`.
+- When testing MetaMask, we need to enable `MetaMask`, disabling `*ĐArcher* - MetaMask` and `dbMonitor`.
+
+We have a convenient script `yarn chrome` to open the Google Chrome browser with the profile at `ChromeProfile` folder under root directory. 
+Disabling and enabling extensions need to be done manually. 
 
 The experiment will take 1 hour, and the results will be generated at `./packages/darcher-examples/<subject>/results` directory.
 

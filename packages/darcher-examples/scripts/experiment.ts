@@ -194,7 +194,7 @@ export async function startExperiment(config: ExperimentConfig) {
 
 export const baseConfig = {
     txController: ControllerOptions.darcher,
-    dockerStartWaitingTime: 5000,
+    dockerStartWaitingTime: 10000,
 
     timeBudget: 3600,
     numRounds: 10,

@@ -57,7 +57,8 @@
     "analyze:MetaMask": "ts-node scripts/metamask.analyze.ts",
     "analyze:Multisender": "ts-node scripts/multisender.analyze.ts",
     "analyze:PublicVotes": "ts-node scripts/publicvotes.analyze.ts",
-    "analyze:TodoList-Dapp": "ts-node scripts/todolist-dapp.analyze.ts"
+    "analyze:TodoList-Dapp": "ts-node scripts/todolist-dapp.analyze.ts",
+    "chrome": "google-chrome-stable --user-data-dir=./ChromeProfile"
   },
   "resolutions": {
     "**/multihashing-async": "2.1.0",

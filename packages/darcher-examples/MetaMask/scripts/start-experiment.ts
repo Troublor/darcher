@@ -25,6 +25,8 @@ if (require.main === module) {
                 dbAddress: "",
             },
 
+            metamaskUrl:"chrome-extension://jkkjbjbnkionjiifkkhjfjhneoocpine/home.html",
+            metamaskPassword: "12345678",
             metamaskNetwork: "Localhost 8545",
             metamaskAccount: "Default0",
         });

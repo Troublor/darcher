@@ -16,7 +16,7 @@ if (require.main === module) {
                 grpcPort: 1234,
                 wsPort: 1235,
                 traceStorePort: 1236,
-                txStateChangeProcessTime: 3000,
+                txStateChangeProcessTime: 15000,
             },
             dbMonitorConfig: {
                 db: DBOptions.html,

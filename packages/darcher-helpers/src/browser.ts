@@ -184,6 +184,19 @@ export class MetaMask {
         await sleep(500);
         // unlock MetaMask if necessary
         try {
+            const element = await this.driver.findElement(By.className("network-component"));
+            await element.click();
+            const dropDown = await this.driver.wait(until.elementLocated(By.className("network-droppo")));
+            const networkItems = await dropDown.findElements(By.css("li"));
+            for (const network of networkItems) {
+                const text = await network.getText()
+                if (!text.includes("Mainnet")) {
+                    continue;
+                }
+                await network.click();
+                break;
+            }
+
             const unlockButton = await this.driver.findElement(By.xpath("//BUTTON[.='Unlock']"));
             const passwordInput = await this.driver.findElement(By.id("password"));
             await passwordInput.sendKeys(this.password);
