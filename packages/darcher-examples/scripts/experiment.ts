@@ -39,7 +39,7 @@ export interface ExperimentConfig {
     beforeAllRoundsHook?: (logger: Logger) => Promise<void>,
     beforeStartRoundHook?: (logger: Logger) => Promise<void>,
     beforeStartDockerHook?: (logger: Logger, webDriver: WebDriver) => Promise<void>,
-    beforeStartCrawljaxHook?: (logger: Logger, webDriver: WebDriver) => Promise<void>,
+    beforeStartCrawljaxHook?: (logger: Logger, webDriver: WebDriver, darcher: Darcher) => Promise<void>,
     afterRoundFinishHook?: (logger: Logger) => Promise<void>,
 }
 
@@ -169,7 +169,7 @@ export async function startExperiment(config: ExperimentConfig) {
         }
 
         // start crawljax
-        config.beforeStartCrawljaxHook && await config.beforeStartCrawljaxHook(logger, browser.driver);
+        config.beforeStartCrawljaxHook && await config.beforeStartCrawljaxHook(logger, browser.driver, darcherService);
         logger.info("Starting crawljax...");
         await startCrawljax(logger, `localhost:${config.chromeDebugPort}`, config.metamaskUrl, config.metamaskPassword,config.crawljaxClassName, config.timeBudget, dataDir);
 

@@ -16,6 +16,7 @@ if (require.main === module) {
             crawljaxClassName: "AugurExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),
+            dockerStartWaitingTime: 30000,
 
             analyzerConfig: {
                 grpcPort: 1234,
