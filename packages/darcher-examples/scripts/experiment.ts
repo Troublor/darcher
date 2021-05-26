@@ -48,12 +48,14 @@ function getOsEnv(): { dockerHostAddress: string, ethashDir: string } {
         case "Darwin":
             return {
                 dockerHostAddress: "host.docker.internal",
-                ethashDir: "~/Library/Ethash",
+                // ethashDir: "~/Library/Ethash",
+                ethashDir: path.join(__dirname, "..", "..", "..", "ethash"),
             }
         case "Linux":
             return {
                 dockerHostAddress: "172.17.0.1",
-                ethashDir: "~/.ethash",
+                // ethashDir: "~/.ethash",
+                ethashDir: path.join(__dirname, "..", "..", "..", "ethash"),
             }
     }
 }
@@ -169,7 +171,7 @@ export async function startExperiment(config: ExperimentConfig) {
         // start crawljax
         config.beforeStartCrawljaxHook && await config.beforeStartCrawljaxHook(logger, browser.driver);
         logger.info("Starting crawljax...");
-        await startCrawljax(logger, `localhost:${config.chromeDebugPort}`, config.crawljaxClassName, config.timeBudget, dataDir);
+        await startCrawljax(logger, `localhost:${config.chromeDebugPort}`, config.metamaskUrl, config.metamaskPassword,config.crawljaxClassName, config.timeBudget, dataDir);
 
         const time = config.analyzerConfig.txStateChangeProcessTime ? config.analyzerConfig.txStateChangeProcessTime : 15000;
         await sleep(time * 6);
@@ -198,11 +200,11 @@ export const baseConfig = {
     numRounds: 10,
 
     // metamask
-    metamaskUrl: "chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/home.html",
+    metamaskUrl: "chrome-extension://omcfdmdoacelhhhjehbcdgmogdpfkipc/home.html",
     metamaskPassword: "12345678",
 
     // chrome
-    chromeUserDir: "/home/troublor/workspace/darcher_misc/browsers/Chrome/UserData",
+    chromeUserDir: path.join(__dirname, "..", "..", "..", "ChromeProfile"),
     chromeDebugPort: 9222,
 };
 

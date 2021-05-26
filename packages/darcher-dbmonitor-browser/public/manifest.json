@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "dbMonitor",
-  "description": "part of dArcher, CASTLE Lab",
+  "name": "ĐArcher Off-Chain State Fetcher",
+  "description": "The chrome extension to fetch off-chain state from HTML DOM for ĐArcher",
   "version": "1.0",
   "options_ui": {
     "page": "options.html",

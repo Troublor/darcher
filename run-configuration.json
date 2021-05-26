@@ -1,0 +1,12 @@
+{
+  "dappName": "MyDApp",
+  "crawljaxClassName": "TodolistExperiment",
+  "dbMonitorConfig": {
+    "db": "html",
+    "dbName": "html",
+    "dbAddress": "localhost:3000",
+    "js": "let lis = document.getElementsByTagName(\"li\");\nlet data = [];\nfor(const li of lis){\n    let text = li.getElementsByTagName(\"label\")[0].textContent;\n    data.push({\n        \"task\": text,\n    })\n}\nJSON.stringify(data);"
+  },
+  "metamaskNetwork": "Localhost 8545",
+  "metamaskAccount": "Default0"
+}

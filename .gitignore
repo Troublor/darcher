@@ -138,3 +138,9 @@ analysis_data/
 */**/nohup.out
 experiment-results
 ChromeProfile
+
+ethash
+results
+*.out
+ChromeProfile.tar
+ethash.tar
