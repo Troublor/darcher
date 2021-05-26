@@ -16,7 +16,7 @@
     "@babel/polyfill": "^7.8.3",
     "@types/feathersjs__feathers": "^3.1.5",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-eslint-disable": "^0.1.2",
     "chai": "^4.2.0",
     "escodegen": "^1.12.1",
