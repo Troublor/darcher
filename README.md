@@ -25,7 +25,7 @@ git clone --recurse-submodules https://github.com/Troublor/darcher.git && cd dar
 ```
 **Note**: This project contains several submodules. Be sure to add `--recurse-submodules` when git cloning.
 
-See [INSTALL](./INSTALL.md)
+Proceed at [INSTALL](./INSTALL.md)
 
 ## Experiment Results
 
