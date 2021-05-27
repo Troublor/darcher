@@ -197,7 +197,7 @@ export const baseConfig = {
     dockerStartWaitingTime: 10000,
 
     timeBudget: 3600,
-    numRounds: 10,
+    numRounds: 1,
 
     // metamask
     metamaskUrl: "chrome-extension://omcfdmdoacelhhhjehbcdgmogdpfkipc/home.html",

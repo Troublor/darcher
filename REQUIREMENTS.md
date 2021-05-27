@@ -1,7 +1,7 @@
 # Environments
 
 Operating System:
-- Ubuntu `20.04`
+- Ubuntu `20.04` Desktop (Yes, GUI is required)
 
 Programming Language:
 - Node.js `^10.22.0`
