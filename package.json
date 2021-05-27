@@ -42,7 +42,7 @@
     "build:helpers": "yarn workspace @darcher/helpers build",
     "build:helpers-browser": "yarn workspace @darcher/helpers-browser build",
     "build:analyzer": "yarn workspace @darcher/analyzer build",
-    "build": "npm-run-all  build:config build:proto build:helpers build:helpers-browser build:misc build:dbmonitor-browser build:analyzer build:metamask build:go-ethereum",
+    "build": "npm-run-all  build:config build:proto build:helpers build:helpers-browser build:misc build:dbmonitor-browser build:analyzer build:metamask build:go-ethereum build:crawljax",
     "test:analyzer": "yarn workspace @darcher/analyzer test",
     "test:dbmonitor": "yarn workspace @darcher/dbmonitor test",
     "test:helpers": "yarn workspace @darcher/helpers test",
