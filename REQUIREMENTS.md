@@ -19,5 +19,5 @@ Browser:
 
 Others:
 - Docker `>=20.04` ([able to manage docker as non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user))
-- Docker Compose `^1.29.2`
+- Docker Compose `^1.25.0`
 - make, build-essential `sudo apt install make build-essential`
