@@ -13,7 +13,7 @@ import * as http from "http";
 export interface ExperimentConfig {
     dappName: string,
     crawljaxClassName: string,
-    dappUrl: string,
+    dappUrl?: string,
     resultDir: string,
     composeFile: string,
 
@@ -142,8 +142,10 @@ export async function startExperiment(config: ExperimentConfig) {
             await stopDocker(config);
         });
 
-        logger.info("Waiting for services in docker ready...");
-        await waitUntilWebPageReady(browser.driver, config.dappUrl);
+        if (config.dappUrl) {
+            logger.info("Waiting for services in docker ready...");
+            await waitUntilWebPageReady(browser.driver, config.dappUrl);
+        }
 
         // clear MetaMask data
         logger.info("Clearing MetaMask data...");
