@@ -6,6 +6,7 @@ import {baseConfig, ExperimentConfig, startExperiment} from "../../scripts/exper
 import * as _ from "lodash";
 import {DBOptions} from "@darcher/config/dist";
 import {WebDriver} from "selenium-webdriver";
+import clearIndexedDB from "../../augurproject/scripts/clear-indexedDB";
 
 
 function runAndLog(cmd: Command, cwd: string, logFile: string): child_process.ChildProcess {
@@ -58,6 +59,7 @@ if (require.main === module) {
                     .changeAccount("Giveth0")
                     .resetAccount()
                     .do();
+                await clearIndexedDB(logger, driver, "http://localhost:3010", [givethConfig.dbMonitorConfig.dbName, "giveth"]);
                 // TODO start dapp
                 // return new Promise<void>(resolve => {
                 //     // start dapp
