@@ -157,6 +157,7 @@ export async function startExperiment(config: ExperimentConfig) {
                     clusters: [],
                     logDir: dataDir,
                 });
+                await dbMonitor.start();
                 cleanUpTasks.push(async () => {
                     logger.info("Stopping dbmonitor...");
                     await dbMonitor.shutdown();

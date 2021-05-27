@@ -24,6 +24,7 @@ function runAndLog(cmd: Command, cwd: string, logFile: string): child_process.Ch
 
 if (require.main === module) {
     (async () => {
+        process.env["PICTURE_PATH"] = path.join(__dirname, "..", "misc", "picture.png");
         const subjectDir = path.join(__dirname, "..");
         const givethConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "giveth",
