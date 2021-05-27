@@ -36,7 +36,7 @@ export class MetaMaskNotifierMockServer {
     }
 
     public async shutdown() {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             if (!this.wss) {
                 this.logger.info("MetaMask Notifier already shutdown")
                 resolve();

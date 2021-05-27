@@ -20,3 +20,4 @@ Browser:
 Others:
 - Docker `>=20.04`
 - Docker Compose `^1.29.2`
+- make, build-essential `sudo apt install make build-essential`
