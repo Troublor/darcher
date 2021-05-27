@@ -41,7 +41,7 @@ Note that *ĐArcher* does not locate bugs in the source code.
 
 ## Publication
 
-See the FSE'21 submission [#98](./darcher.pdf).
+See the FSE'21 submission #98 [preview version](./darcher-preview.pdf).
 
 ## Requirements
 
