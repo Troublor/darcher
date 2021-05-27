@@ -10,7 +10,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const publicvotesConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "publicvotes",
-            dappUrl: "http://localhost:3001",
+            dappUrl: "http://localhost:3000",
             crawljaxClassName: "PublicVotesExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),

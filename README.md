@@ -130,6 +130,8 @@ The script will first start the docker-compose services of the DApp (the DApp it
 Then, a Chrome browser session will be created with the profile configured as [here](./INSTALL.md#Prepare the Chrome Profile).
 After that, the experiment will start.
 
+**Note**: Some DApps may take some time to initialize, so it may wait for a while after docker compose services are started. (You may see `Waiting for services in docker ready...` in the console).
+
 **To interrupt the experiment**, press `CTRL-C` to send `SIGINT` signal. 
 If the experiment is interrupted, you need to manually stop the docker-compose services using `yarn workspace @darcher/examples cleanup:<subject>`.
 
