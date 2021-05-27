@@ -5,7 +5,7 @@ This artifact contains the implementation of the tool proposed in the paper, *Đ
 The experiment results are also included in the artifacts. 
 So we think it is eligible to apply for **Artifacts Available** badge. 
 
-## Artifacts Evaluated - Functional
+## Artifacts Evaluated - Reusable
 
 The artifact is:
 - `documented`: We provide documents of instructions to install, and execute the tool, *ĐArcher* to detect bugs in the decentralized applications. 
