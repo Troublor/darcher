@@ -18,6 +18,6 @@ Browser:
 - ChromeDriver `90` (with `chromedriver` command available in PATH)
 
 Others:
-- Docker `>=20.04`
+- Docker `>=20.04` ([able to manage docker as non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user))
 - Docker Compose `^1.29.2`
 - make, build-essential `sudo apt install make build-essential`
