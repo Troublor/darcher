@@ -143,4 +143,5 @@ ethash
 results
 *.out
 ChromeProfile.tar
+ChromeProfile.tar.gz
 ethash.tar
