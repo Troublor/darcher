@@ -50,8 +50,11 @@ services:
 
   dapp:
     image: darcherframework/democracy-earth-dapp:latest
-    stop_signal: SIGTERM
+    entrypoint: ["meteor","--settings=config/development/settings.json"]
+    stop_signal: SIGKILL
     network_mode: service:doer
+    environment:
+      METEOR_MONGO_BIND_IP: "0.0.0.0"
 #    volumes:
 #      - type: bind
 #        source: ${COVERAGE_DIR:-.nyc_output}

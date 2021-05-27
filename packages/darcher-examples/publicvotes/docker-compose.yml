@@ -48,6 +48,8 @@ services:
 
   dapp:
     image: darcherframework/publicvotes-dapp:latest
-    entrypoint: ["/bin/sh", "/start-dapp.sh"]
+    entrypoint: ["meteor"]
     stop_signal: SIGKILL
     network_mode: service:doer
+    environment:
+      METEOR_MONGO_BIND_IP: "0.0.0.0"
