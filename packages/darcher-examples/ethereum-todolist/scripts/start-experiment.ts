@@ -8,6 +8,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const todolistConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "Todolist",
+            dappUrl: "http://localhost:3000",
             crawljaxClassName: "TodolistExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),

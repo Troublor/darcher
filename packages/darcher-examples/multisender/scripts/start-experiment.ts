@@ -9,6 +9,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const multisenderConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "multisender",
+            dappUrl: "http://localhost:3000",
             crawljaxClassName: "MultisenderExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),

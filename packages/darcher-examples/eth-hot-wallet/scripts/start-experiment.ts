@@ -9,6 +9,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const ethHotWalletConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "eth-hot-wallet",
+            dappUrl: "http://localhost:3001",
             crawljaxClassName: "EthHotWalletExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),

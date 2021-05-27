@@ -9,6 +9,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const ethereumVotingDappConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "ethereum_voting_dapp",
+            dappUrl: "http://localhost:8080",
             crawljaxClassName: "EthereumVotingDAppExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),

@@ -13,10 +13,11 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const augurConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "Augur",
+            dappUrl: "http://localhost:8080",
             crawljaxClassName: "AugurExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),
-            dockerStartWaitingTime: 30000,
+            // dockerStartWaitingTime: 30000,
 
             analyzerConfig: {
                 grpcPort: 1234,

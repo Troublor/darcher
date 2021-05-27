@@ -9,6 +9,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const agroChainConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "AgroChain",
+            dappUrl: "http://localhost:3000",
             crawljaxClassName: "AgroChainExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),

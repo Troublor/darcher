@@ -8,10 +8,12 @@ import {Darcher} from "@darcher/analyzer";
 import {AnalyzerConfig, ControllerOptions, DBMonitorConfig, DBOptions} from "@darcher/config/dist";
 import {WebDriver} from "selenium-webdriver";
 import DBMonitor from "@darcher/dbmonitor";
+import * as http from "http";
 
 export interface ExperimentConfig {
     dappName: string,
     crawljaxClassName: string,
+    dappUrl: string,
     resultDir: string,
     composeFile: string,
 
@@ -81,6 +83,26 @@ async function stopDocker(config: ExperimentConfig) {
     });
 }
 
+async function waitUntilWebPageReady(driver: WebDriver, url: string): Promise<void> {
+    while (true) {
+        try {
+            await new Promise<void>((resolve, reject) => {
+                const req = http.get(url, resp => {
+                    resp.on("data", () => {
+                        resolve();
+                    })
+                });
+                req.on('error', (e) => {
+                    reject(e)
+                });
+            });
+            return;
+        } catch (e) {
+            await sleep(1000);
+        }
+    }
+}
+
 export async function startExperiment(config: ExperimentConfig) {
     const logger = new Logger(config.dappName, "debug");
 
@@ -119,6 +141,9 @@ export async function startExperiment(config: ExperimentConfig) {
             logger.info("Stopping docker...");
             await stopDocker(config);
         });
+
+        logger.info("Waiting for services in docker ready...");
+        await waitUntilWebPageReady(browser.driver, config.dappUrl);
 
         // clear MetaMask data
         logger.info("Clearing MetaMask data...");
@@ -172,7 +197,7 @@ export async function startExperiment(config: ExperimentConfig) {
         // start crawljax
         config.beforeStartCrawljaxHook && await config.beforeStartCrawljaxHook(logger, browser.driver, darcherService);
         logger.info("Starting crawljax...");
-        await startCrawljax(logger, `localhost:${config.chromeDebugPort}`, config.metamaskUrl, config.metamaskPassword,config.crawljaxClassName, config.timeBudget, dataDir);
+        await startCrawljax(logger, `localhost:${config.chromeDebugPort}`, config.metamaskUrl, config.metamaskPassword, config.crawljaxClassName, config.timeBudget, dataDir);
 
         const time = config.analyzerConfig.txStateChangeProcessTime ? config.analyzerConfig.txStateChangeProcessTime : 15000;
         await sleep(time * 6);

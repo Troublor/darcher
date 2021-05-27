@@ -29,6 +29,7 @@ if (require.main === module) {
         const subjectDir = path.join(__dirname, "..");
         const givethConfig: ExperimentConfig = Object.assign(_.cloneDeep(baseConfig), {
             dappName: "giveth",
+            dappUrl: "http://localhost:3010",
             crawljaxClassName: "GivethExperiment",
             resultDir: path.join(subjectDir, "results"),
             composeFile: path.join(subjectDir, "docker-compose.yml"),
@@ -59,7 +60,7 @@ if (require.main === module) {
                     .changeAccount("Giveth0")
                     .resetAccount()
                     .do();
-                await clearIndexedDB(logger, driver, "http://localhost:3010", [givethConfig.dbMonitorConfig.dbName, "giveth"]);
+                await clearIndexedDB(logger, driver, givethConfig.dappUrl, [givethConfig.dbMonitorConfig.dbName, "giveth"]);
                 // TODO start dapp
                 // return new Promise<void>(resolve => {
                 //     // start dapp
