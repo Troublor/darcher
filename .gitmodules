@@ -7,3 +7,6 @@
 [submodule "packages/darcher-metamask"]
 	path = packages/darcher-metamask
 	url = https://github.com/Troublor/darcher-metamask.git
+[submodule "packages/darcher-examples/DemocracyEarch/DemocracyDAO"]
+	path = packages/darcher-examples/DemocracyEarch/DemocracyDAO
+	url = https://github.com/Troublor/DemocracyDAO.git
