@@ -60,8 +60,8 @@ Proceed at [INSTALL](./INSTALL.md) for installation of dependencies and compilat
 
 ### Pre-configured Virtual Machine
 
-Alternatively, we provide a virtual box image [here](), which contains pre-configured environment of *ĐArcher*. 
-Note that the size of the image is huge (approximate xx GB) due to the fact that *ĐArcher* works on integrated testing of Apps, which requires a GUI environment.  
+Alternatively, we provide a virtual box image [here](https://zenodo.org/record/4812350), which contains pre-configured environment of *ĐArcher*. 
+Note that the size of the image is huge (approximate 23.2 GB) due to the fact that *ĐArcher* works on integrated testing of Apps, which requires a GUI environment.  
 
 The default user of the virtual machine is `darcher` with password `darcher` (in case you need root privilege).
 Inside the virtual machine, the *ĐArcher* project is located at `$HOME/darcher`.

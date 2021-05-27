@@ -28,13 +28,13 @@ yarn workspace @darcher/go-ethereum gen:dag
 
 The Ethereum DAG will be generated at the `ethash` folder under root directory.
 
-Alternatively, we provide a pre-generated ethash [here](https://1drv.ms/u/s!AjHWCQpYx4NebAwkIvUgL-4HmLg?e=Al3ffi). Download it and extract it at the `ethash` folder under root directory.
+Alternatively, we provide a pre-generated ethash [here](https://zenodo.org/record/4812350). Download it and extract it at the `ethash` folder under root directory.
 
 ## Prepare the Chrome Profile
 
 *ĐArcher* is designed to test Web-based DApps, so we need to configure a browser profile to use *ĐArcher*.
 We provide a preconfigured profile. 
-Download [`ChromeProfile.zip`](https://1drv.ms/u/s!AjHWCQpYx4Nea03Fy5V5iRgjWIk?e=AC1Zej) and extract it at the `ChromeProfile` folder under the root directory.
+Download [`ChromeProfile.zip`](https://zenodo.org/record/4812350) and extract it at the `ChromeProfile` folder under the root directory.
 
 The profile contains two extensions configured for *ĐArcher* as follows:
 
