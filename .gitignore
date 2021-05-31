@@ -144,4 +144,5 @@ results
 ChromeProfile.tar
 ChromeProfile.tar.gz
 ethash.tar
-*.report.json
+/*.report.json
+scripts/*.report.json
