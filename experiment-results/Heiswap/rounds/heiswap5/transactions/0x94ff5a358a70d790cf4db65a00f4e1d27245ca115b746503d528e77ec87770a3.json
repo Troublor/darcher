@@ -1,0 +1,124 @@
+{
+  "parent": null,
+  "hash": "0x94ff5a358a70d790cf4db65a00f4e1d27245ca115b746503d528e77ec87770a3",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"Depositing ETH... make sure you have confirmed the deposit in your walletNext upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"Depositing ETH... make sure you have confirmed the deposit in your walletNext upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at RequestManager.push../node_modules/web3-eth/node_modules/web3-core-requestmanager/src/index.js.RequestManager.send (http://localhost:3000/static/js/1.chunk.js:313834:64)",
+    "at sendRequest (http://localhost:3000/static/js/1.chunk.js:313394:36)",
+    "at send (http://localhost:3000/static/js/1.chunk.js:313412:7)",
+    "at Object._executeMethod (http://localhost:3000/static/js/1.chunk.js:315737:16)",
+    "at http://localhost:3000/static/js/main.chunk.js:733:82"
+  ]
+}

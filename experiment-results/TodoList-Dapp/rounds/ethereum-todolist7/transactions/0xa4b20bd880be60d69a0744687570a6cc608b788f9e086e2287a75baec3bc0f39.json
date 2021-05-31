@@ -1,0 +1,127 @@
+{
+  "parent": null,
+  "hash": "0xa4b20bd880be60d69a0744687570a6cc608b788f9e086e2287a75baec3bc0f39",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"nFoquISw\"},{\"task\":\"qHIdMCNW\"},{\"task\":\"BNbkhbvZ\"},{\"task\":\"JnZOJqYU\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"nFoquISw\"},{\"task\":\"qHIdMCNW\"},{\"task\":\"BNbkhbvZ\"},{\"task\":\"JnZOJqYU\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"nFoquISw\"},{\"task\":\"BNbkhbvZ\"},{\"task\":\"JnZOJqYU\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"nFoquISw\"},{\"task\":\"BNbkhbvZ\"},{\"task\":\"JnZOJqYU\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"nFoquISw\"},{\"task\":\"BNbkhbvZ\"},{\"task\":\"JnZOJqYU\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"nFoquISw\"},{\"task\":\"BNbkhbvZ\"},{\"task\":\"JnZOJqYU\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:3000/static/js/bundle.js:113404:37)",
+    "at RequestManager.sendAsync (http://localhost:3000/static/js/bundle.js:134126:20)",
+    "at Eth.send [as sendTransaction] (http://localhost:3000/static/js/bundle.js:138938:43)",
+    "at SolidityFunction.sendTransaction (http://localhost:3000/static/js/bundle.js:141463:16)",
+    "at SolidityFunction.execute (http://localhost:3000/static/js/bundle.js:141546:38)",
+    "at http://localhost:3000/static/js/bundle.js:113569:17",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:3000/static/js/bundle.js:113535:19"
+  ]
+}

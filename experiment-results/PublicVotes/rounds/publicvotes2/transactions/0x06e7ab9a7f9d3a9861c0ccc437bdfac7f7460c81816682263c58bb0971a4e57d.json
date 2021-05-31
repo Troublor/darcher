@@ -1,0 +1,537 @@
+{
+  "parent": null,
+  "hash": "0x06e7ab9a7f9d3a9861c0ccc437bdfac7f7460c81816682263c58bb0971a4e57d",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xa5492f0f46914ed52224eac463e8c02f1dec89b1\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x36dd38fd529a8a6a8d14331c4960884ac5b258ae\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x7c09e39e116d646b6ac2fad131f408f8f7694c9e\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xc043de23614119b625cbaf5579547af647535be4\"}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x836a7ffa5703d4d9f7a564b10042114cc81e15a4\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x9edc162a58287bd105b2fba0262c47417facc51d\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:08:22.999Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607479704749,\"endDate\":1607483304749,\"votes\":[\"B\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:11:31.561Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":12,\"startDate\":1607479892754,\"endDate\":1607483492754,\"votes\":[\"\"]}",
+                "{\"_id\":\"RbtrEs7RCeJpnwcLp\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:06.394Z\"}",
+                "{\"_id\":\"ZXKASZfcMFhHASKAR\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:11.865Z\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:15:30.144Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":20,\"startDate\":1607480131825,\"endDate\":1607483731825,\"votes\":[\"B\"]}",
+                "{\"_id\":\"ijYmWAEPNuDCaG5Zc\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:18:48.565Z\"}",
+                "{\"_id\":\"zRKxT5AyzLKDZ8FmF\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:13.526Z\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:41.934Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":28,\"startDate\":1607480383154,\"endDate\":1607483983154,\"votes\":[\"A\"]}",
+                "{\"_id\":\"42TRFCmX7AAW29XKA\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:21:18.001Z\"}",
+                "{\"_id\":\"h5L7jsMNPr2cFZMGE\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:18.340Z\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:57.683Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":36,\"startDate\":1607480639407,\"endDate\":1607484239407,\"votes\":[\"\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:27:12.056Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":44,\"startDate\":1607480833796,\"endDate\":1607484433796,\"votes\":[\"B\"]}",
+                "{\"_id\":\"2jAajDxWTbzufXgdJ\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:38.372Z\"}",
+                "{\"_id\":\"RevmTcwdzgzccR8xA\",\"poll\":{\"name\":\"Test Pool 3\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:54.522Z\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:31:31.007Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":52,\"startDate\":1607481092692,\"endDate\":1607484692692}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xa5492f0f46914ed52224eac463e8c02f1dec89b1\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x36dd38fd529a8a6a8d14331c4960884ac5b258ae\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x7c09e39e116d646b6ac2fad131f408f8f7694c9e\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xc043de23614119b625cbaf5579547af647535be4\"}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x836a7ffa5703d4d9f7a564b10042114cc81e15a4\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x9edc162a58287bd105b2fba0262c47417facc51d\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:08:22.999Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607479704749,\"endDate\":1607483304749,\"votes\":[\"B\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:11:31.561Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":12,\"startDate\":1607479892754,\"endDate\":1607483492754,\"votes\":[\"\"]}",
+                "{\"_id\":\"RbtrEs7RCeJpnwcLp\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:06.394Z\"}",
+                "{\"_id\":\"ZXKASZfcMFhHASKAR\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:11.865Z\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:15:30.144Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":20,\"startDate\":1607480131825,\"endDate\":1607483731825,\"votes\":[\"B\"]}",
+                "{\"_id\":\"ijYmWAEPNuDCaG5Zc\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:18:48.565Z\"}",
+                "{\"_id\":\"zRKxT5AyzLKDZ8FmF\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:13.526Z\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:41.934Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":28,\"startDate\":1607480383154,\"endDate\":1607483983154,\"votes\":[\"A\"]}",
+                "{\"_id\":\"42TRFCmX7AAW29XKA\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:21:18.001Z\"}",
+                "{\"_id\":\"h5L7jsMNPr2cFZMGE\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:18.340Z\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:57.683Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":36,\"startDate\":1607480639407,\"endDate\":1607484239407,\"votes\":[\"\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:27:12.056Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":44,\"startDate\":1607480833796,\"endDate\":1607484433796,\"votes\":[\"B\"]}",
+                "{\"_id\":\"2jAajDxWTbzufXgdJ\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:38.372Z\"}",
+                "{\"_id\":\"RevmTcwdzgzccR8xA\",\"poll\":{\"name\":\"Test Pool 3\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:54.522Z\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:31:31.007Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":52,\"startDate\":1607481092692,\"endDate\":1607484692692,\"votes\":[\"A\"]}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xa5492f0f46914ed52224eac463e8c02f1dec89b1\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x36dd38fd529a8a6a8d14331c4960884ac5b258ae\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x7c09e39e116d646b6ac2fad131f408f8f7694c9e\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xc043de23614119b625cbaf5579547af647535be4\"}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x836a7ffa5703d4d9f7a564b10042114cc81e15a4\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x9edc162a58287bd105b2fba0262c47417facc51d\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:08:22.999Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607479704749,\"endDate\":1607483304749,\"votes\":[\"B\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:11:31.561Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":12,\"startDate\":1607479892754,\"endDate\":1607483492754,\"votes\":[\"\"]}",
+                "{\"_id\":\"RbtrEs7RCeJpnwcLp\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:06.394Z\"}",
+                "{\"_id\":\"ZXKASZfcMFhHASKAR\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:11.865Z\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:15:30.144Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":20,\"startDate\":1607480131825,\"endDate\":1607483731825,\"votes\":[\"B\"]}",
+                "{\"_id\":\"ijYmWAEPNuDCaG5Zc\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:18:48.565Z\"}",
+                "{\"_id\":\"zRKxT5AyzLKDZ8FmF\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:13.526Z\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:41.934Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":28,\"startDate\":1607480383154,\"endDate\":1607483983154,\"votes\":[\"A\"]}",
+                "{\"_id\":\"42TRFCmX7AAW29XKA\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:21:18.001Z\"}",
+                "{\"_id\":\"h5L7jsMNPr2cFZMGE\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:18.340Z\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:57.683Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":36,\"startDate\":1607480639407,\"endDate\":1607484239407,\"votes\":[\"\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:27:12.056Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":44,\"startDate\":1607480833796,\"endDate\":1607484433796,\"votes\":[\"B\"]}",
+                "{\"_id\":\"2jAajDxWTbzufXgdJ\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:38.372Z\"}",
+                "{\"_id\":\"RevmTcwdzgzccR8xA\",\"poll\":{\"name\":\"Test Pool 3\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:54.522Z\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:31:31.007Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":52,\"startDate\":1607481092692,\"endDate\":1607484692692,\"votes\":[\"A\"]}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T10:33:40+0800] [SEVERE] chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js 0:51167 \"MetaMask - RPC Error: Internal JSON-RPC error.\" Object"
+        },
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T10:33:40+0800] [SEVERE] http://localhost:3000/app/client/libraries/polls/voted.js?225cef8dbab4825b54521046ec867a50347142ef 167:32 Uncaught TypeError: Cannot read property 'timestamp' of undefined"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xa5492f0f46914ed52224eac463e8c02f1dec89b1\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x36dd38fd529a8a6a8d14331c4960884ac5b258ae\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x7c09e39e116d646b6ac2fad131f408f8f7694c9e\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xc043de23614119b625cbaf5579547af647535be4\"}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x836a7ffa5703d4d9f7a564b10042114cc81e15a4\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x9edc162a58287bd105b2fba0262c47417facc51d\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:08:22.999Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607479704749,\"endDate\":1607483304749,\"votes\":[\"B\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:11:31.561Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":12,\"startDate\":1607479892754,\"endDate\":1607483492754,\"votes\":[\"\"]}",
+                "{\"_id\":\"RbtrEs7RCeJpnwcLp\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:06.394Z\"}",
+                "{\"_id\":\"ZXKASZfcMFhHASKAR\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:11.865Z\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:15:30.144Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":20,\"startDate\":1607480131825,\"endDate\":1607483731825,\"votes\":[\"B\"]}",
+                "{\"_id\":\"ijYmWAEPNuDCaG5Zc\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:18:48.565Z\"}",
+                "{\"_id\":\"zRKxT5AyzLKDZ8FmF\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:13.526Z\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:41.934Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":28,\"startDate\":1607480383154,\"endDate\":1607483983154,\"votes\":[\"A\"]}",
+                "{\"_id\":\"42TRFCmX7AAW29XKA\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:21:18.001Z\"}",
+                "{\"_id\":\"h5L7jsMNPr2cFZMGE\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:18.340Z\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:57.683Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":36,\"startDate\":1607480639407,\"endDate\":1607484239407,\"votes\":[\"\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:27:12.056Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":44,\"startDate\":1607480833796,\"endDate\":1607484433796,\"votes\":[\"B\"]}",
+                "{\"_id\":\"2jAajDxWTbzufXgdJ\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:38.372Z\"}",
+                "{\"_id\":\"RevmTcwdzgzccR8xA\",\"poll\":{\"name\":\"Test Pool 3\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:54.522Z\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:31:31.007Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":52,\"startDate\":1607481092692,\"endDate\":1607484692692,\"votes\":[\"A\"]}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xa5492f0f46914ed52224eac463e8c02f1dec89b1\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x36dd38fd529a8a6a8d14331c4960884ac5b258ae\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x7c09e39e116d646b6ac2fad131f408f8f7694c9e\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xc043de23614119b625cbaf5579547af647535be4\"}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x836a7ffa5703d4d9f7a564b10042114cc81e15a4\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x9edc162a58287bd105b2fba0262c47417facc51d\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:08:22.999Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607479704749,\"endDate\":1607483304749,\"votes\":[\"B\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:11:31.561Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":12,\"startDate\":1607479892754,\"endDate\":1607483492754,\"votes\":[\"\"]}",
+                "{\"_id\":\"RbtrEs7RCeJpnwcLp\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:06.394Z\"}",
+                "{\"_id\":\"ZXKASZfcMFhHASKAR\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:11.865Z\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:15:30.144Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":20,\"startDate\":1607480131825,\"endDate\":1607483731825,\"votes\":[\"B\"]}",
+                "{\"_id\":\"ijYmWAEPNuDCaG5Zc\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:18:48.565Z\"}",
+                "{\"_id\":\"zRKxT5AyzLKDZ8FmF\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:13.526Z\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:41.934Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":28,\"startDate\":1607480383154,\"endDate\":1607483983154,\"votes\":[\"A\"]}",
+                "{\"_id\":\"42TRFCmX7AAW29XKA\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:21:18.001Z\"}",
+                "{\"_id\":\"h5L7jsMNPr2cFZMGE\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:18.340Z\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:57.683Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":36,\"startDate\":1607480639407,\"endDate\":1607484239407,\"votes\":[\"\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:27:12.056Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":44,\"startDate\":1607480833796,\"endDate\":1607484433796,\"votes\":[\"B\"]}",
+                "{\"_id\":\"2jAajDxWTbzufXgdJ\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:38.372Z\"}",
+                "{\"_id\":\"RevmTcwdzgzccR8xA\",\"poll\":{\"name\":\"Test Pool 3\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:54.522Z\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:31:31.007Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":52,\"startDate\":1607481092692,\"endDate\":1607484692692,\"votes\":[\"A\"]}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xa5492f0f46914ed52224eac463e8c02f1dec89b1\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x36dd38fd529a8a6a8d14331c4960884ac5b258ae\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x7c09e39e116d646b6ac2fad131f408f8f7694c9e\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0xc043de23614119b625cbaf5579547af647535be4\"}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x836a7ffa5703d4d9f7a564b10042114cc81e15a4\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x9edc162a58287bd105b2fba0262c47417facc51d\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:08:22.999Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607479704749,\"endDate\":1607483304749,\"votes\":[\"B\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:11:31.561Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":12,\"startDate\":1607479892754,\"endDate\":1607483492754,\"votes\":[\"\"]}",
+                "{\"_id\":\"RbtrEs7RCeJpnwcLp\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:06.394Z\"}",
+                "{\"_id\":\"ZXKASZfcMFhHASKAR\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:13:11.865Z\"}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:15:30.144Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":20,\"startDate\":1607480131825,\"endDate\":1607483731825,\"votes\":[\"B\"]}",
+                "{\"_id\":\"ijYmWAEPNuDCaG5Zc\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:18:48.565Z\"}",
+                "{\"_id\":\"zRKxT5AyzLKDZ8FmF\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:13.526Z\"}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:19:41.934Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":28,\"startDate\":1607480383154,\"endDate\":1607483983154,\"votes\":[\"A\"]}",
+                "{\"_id\":\"42TRFCmX7AAW29XKA\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:21:18.001Z\"}",
+                "{\"_id\":\"h5L7jsMNPr2cFZMGE\",\"poll\":{\"name\":\"Test Pool 2\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:18.340Z\"}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:23:57.683Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":36,\"startDate\":1607480639407,\"endDate\":1607484239407,\"votes\":[\"\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"poll\":{\"name\":\"Test Pool 1\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:27:12.056Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":44,\"startDate\":1607480833796,\"endDate\":1607484433796,\"votes\":[\"B\"]}",
+                "{\"_id\":\"2jAajDxWTbzufXgdJ\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:38.372Z\"}",
+                "{\"_id\":\"RevmTcwdzgzccR8xA\",\"poll\":{\"name\":\"Test Pool 3\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":false,\"isvoted\":false,\"ready\":false,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:30:54.522Z\"}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"poll\":{\"name\":\"Test Pool 0\",\"description\":\"\",\"options\":[\"A\",\"B\"],\"public\":true,\"vote_limit\":1,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T02:31:31.007Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":52,\"startDate\":1607481092692,\"endDate\":1607484692692,\"votes\":[\"A\"]}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"K5cL7F7SauoC5RHWq\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"fAimZxxGnZjrQ3or3\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"aodSc2CuBKXv8GZ9G\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"2R6m6vicsfv6rZMQT\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"SLrJmDfPL4qEDqF4K\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"u8QDisPN5uN2x7m9o\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}",
+                "{\"_id\":\"X3BAwdHBASrjaKcEW\",\"connection\":[\"34b0aeb03b4891634541361b2f959793e8ceba5af73f2c994a27785c5e1a4148\"]}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T10:34:11+0800] [SEVERE] chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js 0:51167 \"MetaMask - RPC Error: Internal JSON-RPC error.\" Object"
+        },
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T10:34:11+0800] [SEVERE] http://localhost:3000/app/client/libraries/polls/voted.js?225cef8dbab4825b54521046ec867a50347142ef 167:32 Uncaught TypeError: Cannot read property 'timestamp' of undefined"
+        },
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T10:34:11+0800] [SEVERE] chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js 0:51167 \"MetaMask - RPC Error: Internal JSON-RPC error.\" Object"
+        },
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T10:34:11+0800] [SEVERE] http://localhost:3000/app/client/libraries/polls/voted.js?225cef8dbab4825b54521046ec867a50347142ef 167:32 Uncaught TypeError: Cannot read property 'timestamp' of undefined"
+        }
+      ],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at a.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:111173)",
+    "at w.t [as sendTransaction] (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:97678)",
+    "at u.sendTransaction (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:89202)",
+    "at u.execute (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:90048)",
+    "at http://localhost:3000/app/client/libraries/polls/vote.js?8f5f17484ddc4f49872b4d2ce41ae5c6123458dd:46:16",
+    "at MethodInvoker._callback (http://localhost:3000/packages/meteor.js?9730f4ff059088b3f7f14c0672d155218a1802d4:999:22)",
+    "at MethodInvoker._maybeInvokeCallback (http://localhost:3000/packages/ddp-client.js?250b63e6c919c5383a0511ee4efbf42bb70a650f:3500:12)",
+    "at MethodInvoker.receiveResult (http://localhost:3000/packages/ddp-client.js?250b63e6c919c5383a0511ee4efbf42bb70a650f:3520:10)"
+  ]
+}

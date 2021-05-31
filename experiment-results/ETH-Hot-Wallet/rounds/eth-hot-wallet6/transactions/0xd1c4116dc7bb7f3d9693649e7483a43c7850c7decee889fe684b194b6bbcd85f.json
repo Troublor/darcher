@@ -1,0 +1,122 @@
+{
+  "parent": null,
+  "hash": "0xd1c4116dc7bb7f3d9693649e7483a43c7850c7decee889fe684b194b6bbcd85f",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.92653\",\"txStatus\":\"Sending...\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.92653\",\"txStatus\":\"Send sucessfull TX:  0xd1c4116dc7bb7f3d9693649e7483a43c7850c7decee889fe684b194b6bbcd85f \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "eth-hot-wallet",
+          "instanceId": "1",
+          "errorString": "[2020-12-19T19:33:46+0800] [SEVERE] webpack:///./node_modules/fbjs/lib/invariant.js? 41:14 Uncaught Error: Objects are not valid as a React child (found: Err…ng createFragment(object) from the React add-ons."
+        }
+      ],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.92653\",\"txStatus\":\"Send sucessfull TX:  0xd1c4116dc7bb7f3d9693649e7483a43c7850c7decee889fe684b194b6bbcd85f \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.92653\",\"txStatus\":\"Send sucessfull TX:  0xd1c4116dc7bb7f3d9693649e7483a43c7850c7decee889fe684b194b6bbcd85f \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.92653\",\"txStatus\":\"Send sucessfull TX:  0xd1c4116dc7bb7f3d9693649e7483a43c7850c7decee889fe684b194b6bbcd85f \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.92653\",\"txStatus\":\"Send sucessfull TX:  0xd1c4116dc7bb7f3d9693649e7483a43c7850c7decee889fe684b194b6bbcd85f \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": "Error\n    at RequestManager.sendAsync (webpack:///./node_modules/web3/lib/web3/requestmanager.js?:80:19)\n    at Eth.send [as sendTransaction] (webpack:///./node_modules/web3/lib/web3/method.js?:141:42)\n    at http://localhost:3001/0.chunk.js:3565:24\n    at new Promise (<anonymous>)\n    at sendTransactionPromise (http://localhost:3001/0.chunk.js:3564:20)\n    at runCallEffect (webpack:///./node_modules/redux-saga/es/internal/proc.js?:513:19)\n    at runEffect (webpack:///./node_modules/redux-saga/es/internal/proc.js?:435:600)\n    at next (webpack:///./node_modules/redux-saga/es/internal/proc.js?:316:9)\n    at currCb (webpack:///./node_modules/redux-saga/es/internal/proc.js?:388:7)\n    at runSelectEffect (webpack:///./node_modules/redux-saga/es/internal/proc.js?:698:7)"
+}

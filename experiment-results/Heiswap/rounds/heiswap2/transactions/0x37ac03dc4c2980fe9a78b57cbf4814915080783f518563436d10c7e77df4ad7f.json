@@ -1,0 +1,151 @@
+{
+  "parent": null,
+  "hash": "0x37ac03dc4c2980fe9a78b57cbf4814915080783f518563436d10c7e77df4ad7f",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"Depositing ETH... make sure you have confirmed the deposit in your walletNext upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Lordsofthesnails",
+          "instanceId": "1",
+          "errorString": "[2020-12-05T00:57:18+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fconfirm-transaction&rand=9531212094649899&pv_id=f1e110&uid=0000000000000000 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "Lordsofthesnails",
+          "instanceId": "1",
+          "errorString": "[2020-12-05T00:57:18+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        },
+        {
+          "dappName": "Lordsofthesnails",
+          "instanceId": "1",
+          "errorString": "[2020-12-05T00:57:18+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        },
+        {
+          "dappName": "Lordsofthesnails",
+          "instanceId": "1",
+          "errorString": "[2020-12-05T00:57:18+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Confirm:%20Started&cvar=%7B%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=0&dimension9=5&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=404685821271886&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"Depositing ETH... make sure you have confirmed the deposit in your walletNext upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Lordsofthesnails",
+          "instanceId": "1",
+          "errorString": "[2020-12-05T00:57:19+0800] [SEVERE] http://localhost:3000/static/js/1.chunk.js 92585:19 \"Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in %s.%s\" \"the componentWillUnmount method\" \"\\n    in PublicAddress (at App.js:260)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (at App.js:259)\\n    in div (at App.js:253)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (at Web3StatusModal.js:35)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (created by Card)\\n    in Card (at Web3StatusModal.js:22)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (created by Context.Consumer)\\n    in StyledComponent (created by Styled(Box))\\n    in Styled(Box) (created by Modal)\""
+        }
+      ],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at RequestManager.push../node_modules/web3-eth/node_modules/web3-core-requestmanager/src/index.js.RequestManager.send (http://localhost:3000/static/js/1.chunk.js:313834:64)",
+    "at sendRequest (http://localhost:3000/static/js/1.chunk.js:313394:36)",
+    "at send (http://localhost:3000/static/js/1.chunk.js:313412:7)",
+    "at Object._executeMethod (http://localhost:3000/static/js/1.chunk.js:315737:16)",
+    "at http://localhost:3000/static/js/main.chunk.js:733:82"
+  ]
+}

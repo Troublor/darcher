@@ -1,0 +1,145 @@
+{
+  "parent": null,
+  "hash": "0xdfb023eb223e961572b1abfbe68d9697210e5add16ac729df07a570069d12264",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"3\",\"candidate2\":\"4\",\"candidate3\":\"4\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"3\",\"candidate2\":\"4\",\"candidate3\":\"4\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"3\",\"candidate2\":\"4\",\"candidate3\":\"4\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [
+        {
+          "hash": "0xdfb023eb223e961572b1abfbe68d9697210e5add16ac729df07a570069d12264",
+          "type": 1,
+          "description": "execution reverted"
+        }
+      ],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"3\",\"candidate2\":\"4\",\"candidate3\":\"4\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [
+        {
+          "hash": "0xdfb023eb223e961572b1abfbe68d9697210e5add16ac729df07a570069d12264",
+          "type": 1,
+          "description": "execution reverted"
+        }
+      ],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"3\",\"candidate2\":\"4\",\"candidate3\":\"4\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"3\",\"candidate2\":\"4\",\"candidate3\":\"4\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [
+        {
+          "hash": "0xdfb023eb223e961572b1abfbe68d9697210e5add16ac729df07a570069d12264",
+          "type": 1,
+          "description": "execution reverted"
+        }
+      ],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:8080/app.js:73319:36)",
+    "at RequestManager.sendAsync (http://localhost:8080/app.js:76904:19)",
+    "at Eth.send [as sendTransaction] (http://localhost:8080/app.js:14489:42)",
+    "at SolidityFunction.sendTransaction (http://localhost:8080/app.js:75631:15)",
+    "at SolidityFunction.execute (http://localhost:8080/app.js:75714:37)",
+    "at http://localhost:8080/app.js:73484:16",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:8080/app.js:73450:18"
+  ]
+}

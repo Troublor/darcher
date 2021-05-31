@@ -1,0 +1,138 @@
+{
+  "parent": null,
+  "hash": "0x4857b49e33161a9e704eea26c28b800ffa86cf095ad31f55951a0da284785960",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"FyBTFXCB\"},{\"task\":\"FUsmLIfq\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:58:55+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fconfirm-transaction&rand=28540938746541733&pv_id=f1e110&uid=0000000000000000 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:58:55+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Confirm:%20Started&cvar=%7B%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=2&dimension9=17&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=4337894671351137&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"FyBTFXCB\"},{\"task\":\"FUsmLIfq\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"FUsmLIfq\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"FUsmLIfq\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"FUsmLIfq\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"FUsmLIfq\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:3000/static/js/bundle.js:113404:37)",
+    "at RequestManager.sendAsync (http://localhost:3000/static/js/bundle.js:134126:20)",
+    "at Eth.send [as sendTransaction] (http://localhost:3000/static/js/bundle.js:138938:43)",
+    "at SolidityFunction.sendTransaction (http://localhost:3000/static/js/bundle.js:141463:16)",
+    "at SolidityFunction.execute (http://localhost:3000/static/js/bundle.js:141546:38)",
+    "at http://localhost:3000/static/js/bundle.js:113569:17",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:3000/static/js/bundle.js:113535:19"
+  ]
+}

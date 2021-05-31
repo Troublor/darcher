@@ -1,0 +1,127 @@
+{
+  "parent": null,
+  "hash": "0xa50b4c6d3a980d19225d935598f3060a33e6b6a5679198030a28f1e6f6f4c533",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"hERnyGNg\"},{\"task\":\"zgmXPQEo\"},{\"task\":\"aSlcUkfn\"},{\"task\":\"EFJnftvc\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"hERnyGNg\"},{\"task\":\"zgmXPQEo\"},{\"task\":\"aSlcUkfn\"},{\"task\":\"EFJnftvc\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"hERnyGNg\"},{\"task\":\"zgmXPQEo\"},{\"task\":\"aSlcUkfn\"},{\"task\":\"EFJnftvc\"},{\"task\":\"hLxIEnEy\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"hERnyGNg\"},{\"task\":\"zgmXPQEo\"},{\"task\":\"aSlcUkfn\"},{\"task\":\"EFJnftvc\"},{\"task\":\"hLxIEnEy\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"hERnyGNg\"},{\"task\":\"zgmXPQEo\"},{\"task\":\"aSlcUkfn\"},{\"task\":\"EFJnftvc\"},{\"task\":\"hLxIEnEy\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"hERnyGNg\"},{\"task\":\"zgmXPQEo\"},{\"task\":\"aSlcUkfn\"},{\"task\":\"EFJnftvc\"},{\"task\":\"hLxIEnEy\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:3000/static/js/bundle.js:113404:37)",
+    "at RequestManager.sendAsync (http://localhost:3000/static/js/bundle.js:134126:20)",
+    "at Eth.send [as sendTransaction] (http://localhost:3000/static/js/bundle.js:138938:43)",
+    "at SolidityFunction.sendTransaction (http://localhost:3000/static/js/bundle.js:141463:16)",
+    "at SolidityFunction.execute (http://localhost:3000/static/js/bundle.js:141546:38)",
+    "at http://localhost:3000/static/js/bundle.js:113569:17",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:3000/static/js/bundle.js:113535:19"
+  ]
+}

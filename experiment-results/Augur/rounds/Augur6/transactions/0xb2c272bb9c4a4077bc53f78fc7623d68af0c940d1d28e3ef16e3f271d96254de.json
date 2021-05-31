@@ -1,0 +1,3198 @@
+{
+  "parent": null,
+  "hash": "0xb2c272bb9c4a4077bc53f78fc7623d68af0c940d1d28e3ef16e3f271d96254de",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "CancelZeroXOrder",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsPurchased",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsSold",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CurrentOrders",
+            {
+              "keypathList": [
+                "orderId"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Dispute",
+            {
+              "keypathList": [
+                "market",
+                "payoutNumerators"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCompleted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerContribution",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeWindowCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReportSubmitted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketFinalized",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketMigrated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketParticipantsDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Markets",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "OrderEvent",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParsedOrderEvents",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParticipationTokensRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ProfitLossChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingFeeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingParticipantDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Rollback",
+            {
+              "keypathList": [
+                ""
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "account",
+                "market",
+                "outcome"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "SyncStatus",
+            {
+              "keypathList": [
+                "eventName"
+              ],
+              "entriesList": [
+                "{\"eventName\":\"CancelZeroXOrder\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"CompleteSetsPurchased\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"CompleteSetsSold\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"CurrentOrders\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"Dispute\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerCompleted\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerContribution\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerRedeemed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeWindowCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"InitialReportSubmitted\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"InitialReporterRedeemed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"InitialReporterTransferred\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketFinalized\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketMigrated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketOIChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketOIChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"MarketParticipantsDisavowed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketTransferred\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketVolumeChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketVolumeChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"Markets\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"OrderEvent\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ParsedOrderEvents\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"ParticipationTokensRedeemed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ProfitLossChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ReportingFeeChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ReportingParticipantDisavowed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ShareTokenBalanceChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ShareTokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"TimestampSet\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokenBalanceChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"TokensMinted\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokensTransferred\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TradingProceedsClaimed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TransferBatch\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TransferSingle\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"UniverseCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"UniverseForked\",\"syncing\":false,\"blockNumber\":211}"
+              ]
+            }
+          ],
+          [
+            "TimestampSet",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x056bc75e2d63100000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":8,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x0ad78ebc5ac6200000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "owner",
+                "token"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensMinted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"amount\":\"0x09195731e2ce35eb000000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195731e2ce35eb000000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":2,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195c9daa2c634e100000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":7,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09196209718a90b1200000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x0919677538e8be14300000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TradingProceedsClaimed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferBatch",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferSingle",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "UniverseCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"UniverseCreated\",\"parentUniverse\":\"0x0000000000000000000000000000000000000000\",\"childUniverse\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"payoutNumerators\":[],\"creationTimestamp\":\"0x601783b7\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":147,\"blockHash\":\"0xbf16a7eb9bc166b7f3dce6839cb1a6b439d3c7b3af3b3295e2ed6bd1bcbf9721\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x00425360c50cf7fe490922d23e4f962efce4e7d97f8e1f728a750584c61757d2\",\"logIndex\":2,\"topics\":[\"0xe36b09d83f9cfa88c37f071fc2cfb5ff30b764cbd98088e70d965573c9ce5bbd\",\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\"]}"
+              ]
+            }
+          ],
+          [
+            "UniverseForked",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSync",
+            {
+              "keypathList": [
+                "begin.number",
+                "end.number"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSyncCheckpoints",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ZeroXOrders",
+            {
+              "keypathList": [
+                "orderHash"
+              ],
+              "entriesList": []
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:44:49+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fconfirm-transaction&rand=19258232411483034&pv_id=f1e110&uid=0000000000000000 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:44:49+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Confirm:%20Started&cvar=%7B%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A8080%22%5D%7D&urlref=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&dimension5=123456&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=0&dimension9=17&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=7283760164764475&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:44:49+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Transaction%20Completed&cvar=%7B%221%22%3A%5B%22functionType%22%2C%22contractInteraction%22%5D%2C%222%22%3A%5B%22recipientKnown%22%2Cnull%5D%2C%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A8080%22%5D%7D&urlref=EXTERNAL&dimension5=123456&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=0&dimension9=17&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=7960590247481789&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "CancelZeroXOrder",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsPurchased",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsSold",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CurrentOrders",
+            {
+              "keypathList": [
+                "orderId"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Dispute",
+            {
+              "keypathList": [
+                "market",
+                "payoutNumerators"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCompleted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerContribution",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeWindowCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReportSubmitted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketFinalized",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketMigrated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketParticipantsDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Markets",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "OrderEvent",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParsedOrderEvents",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParticipationTokensRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ProfitLossChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingFeeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingParticipantDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Rollback",
+            {
+              "keypathList": [
+                ""
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "account",
+                "market",
+                "outcome"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "SyncStatus",
+            {
+              "keypathList": [
+                "eventName"
+              ],
+              "entriesList": [
+                "{\"eventName\":\"CancelZeroXOrder\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"CompleteSetsPurchased\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"CompleteSetsSold\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"CurrentOrders\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"Dispute\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerCompleted\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerContribution\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeCrowdsourcerRedeemed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"DisputeWindowCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"InitialReportSubmitted\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"InitialReporterRedeemed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"InitialReporterTransferred\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketFinalized\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketMigrated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketOIChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketOIChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"MarketParticipantsDisavowed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketTransferred\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketVolumeChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketVolumeChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"Markets\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"OrderEvent\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ParsedOrderEvents\",\"syncing\":true,\"blockNumber\":211}",
+                "{\"eventName\":\"ParticipationTokensRedeemed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ProfitLossChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ReportingFeeChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ReportingParticipantDisavowed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ShareTokenBalanceChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"ShareTokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"TimestampSet\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokenBalanceChanged\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"TokensMinted\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokensTransferred\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TradingProceedsClaimed\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TransferBatch\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TransferSingle\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"UniverseCreated\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"UniverseForked\",\"syncing\":false,\"blockNumber\":211}"
+              ]
+            }
+          ],
+          [
+            "TimestampSet",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x056bc75e2d63100000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":8,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x0ad78ebc5ac6200000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "owner",
+                "token"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensMinted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"amount\":\"0x09195731e2ce35eb000000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195731e2ce35eb000000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":2,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195c9daa2c634e100000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":7,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09196209718a90b1200000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x0919677538e8be14300000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TradingProceedsClaimed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferBatch",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferSingle",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "UniverseCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"UniverseCreated\",\"parentUniverse\":\"0x0000000000000000000000000000000000000000\",\"childUniverse\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"payoutNumerators\":[],\"creationTimestamp\":\"0x601783b7\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":147,\"blockHash\":\"0xbf16a7eb9bc166b7f3dce6839cb1a6b439d3c7b3af3b3295e2ed6bd1bcbf9721\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x00425360c50cf7fe490922d23e4f962efce4e7d97f8e1f728a750584c61757d2\",\"logIndex\":2,\"topics\":[\"0xe36b09d83f9cfa88c37f071fc2cfb5ff30b764cbd98088e70d965573c9ce5bbd\",\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\"]}"
+              ]
+            }
+          ],
+          [
+            "UniverseForked",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSync",
+            {
+              "keypathList": [
+                "begin.number",
+                "end.number"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSyncCheckpoints",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ZeroXOrders",
+            {
+              "keypathList": [
+                "orderHash"
+              ],
+              "entriesList": []
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:44:55+0800] [SEVERE] webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/sdk/build/api/Uniswap.js? 94:18 Uncaught Error: Exchange does not exist"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "CancelZeroXOrder",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsPurchased",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsSold",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CurrentOrders",
+            {
+              "keypathList": [
+                "orderId"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Dispute",
+            {
+              "keypathList": [
+                "market",
+                "payoutNumerators"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCompleted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerContribution",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeWindowCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReportSubmitted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketFinalized",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketMigrated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketParticipantsDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Markets",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "OrderEvent",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParsedOrderEvents",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParticipationTokensRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ProfitLossChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingFeeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingParticipantDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Rollback",
+            {
+              "keypathList": [
+                ""
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "account",
+                "market",
+                "outcome"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "SyncStatus",
+            {
+              "keypathList": [
+                "eventName"
+              ],
+              "entriesList": [
+                "{\"eventName\":\"CancelZeroXOrder\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"CompleteSetsPurchased\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"CompleteSetsSold\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"CurrentOrders\",\"syncing\":true,\"blockNumber\":212}",
+                "{\"eventName\":\"Dispute\",\"syncing\":true,\"blockNumber\":212}",
+                "{\"eventName\":\"DisputeCrowdsourcerCompleted\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"DisputeCrowdsourcerContribution\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"DisputeCrowdsourcerCreated\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"DisputeCrowdsourcerRedeemed\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"DisputeWindowCreated\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"InitialReportSubmitted\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"InitialReporterRedeemed\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"InitialReporterTransferred\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketCreated\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketFinalized\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketMigrated\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketOIChanged\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketOIChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"MarketParticipantsDisavowed\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketTransferred\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketVolumeChanged\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketVolumeChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"Markets\",\"syncing\":true,\"blockNumber\":212}",
+                "{\"eventName\":\"OrderEvent\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"ParsedOrderEvents\",\"syncing\":true,\"blockNumber\":212}",
+                "{\"eventName\":\"ParticipationTokensRedeemed\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"ProfitLossChanged\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"ReportingFeeChanged\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"ReportingParticipantDisavowed\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"ShareTokenBalanceChanged\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"ShareTokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"TimestampSet\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TokenBalanceChanged\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":210}",
+                "{\"eventName\":\"TokensMinted\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TokensTransferred\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TradingProceedsClaimed\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TransferBatch\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TransferSingle\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"UniverseCreated\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"UniverseForked\",\"syncing\":false,\"blockNumber\":212}"
+              ]
+            }
+          ],
+          [
+            "TimestampSet",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x056bc75e2d63100000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":8,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x0ad78ebc5ac6200000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "owner",
+                "token"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensMinted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"amount\":\"0x09195731e2ce35eb000000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195731e2ce35eb000000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":2,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195c9daa2c634e100000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":7,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09196209718a90b1200000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x0919677538e8be14300000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TradingProceedsClaimed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferBatch",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferSingle",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "UniverseCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"UniverseCreated\",\"parentUniverse\":\"0x0000000000000000000000000000000000000000\",\"childUniverse\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"payoutNumerators\":[],\"creationTimestamp\":\"0x601783b7\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":147,\"blockHash\":\"0xbf16a7eb9bc166b7f3dce6839cb1a6b439d3c7b3af3b3295e2ed6bd1bcbf9721\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x00425360c50cf7fe490922d23e4f962efce4e7d97f8e1f728a750584c61757d2\",\"logIndex\":2,\"topics\":[\"0xe36b09d83f9cfa88c37f071fc2cfb5ff30b764cbd98088e70d965573c9ce5bbd\",\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\"]}"
+              ]
+            }
+          ],
+          [
+            "UniverseForked",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSync",
+            {
+              "keypathList": [
+                "begin.number",
+                "end.number"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSyncCheckpoints",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ZeroXOrders",
+            {
+              "keypathList": [
+                "orderHash"
+              ],
+              "entriesList": []
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:45:11+0800] [SEVERE] webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/sdk/build/api/Uniswap.js? 94:18 Uncaught Error: Exchange does not exist"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "CancelZeroXOrder",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsPurchased",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsSold",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CurrentOrders",
+            {
+              "keypathList": [
+                "orderId"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Dispute",
+            {
+              "keypathList": [
+                "market",
+                "payoutNumerators"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCompleted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerContribution",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeWindowCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReportSubmitted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketFinalized",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketMigrated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketParticipantsDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Markets",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "OrderEvent",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParsedOrderEvents",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParticipationTokensRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ProfitLossChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingFeeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingParticipantDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Rollback",
+            {
+              "keypathList": [
+                ""
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "account",
+                "market",
+                "outcome"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "SyncStatus",
+            {
+              "keypathList": [
+                "eventName"
+              ],
+              "entriesList": [
+                "{\"eventName\":\"CancelZeroXOrder\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"CompleteSetsPurchased\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"CompleteSetsSold\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"CurrentOrders\",\"syncing\":true,\"blockNumber\":215}",
+                "{\"eventName\":\"Dispute\",\"syncing\":true,\"blockNumber\":215}",
+                "{\"eventName\":\"DisputeCrowdsourcerCompleted\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"DisputeCrowdsourcerContribution\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"DisputeCrowdsourcerCreated\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"DisputeCrowdsourcerRedeemed\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"DisputeWindowCreated\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"InitialReportSubmitted\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"InitialReporterRedeemed\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"InitialReporterTransferred\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketCreated\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketFinalized\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketMigrated\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketOIChanged\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketOIChangedRollup\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketParticipantsDisavowed\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketTransferred\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketVolumeChanged\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"MarketVolumeChangedRollup\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"Markets\",\"syncing\":true,\"blockNumber\":215}",
+                "{\"eventName\":\"OrderEvent\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"ParsedOrderEvents\",\"syncing\":true,\"blockNumber\":215}",
+                "{\"eventName\":\"ParticipationTokensRedeemed\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"ProfitLossChanged\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"ReportingFeeChanged\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"ReportingParticipantDisavowed\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"ShareTokenBalanceChanged\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"ShareTokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TimestampSet\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"TokenBalanceChanged\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"TokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TokensMinted\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"TokensTransferred\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"TradingProceedsClaimed\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"TransferBatch\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"TransferSingle\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"UniverseCreated\",\"syncing\":false,\"blockNumber\":215}",
+                "{\"eventName\":\"UniverseForked\",\"syncing\":false,\"blockNumber\":215}"
+              ]
+            }
+          ],
+          [
+            "TimestampSet",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x056bc75e2d63100000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":8,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x0ad78ebc5ac6200000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "owner",
+                "token"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensMinted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"amount\":\"0x09195731e2ce35eb000000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195731e2ce35eb000000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":2,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195c9daa2c634e100000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":7,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09196209718a90b1200000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x0919677538e8be14300000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TradingProceedsClaimed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferBatch",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferSingle",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "UniverseCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"UniverseCreated\",\"parentUniverse\":\"0x0000000000000000000000000000000000000000\",\"childUniverse\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"payoutNumerators\":[],\"creationTimestamp\":\"0x601783b7\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":147,\"blockHash\":\"0xbf16a7eb9bc166b7f3dce6839cb1a6b439d3c7b3af3b3295e2ed6bd1bcbf9721\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x00425360c50cf7fe490922d23e4f962efce4e7d97f8e1f728a750584c61757d2\",\"logIndex\":2,\"topics\":[\"0xe36b09d83f9cfa88c37f071fc2cfb5ff30b764cbd98088e70d965573c9ce5bbd\",\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\"]}"
+              ]
+            }
+          ],
+          [
+            "UniverseForked",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSync",
+            {
+              "keypathList": [
+                "begin.number",
+                "end.number"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSyncCheckpoints",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ZeroXOrders",
+            {
+              "keypathList": [
+                "orderHash"
+              ],
+              "entriesList": []
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:46:00+0800] [SEVERE] webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/sdk/build/api/Uniswap.js? 94:18 Uncaught Error: Exchange does not exist"
+        }
+      ],
+      "contractVulReports": [
+        {
+          "address": "0x1FD9274a2FE0E86f5A7b5Bde57b93C8C9b62e21d",
+          "funcSig": "",
+          "opcode": "",
+          "pc": 0,
+          "txHash": "0xb2c272bb9c4a4077bc53f78fc7623d68af0c940d1d28e3ef16e3f271d96254de",
+          "type": 1,
+          "description": "exception disorder"
+        },
+        {
+          "address": "0x1FD9274a2FE0E86f5A7b5Bde57b93C8C9b62e21d",
+          "funcSig": "",
+          "opcode": "",
+          "pc": 0,
+          "txHash": "0xb2c272bb9c4a4077bc53f78fc7623d68af0c940d1d28e3ef16e3f271d96254de",
+          "type": 1,
+          "description": "exception disorder"
+        }
+      ]
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "CancelZeroXOrder",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsPurchased",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsSold",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CurrentOrders",
+            {
+              "keypathList": [
+                "orderId"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Dispute",
+            {
+              "keypathList": [
+                "market",
+                "payoutNumerators"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCompleted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerContribution",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeWindowCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReportSubmitted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketFinalized",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketMigrated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketParticipantsDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Markets",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "OrderEvent",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParsedOrderEvents",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParticipationTokensRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ProfitLossChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingFeeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingParticipantDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Rollback",
+            {
+              "keypathList": [
+                ""
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "account",
+                "market",
+                "outcome"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "SyncStatus",
+            {
+              "keypathList": [
+                "eventName"
+              ],
+              "entriesList": [
+                "{\"eventName\":\"CancelZeroXOrder\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"CompleteSetsPurchased\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"CompleteSetsSold\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"CurrentOrders\",\"syncing\":true,\"blockNumber\":213}",
+                "{\"eventName\":\"Dispute\",\"syncing\":true,\"blockNumber\":213}",
+                "{\"eventName\":\"DisputeCrowdsourcerCompleted\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"DisputeCrowdsourcerContribution\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"DisputeCrowdsourcerCreated\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"DisputeCrowdsourcerRedeemed\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"DisputeWindowCreated\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"InitialReportSubmitted\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"InitialReporterRedeemed\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"InitialReporterTransferred\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketCreated\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketFinalized\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketMigrated\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketOIChanged\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketOIChangedRollup\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"MarketParticipantsDisavowed\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketTransferred\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketVolumeChanged\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"MarketVolumeChangedRollup\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"Markets\",\"syncing\":true,\"blockNumber\":213}",
+                "{\"eventName\":\"OrderEvent\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"ParsedOrderEvents\",\"syncing\":true,\"blockNumber\":213}",
+                "{\"eventName\":\"ParticipationTokensRedeemed\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"ProfitLossChanged\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"ReportingFeeChanged\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"ReportingParticipantDisavowed\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"ShareTokenBalanceChanged\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"ShareTokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TimestampSet\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TokenBalanceChanged\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":211}",
+                "{\"eventName\":\"TokensMinted\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TokensTransferred\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TradingProceedsClaimed\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TransferBatch\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"TransferSingle\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"UniverseCreated\",\"syncing\":false,\"blockNumber\":213}",
+                "{\"eventName\":\"UniverseForked\",\"syncing\":false,\"blockNumber\":213}"
+              ]
+            }
+          ],
+          [
+            "TimestampSet",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x056bc75e2d63100000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":8,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x0ad78ebc5ac6200000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "owner",
+                "token"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensMinted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"amount\":\"0x09195731e2ce35eb000000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195731e2ce35eb000000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":2,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195c9daa2c634e100000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":7,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09196209718a90b1200000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x0919677538e8be14300000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TradingProceedsClaimed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferBatch",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferSingle",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "UniverseCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"UniverseCreated\",\"parentUniverse\":\"0x0000000000000000000000000000000000000000\",\"childUniverse\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"payoutNumerators\":[],\"creationTimestamp\":\"0x601783b7\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":147,\"blockHash\":\"0xbf16a7eb9bc166b7f3dce6839cb1a6b439d3c7b3af3b3295e2ed6bd1bcbf9721\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x00425360c50cf7fe490922d23e4f962efce4e7d97f8e1f728a750584c61757d2\",\"logIndex\":2,\"topics\":[\"0xe36b09d83f9cfa88c37f071fc2cfb5ff30b764cbd98088e70d965573c9ce5bbd\",\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\"]}"
+              ]
+            }
+          ],
+          [
+            "UniverseForked",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSync",
+            {
+              "keypathList": [
+                "begin.number",
+                "end.number"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSyncCheckpoints",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ZeroXOrders",
+            {
+              "keypathList": [
+                "orderHash"
+              ],
+              "entriesList": []
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:45:28+0800] [SEVERE] webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/sdk/build/api/Uniswap.js? 94:18 Uncaught Error: Exchange does not exist"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "CancelZeroXOrder",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsPurchased",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CompleteSetsSold",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "CurrentOrders",
+            {
+              "keypathList": [
+                "orderId"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Dispute",
+            {
+              "keypathList": [
+                "market",
+                "payoutNumerators"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCompleted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerContribution",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeCrowdsourcerRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "DisputeWindowCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReportSubmitted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "InitialReporterTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketFinalized",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketMigrated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketOIChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketParticipantsDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "MarketVolumeChangedRollup",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Markets",
+            {
+              "keypathList": [
+                "market"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "OrderEvent",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParsedOrderEvents",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ParticipationTokensRedeemed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ProfitLossChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingFeeChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ReportingParticipantDisavowed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "Rollback",
+            {
+              "keypathList": [
+                ""
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ShareTokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "account",
+                "market",
+                "outcome"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "SyncStatus",
+            {
+              "keypathList": [
+                "eventName"
+              ],
+              "entriesList": [
+                "{\"eventName\":\"CancelZeroXOrder\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"CompleteSetsPurchased\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"CompleteSetsSold\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"CurrentOrders\",\"syncing\":true,\"blockNumber\":214}",
+                "{\"eventName\":\"Dispute\",\"syncing\":true,\"blockNumber\":214}",
+                "{\"eventName\":\"DisputeCrowdsourcerCompleted\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"DisputeCrowdsourcerContribution\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"DisputeCrowdsourcerCreated\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"DisputeCrowdsourcerRedeemed\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"DisputeWindowCreated\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"InitialReportSubmitted\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"InitialReporterRedeemed\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"InitialReporterTransferred\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketCreated\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketFinalized\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketMigrated\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketOIChanged\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketOIChangedRollup\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"MarketParticipantsDisavowed\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketTransferred\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketVolumeChanged\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"MarketVolumeChangedRollup\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"Markets\",\"syncing\":true,\"blockNumber\":214}",
+                "{\"eventName\":\"OrderEvent\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"ParsedOrderEvents\",\"syncing\":true,\"blockNumber\":214}",
+                "{\"eventName\":\"ParticipationTokensRedeemed\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"ProfitLossChanged\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"ReportingFeeChanged\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"ReportingParticipantDisavowed\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"ShareTokenBalanceChanged\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"ShareTokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TimestampSet\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"TokenBalanceChanged\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"TokenBalanceChangedRollup\",\"syncing\":false,\"blockNumber\":212}",
+                "{\"eventName\":\"TokensMinted\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"TokensTransferred\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"TradingProceedsClaimed\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"TransferBatch\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"TransferSingle\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"UniverseCreated\",\"syncing\":false,\"blockNumber\":214}",
+                "{\"eventName\":\"UniverseForked\",\"syncing\":false,\"blockNumber\":214}"
+              ]
+            }
+          ],
+          [
+            "TimestampSet",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TokenBalanceChanged",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x056bc75e2d63100000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":8,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x0ad78ebc5ac6200000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokenBalanceChangedRollup",
+            {
+              "keypathList": [
+                "owner",
+                "token"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x1043561a8829300000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":2,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokenBalanceChanged\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"owner\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"balance\":\"0x09195731e2ce35eb000000\",\"outcome\":\"0x00\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":3,\"topics\":[\"0x63fd58f559b73fc4da5511c341ec8a7b31c5c48538ef83c6077712b6edf5f7cb\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensMinted",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x913dA4198E6bE1D5f5E4a40D0667f70C0B5430Eb\",\"amount\":\"0x09195731e2ce35eb000000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195731e2ce35eb000000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":149,\"blockHash\":\"0x502251697b47a211c1dcc17d2ecc15383398dfd401b1d86f4ab89a5930e463d5\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xb2134aa3c600b8df22a71a3ba637341e9781771f3ed0dd77b105da0c92ccb05b\",\"logIndex\":2,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x000000000000000000000000913da4198e6be1d5f5e4a40d0667f70c0b5430eb\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09195c9daa2c634e100000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":162,\"blockHash\":\"0x6e3be2ac4ce2e33b3c63f67dd79bd4a05425e2fc85998ce99eb38d4e326c14ac\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xdf8cdeb4fa59c5d09d6ba161a45e5887b54dcb9ae169a451e0aeb6240856ab59\",\"logIndex\":7,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x09196209718a90b1200000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":178,\"blockHash\":\"0x5793321f0c352b1603ed9321aec07fdec8a4b2d575718a0fd6a47f4ed92e8be9\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0xc5769a1b02b8c83d7179c1c932a3e41defe86247bee44d30793c578ca1afdb0e\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}",
+                "{\"name\":\"TokensMinted\",\"universe\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"token\":\"0xA0E4DC62cb7429825f6E1b49841A0445B37152bb\",\"target\":\"0x14dFF97025476E013793a42aC3A43ACd4f90b022\",\"amount\":\"0x056bc75e2d63100000\",\"tokenType\":0,\"market\":\"0x0000000000000000000000000000000000000000\",\"totalSupply\":\"0x0919677538e8be14300000\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":194,\"blockHash\":\"0xa616eb5602be91f8125a3b2447df373c8125563039fcca79d07f63e59dc00271\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x560184989f41f5e651c60e69a895233cd749f57bbec9f12df420fda1c33de57f\",\"logIndex\":1,\"topics\":[\"0x07f766729171db8cc73d96b25cc56784077e26c7ff48b0187877ace391c181a6\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\",\"0x000000000000000000000000a0e4dc62cb7429825f6e1b49841a0445b37152bb\",\"0x00000000000000000000000014dff97025476e013793a42ac3a43acd4f90b022\"]}"
+              ]
+            }
+          ],
+          [
+            "TokensTransferred",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TradingProceedsClaimed",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferBatch",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "TransferSingle",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "UniverseCreated",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": [
+                "{\"name\":\"UniverseCreated\",\"parentUniverse\":\"0x0000000000000000000000000000000000000000\",\"childUniverse\":\"0x0782E4e784b5993A3ba08293d46f51182f2e6083\",\"payoutNumerators\":[],\"creationTimestamp\":\"0x601783b7\",\"address\":\"0xfcaf25bf38e7c86612a25ff18cb8e09ab07c9885\",\"blockNumber\":147,\"blockHash\":\"0xbf16a7eb9bc166b7f3dce6839cb1a6b439d3c7b3af3b3295e2ed6bd1bcbf9721\",\"transactionIndex\":0,\"removed\":false,\"transactionHash\":\"0x00425360c50cf7fe490922d23e4f962efce4e7d97f8e1f728a750584c61757d2\",\"logIndex\":2,\"topics\":[\"0xe36b09d83f9cfa88c37f071fc2cfb5ff30b764cbd98088e70d965573c9ce5bbd\",\"0x0000000000000000000000000000000000000000000000000000000000000000\",\"0x0000000000000000000000000782e4e784b5993a3ba08293d46f51182f2e6083\"]}"
+              ]
+            }
+          ],
+          [
+            "UniverseForked",
+            {
+              "keypathList": [
+                "blockNumber",
+                "logIndex"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSync",
+            {
+              "keypathList": [
+                "begin.number",
+                "end.number"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "WarpSyncCheckpoints",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": []
+            }
+          ],
+          [
+            "ZeroXOrders",
+            {
+              "keypathList": [
+                "orderHash"
+              ],
+              "entriesList": []
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Augur",
+          "instanceId": "1",
+          "errorString": "[2021-02-16T13:45:45+0800] [SEVERE] webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/sdk/build/api/Uniswap.js? 94:18 Uncaught Error: Exchange does not exist"
+        }
+      ],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at eval (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/ethers/providers/web3-provider.js?:69:19)",
+    "at new Promise (<anonymous>)",
+    "at Web3Provider.send (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/ethers/providers/web3-provider.js?:62:16)",
+    "at eval (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/ethers/providers/json-rpc-provider.js?:127:35)",
+    "at async ContractDependenciesGSN.sendTransaction (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/contract-dependencies-ethers/build/ContractDependenciesEthers.js?:169:26)",
+    "at async ContractDependenciesGSN.submitTransaction (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/sdk/build/lib/contract-deps/ContractDependenciesGSN.js?:147:29)",
+    "at async UniswapV2Router01.remoteCall (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/core/build/libraries/GenericContractInterfaces.js?:129:36)",
+    "at async UniswapV2Router01.swapExactTokensForTokens (webpack:////home/troublor/workspace/darcher/packages/darcher-examples/augurproject/augur/node_modules/@augurproject/core/build/libraries/GenericContractInterfaces.js?:11144:20)"
+  ]
+}

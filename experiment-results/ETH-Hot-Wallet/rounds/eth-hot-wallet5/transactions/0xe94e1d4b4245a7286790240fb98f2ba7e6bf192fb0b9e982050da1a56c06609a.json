@@ -1,0 +1,116 @@
+{
+  "parent": null,
+  "hash": "0xe94e1d4b4245a7286790240fb98f2ba7e6bf192fb0b9e982050da1a56c06609a",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.98979\",\"txStatus\":\"Sending...\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.98979\",\"txStatus\":\"Send sucessfull TX:  0xe94e1d4b4245a7286790240fb98f2ba7e6bf192fb0b9e982050da1a56c06609a \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.98979\",\"txStatus\":\"Send sucessfull TX:  0xe94e1d4b4245a7286790240fb98f2ba7e6bf192fb0b9e982050da1a56c06609a \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.98979\",\"txStatus\":\"Send sucessfull TX:  0xe94e1d4b4245a7286790240fb98f2ba7e6bf192fb0b9e982050da1a56c06609a \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.98979\",\"txStatus\":\"Send sucessfull TX:  0xe94e1d4b4245a7286790240fb98f2ba7e6bf192fb0b9e982050da1a56c06609a \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"balance\":\"99.98979\",\"txStatus\":\"Send sucessfull TX:  0xe94e1d4b4245a7286790240fb98f2ba7e6bf192fb0b9e982050da1a56c06609a \"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": "Error\n    at RequestManager.sendAsync (webpack:///./node_modules/web3/lib/web3/requestmanager.js?:80:19)\n    at Eth.send [as sendTransaction] (webpack:///./node_modules/web3/lib/web3/method.js?:141:42)\n    at http://localhost:3001/0.chunk.js:3565:24\n    at new Promise (<anonymous>)\n    at sendTransactionPromise (http://localhost:3001/0.chunk.js:3564:20)\n    at runCallEffect (webpack:///./node_modules/redux-saga/es/internal/proc.js?:513:19)\n    at runEffect (webpack:///./node_modules/redux-saga/es/internal/proc.js?:435:600)\n    at next (webpack:///./node_modules/redux-saga/es/internal/proc.js?:316:9)\n    at currCb (webpack:///./node_modules/redux-saga/es/internal/proc.js?:388:7)\n    at runSelectEffect (webpack:///./node_modules/redux-saga/es/internal/proc.js?:698:7)"
+}

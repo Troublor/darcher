@@ -1,0 +1,144 @@
+{
+  "parent": null,
+  "hash": "0x103eea2b6f49832716d1740523351a16abdf54f0532dc09632a54a69475597fe",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"logs\":\"TxHash: 0xa55c04a895fefaa0e9ceb688d47a2b3484adef5a4e871086ab4ff8f0d813976c  MultiSender Approval to spend 2 WETH  Status: mined\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "multisender",
+          "instanceId": "1",
+          "errorString": "[2020-12-06T15:54:05+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fconfirm-transaction&rand=31748333744097335&pv_id=f1e110&uid=0000000000000000 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "multisender",
+          "instanceId": "1",
+          "errorString": "[2020-12-06T15:54:06+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Confirm:%20Started&cvar=%7B%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=1&dimension9=7&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=9adf27f6f0d6655a&rand=7758508054830155&pv_id=518d14&uid=9adf27f6f0d6655a - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "multisender",
+          "instanceId": "1",
+          "errorString": "[2020-12-06T15:54:06+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Transaction%20Completed&cvar=%7B%221%22%3A%5B%22functionType%22%2C%22%20Multisend%20Token%22%5D%2C%222%22%3A%5B%22recipientKnown%22%2Cnull%5D%2C%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=EXTERNAL&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=1&dimension9=7&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=9adf27f6f0d6655a&rand=06866842801665629&pv_id=518d14&uid=9adf27f6f0d6655a - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"logs\":\"TxHash: 0xa55c04a895fefaa0e9ceb688d47a2b3484adef5a4e871086ab4ff8f0d813976c  MultiSender Approval to spend 2 WETH  Status: minedTxHash: 0x103eea2b6f49832716d1740523351a16abdf54f0532dc09632a54a69475597fe  Sending Batch #1 WETH\\n\\n          From 0x6463F93D65391A8B7c98f0fc8439eFD5d38339d9 to: 0xa5492f0f46914ed52224Eac463e8C02F1DEc89b1\\n          Status: pending\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"logs\":\"TxHash: 0xa55c04a895fefaa0e9ceb688d47a2b3484adef5a4e871086ab4ff8f0d813976c  MultiSender Approval to spend 2 WETH  Status: minedTxHash: 0x103eea2b6f49832716d1740523351a16abdf54f0532dc09632a54a69475597fe  Sending Batch #1 WETH\\n\\n          From 0x6463F93D65391A8B7c98f0fc8439eFD5d38339d9 to: 0xa5492f0f46914ed52224Eac463e8C02F1DEc89b1\\n          Status: mined\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"logs\":\"TxHash: 0xa55c04a895fefaa0e9ceb688d47a2b3484adef5a4e871086ab4ff8f0d813976c  MultiSender Approval to spend 2 WETH  Status: minedTxHash: 0x103eea2b6f49832716d1740523351a16abdf54f0532dc09632a54a69475597fe  Sending Batch #1 WETH\\n\\n          From 0x6463F93D65391A8B7c98f0fc8439eFD5d38339d9 to: 0xa5492f0f46914ed52224Eac463e8C02F1DEc89b1\\n          Status: mined\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"logs\":\"TxHash: 0xa55c04a895fefaa0e9ceb688d47a2b3484adef5a4e871086ab4ff8f0d813976c  MultiSender Approval to spend 2 WETH  Status: minedTxHash: 0x103eea2b6f49832716d1740523351a16abdf54f0532dc09632a54a69475597fe  Sending Batch #1 WETH\\n\\n          From 0x6463F93D65391A8B7c98f0fc8439eFD5d38339d9 to: 0xa5492f0f46914ed52224Eac463e8C02F1DEc89b1\\n          Status: mined\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"logs\":\"TxHash: 0xa55c04a895fefaa0e9ceb688d47a2b3484adef5a4e871086ab4ff8f0d813976c  MultiSender Approval to spend 2 WETH  Status: minedTxHash: 0x103eea2b6f49832716d1740523351a16abdf54f0532dc09632a54a69475597fe  Sending Batch #1 WETH\\n\\n          From 0x6463F93D65391A8B7c98f0fc8439eFD5d38339d9 to: 0xa5492f0f46914ed52224Eac463e8C02F1DEc89b1\\n          Status: mined\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://jbppcachblnkaogkgacckpgohjbpcekf/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://jbppcachblnkaogkgacckpgohjbpcekf/inpage.js:1:43423)",
+    "at RequestManager../node_modules/web3-core-requestmanager/src/index.js.RequestManager.send (http://localhost:3000/static/js/bundle.js:125173:66)",
+    "at sendRequest (http://localhost:3000/static/js/bundle.js:124352:42)",
+    "at Eth.send [as estimateGas] (http://localhost:3000/static/js/bundle.js:124373:13)",
+    "at TxStore._callee4$ (http://localhost:3000/static/js/bundle.js:140723:33)",
+    "at tryCatch (http://localhost:3000/static/js/bundle.js:109230:40)",
+    "at Generator.invoke [as _invoke] (http://localhost:3000/static/js/bundle.js:109464:22)",
+    "at Generator.prototype.<computed> [as next] (http://localhost:3000/static/js/bundle.js:109282:21)",
+    "at step (http://localhost:3000/static/js/bundle.js:140477:191)",
+    "at http://localhost:3000/static/js/bundle.js:140477:361"
+  ]
+}

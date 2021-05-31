@@ -1,0 +1,331 @@
+{
+  "parent": null,
+  "hash": "0xfbf0eea191556c25573384e18a62452794e56ef88120182555605194e019f0e4",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T04:39:05.083Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\"}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "publicvotes",
+          "instanceId": "1",
+          "errorString": "[2020-12-09T12:39:08+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Transaction%20Completed&cvar=%7B%221%22%3A%5B%22functionType%22%2C%22contractDeployment%22%5D%2C%222%22%3A%5B%22recipientKnown%22%2Cnull%5D%2C%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=EXTERNAL&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=0&dimension9=5&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=1846928227452853&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":false,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T04:39:05.083Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\"}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T04:39:05.083Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607488746823,\"endDate\":1607492346823}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T04:39:05.083Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607488746823,\"endDate\":1607492346823}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T04:39:05.083Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607488746823,\"endDate\":1607492346823}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "eth_accounts",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"account\":\"{\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\":true,\\\"selected\\\":\\\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\\\"}\",\"contract_abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"endPoll\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"p\",\"outputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"votelimit\",\"type\":\"uint256\"},{\"name\":\"options\",\"type\":\"string\"},{\"name\":\"deadline\",\"type\":\"uint256\"},{\"name\":\"status\",\"type\":\"bool\"},{\"name\":\"numVotes\",\"type\":\"uint256\"}],\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"choice\",\"type\":\"string\"}],\"name\":\"vote\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"type\":\"function\"},{\"inputs\":[{\"name\":\"_options\",\"type\":\"string\"},{\"name\":\"_title\",\"type\":\"string\"},{\"name\":\"_votelimit\",\"type\":\"uint256\"},{\"name\":\"_deadline\",\"type\":\"uint256\"}],\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"votechoice\",\"type\":\"string\"}],\"name\":\"NewVote\",\"type\":\"event\"}],\"contract_address\":\"0x0da18ebf3c1ba9c201b97693af91757040840664\"}"
+              ]
+            }
+          ],
+          [
+            "polls",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\",\"poll\":{\"name\":\"\",\"description\":\"\",\"options\":[\"\",\"\"],\"public\":true,\"vote_limit\":0,\"isactive\":true,\"isvoted\":false,\"ready\":true,\"limit_hours\":1,\"limit_days\":0},\"createdAt\":\"2020-12-09T04:39:05.083Z\",\"address\":\"0x6463f93d65391a8b7c98f0fc8439efd5d38339d9\",\"block\":4,\"startDate\":1607488746823,\"endDate\":1607492346823}"
+              ]
+            }
+          ],
+          [
+            "system.indexes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.polls\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.eth_accounts\"}",
+                "{\"v\":1,\"key\":{\"_id\":1},\"name\":\"_id_\",\"ns\":\"meteor.user_votes\"}"
+              ]
+            }
+          ],
+          [
+            "user_votes",
+            {
+              "keypathList": [
+                "_id"
+              ],
+              "entriesList": [
+                "{\"_id\":\"CxBFvXLiG8BAknekd\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at a.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:111173)",
+    "at w.t [as sendTransaction] (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:97678)",
+    "at h.new (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:15:77322)",
+    "at http://localhost:3000/app/client/libraries/polls/vote.js?8f5f17484ddc4f49872b4d2ce41ae5c6123458dd:115:43",
+    "at MethodInvoker._callback (http://localhost:3000/packages/meteor.js?9730f4ff059088b3f7f14c0672d155218a1802d4:999:22)",
+    "at MethodInvoker._maybeInvokeCallback (http://localhost:3000/packages/ddp-client.js?250b63e6c919c5383a0511ee4efbf42bb70a650f:3500:12)",
+    "at MethodInvoker.receiveResult (http://localhost:3000/packages/ddp-client.js?250b63e6c919c5383a0511ee4efbf42bb70a650f:3520:10)",
+    "at Connection._livedata_result (http://localhost:3000/packages/ddp-client.js?250b63e6c919c5383a0511ee4efbf42bb70a650f:4631:9)"
+  ]
+}

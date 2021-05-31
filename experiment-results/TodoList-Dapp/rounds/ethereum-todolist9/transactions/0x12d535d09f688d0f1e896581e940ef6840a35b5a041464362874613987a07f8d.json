@@ -1,0 +1,144 @@
+{
+  "parent": null,
+  "hash": "0x12d535d09f688d0f1e896581e940ef6840a35b5a041464362874613987a07f8d",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"LhmZHxeT\"},{\"task\":\"mPfscSPs\"},{\"task\":\"AAbnFYdx\"},{\"task\":\"dDoURivd\"},{\"task\":\"oRPShIYF\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T06:43:06+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fconfirm-transaction&rand=08886572128074866&pv_id=f1e110&uid=0000000000000000 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        },
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T06:43:06+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Confirm:%20Started&cvar=%7B%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=2&dimension9=17&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=1275038147020935&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"LhmZHxeT\"},{\"task\":\"mPfscSPs\"},{\"task\":\"AAbnFYdx\"},{\"task\":\"dDoURivd\"},{\"task\":\"oRPShIYF\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T06:43:07+0800] [SEVERE] https://chromeextensionmm.innocraft.cloud/piwik.php?idsite=2&rec=1&apiv=1&e_c=Transactions&e_a=Confirm%20Screen&e_n=Transaction%20Completed&cvar=%7B%221%22%3A%5B%22functionType%22%2C%22contractInteraction%22%5D%2C%222%22%3A%5B%22recipientKnown%22%2Cnull%5D%2C%223%22%3A%5B%22origin%22%2C%22http%3A%2F%2Flocalhost%3A3000%22%5D%7D&urlref=EXTERNAL&dimension5=2020&dimension6=fullscreen&dimension7=undefined&dimension8=imported&dimension11=8.0.10&dimension10=2&dimension9=17&url=http%3A%2F%2Fwww.metamask.io%2Fmetametrics-prod%2Fhome.html&_id=2df2e4801be79db3&rand=8203257627874123&pv_id=518d14&uid=2df2e4801be79db3 - Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"LhmZHxeT\"},{\"task\":\"mPfscSPs\"},{\"task\":\"AAbnFYdx\"},{\"task\":\"dDoURivd\"},{\"task\":\"oRPShIYF\"},{\"task\":\"zqWZLACn\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"LhmZHxeT\"},{\"task\":\"mPfscSPs\"},{\"task\":\"AAbnFYdx\"},{\"task\":\"dDoURivd\"},{\"task\":\"oRPShIYF\"},{\"task\":\"zqWZLACn\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"LhmZHxeT\"},{\"task\":\"mPfscSPs\"},{\"task\":\"AAbnFYdx\"},{\"task\":\"dDoURivd\"},{\"task\":\"oRPShIYF\"},{\"task\":\"zqWZLACn\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"LhmZHxeT\"},{\"task\":\"mPfscSPs\"},{\"task\":\"AAbnFYdx\"},{\"task\":\"dDoURivd\"},{\"task\":\"oRPShIYF\"},{\"task\":\"zqWZLACn\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:3000/static/js/bundle.js:113404:37)",
+    "at RequestManager.sendAsync (http://localhost:3000/static/js/bundle.js:134126:20)",
+    "at Eth.send [as sendTransaction] (http://localhost:3000/static/js/bundle.js:138938:43)",
+    "at SolidityFunction.sendTransaction (http://localhost:3000/static/js/bundle.js:141463:16)",
+    "at SolidityFunction.execute (http://localhost:3000/static/js/bundle.js:141546:38)",
+    "at http://localhost:3000/static/js/bundle.js:113569:17",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:3000/static/js/bundle.js:113535:19"
+  ]
+}

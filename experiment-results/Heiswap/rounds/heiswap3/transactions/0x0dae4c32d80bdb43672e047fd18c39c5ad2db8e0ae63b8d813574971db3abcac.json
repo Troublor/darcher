@@ -1,0 +1,130 @@
+{
+  "parent": null,
+  "hash": "0x0dae4c32d80bdb43672e047fd18c39c5ad2db8e0ae63b8d813574971db3abcac",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"Depositing ETH... make sure you have confirmed the deposit in your walletNext upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"Depositing ETH... make sure you have confirmed the deposit in your walletNext upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Lordsofthesnails",
+          "instanceId": "1",
+          "errorString": "[2020-12-05T20:49:09+0800] [SEVERE] http://localhost:3000/static/js/1.chunk.js 92585:19 \"Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in %s.%s\" \"the componentWillUnmount method\" \"\\n    in PublicAddress (at DepositPage.js:230)\\n    in div (at DepositPage.js:209)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (at DepositPage.js:208)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (created by Card)\\n    in Card (at DepositPage.js:207)\\n    in div (created by Context.Consumer)\\n    in StyledComponent (created by styled.div)\\n    in styled.div (created by Box)\\n    in Box (created by Context.Consumer)\\n    in StyledComponent (created by Styled(Box))\\n    in Styled(Box) (created by Modal)\""
+        }
+      ],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"status\":\"ETH deposited!Next upSend this token to your recipient. They'll need it to withdraw their funds. Hei tokenCopy\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at RequestManager.push../node_modules/web3-eth/node_modules/web3-core-requestmanager/src/index.js.RequestManager.send (http://localhost:3000/static/js/1.chunk.js:313834:64)",
+    "at sendRequest (http://localhost:3000/static/js/1.chunk.js:313394:36)",
+    "at send (http://localhost:3000/static/js/1.chunk.js:313412:7)",
+    "at Object._executeMethod (http://localhost:3000/static/js/1.chunk.js:315737:16)",
+    "at http://localhost:3000/static/js/main.chunk.js:733:82"
+  ]
+}

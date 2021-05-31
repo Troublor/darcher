@@ -1,0 +1,153 @@
+{
+  "parent": null,
+  "hash": "0x1efd0ae619f1ad0e7bc28283ba5649a5a1660ebace0320fc73f912f087d37871",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"qulkYDdp\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:01:33+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        },
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:01:33+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        },
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:01:33+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        },
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:01:33+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        },
+        {
+          "dappName": "Todolist",
+          "instanceId": "1",
+          "errorString": "[2020-12-31T02:01:33+0800] [SEVERE] https://sentry.io/api/273496/store/?sentry_key=f59f3dd640d2429d9d0e2445a87ea8e1&sentry_version=7 - Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+        }
+      ],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"qulkYDdp\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"qulkYDdp\"},{\"task\":\"wNaqRlaN\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"qulkYDdp\"},{\"task\":\"wNaqRlaN\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"qulkYDdp\"},{\"task\":\"wNaqRlaN\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "js",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "[{\"task\":\"qulkYDdp\"},{\"task\":\"wNaqRlaN\"}]"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:3000/static/js/bundle.js:113404:37)",
+    "at RequestManager.sendAsync (http://localhost:3000/static/js/bundle.js:134126:20)",
+    "at Eth.send [as sendTransaction] (http://localhost:3000/static/js/bundle.js:138938:43)",
+    "at SolidityFunction.sendTransaction (http://localhost:3000/static/js/bundle.js:141463:16)",
+    "at SolidityFunction.execute (http://localhost:3000/static/js/bundle.js:141546:38)",
+    "at http://localhost:3000/static/js/bundle.js:113569:17",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:3000/static/js/bundle.js:113535:19"
+  ]
+}

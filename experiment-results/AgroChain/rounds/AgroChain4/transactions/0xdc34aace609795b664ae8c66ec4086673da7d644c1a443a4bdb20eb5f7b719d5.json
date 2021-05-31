@@ -1,0 +1,137 @@
+{
+  "parent": null,
+  "hash": "0xdc34aace609795b664ae8c66ec4086673da7d644c1a443a4bdb20eb5f7b719d5",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"txStatus\":\"Transaction complete!\",\"balance\":\"\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"txStatus\":\"Transaction complete!\",\"balance\":\"2000\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"txStatus\":\"Transaction complete!\",\"balance\":\"2000\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"txStatus\":\"Transaction complete!\",\"balance\":\"2000\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"txStatus\":\"Transaction complete!\",\"balance\":\"2000\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"txStatus\":\"Transaction complete!\",\"balance\":\"2000\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:3000/app.js:42888:29)",
+    "at RequestManager.sendAsync (http://localhost:3000/app.js:39258:19)",
+    "at Eth.send [as sendTransaction] (http://localhost:3000/app.js:38207:42)",
+    "at SolidityFunction.sendTransaction (http://localhost:3000/app.js:37274:15)",
+    "at SolidityFunction.execute (http://localhost:3000/app.js:37357:37)",
+    "at http://localhost:3000/app.js:43022:14",
+    "at Promise._execute (http://localhost:3000/app.js:838:9)",
+    "at Promise._resolveFromExecutor (http://localhost:3000/app.js:3015:18)",
+    "at new Promise (http://localhost:3000/app.js:2631:14)",
+    "at Contract.sendCoin (http://localhost:3000/app.js:42967:16)",
+    "at fund (http://localhost:3000/app.js:43905:8)",
+    "at HTMLButtonElement.onclick (http://localhost:3000/:124:74)",
+    "at eval (eval at executeScript (:480:16), <anonymous>:3:38)",
+    "at executeScript (<anonymous>:482:30)",
+    "at apply.ELEMENT (<anonymous>:487:24)",
+    "at callFunction (<anonymous>:450:22)",
+    "at <anonymous>:464:23",
+    "at <anonymous>:465:3"
+  ]
+}

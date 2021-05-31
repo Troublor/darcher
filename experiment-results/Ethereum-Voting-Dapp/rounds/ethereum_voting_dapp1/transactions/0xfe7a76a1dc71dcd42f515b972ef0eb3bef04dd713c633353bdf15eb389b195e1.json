@@ -1,0 +1,127 @@
+{
+  "parent": null,
+  "hash": "0xfe7a76a1dc71dcd42f515b972ef0eb3bef04dd713c633353bdf15eb389b195e1",
+  "states": {
+    "0": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"2\",\"candidate2\":\"2\",\"candidate3\":\"2\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "1": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"2\",\"candidate2\":\"2\",\"candidate3\":\"2\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "2": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"2\",\"candidate2\":\"2\",\"candidate3\":\"3\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "3": null,
+    "4": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"2\",\"candidate2\":\"2\",\"candidate3\":\"3\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "5": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"2\",\"candidate2\":\"2\",\"candidate3\":\"3\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    },
+    "6": {
+      "dbContent": {
+        "tablesMap": [
+          [
+            "elements",
+            {
+              "keypathList": [],
+              "entriesList": [
+                "{\"candidate1\":\"2\",\"candidate2\":\"2\",\"candidate3\":\"3\"}"
+              ]
+            }
+          ]
+        ]
+      },
+      "txErrors": [],
+      "consoleErrors": [],
+      "contractVulReports": []
+    }
+  },
+  "stack": [
+    "at Object.apply (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:1247)",
+    "at t.exports.sendAsync (chrome-extension://kdaoeelmbdcinklhldlcmmgmndjcmjpp/inpage.js:1:43423)",
+    "at Provider.sendAsync (http://localhost:8080/app.js:73319:36)",
+    "at RequestManager.sendAsync (http://localhost:8080/app.js:76904:19)",
+    "at Eth.send [as sendTransaction] (http://localhost:8080/app.js:14489:42)",
+    "at SolidityFunction.sendTransaction (http://localhost:8080/app.js:75631:15)",
+    "at SolidityFunction.execute (http://localhost:8080/app.js:75714:37)",
+    "at http://localhost:8080/app.js:73484:16",
+    "at new Promise (<anonymous>)",
+    "at http://localhost:8080/app.js:73450:18"
+  ]
+}
