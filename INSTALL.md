@@ -34,7 +34,7 @@ Alternatively, we provide a pre-generated ethash [here](https://zenodo.org/recor
 
 *ĐArcher* is designed to test Web-based DApps, so we need to configure a browser profile to use *ĐArcher*.
 We provide a preconfigured profile. 
-Download [`ChromeProfile.zip`](https://zenodo.org/record/4812350) and extract it at the `ChromeProfile` folder under the root directory.
+Download [`ChromeProfile.zip`](https://github.com/Troublor/darcher/releases) and extract it at the `ChromeProfile` folder under the root directory.
 
 The profile contains two extensions configured for *ĐArcher* as follows:
 
