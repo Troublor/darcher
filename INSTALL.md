@@ -28,7 +28,7 @@ yarn workspace @darcher/go-ethereum gen:dag
 
 The Ethereum DAG will be generated at the `ethash` folder under root directory.
 
-Alternatively, we provide a pre-generated ethash [here](https://zenodo.org/record/4812350). Download it and extract it at the `ethash` folder under root directory.
+Alternatively, we provide a pre-generated ethash [here](https://zenodo.org/record/4893187). Download it and extract it at the `ethash` folder under root directory.
 
 ## Prepare the Chrome Profile
 
