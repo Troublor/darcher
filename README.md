@@ -1,6 +1,6 @@
 # *ĐArcher* - Detecting On-Chain-Off-Chain Synchronization Bugs in Decentralized Applications 
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4818468.svg)](https://doi.org/10.5281/zenodo.4818468)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4896411.svg)](https://doi.org/10.5281/zenodo.4896411)
 
 *ĐArcher* is an automated testing framework aiming to test on-chain-off-chain synchronization bugs in [decentralized applications (DApps)](https://ethereum.org/en/dapps/).
 
