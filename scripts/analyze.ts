@@ -199,7 +199,7 @@ export function analyzeAll(roundDirs: string[], dbFilter: DBContentDiffFilter, r
                     .filter(value => runtimeErrorFilter.every(filter => !value.includes(filter)))
                     .filter(value => value.length > 0);
                 runtimeErrors.push(...totalRuntimeErrors);
-            } else {
+            } else if (path.extname(file) === '.json') {
                 const logContent = fs.readFileSync(path.join(roundDir, file));
                 const log = JSON.parse(logContent.toString()) as TransactionLog;
                 if (!log.stack || log.stack.length == 1) {
