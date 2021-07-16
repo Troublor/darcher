@@ -50,7 +50,7 @@ For detail explanations, please refer to the preview version of our paper below.
 
 ## Publication
 
-See the FSE'21 submission #98 [preview version](./darcher-preview.pdf).
+See the FSE'21 submission #98 [preview version](https://arxiv.org/abs/2106.09440).
 
 ## Installation
 
@@ -65,6 +65,7 @@ Inside the virtual machine, the *ĐArcher* project is located at `$HOME/darcher`
 All commands below are executed at the root directory of *ĐArcher* project.
 
 ### Build from Source
+**Note**: If you use the pre-configured virtual machine, you do not need to do the following things.
 
 Please check the system requirements: [REQUIREMENTS](./REQUIREMENTS.md)
 
@@ -91,7 +92,7 @@ Proceed at [INSTALL](./INSTALL.md) for installation of dependencies and compilat
 - [PublicVotes](https://github.com/domschiener/publicvotes)
 - [TodoList-Dapp](https://github.com/mbeaudru/ethereum-todolist)
 
-### Experiment Results
+### Experiment Results (Estimated Time: 5 min)
 
 The results of experiments in the paper are located in the folder
 `experiment-results`.
@@ -101,9 +102,9 @@ experiment-results
 │   ├── AgroChain.report.json
 │   └── rounds
 │       ├── AgroChain0
-│           └── transactions
-│               ├── {txhash}.json
-│               ├── ...
+│       │   └── transactions
+│       │       ├── {txhash}.json
+│       │       ├── ...
 │       ├── AgroChain1
 │       ├── ...
 ├── Augur
@@ -174,7 +175,7 @@ The structure of the `.report.json` file is shown as follows:
 }
 ```
 
-### Evaluation Reproduction - Getting Phase 1 Results
+### Evaluation Reproduction - Getting Phase 1 Results (Estimated Time - 1 hour per experiment subject)
 
 To facilitate the experiments on DApps, we have built docker images (publicly available on Docker Hub [here](https://hub.docker.com/u/darcherframework)) for each DApp subject along with the controlled blockchain that traverses the transaction lifecycles. 
 
@@ -191,6 +192,8 @@ Then, a Chrome browser session will be created with the profile configured as [h
 After that, the experiment will start.
 
 **Note**: Some DApps may take some time to initialize, so it may wait for a while after docker compose services are started. (You may see `Waiting for services in docker ready...` in the console).
+
+**Note**: During the experiment running, please don't minimize the window of the browser in VirtualBox, or the VirtualBox itself. Minimizing the windows would break the web testing process. 
 
 Each experiment will take one hour, but you can interrupt the experiment and see partial results. **To interrupt the experiment**, press `CTRL-C` to send `SIGINT` signal. 
 If the experiment is interrupted, you need to manually stop the docker-compose services using `yarn workspace @darcher/examples cleanup:<subject>`.
