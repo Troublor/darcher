@@ -1,6 +1,4 @@
-# *ĐArcher* - Detecting On-Chain-Off-Chain Synchronization Bugs in Decentralized Applications 
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4896411.svg)](https://doi.org/10.5281/zenodo.4896411)
+# *ĐArcher* - Detecting On-Chain-Off-Chain Synchronization Bugs in Decentralized Applications
 
 *ĐArcher* is an automated testing framework aiming to test on-chain-off-chain synchronization bugs in [decentralized applications (DApps)](https://ethereum.org/en/dapps/).
 
@@ -56,7 +54,7 @@ See the FSE'21 submission #98 [preview version](https://arxiv.org/abs/2106.09440
 
 ### Pre-configured Virtual Machine
 
-Alternatively, we provide a VirtualBox image [here on Zenodo](https://zenodo.org/record/4893187) (please always use the latest version on Zenodo), which contains pre-configured environment of *ĐArcher*.
+Alternatively, we provide a VirtualBox image [here on Zenodo](https://doi.org/10.5281/zenodo.5111309) (please always use the latest version on Zenodo), which contains pre-configured environment of *ĐArcher*.
 You can import it into your VirtualBox by following this [tutorial](https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html).
 Note that the size of the image is huge (approximate 23.2 GB) due to the fact that *ĐArcher* works on integrated testing of Apps, which requires a GUI environment.
 
