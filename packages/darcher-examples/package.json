@@ -45,7 +45,7 @@
     "ethereum-bridge": "^0.6.2",
     "multiprocessing": "^1.2.0",
     "selenium-webdriver": "^4.0.0-alpha.7",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "truffle": "^5.1.56",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
