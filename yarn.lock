@@ -4499,13 +4499,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/parse-duration@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@types/parse-duration/-/parse-duration-0.3.0.tgz#90f00a423c44f30f6f6fdbfcc8ad7d5c2ddf266b"
-  integrity sha512-pt0Ok6EUEmS5yJIPlWknHHefwLnl+1lkk1MSzpBSkdRW09Wb6IpUz8vX1IjtHyHpgay7zaGRHcnSKmTzQtFvIQ==
-  dependencies:
-    parse-duration "*"
-
 "@types/pbkdf2@^3.0.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@types/pbkdf2/-/pbkdf2-3.1.0.tgz#039a0e9b67da0cdc4ee5dab865caa6b267bb66b1"
@@ -13887,9 +13880,9 @@ json5@2.x, json5@^2.1.2:
     minimist "^1.2.5"
 
 json5@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.1.tgz#779fb0018604fa854eacbf6252180d83543e3dbe"
-  integrity sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.2.tgz#63d98d60f21b313b77c4d6da18bfa69d80e1d593"
+  integrity sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==
   dependencies:
     minimist "^1.2.0"
 
@@ -15202,9 +15195,9 @@ minimist@1.2.0:
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
 
 minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
+  integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
 
 minipass-collect@^1.0.2:
   version "1.0.2"
@@ -16594,11 +16587,6 @@ parse-asn1@^5.0.0, parse-asn1@^5.1.5:
     evp_bytestokey "^1.0.0"
     pbkdf2 "^3.0.3"
     safe-buffer "^5.1.1"
-
-parse-duration@*:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/parse-duration/-/parse-duration-1.0.0.tgz#8605651745f61088f6fb14045c887526c291858c"
-  integrity sha512-X4kUkCTHU1N/kEbwK9FpUJ0UZQa90VzeczfS704frR30gljxDG0pSziws06XlK+CGRSo/1wtG1mFIdBFQTMQNw==
 
 parse-duration@^0.4.4:
   version "0.4.4"
@@ -20545,12 +20533,12 @@ typescript-tuple@^2.2.1:
   dependencies:
     typescript-compare "^0.0.2"
 
-typescript@^3.7.4, typescript@^3.9.6, typescript@^3.9.7:
+typescript@^3.7.4, typescript@^3.9.6:
   version "3.9.9"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
   integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
 
-typescript@^4.0.5, typescript@^4.1.2:
+typescript@^4.0.5:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
   integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
@@ -21831,7 +21819,7 @@ web3@1.2.2:
     web3-shh "1.2.2"
     web3-utils "1.2.2"
 
-web3@1.3.6, web3@^1.2.1, web3@^1.2.4, web3@^1.2.6, web3@^1.2.9, web3@^1.3.0:
+web3@1.3.6, web3@^1.2.1, web3@^1.2.4, web3@^1.2.6, web3@^1.3.0:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/web3/-/web3-1.3.6.tgz#599425461c3f9a8cbbefa70616438995f4a064cc"
   integrity sha512-jEpPhnL6GDteifdVh7ulzlPrtVQeA30V9vnki9liYlUvLV82ZM7BNOQJiuzlDePuE+jZETZSP/0G/JlUVt6pOA==
