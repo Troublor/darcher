@@ -30,7 +30,7 @@
     "request": "^2.88.2",
     "ts-enum-util": "^4.0.2",
     "ts-node": "^8.10.2",
-    "ws": "6.0.0"
+    "ws": "7.4.6"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
